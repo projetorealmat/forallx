@@ -1,0 +1,1342 @@
+%!TEX root = forallx.tex
+\chapter{Provas}
+\label{ch.proofs}
+
+Considere dois argumentos em LS:
+
+\begin{multicols}{2}
+Argumento A
+\begin{earg}
+\item[] $P \eor Q$
+\item[] $\enot P$
+\item[\therefore] Q
+\end{earg}
+
+Argumento B
+\begin{earg}
+\item[] $P \eif Q$
+\item[] $P$
+\item[\therefore] Q
+\end{earg}
+
+\end{multicols}
+
+Claramente, estes são argumentos válidos. Você pode confirmar que são válidos construindo tabelas-verdade de quatro linhas. O argumento A faz uso de uma forma de inferência que é sempre válida: Dada uma disjunção e a negação de um dos componentes da disjunção, o outro componente segue como uma consequência válida. Esta regra é chamada de \emph{silogismo disjuntivo}.
+
+O argumento B faz uso de uma forma válida diferente: Dado um condicional e seu antecedente, o consequente segue como uma consequência válida. Isso é chamado de \emph{modus ponens}.
+
+Quando construímos tabelas-verdade, não precisamos dar nomes a diferentes formas de inferência. Não há razão para distinguir modus ponens de um silogismo disjuntivo. Por esta mesma razão, no entanto, o método de tabelas-verdade não mostra claramente \emph{por que} um argumento é válido. Se você fizesse uma tabela-verdade de 1024 linhas para um argumento que contém dez letras de sentença, então você poderia verificar se havia alguma linha na qual as premissas eram todas verdadeiras e a conclusão era falsa. Se você não visse tal linha e desde que não cometesse erros na construção da tabela, então você saberia que o argumento era válido. No entanto, você não seria capaz de dizer nada mais sobre por que este argumento em particular era uma forma de argumento válida.
+
+O objetivo de um \emph{sistema de prova} é mostrar que argumentos particulares são válidos de uma forma que nos permite entender o raciocínio envolvido no argumento. Começamos com formas básicas de argumento, como silogismo disjuntivo e modus ponens. Essas formas podem então ser combinadas para fazer argumentos mais complicados, como este:
+\begin{earg}
+\item[(1)] $\enot L \eif (J \eor L)$
+\item[(2)] $\enot L$
+\item[\therefore] $J$
+\end{earg}
+Por modus ponens, (1) e (2) acarretam $J \eor L$. Esta é uma \emph{conclusão intermediária}. Ela segue logicamente das premissas, mas não é a conclusão que queremos. Agora $J \eor L$ e (2) acarretam $J$, por silogismo disjuntivo. Não precisamos de uma nova regra para este argumento. A prova do argumento mostra que ele é realmente apenas uma combinação de regras que já introduzimos.
+
+Formalmente, uma \define{prova} é uma sequência de sentenças. As primeiras sentenças da sequência são suposições; estas são as premissas do argumento. Cada sentença posterior na sequência segue de sentenças anteriores por uma das regras de prova. A sentença final da sequência é a conclusão do argumento.
+
+Este capítulo começa com um sistema de prova para LS, que é então estendido para cobrir LQ e LQ mais identidade.
+
+
+\section{Regras básicas para LS}
+
+Ao projetar um sistema de prova, poderíamos simplesmente começar com silogismo disjuntivo e modus ponens. Sempre que descobríssemos um argumento válido que não pudesse ser provado com regras que já tínhamos, poderíamos introduzir novas regras. Procedendo dessa forma, teríamos uma coleção não sistemática de regras. Poderíamos acidentalmente adicionar algumas regras estranhas e certamente acabaríamos com mais regras do que precisamos.
+
+Em vez disso, desenvolveremos o que é chamado de sistema de \define{dedução natural}. Em um sistema de dedução natural, haverá duas regras para cada operador lógico: uma regra de \define{introdução} que nos permite provar uma sentença que o tem como operador lógico principal e uma regra de \define{eliminação} que nos permite provar algo dada uma sentença que o tem como operador lógico principal.
+
+Além das regras para cada operador lógico, também teremos uma regra de reiteração. Se você já mostrou algo no curso de uma prova, a regra de reiteração permite que você o repita em uma nova linha. Por exemplo:
+
+\begin{proof}
+	\have{a1}{\script{A}}
+	\have{a2}{\script{A}} \by{R}{a1}
+\end{proof}
+
+Quando adicionamos uma linha a uma prova, escrevemos a regra que justifica essa linha. Também escrevemos os números das linhas às quais a regra foi aplicada. A regra de reiteração acima é justificada por uma linha, a linha que você está reiterando. Então o `R 1' na linha 2 da prova significa que a linha é justificada pela regra de reiteração (R) aplicada à linha 1.
+
+Obviamente, a regra de reiteração não nos permitirá mostrar nada \emph{novo}. Para isso, precisaremos de mais regras. O restante desta seção dará regras de introdução e eliminação para todos os conectivos sentenciais. Isso nos dará um sistema de prova completo para LS. Mais tarde no capítulo, introduziremos regras para quantificadores e identidade.
+
+Todas as regras introduzidas neste capítulo são resumidas a partir da p.~\pageref{ProofRules}.
+
+
+\subsection{Conjunção}
+
+Pense por um momento: O que você precisaria mostrar para provar $E \eand F$?
+
+Claro, você poderia mostrar $E \eand F$ provando $E$ e separadamente provando $F$. 
+Isso é válido mesmo que as duas conjunções não sejam sentenças atômicas. Se você pode provar $[(A \eor J) \eif V]$ e  $[(V \eif L) \eiff (F \eor N)]$, então você efetivamente provou
+$$[(A \eor J) \eif V] \eand [(V \eif L) \eiff (F \eor N)].$$
+Então esta será nossa regra de introdução da conjunção, que abreviamos {\eand}I:
+
+\begin{proof}
+	\have[m]{a}{\script{A}}
+	\have[n]{b}{\script{B}}
+	\have[\ ]{c}{\script{A}\eand\script{B}} \ai{a, b}
+\end{proof}
+
+Uma linha de prova deve ser justificada por alguma regra, e aqui temos `{\eand}I m,n.' Isso significa: Introdução da conjunção aplicada à linha $m$ e linha $n$. Estas são variáveis, não números de linha reais; $m$ é alguma linha e $n$ é alguma outra linha. Em uma prova real, as linhas são numeradas $1, 2, 3, \ldots$ e as regras devem ser aplicadas a números de linha específicos. Quando definimos a regra, no entanto, usamos variáveis para enfatizar que a regra pode ser aplicada a quaisquer duas linhas que já estejam na prova. Se você tem $K$ na linha 8 e $L$ na linha 15, você pode provar $(K\eand L)$ em algum ponto posterior da prova com a justificação `{\eand}I 8, 15.'
+
+Agora, considere a regra de eliminação para conjunção. O que você tem o direito de concluir de uma sentença como $E \eand F$? Certamente, você tem o direito de concluir $E$; se $E \eand F$ fosse verdadeira, então $E$ seria verdadeira. Similarmente, você tem o direito de concluir $F$. Esta será nossa regra de eliminação da conjunção, que abreviamos {\eand}E:
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eand\script{B}}
+	\have[\ ]{a}{\script{A}} \ae{ab}
+	\have[\ ]{b}{\script{B}} \ae{ab}
+\end{proof}
+
+Quando você tem uma conjunção em alguma linha de uma prova, você pode usar {\eand}E para derivar qualquer um dos componentes. A regra {\eand}E requer apenas uma sentença, então escrevemos um número de linha como justificação para aplicá-la.
+
+Mesmo com apenas estas duas regras, podemos fornecer algumas provas. Considere este argumento.
+\begin{earg}
+\item[] $[(A\eor B)\eif(C\eor D)] \eand [(E \eor F) \eif (G\eor H)]$
+\item[\therefore] $[(E \eor F) \eif (G\eor H)] \eand [(A\eor B)\eif(C\eor D)]$
+\end{earg}
+O operador lógico principal tanto na premissa quanto na conclusão é a conjunção. Como a conjunção é simétrica, o argumento é obviamente válido. Para fornecer uma prova, começamos escrevendo a premissa. Após as premissas, traçamos uma linha horizontal--- tudo abaixo desta linha deve ser justificado por uma regra de prova. Então o início da prova se parece com isto:
+
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+\end{proof}
+
+Da premissa, podemos obter cada um dos componentes por {\eand}E. A prova agora se parece com isto:
+
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+\end{proof}
+
+A regra {\eand}I requer que tenhamos cada um dos componentes disponíveis em algum lugar da prova. Eles podem estar separados um do outro e podem aparecer em qualquer ordem. Então, aplicando a regra {\eand}I às linhas 3 e 2, chegamos à conclusão desejada. A prova finalizada se parece com isto:
+
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+	\have{ba}{{[}(E \eor F) \eif (G\eor H){]} \eand {[}(A\eor B)\eif(C\eor D){]}} \ai{b,a}
+\end{proof}
+
+Esta prova é trivial, mas mostra como podemos usar regras de prova juntas para demonstrar a validade de uma forma de argumento. Além disso: Usar uma tabela-verdade para mostrar que este argumento é válido exigiria uma impressionante tabela de 256 linhas, já que há oito letras de sentença no argumento.
+
+%Quando definimos uma fbf, não permitimos conjunções com mais de dois componentes. Se tivéssemos feito isso, então poderíamos definir uma versão mais geral das regras de prova para conjunção.
+
+
+\subsection{Disjunção}
+Se $M$ fosse verdadeira, então $M \eor N$ também seria verdadeira. Então a regra de introdução da disjunção ({\eor}I) nos permite derivar uma disjunção se tivermos um dos dois componentes:
+
+\begin{proof}
+	\have[m]{a}{\script{A}}
+	\have[\ ]{ab}{\script{A}\eor\script{B}}\oi{a}
+	\have[\ ]{ba}{\script{B}\eor\script{A}}\oi{a}
+\end{proof}
+
+Note que \script{B} pode ser \emph{qualquer} sentença, sem qualquer restrição. Então o seguinte é uma prova legítima:
+
+\begin{proof}
+	\hypo{m}{M}
+	\have{mmm}{M \eor ([(A\eiff B) \eif (C \eand D)] \eiff [E \eand F])}\oi{m}
+\end{proof}
+
+Pode parecer estranho que apenas por saber $M$ possamos derivar uma conclusão que inclui sentenças como $A$, $B$ e o resto--- sentenças que não têm nada a ver com $M$. No entanto, a conclusão segue imediatamente por {\eor}I. Isto é como deveria ser: As condições de verdade para a disjunção significam que, se \script{A} é verdadeira, então $\script{A}\eor \script{B}$ é verdadeira independentemente do que \script{B} seja. Então a conclusão não poderia ser falsa se a premissa fosse verdadeira; o argumento é válido.
+
+Agora considere a regra de eliminação da disjunção. O que você pode concluir de $M \eor N$? Você não pode concluir $M$. Pode ser a verdade de $M$ que torna $M \eor N$ verdadeira, como no exemplo acima, mas pode não ser. De $M \eor N$ sozinho, você não pode concluir nada sobre $M$ ou $N$ especificamente. Se você também soubesse que $N$ era falso, no entanto, então você seria capaz de concluir $M$.
+
+Isto é apenas silogismo disjuntivo, será a regra de eliminação da disjunção ({\eor}E).
+\begin{multicols}{2}
+\begin{proof}
+	\have[m]{ab}{\script{A}\eor\script{B}}
+	\have[n]{nb}{\enot\script{B}}
+	\have[\ ]{a}{\script{A}} \oe{ab,nb}
+\end{proof}
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eor\script{B}}
+	\have[n]{na}{\enot\script{A}}
+	\have[\ ]{b}{\script{B}} \oe{ab,nb}
+\end{proof}
+
+\end{multicols}
+
+\subsection{Condicional}
+
+Considere este argumento:
+\begin{earg}
+\item[] $R \eor F$
+\item[\therefore] $\enot R \eif F$
+\end{earg}
+O argumento é certamente válido. Qual deveria ser a regra de introdução do condicional, de modo que possamos chegar a esta conclusão?
+
+Começamos a prova escrevendo a premissa do argumento e traçando uma linha horizontal, assim:
+
+\begin{proof}
+	\hypo{rf}{R \eor F}
+\end{proof}
+
+Se tivéssemos $\enot R$ como uma premissa adicional, poderíamos derivar $F$ pela regra {\eor}E. Não temos $\enot R$ como premissa deste argumento, nem podemos derivá-lo diretamente da premissa que temos--- então não podemos simplesmente provar $F$. O que faremos em vez disso é iniciar uma \emph{subprova}, uma prova dentro da prova principal. Quando iniciamos uma subprova, traçamos outra linha vertical para indicar que não estamos mais na prova principal. Então escrevemos uma suposição para a subprova. Isso pode ser qualquer coisa que quisermos. Aqui, será útil assumir $\enot R$. Nossa prova agora se parece com isto:
+
+\begin{proof}
+	\hypo{rf}{R \eor F}
+	\open
+		\hypo{nr}{\enot R}
+	\close
+\end{proof}
+
+É importante notar que não estamos afirmando ter provado $\enot R$. Não precisamos escrever nenhuma justificação para a linha de suposição de uma subprova. Você pode pensar na subprova como colocando a questão: O que poderíamos mostrar \emph{se} $\enot R$ fosse verdadeiro? Por uma coisa, podemos derivar $F$. Então fazemos:
+
+\begin{proof}
+	\hypo{rf}{R \eor F}
+	\open
+		\hypo{nr}{\enot R}
+		\have{f}{F}\oe{rf, nr}
+	\close
+\end{proof}
+
+Isso mostrou que \emph{se} tivéssemos $\enot R$ como premissa, \emph{então} poderíamos provar $F$. Efetivamente, provamos $\enot R \eif F$. Então a regra de introdução do condicional ({\eif}I) nos permitirá fechar a subprova e derivar $\enot R \eif F$ na prova principal. Nossa prova final se parece com isto:
+
+\begin{proof}
+	\hypo{rf}{R \eor F}
+	\open
+		\hypo{nr}{\enot R}
+		\have{f}{F}\oe{rf, nr}
+	\close
+	\have{nrf}{\enot R \eif F}\ci{nr-f}
+\end{proof}
+
+
+Note que a justificação para aplicar a regra {\eif}I é toda a subprova. Normalmente isso será mais do que apenas duas linhas.
+
+Pode parecer que a capacidade de assumir qualquer coisa em uma subprova levaria ao caos: Isso permite que você prove qualquer conclusão a partir de quaisquer premissas? A resposta é não, não permite. Considere esta prova:
+
+\begin{proof}
+	\hypo{a}{\script{A}}
+	\open
+		\hypo{b1}{\script{B}}
+		\have{b2}{\script{B}} \by{R}{b1}
+	\close
+\end{proof}
+
+Pode parecer que esta é uma prova de que você pode derivar qualquer conclusão \script{B} de qualquer premissa \script{A}. Quando a linha vertical para a subprova termina, a subprova é \emph{fechada}. Para completar uma prova, você deve fechar todas as subprovas. E você não pode fechar a subprova e usar a regra R novamente na linha 4 para derivar \script{B} na prova principal. Uma vez que você fecha uma subprova, não pode se referir de volta a linhas individuais dentro dela.
+
+Fechar uma subprova é chamado de \emph{descartar} as suposições daquela subprova. Então podemos colocar o ponto desta forma: Você não pode completar uma prova até que tenha descartado todas as suposições além das premissas originais do argumento.
+
+Claro, é legítimo fazer isto:
+
+\begin{proof}
+	\hypo{a}{\script{A}}
+	\open
+		\hypo{b1}{\script{B}}
+		\have{b2}{\script{B}} \by{R}{b1}
+	\close
+	\have{bb}{\script{B}\eif\script{B}} \ci{b1-b2}
+\end{proof}
+
+Isso não deve parecer tão estranho, porém. Como \script{B}\eif\script{B} é uma tautologia, nenhuma premissa particular deveria ser necessária para derivá-la validamente. (De fato, como veremos, uma tautologia segue de qualquer premissa.)
+
+Colocada de forma geral, a regra {\eif}I se parece com isto:
+
+\begin{proof}
+	\open
+		\hypo[m]{a}{\script{A}} \by{quer \script{B}}{}
+		\have[n]{b}{\script{B}}
+	\close
+	\have[\ ]{ab}{\script{A}\eif\script{B}}\ci{a-b}
+\end{proof}
+
+Quando introduzimos uma subprova, normalmente escrevemos o que queremos derivar na coluna. Isto é apenas para que não nos esqueçamos por que começamos a subprova se ela continuar por cinco ou dez linhas. Não há uma regra de 'quer'. É uma nota para nós mesmos e não faz parte formalmente da prova.
+
+Embora seja sempre permitido abrir uma subprova com qualquer suposição que você queira, há alguma estratégia envolvida em escolher uma suposição útil. Começar uma subprova com uma suposição arbitrária e maluca apenas desperdiçaria linhas da prova. Para derivar um condicional pela {\eif}I, por exemplo, você deve assumir o antecedente do condicional em uma subprova.
+
+A regra {\eif}I também requer que o consequente do condicional seja a última linha da subprova. É sempre permitido fechar uma subprova e descartar suas suposições, mas não será útil fazê-lo até que você consiga o que quer.
+
+Agora considere a regra de eliminação do condicional. Nada segue de $M\eif N$ sozinho, mas se tivermos ambos $M \eif N$ e $M$, então podemos concluir $N$. Esta regra, modus ponens, será a regra de eliminação do condicional ({\eif}E).
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eif\script{B}}
+	\have[n]{a}{\script{A}}
+	\have[\ ]{b}{\script{B}} \ce{ab,a}
+\end{proof}
+
+Agora que temos regras para o condicional, considere este argumento:
+\label{proofHS}
+\begin{earg}
+\item[] $P \eif Q$
+\item[] $Q \eif R$
+\item[\therefore] $P \eif R$
+\end{earg}
+Começamos a prova escrevendo as duas premissas como suposições. Como o operador lógico principal na conclusão é um condicional, podemos esperar usar a regra {\eif}I. Para isso, precisamos de uma subprova--- então escrevemos o antecedente do condicional como suposição de uma subprova:
+
+\begin{proof}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P}
+	\close
+\end{proof}
+
+Tornamos $P$ disponível assumindo-o em uma subprova, permitindo-nos usar {\eif}E na primeira premissa. Isso nos dá $Q$, o que nos permite usar {\eif}E na segunda premissa. Tendo derivado $R$, fechamos a subprova. Assumindo $P$ fomos capazes de provar $R$, então aplicamos a regra {\eif}I e terminamos a prova.
+
+\label{HSproof}
+\begin{proof}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P}\by{quer $R$}{}
+		\have{q}{Q}\ce{pq,p}
+		\have{r}{R}\ce{qr,q}
+	\close
+	\have{pr}{P \eif R}\ci{p-r}
+\end{proof}
+
+
+
+
+
+\subsection{Bicondicional}
+As regras para o bicondicional serão como versões de dupla carga das regras para o condicional.
+
+Para derivar $W \eiff X$, por exemplo, você deve ser capaz de provar $X$ assumindo $W$ \emph{e} provar $W$ assumindo $X$. A regra de introdução do bicondicional ({\eiff}I) requer duas subprovas. As subprovas podem vir em qualquer ordem, e a segunda subprova não precisa vir imediatamente após a primeira--- mas esquematicamente, a regra funciona assim:
+
+\begin{proof}
+	\open
+		\hypo[m]{a1}{\script{A}} \by{quer \script{B}}{}
+		\have[n]{b1}{\script{B}}
+	\close
+	\open
+		\hypo[p]{b2}{\script{B}} \by{quer \script{A}}{}
+		\have[q]{a2}{\script{A}}
+	\close
+	\have[\ ]{ab}{\script{A}\eiff\script{B}}\bi{a1-b1,b2-a2}
+\end{proof}
+
+A regra de eliminação do bicondicional ({\eiff}E) permite que você faça um pouco mais do que a regra do condicional. Se você tem a subsentença à esquerda do bicondicional, você pode derivar a subsentença à direita. Se você tem a subsentença à direita, você pode derivar a subsentença à esquerda. Esta é a regra:
+
+\begin{multicols}{2}
+\begin{proof}
+	\have[m]{ab}{\script{A}\eiff\script{B}}
+	\have[n]{a}{\script{A}}
+	\have[\ ]{b}{\script{B}} \be{ab,a}
+\end{proof}
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eiff\script{B}}
+	\have[n]{a}{\script{B}}
+	\have[\ ]{b}{\script{A}} \be{ab,a}
+\end{proof}
+\end{multicols}
+
+
+
+
+\subsection{Negação}
+Aqui está um argumento matemático simples em português:
+\begin{earg}
+\item[] Suponha que haja algum maior número natural. Chame-o de $A$.
+\item[] Esse número mais um também é um número natural.
+\item[] Obviamente, $A+1 > A$.
+\item[] Então há um número natural maior que $A$.
+\item[] Isso é impossível, pois $A$ é assumido como o maior número natural.
+\item[\therefore] Não há maior número natural.
+\end{earg}
+Esta forma de argumento é tradicionalmente chamada de \emph{reductio}. Seu nome latino completo é \emph{reductio ad absurdum}, que significa 'redução ao absurdo'. Em uma reductio, assumimos algo por causa do argumento--- por exemplo, que há um maior número natural. Então mostramos que a suposição leva a duas sentenças contraditórias--- por exemplo, que $A$ é o maior número natural e que não é. Desta forma, mostramos que a suposição original deve ser falsa.
+
+As regras básicas para negação permitirão argumentos como este. Se assumirmos algo e mostrarmos que isso leva a sentenças contraditórias, então provamos a negação da suposição. Esta é a regra de introdução da negação ({\enot}I):
+
+\begin{proof}
+\open
+	\hypo[m]{na}{\script{A}}\by{para reductio}{}
+	\have[n]{b}{\script{B}}
+	\have{nb}{\enot\script{B}}
+\close
+\have{a}[\ ]{\enot\script{A}}\ni{na-nb}
+\end{proof}
+
+Para a regra aplicar, as duas últimas linhas da subprova devem ser uma contradição explícita: alguma sentença seguida na próxima linha por sua negação. Escrevemos 'para reductio' como uma nota para nós mesmos, um lembrete de por que começamos a subprova. Não é formalmente parte da prova, e você pode omiti-lo se achar distrativo.
+
+Para ver como a regra funciona, suponha que queiramos provar a lei da não contradição: $\enot(G \eand \enot G)$. Podemos provar isso sem nenhuma premissa começando imediatamente uma subprova. Queremos aplicar {\enot}I à subprova, então assumimos $(G\eand \enot G)$. Então obtemos uma contradição explícita por {\eand}E. A prova se parece com isto:
+
+\begin{proof}
+	\open
+		\hypo{gng}{G\eand \enot G}\by{para reductio}{}
+		\have{g}{G}\ae{gng}
+		\have{ng}{\enot G}\ae{gng}
+	\close
+	\have{ngng}{\enot(G \eand \enot G)}\ni{gng-ng}
+\end{proof}
+
+A regra {\enot}E funcionará de forma muito similar. Se assumirmos \enot\script{A} e mostrarmos que isso leva a uma contradição, temos efetivamente provado \script{A}. Então a regra se parece com isto:
+
+\begin{proof}
+\open
+	\hypo[m]{na}{\enot\script{A}}\by{para reductio}{}
+	\have[n]{b}{\script{B}}
+	\have{nb}{\enot\script{B}}
+\close
+\have{a}[\ ]{\script{A}}\ne{na-nb}
+\end{proof}
+
+
+\section{Regras derivadas}
+As regras do sistema de dedução natural são destinadas a serem sistemáticas. Há uma regra de introdução e uma de eliminação para cada operador lógico, mas por que estas regras básicas em vez de algumas outras? Muitos sistemas de dedução natural têm uma regra de eliminação da disjunção que funciona assim:
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eor\script{B}}
+	\have[n]{ac}{\script{A}\eif\script{C}}
+	\have[o]{bc}{\script{B}\eif\script{C}}
+	\have[\ ]{c}{\script{C}} \by{DIL}{ab,ac,bc}
+\end{proof}
+
+Vamos chamar esta regra de Dilema (DIL) Pode parecer que haverá algumas provas que não podemos fazer com nosso sistema de prova, porque não temos isso como uma regra básica. No entanto, este não é o caso. Qualquer prova que você pode fazer usando a regra do Dilema pode ser feita com as regras básicas do nosso sistema de dedução natural. Considere esta prova:
+
+\begin{proof}
+	\hypo{ab}{\script{A}\eor\script{B}}
+	\hypo{ac}{\script{A}\eif\script{C}}
+	\hypo{bc}{\script{B}\eif\script{C}}\by{quer \script{C}}{}
+	\open
+		\hypo{nc}{\enot \script{C}}\by{para reductio}{}
+		\open
+			\hypo{a1}{\script{A}}\by{para reductio}{}
+			\have{c1}{\script{C}}\ce{ac, a1}
+			\have{nc1}{\enot\script{C}}\by{R}{nc}
+		\close
+		\have{na}{\enot\script{A}}\ni{a1-nc1}
+		\open
+			\hypo{b2}{\script{B}}\by{para reductio}{}
+			\have{c2}{\script{C}}\ce{bc, b2}
+			\have{nc2}{\enot\script{C}}\by{R}{nc}
+		\close
+		\have{b}{\script{B}}\oe{ab, na}
+		\have{nb}{\enot\script{B}}\ni{b2-nc2}
+	\close
+	\have{c}{\script{C}} \ne{nc-nb}
+\end{proof}
+
+\script{A}, \script{B} e \script{C} são meta-variáveis. Elas não são símbolos de LS, mas representantes de sentenças arbitrárias de LS. Então isto não é, estritamente falando, uma prova em LS. É mais como uma receita. Ela fornece um padrão que pode provar qualquer coisa que a regra do Dilema pode provar, usando apenas as regras básicas de LS. Isso significa que a regra do Dilema não é realmente necessária. Adicioná-la à lista de regras básicas não nos permitiria derivar nada que não pudéssemos derivar sem ela.
+
+No entanto, a regra do Dilema seria conveniente. Ela nos permitiria fazer em uma linha o que requer onze linhas e várias subprovas aninhadas com as regras básicas. Então a adicionaremos ao sistema de prova como uma regra derivada.
+
+Uma \define{regra derivada} é uma regra de prova que não torna nenhuma nova prova possível. Qualquer coisa que pode ser provada com uma regra derivada pode ser provada sem ela. Você pode pensar em uma prova curta usando uma regra derivada como uma abreviação para uma prova mais longa que usa apenas as regras básicas. Sempre que você usar a regra do Dilema, você sempre poderia levar dez linhas extras e provar a mesma coisa sem ela.
+
+Por conveniência, adicionaremos várias outras regras derivadas. Uma é \emph{modus tollens} (MT).
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eif\script{B}}
+	\have[n]{a}{\enot\script{B}}
+	\have[\ ]{b}{\enot\script{A}} \by{MT}{ab,a}
+\end{proof}
+
+Deixamos a prova desta regra como um exercício. Note que se já tivéssemos provado a regra MT, então a prova da regra DIL poderia ter sido feita em apenas cinco linhas.
+
+Também adicionamos silogismo hipotético (HS) como uma regra derivada. Já demos uma prova dele na p.~\pageref{HSproof}.
+
+\begin{proof}
+	\have[m]{ab}{\script{A}\eif\script{B}}
+	\have[n]{bc}{\script{B}\eif\script{C}}
+	\have[\ ]{ac}{\script{A}\eif\script{C}}\by{HS}{ab,bc}
+\end{proof}
+
+
+\section{Regras de substituição}
+%\nix{poderia ser mais substancial}
+Considere como você provaria este argumento: $F\eif(G\eand H)$, \therefore\ $F\eif G$
+
+Talvez seja tentador escrever a premissa e aplicar a regra {\eand}E à conjunção $(G \eand H)$. Isto é impermissível, no entanto, porque as regras básicas de prova só podem ser aplicadas a sentenças inteiras. Precisamos obter $(G \eand H)$ em uma linha por si só. Podemos provar o argumento desta forma:
+
+\begin{proof}
+	\hypo{fgh}{F\eif(G\eand H)}
+	\open
+		\hypo{f}{F}\by{quer $G$}{}
+		\have{gh}{G \eand H}\ce{fgh,f}
+		\have{g}{G}\ae{gh}
+	\close
+	\have{fg}{F \eif G}\ci{f-g}
+\end{proof}
+
+Agora introduziremos algumas regras derivadas que podem ser aplicadas a parte de uma sentença. Estas são chamadas \define{regras de substituição}, porque podem ser usadas para substituir parte de uma sentença por uma expressão logicamente equivalente. Uma regra de substituição simples é comutatividade (abreviada Comm), que diz que podemos trocar a ordem dos componentes em uma conjunção ou a ordem dos componentes em uma disjunção. Definimos a regra assim:
+
+\begin{center}
+\begin{tabular}{rl}
+$(\script{A}\eand\script{B}) \Longleftrightarrow (\script{B}\eand\script{A})$\\
+$(\script{A}\eor\script{B}) \Longleftrightarrow (\script{B}\eor\script{A})$\\
+$(\script{A}\eiff\script{B}) \Longleftrightarrow (\script{B}\eiff\script{A})$
+& Comm
+\end{tabular}
+\end{center}
+
+A seta em negrito significa que você pode pegar uma subfórmula de um lado da seta e substituí-la pela subfórmula do outro lado. A seta é de duas cabeças porque as regras de substituição funcionam em ambas as direções.
+
+Considere este argumento: $(M \eor P) \eif (P \eand M)$, \therefore\ $(P \eor M) \eif (M \eand P)$
+
+É possível dar uma prova disso usando apenas as regras básicas, mas será longa e inconveniente. Com a regra Comm, podemos fornecer uma prova facilmente:
+
+\begin{proof}
+	\hypo{1}{(M \eor P) \eif (P \eand M)}
+	\have{2}{(P \eor M) \eif (P \eand M)}\by{Comm}{1}
+	\have{n}{(P \eor M) \eif (M \eand P)}\by{Comm}{2}
+\end{proof}
+
+Outra regra de substituição é dupla negação (DN). Com a regra DN, você pode remover ou inserir um par de negações em qualquer lugar em uma sentença. Esta é a regra:
+
+\begin{center}
+\begin{tabular}{rl}
+$\enot\enot\script{A} \Longleftrightarrow \script{A}$ & DN
+\end{tabular}
+\end{center}
+
+Mais duas regras de substituição são chamadas Leis de De Morgan, nomeadas em homenagem ao lógico britânico do século XIX August De Morgan. (Embora De Morgan tenha descoberto estas leis, ele não foi o primeiro a fazê-lo.) As regras capturam relações úteis entre negação, conjunção e disjunção. Aqui estão as regras, que abreviamos DeM:
+
+\begin{center}
+\begin{tabular}{rl}
+$\enot(\script{A}\eor\script{B}) \Longleftrightarrow (\enot\script{A}\eand\enot\script{B})$\\
+$\enot(\script{A}\eand\script{B}) \Longleftrightarrow (\enot\script{A}\eor\enot\script{B})$
+& DeM
+\end{tabular}
+\end{center}
+
+Como $\script{A}\eif\script{B}$ é um \emph{condicional material}, é equivalente a $\enot\script{A}\eor\script{B}$. Uma regra de substituição adicional captura esta equivalência. Abreviamos a regra MC, para 'condicional material'. Ela assume duas formas:
+
+\begin{center}
+\begin{tabular}{rl}
+$(\script{A}\eif\script{B}) \Longleftrightarrow (\enot\script{A}\eor\script{B})$ &\\
+$(\script{A}\eor\script{B}) \Longleftrightarrow (\enot\script{A}\eif\script{B})$ & MC
+\end{tabular}
+\end{center}
+
+Agora considere este argumento: $\enot(P \eif Q)$, \therefore\ $P \eand \enot Q$
+
+Como sempre, poderíamos provar este argumento usando apenas as regras básicas. Com regras de substituição, porém, a prova é muito mais simples:
+
+\begin{proof}
+	\hypo{1}{\enot(P \eif Q)}
+	\have{2}{\enot(\enot P \eor Q)}\by{MC}{1}
+	\have{3}{\enot\enot P \eand \enot Q}\by{DeM}{2}
+	\have{4}{P \eand \enot Q}\by{DN}{3}
+\end{proof}
+
+Uma regra de substituição final captura a relação entre condicionais e bicondicionais. Chamaremos esta regra de troca do bicondicional e a abreviaremos {\eiff}{ex}.
+
+\begin{center}
+\begin{tabular}{rl}
+$[(\script{A}\eif\script{B})\eand(\script{B}\eif\script{A})] \Longleftrightarrow (\script{A}\eiff\script{B})$
+& {\eiff}{ex}
+\end{tabular}
+\end{center}
+
+
+%Embora não façam isso no livro, tenho o hábito de escrever $(\script{A}\eand\script{B}\eand\script{C})$ e omitir o par interno de parênteses. Isso é fine. Se quiséssemos, poderíamos ter definido as regras básicas de uma forma mais geral:
+
+%\begin{proof}
+%	\have[n]{a1}{\script{A}_1}
+%	\have{2}{\script{A}_2}
+%	\have[\vdots]{1}{\vdots}
+%	\have[n]{an}{\script{A}_n}
+%	\have[\ ]{aaa}{\script{A}_1~\eand\ldots\eand~\script{A}_n} \ai{}
+%\end{proof}
+
+%\bigskip
+%\begin{proof}
+%	\have{3}{\script{A}_1~\eand\ldots\eand~\script{A}_n}
+%	\have{1}{\script{A}_i} \ae{}
+%\end{proof}
+
+%\bigskip
+%\begin{proof}
+%	\have{1}{\script{A}}
+%	\have{3}{\script{A}\eor\script{B}_1\eor\script{B}_2\ldots\eor\script{B}_n} \ai{}
+%\end{proof}
+
+%Não precisamos destas versões estendidas, pois para qualquer n dado poderíamos prová-las como uma regra derivada.
+
+
+\section{Regras para quantificadores}
+
+Para provas em LQ, usamos todas as regras básicas de LS mais quatro novas regras básicas: ambas as regras de introdução e eliminação para cada um dos quantificadores.
+
+Como todas as regras derivadas de LS são derivadas das regras básicas, elas também valerão em LQ. Adicionaremos outra regra derivada, uma regra de substituição chamada negação de quantificador.
+
+\subsection{Instâncias de substituição}
+
+Para enunciar concisamente as regras para os quantificadores, precisamos de uma maneira de marcar a relação entre sentenças quantificadas e suas instâncias. Por exemplo, a sentença $Pa$ é uma instância particular da afirmação geral $\forall x Px$.
+
+Para uma fbf \script{A}, uma constante \script{c} e uma variável \script{x}, defina uma \define{instância de substituição} de $\forall \script{x}\script{A}$ ou $\exists \script{x}\script{A}$ como a fbf que obtemos substituindo toda ocorrência de \script{x} em \script{A} por \script{c}. Chamamos \script{c} de \define{constante instanciadora}.
+
+Para enfatizar o fato de que a variável \script{x} é substituída pela constante instanciadora \script{c}, escreveremos as expressões quantificadas originais como $\forall \script{x}\script{A}\script{x}$ e $\exists \script{x}\script{A}\script{x}$. E escreveremos a instância de substituição \script{A}\script{c}.
+
+Note que \script{A}, \script{x} e \script{c} são todas meta-variáveis. Isto é, elas são representantes de qualquer fbf, variável e constante whatsoever. E quando escrevemos \script{A}\script{c}, a constante \script{c} pode ocorrer múltiplas vezes na fbf \script{A}.
+
+
+Por exemplo:
+
+\begin{itemize}
+\item $Aa \eif Ba$, $Af \eif Bf$ e $Ak \eif Bk$ são todas instâncias de substituição de $\forall x(Ax \eif Bx)$; as constantes instanciadoras são $a$, $f$ e $k$, respectivamente.
+\item $Raj$, $Rdj$ e $Rjj$ são instâncias de substituição de $\exists zRzj$; as constantes instanciadoras são $a$, $d$ e $j$, respectivamente.
+\end{itemize}
+
+\subsection{Eliminação universal}
+
+Se você tem $\forall x Ax$, é legítimo inferir que qualquer coisa é um $A$. Você pode inferir $Aa$, $Ab$, $Az$, $Ad_3$. Você pode inferir qualquer instância de substituição, $A\script{c}$ para qualquer constante \script{c}.
+
+Esta é a forma geral da regra de eliminação universal ($\forall$E):
+
+\begin{proof}
+	\have[m]{a}{\forall \script{x}\script{A}\script{x}}
+	\have[\ ]{c}{\script{A}\script{c}} \Ae{a}
+\end{proof}
+
+Ao usar a regra $\forall$E, você escreve a sentença substituída com a constante \script{c} substituindo todas as ocorrências da variável \script{x} em \script{A}. Por exemplo:
+
+\begin{proof}
+	\hypo{a}{\forall x(Mx \eif Rxd)}
+	\have{c}{Ma \eif Rad} \Ae{a}
+	\have{d}{Md \eif Rdd} \Ae{a}
+\end{proof}
+
+
+\subsection{Introdução existencial}
+
+É legítimo inferir $\exists x Px$ se você sabe que \emph{algo} é um $P$. Pode ser qualquer coisa particular. Por exemplo, se você tem $Pa$ disponível na prova, então $\exists x Px$ segue.
+
+Esta é a regra de introdução existencial ($\exists$I):
+
+\begin{proof}
+	\have[m]{a}{\script{A}\script{c}}
+	\have[\ ]{c}{\exists \script{x}\script{A}\script{x}} \Ei{a}
+\end{proof}
+
+É importante notar que a variável \script{x} não precisa substituir todas as ocorrências da constante \script{c}. Você pode decidir quais ocorrências substituir e quais deixar no lugar. Por exemplo:
+\nopagebreak
+\begin{proof}
+	\hypo{a}{Ma \eif Rad}
+	\have{b}{\exists x(Ma \eif Rax)} \Ei{a}
+	\have{c}{\exists x(Mx \eif Rxd)} \Ei{a}
+	\have{d}{\exists x(Mx \eif Rad)} \Ei{a}
+	\have{e}{\exists y\exists x(Mx \eif Ryd)} \Ei{d}
+	\have{f}{\exists z\exists y\exists x(Mx \eif Ryz)} \Ei{e}
+\end{proof}
+
+
+\subsection{Introdução universal}
+Uma afirmação universal como $\forall x Px$ seria provada se {cada} instância de substituição dela tivesse sido provada. Isto é, se cada sentença $Pa$, $Pb$, $\ldots$ estivesse disponível em uma prova, então você certamente teria o direito de afirmar $\forall x Px$. Infelizmente, não há esperança de provar \emph{cada} instância de substituição. Isso exigiria provar $Pa$, $Pb$, $\ldots$, $Pj_2$, $\ldots$, $Ps_7$, $\ldots$, e assim por diante até o infinito. Há infinitas constantes em LQ, e então este processo nunca chegaria ao fim.
+
+Considere em vez disso um argumento simples: $\forall x Mx$, \therefore\ $\forall y My$
+
+Não faz diferença para o significado da sentença se usamos a variável $x$ ou a variável $y$, então este argumento é obviamente válido. Suponha que comecemos assim:
+
+\begin{proof}
+	\hypo{x}{\forall x Mx} \by{quer $\forall y My$}{}
+	\have{a}{Ma} \Ae{x}
+\end{proof}
+
+Derivamos $Ma$. Nada nos impede de usar a mesma justificação para derivar $Mb$, $\ldots$, $Mj_2$, $\ldots$, $Ms_7$, $\ldots$, e assim por diante até ficarmos sem espaço ou paciência. Mostramos efetivamente a maneira de provar $M\script{c}$ para qualquer constante \script{c}. Disso, $\forall y My$ segue.
+
+\begin{proof}
+	\hypo{x}{\forall x Mx}
+	\have{a}{Ma} \Ae{x}
+	\have{y}{\forall y My} \Ai{a}
+\end{proof}
+
+É importante aqui que $a$ era apenas alguma constante arbitrária. Não fizemos nenhuma suposição especial sobre ela. Se $Ma$ fosse uma premissa do argumento, então isso não mostraria nada sobre \emph{todos} $y$. Por exemplo:
+
+\begin{proof}
+	\hypo{x}{\forall x Rxa}
+	\have{a}{Raa} \Ae{x}
+	\have{y}{\forall y Ryy} \by{não permitido!}{}
+\end{proof}
+
+
+Esta é a forma esquemática da regra de introdução universal ($\forall$I):
+
+\begin{proof}
+	\have[m]{a}{\script{A}\script{c}^\ast}
+	\have[\ ]{c}{\forall \script{x}\script{A}\script{x}} \Ai{a}
+\end{proof}
+$^\ast$ A constante \script{c} não deve ocorrer em nenhuma suposição não descartada.
+
+Note que podemos fazer isso para qualquer constante que não ocorra em uma suposição não descartada e para qualquer variável.
+
+Note também que a constante pode não ocorrer em nenhuma suposição \emph{não descartada}, mas pode ocorrer como a suposição de uma subprova que já fechamos. Por exemplo, podemos provar $\forall z(Dz \eif Dz)$ sem nenhuma premissa.
+
+\begin{proof}
+	\open
+		\hypo{f1}{Df}\by{quer $Df$}{}
+		\have{f2}{Df}\by{R}{f1}
+	\close
+	\have{ff}{Df \eif Df}\ci{f1-f2}
+	\have{zz}{\forall z(Dz \eif Dz)}\Ai{ff}
+\end{proof}
+
+
+\subsection{Eliminação existencial}
+Uma sentença com um quantificador existencial nos diz que há \emph{algum} membro do UD que satisfaz uma fórmula. Por exemplo, $\exists x Sx$ nos diz (grosso modo) que há pelo menos um $S$. No entanto, não nos diz \emph{qual} membro do UD satisfaz $S$. Não podemos concluir imediatamente $Sa$, $Sf_{23}$ ou qualquer outra instância de substituição da sentença. O que podemos fazer?
+
+Suponha que soubéssemos ambos $\exists x Sx$ e $\forall x(Sx \eif Tx)$. Poderíamos raciocinar desta forma:
+\begin{quote}
+Como $\exists x Sx$, há algo que é um $S$. Não sabemos quais constantes se referem a essa coisa, se alguma o faz, então chame essa coisa de 'Ishmael'. De $\forall x(Sx \eif Tx)$, segue que se Ishmael é um $S$, então é um $T$. Portanto, Ishmael é um $T$.  Porque Ishmael é um $T$, sabemos que $\exists x Tx$.
+\end{quote}
+Neste parágrafo, introduzimos um nome para a coisa que é um $S$. Demos a ela um nome arbitrário ('Ishmael') para que pudéssemos raciocinar sobre ela e derivar algumas consequências de haver um $S$. Como 'Ishmael' é apenas um nome falso introduzido para o propósito da prova e não uma constante genuína, não poderíamos mencioná-lo na conclusão. No entanto, poderíamos derivar uma sentença que não menciona Ishmael; namely, $\exists x Tx$. Esta sentença segue das duas premissas.
+
+Queremos que a regra de eliminação existencial funcione de forma similar. No entanto, como palavras em português como 'Ishmael' não são símbolos de LQ, não podemos usá-las em provas formais. Em vez disso, usaremos constantes de LQ que não apareçam de outra forma na prova.
+
+Uma constante que é usada para representar seja o que for que satisfaça uma afirmação existencial é chamada de \define{proxy}. O raciocínio com o proxy deve ocorrer totalmente dentro de uma subprova, e o proxy não pode ser uma constante que esteja fazendo trabalho em outro lugar da prova.
+
+Esta é a forma esquemática da regra de eliminação existencial ($\exists$E): 
+
+\begin{proof}
+	\have[m]{a}{\exists \script{x}\script{A}\script{x}}
+	\open	
+		\hypo[n]{b}{\script{A}\script{c}^\ast}
+		\have[p]{c}{\script{B}}
+	\close
+	\have[\ ]{d}{\script{B}} \Ee{a,b-c}
+\end{proof}
+$^\ast$ A constante \script{c} não deve aparecer em $\exists\script{x}\script{A}\script{x}$, em \script{B} ou em qualquer suposição não descartada.
+
+Como a constante proxy é apenas um marcador de posição que usamos dentro da subprova, ela não pode ser algo sobre o qual sabemos algo particular. Então ela não pode aparecer na sentença original $\exists\script{x}\script{A}\script{x}$ ou em uma suposição não descartada. Além disso, não aprendemos nada sobre a constante proxy usando a regra $\exists$E. Então ela não pode aparecer em \script{B}, a sentença que você prova usando $\exists$E.
+
+A maneira mais fácil de satisfazer esses requisitos é escolher uma constante completamente nova quando você iniciar a subprova e então não usar essa constante em nenhum outro lugar da prova. Uma vez que você feche a subprova, não a mencione novamente.
+
+Com esta regra, podemos dar uma prova formal que $\exists x Sx$ e $\forall x(Sx \eif Tx)$ juntos acarretam $\exists x Tx$.
+
+\begin{proof}
+	\hypo{es}{\exists x Sx}
+	\hypo{ast}{\forall x(Sx \eif Tx)}\by{quer $\exists x Tx$}{}
+	\open
+		\hypo{s}{Si}
+		\have{st}{Si \eif Ti}\Ae{ast}
+		\have{t}{Ti} \ce{s,st}
+		\have{et1}{\exists x Tx}\Ei{t}
+	\close
+	\have{et2}{\exists x Tx}\Ee{es,s-et1}
+\end{proof}
+
+Note que isso tem efetivamente a mesma estrutura que o argumento em português com que começamos, exceto que a subprova usa a constante proxy '$i$' em vez do nome falso 'Ishmael'.
+
+\subsection{Negação de quantificador}
+
+Ao traduzir do português para LQ, notamos que $\enot\exists x\enot\script{A}$ é logicamente equivalente a $\forall x\script{A}$. Em LQ, elas são comprovadamente equivalentes. Podemos provar uma metade da equivalência com uma prova bastante assustadora:
+
+\begin{proof}
+	\hypo{Aa}{\forall x Ax} \by{quer $\enot\exists x\enot Ax$}{}
+	\open
+		\hypo{Ena}{\exists x\enot Ax}\by{para reductio}{}
+		\open
+			\hypo{nc}{\enot Ac}\by{para $\exists$E}{}
+			\open
+				\hypo{Aa2}{\forall x Ax}\by{para reductio}{}
+				\have{c2}{Ac}\Ae{Aa}
+				\have{nc2}{\enot Ac}\by{R}{nc}
+			\close
+			\have{nAa}{\enot\forall x Ax}\ni{Aa2-nc2}
+		\close
+		\have{Aa3}{\forall x Ax}\by{R}{Aa}
+		\have{nAa3}{\enot\forall x Ax}\Ee{Ena,nc-nAa}
+	\close
+	\have{nEna}{\enot\exists x\enot Ax}\ni{Ena-nAa3}
+\end{proof}
+
+Para mostrar que as duas sentenças são genuinamente equivalentes, precisamos de uma segunda prova que assume $\enot\exists x\enot\script{A}$ e deriva $\forall x\script{A}$. Deixamos essa prova como um exercício para o leitor.
+
+Será frequentemente útil traduzir entre quantificadores adicionando ou subtraindo negações desta forma, então adicionamos duas regras derivadas para este propósito. Estas regras são chamadas negação de quantificador (QN):
+\begin{center}
+\begin{tabular}{rl}
+$\enot\forall\script{x}\script{A} \Longleftrightarrow \exists\script{x}\enot\script{A}$\\
+$\enot\exists\script{x}\script{A} \Longleftrightarrow \forall\script{x}\enot\script{A}$
+& QN
+\end{tabular}
+\end{center}
+Como QN é uma regra de substituição, ela pode ser usada em sentenças inteiras ou em subfórmulas.
+
+
+\section{Regras para identidade}
+O predicado de identidade não é parte de LQ, mas o adicionamos quando precisamos simbolizar certas sentenças. Para provas envolvendo identidade, adicionamos duas regras de prova.
+
+Suponha que você saiba que muitas coisas que são verdadeiras de $a$ também são verdadeiras de $b$. Por exemplo: $Aa\eand Ab$, $Ba\eand Bb$, $\enot Ca\eand\enot Cb$, $Da\eand Db$, $\enot Ea\eand\enot Eb$ e assim por diante. Isso não seria suficiente para justificar a conclusão $a=b$. (Veja p.~\pageref{model.nonidentity}.) Em geral, não há sentenças que não contenham já o predicado de identidade que poderiam justificar a conclusão $a=b$. Isso significa que a regra de introdução da identidade não justificará $a=b$ ou qualquer outra afirmação de identidade contendo duas constantes diferentes.
+
+No entanto, é sempre verdade que $a=a$. Em geral, nenhuma premissa é necessária para concluir que algo é idêntico a si mesmo. Então esta será a regra de introdução da identidade, abreviada {=}I:
+
+\begin{proof}
+	\have[\ \,\,\,]{x}{\script{c}=\script{c}} \by{=I}{}
+\end{proof}
+
+Note que a regra {=}I não requer referência a nenhuma linha anterior da prova. Para qualquer constante \script{c}, você pode escrever $\script{c}=\script{c}$ em qualquer ponto com apenas a regra {=}I como justificação.
+
+Se você mostrou que $a=b$, então tudo o que for verdadeiro a respeito de $a$ também deve ser verdadeiro a respeito de $b$. Para qualquer sentença com $a$ nela, você pode substituir algumas ou todas as ocorrências de $a$ por $b$ e produzir uma sentença equivalente. Por exemplo, se você já sabe $Raa$, então você está justificado em concluir $Rab$, $Rba$, $Rbb$.
+
+
+A regra de eliminação da identidade ({=}E) nos permite fazer isso. Ela justifica substituir termos por outros termos que são idênticos a ele.
+
+Para escrever a regra, introduziremos um novo recurso de notação. Para uma sentença \script{A} e constantes \script{c} e \script{d}, \script{A}{\script{c}$\circlearrowleft$\script{d}} é uma sentença produzida substituindo algumas ou todas as instâncias de \script{c} em \script{A} por \script{d} ou substituindo instâncias de \script{d} por \script{c}. Isso não é o mesmo que uma instância de substituição, porque uma constante não precisa substituir todas as ocorrências da outra (embora possa).
+
+Agora podemos escrever concisamente {=}E desta forma:
+\begin{proof}
+	\have[m]{e}{\script{c}=\script{d}}
+	\have[n]{a}{\script{A}}
+	\have[\ ]{ea1}{\script{A}\script{c}\circlearrowleft\script{d}} \by{=E}{e,a}
+\end{proof}
+\nopagebreak
+
+
+
+%As regras básicas para conjunção podem ser valiosas em uma prova mesmo se não houver conjunções em nenhuma das suposições; as regras básicas para disjunção podem ser usadas mesmo se não houver disjunções em nenhuma suposição; e similarmente para as outras regras básicas. As regras para identidade são diferentes, pois deve haver uma afirmação de identidade em alguma suposição para que as regras façam algum trabalho. Além da identidade trivial que podemos introduzir com a regra {=}I
+
+
+%não aplicam podemos agora provar que a identidade é \emph{transitiva}: Se $a=b$ e $b=c$, então $a=c$. A prova procede desta forma:
+%\begin{proof}
+%	\open
+%		\hypo{p}{a=b \eand b=c}\by{quer $a=c$}{}
+%		\have{ab}{a=b}\ae{p}
+%		\have{bc}{b=c}\ae{p}
+%		\have{ac}{a=c}\by{{=}E}{ab,bc}
+%	\close
+%	\have{conc}{(a=b \eand b=c)\eif a=c} \ci{p-ac}
+%\end{proof}
+
+
+%Como exemplo, considere este argumento:
+%\begin{quote}
+%Há apenas um botão no meu bolso. Há um botão azul no meu bolso. Portanto, não há botão no meu bolso que não seja azul.
+%\end{quote}
+%Começamos definindo uma chave de simbolização:
+%\begin{ekey}
+%\item{UD:} botões no meu bolso
+%\item{Bx:} $x$ é azul.
+%\end{ekey}
+%\begin{proof}
+%	\hypo{one}{\forall x\forall y\ x=y}
+%	\hypo{eb}{\exists x Bx} \by{quer $\enot\exists x \enot Bx$}{}
+%	\open
+%		\hypo{be1}{Be}
+%		\have{ef1}{e=f}\Ae{one}
+%		\have{bf1}{Bf}\by{{=}E}{ef1,be1}
+%	\close
+%	\have{bf}{Bf}\Ee{eb,be1-bf1}
+%	\have{ab}{\forall x Bx}\Ai{bf}
+%	\have{nnab}{\enot\enot\forall x Bx}\by{DN}{ab}
+%	\have{nenb}{\enot\exists x\enot Bx}\by{QN}{nnab}
+%\end{proof}
+
+Para ver as regras em ação, considere esta prova:
+\begin{proof}
+	\hypo{one}{\forall x\forall y\ x=y}
+	\hypo{eb}{\exists x Bx}
+	\hypo{Abnc}{\forall x(Bx \eif \enot Cx)}
+		\by{quer $\enot\exists x Cx$}{}
+	\open
+		\hypo{be1}{Be}
+		\have{ef1}{\forall y\ e=y}\Ae{one}
+		\have{ef2}{e=f}\Ae{ef1}
+		\have{bf1}{Bf}\by{{=}E}{ef2,be1}
+		\have{bnc1}{Bf\eif\enot Cf}\Ae{Abnc}
+		\have{ncf1}{\enot Cf}\ce{bnc1,bf1}
+	\close
+	\have{cf}{\enot Cf}\Ee{eb,be1-ncf1}
+	\have{Anc}{\forall x \enot Cx}\Ai{cf}
+	\have{nEc}{\enot\exists x Cx}\by{QN}{Anc}
+\end{proof}
+
+\section{Estratégia de prova}
+
+Não há uma receita simples para provas, e não há substituto para a prática. Aqui, porém, estão algumas regras práticas e estratégias para manter em mente.
+
+\paragraph{Trabalhe de trás para frente a partir do que você quer.}
+O objetivo final é derivar a conclusão. Olhe para a conclusão e pergunte qual é a regra de introdução para seu operador lógico principal. Isso lhe dá uma ideia do que deveria acontecer \emph{imediatamente antes} da última linha da prova. Então você pode tratar esta linha como se fosse seu objetivo. Pergunte o que você poderia fazer para derivar este novo objetivo.
+
+Por exemplo: Se sua conclusão é um condicional $\script{A}\eif\script{B}$, planeje usar a regra {\eif}I. Isso requer iniciar uma subprova na qual você assume \script{A}. Na subprova, você quer derivar \script{B}.
+
+\paragraph{Trabalhe de frente para trás a partir do que você tem.}
+Quando você está iniciando uma prova, olhe para as premissas; mais tarde, olhe para as sentenças que você derivou até agora. Pense sobre as regras de eliminação para os operadores principais dessas sentenças. Elas lhe dirão quais são suas opções.
+
+Por exemplo: Se você tem $\forall x\script{A}$, pense em instanciá-la para qualquer constante que possa ser útil. Se você tem $\exists x\script{A}$ e pretende usar a regra $\exists$E, então você deve assumir $\script{A}[c|x]$ para algum $c$ que não esteja em uso e então derivar uma conclusão que não contenha $c$.
+
+Para uma prova curta, você pode ser capaz de eliminar as premissas e introduzir a conclusão. Uma prova longa é formalmente apenas um número de provas curtas ligadas together, então você pode preencher a lacuna alternando trabalhar de trás para frente a partir da conclusão e de frente para trás a partir das premissas.
+
+
+\paragraph{Mude o que você está olhando.}
+Regras de substituição podem frequentemente facilitar sua vida. Se uma prova parece impossível, tente algumas substituições diferentes.
+
+Por exemplo: É frequentemente difícil provar uma disjunção usando as regras básicas. Se você quer mostrar $\script{A}\eor\script{B}$, é frequentemente mais fácil mostrar $\enot\script{A}\eif\script{B}$ e usar a regra MC.
+
+Mostrar $\enot \exists x\script{A}$ também pode ser difícil, e é frequentemente mais fácil mostrar  $\forall x\enot \script{A}$ e usar a regra QN.
+
+Algumas regras de substituição devem se tornar segunda natureza. Se você vir uma disjunção negada, por exemplo, você deveria immediately pensar na regra de DeMorgan.
+
+\paragraph{Não se esqueça da prova indireta.}
+Se você não consegue encontrar uma maneira de mostrar algo diretamente, tente assumir sua negação.
+
+Lembre-se de que a maioria das provas pode ser feita indiretamente ou diretamente. Uma maneira pode ser mais fácil--- ou talvez uma desperte sua imaginação mais do que a outra--- mas qualquer uma é formalmente legítima.
+
+\paragraph{Repita conforme necessário.} Uma vez que você decidiu como pode chegar à conclusão, pergunte o que você pode fazer com as premissas. Então considere as sentenças alvo novamente e pergunte como você pode alcançá-las.
+
+\paragraph{Persista.}
+Tente coisas diferentes. Se uma abordagem falhar, então tente outra.
+
+
+
+
+\section{Conceitos da teoria da prova}
+
+Usaremos o símbolo `$\vdash$' para indicar que uma prova é possível. Este símbolo é chamado de \emph{torniquete}. Às vezes é chamado de \emph{torniquete simples}, para enfatizar que não é o símbolo do \emph{torniquete duplo} ($\models$), que usamos para representar a consequência semântica no cap.~\ref{ch.semantics}.
+
+Quando escrevemos $\{\script{A}_1,\script{A}_2,\ldots\}\vdash\script{B}$, isso significa que é possível dar uma prova de \script{B} com $\script{A}_1$,$\script{A}_2$,$\ldots$ como premissas. Com apenas uma premissa, omitimos as chaves, então $\script{A}\vdash\script{B}$ significa que há uma prova de \script{B} com \script{A} como premissa. Naturalmente, $\vdash\script{C}$ significa que há uma prova de \script{C} que não tem premissas.
+
+Frequentemente, provas lógicas são chamadas de \emph{derivações}. Então $\script{A}\vdash\script{B}$ pode ser lido como `\script{B} é derivável de \script{A}.'
+
+Um \define{teorema} é uma sentença que é derivável sem premissas; i.e., \script{T} é um teorema se e somente se $\vdash\script{T}$.
+
+Não é muito difícil mostrar que algo é um teorema--- você apenas tem que dar uma prova disso. Como você poderia mostrar que algo \emph{não} é um teorema? Se sua negação é um teorema, então você poderia fornecer uma prova. Por exemplo, é fácil provar $\enot(Pa \eand \enot Pa)$, o que mostra que $(Pa \eand \enot Pa)$ não pode ser um teorema. Para uma sentença que não é nem um teorema nem a negação de um teorema, no entanto, não há uma maneira fácil de mostrar isso. Você teria que demonstrar não apenas que certas estratégias de prova falham, mas que nenhuma prova é possível. Mesmo se você falhar em tentar provar uma sentença de mil maneiras diferentes, talvez a prova seja apenas longa e complexa demais para você discernir.
+
+Duas sentenças \script{A} e \script{B} são \define{comprovadamente equivalentes} se e somente se cada uma pode ser derivada da outra; i.e., $\script{A}\vdash\script{B}$ e $\script{B}\vdash\script{A}$
+
+É relativamente fácil mostrar que duas sentenças são comprovadamente equivalentes--- requer apenas um par de provas. Mostrar que sentenças são \emph{não} comprovadamente equivalentes seria muito mais difícil. Seria tão difícil quanto mostrar que uma sentença não é um teorema. (Na verdade, esses problemas são intercambiáveis. Você consegue pensar em uma sentença que seria um teorema se e somente se \script{A} e \script{B} fossem comprovadamente equivalentes?)
+
+O conjunto de sentenças $\{\script{A}_1,\script{A}_2,\ldots\}$ é \define{comprovadamente inconsistente} se e somente se uma contradição é derivável dele; i.e., para alguma sentença \script{B}, $\{\script{A}_1,\script{A}_2,\ldots\}\vdash\script{B}$ e $\{\script{A}_1,\script{A}_2,\ldots\}\vdash\enot \script{B}$.
+
+É fácil mostrar que um conjunto é comprovadamente inconsistente: Você apenas precisa assumir as sentenças no conjunto e provar uma contradição. Mostrar que um conjunto é \emph{não} comprovadamente inconsistente será muito mais difícil. Exigiria mais do que apenas fornecer uma prova ou duas; exigiria mostrar que provas de um certo tipo são \emph{impossíveis}.
+
+
+
+
+
+
+
+
+\section{Provas e modelos}
+Como você já deve suspeitar, há uma conexão entre \emph{teoremas} e \emph{tautologias}.
+
+Há uma maneira formal de mostrar que uma sentença é um teorema: Prove-a. Para cada linha, podemos verificar se essa linha segue pela regra citada. Pode ser difícil produzir uma prova de vinte linhas, mas não é tão difícil verificar cada linha da prova e confirmar que é legítima--- e se cada linha da prova individualmente é legítima, então toda a prova é legítima. Mostrar que uma sentença é uma tautologia, however, requer raciocinar em português sobre todos os modelos possíveis. Não há uma maneira formal de verificar se o raciocínio é sólido. Dada a escolha entre mostrar que uma sentença é um teorema e mostrar que é uma tautologia, seria mais fácil mostrar que é um teorema.
+
+Por outro lado, não há uma maneira formal de mostrar que uma sentença é \emph{não} um teorema. Precisaríamos raciocinar em português sobre todas as provas possíveis. No entanto, há um método formal para mostrar que uma sentença não é uma tautologia. Precisamos apenas construir um modelo no qual a sentença é falsa. Dada a escolha entre mostrar que uma sentença não é um teorema e mostrar que não é uma tautologia, seria mais fácil mostrar que não é uma tautologia.
+
+Felizmente, uma sentença é um teorema se e somente se é uma tautologia. Se fornecemos uma prova de $\vdash\script{A}$ e assim mostramos que é um teorema, segue que \script{A} é uma tautologia; i.e., $\models\script{A}$. Similarmente, se construímos um modelo no qual \script{A} é falsa e assim mostramos que não é uma tautologia, segue que \script{A} não é um teorema.
+
+Em geral, $\script{A}\vdash\script{B}$ se e somente se $\script{A}\models\script{B}$. Como tal:
+\begin{itemize}
+\item Um argumento é \emph{válido} se e somente se \emph{a conclusão é derivável das premissas}.
+\item Duas sentenças são \emph{logicamente equivalentes} se e somente se são \emph{comprovadamente equivalentes}.
+\item Um conjunto de sentenças é \emph{consistente} se e somente se é \emph{não comprovadamente inconsistente}.
+\end{itemize}
+Você pode escolher quando pensar em termos de provas e quando pensar em termos de modelos, fazendo o que for mais fácil para uma dada tarefa. A Tabela \ref{table.ProofOrModel} resume quando é melhor dar provas e quando é melhor dar modelos.
+
+Desta forma, provas e modelos nos dão um kit de ferramentas versátil para trabalhar com argumentos. Se podemos traduzir um argumento para LQ, então podemos medir seu peso lógico de uma forma puramente formal. Se é dedutivamente válido, podemos dar uma prova formal; se é inválido, podemos fornecer um contraexemplo formal.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular*}{\textwidth}{p{10em}|p{10em}|p{10em}|}
+\cline{2-3}
+
+ & {\centerline{SIM}} & {\centerline{NÃO}}\\
+\cline{2-3}
+
+\script{A} é uma tautologia? & prove $\vdash\script{A}$ & dê um modelo no qual \script{A} é falsa\\
+\cline{2-3}
+
+\script{A} é uma contradição? &  prove $\vdash\enot\script{A}$ & dê um modelo no qual \script{A} é verdadeira\\
+\cline{2-3}
+
+\script{A} é contingente? & dê um modelo no qual \script{A} é verdadeira e outro no qual \script{A} é falsa & prove $\vdash\script{A}$ ou $\vdash\enot\script{A}$\\
+\cline{2-3}
+
+\script{A} e \script{B} são equivalentes? & prove \mbox{$\script{A}\vdash\script{B}$} e \mbox{$\script{B}\vdash\script{A}$}  & dê um modelo no qual \script{A} e \script{B} têm valores de verdade diferentes\\
+\cline{2-3}
+
+O conjunto \model{A} é consistente? & dê um modelo no qual todas as sentenças em \model{A} são verdadeiras & tomando as sentenças em \model{A}, prove \script{B} e \enot\script{B}\\
+\cline{2-3}
+
+O argumento \mbox{`\script{P}, \therefore\ \script{C}'} é válido? & prove $\script{P}\vdash\script{C}$ & dê um modelo no qual \script{P} é verdadeira e \script{C} é falsa\\
+\cline{2-3}
+\end{tabular*}
+\end{center}
+\caption{Às vezes é mais fácil mostrar algo fornecendo provas do que fornecendo modelos. Às vezes é o contrário.  Depende do que você está tentando mostrar.}
+\label{table.ProofOrModel}
+\end{table}
+
+
+
+\section{Corretude e completude}
+
+Este kit de ferramentas é incrivelmente conveniente. Também é intuitivo, porque parece natural que a provabilidade e a consequência semântica devam concordar. No entanto, não se engane pela similaridade dos símbolos `$\models$' e `$\vdash$.' O fato de que estes dois são realmente intercambiáveis não é uma coisa simples de provar.
+
+Por que deveríamos pensar que um argumento que \emph{pode ser provado} é necessariamente um argumento \emph{válido}? Isto é, por que pensar que $\script{A}\vdash\script{B}$ implica $\script{A}\models\script{B}$?
+
+Este é o problema da \define{corretude}. Um sistema de prova é \define{correto} se não há provas de argumentos inválidos. Demonstrar que o sistema de prova é correto exigiria mostrar que \emph{qualquer} prova possível é a prova de um argumento válido. Não seria suficiente simplesmente ter sucesso ao tentar provar muitos argumentos válidos e falhar ao tentar provar inválidos.
+
+Felizmente, há uma maneira de abordar isso passo a passo. Se usar a regra {\eand}E na última linha de uma prova nunca pudesse mudar um argumento válido em um inválido, então usar a regra muitas vezes não poderia tornar um argumento inválido. Similarmente, se usar as regras {\eand}E e {\eor}E individualmente na última linha de uma prova nunca pudesse mudar um argumento válido em um inválido, então usá-las em combinação também não poderia.
+
+A estratégia é mostrar para toda regra de inferência que ela sozinha não poderia tornar um argumento válido em inválido. Segue que as regras usadas em combinação não tornariam um argumento válido inválido. Como uma prova é apenas uma série de linhas, cada uma justificada por uma regra de inferência, isso mostraria que todo argumento provável é válido.
+
+Considere, por exemplo, a regra {\eand}I. Suponha que a usemos para adicionar \script{A}\eand\script{B} a um argumento válido. Para que a regra seja aplicável, \script{A} e \script{B} já devem estar disponíveis na prova. Uma vez que o argumento até agora é válido, \script{A} e \script{B} são ou premissas do argumento ou consequências válidas das premissas. Como tal, qualquer modelo no qual as premissas são verdadeiras deve ser um modelo no qual \script{A} e \script{B} são verdadeiros. De acordo com a definição de \define{verdade em QL}, isso significa que \script{A}\eand\script{B} também é verdadeiro em tal modelo. Portanto, \script{A}\eand\script{B} segue validamente das premissas. Isso significa que usar a regra {\eand}E para estender uma prova válida produz outra prova válida.
+
+Para mostrar que o sistema de prova é correto, precisaríamos mostrar isso para as outras regras de inferência. Como as regras derivadas são consequências das regras básicas, seria suficiente fornecer argumentos similares para as outras 16 regras básicas. Este exercício tedioso está além do escopo deste livro.
+
+Dada uma prova de que o sistema de prova é correto, segue que todo teorema é uma tautologia.
+
+Ainda é possível perguntar: Por que pensar que \emph{todo} argumento válido é um argumento que pode ser provado?  Isto é, por que pensar que $\script{A}\models\script{B}$ implica $\script{A}\vdash\script{B}$?
+
+Este é o problema da \define{completude}. Um sistema de prova é \define{completo} se há uma prova de todo argumento válido. A completude para uma linguagem como LQ foi primeiro provada por Kurt G\"odel em 1929. A prova está além do escopo deste livro.
+
+O ponto importante é que, felizmente, o sistema de prova para LQ é simultaneamente correto e completo. Este não é o caso para todos os sistemas de prova e todas as linguagens formais. Porque é verdade para LQ, podemos escolher dar provas ou construir modelos--- o que for mais fácil para a tarefa em questão.
+
+
+
+
+\section*{Resumo de definições}
+\begin{itemize}
+\item Uma sentença \script{A} é um \define{teorema} se e somente se $\vdash\script{A}$.
+
+\item Duas sentenças \script{A} e \script{B} são \define{comprovadamente equivalentes} se e somente se $\script{A}\vdash\script{B}$ e $\script{B}\vdash\script{A}$.
+
+\item $\{\script{A}_1,\script{A}_2,\ldots\}$ é \define{comprovadamente inconsistente} se e somente se, para alguma sentença \script{B}, $\{\script{A}_1,\script{A}_2,\ldots\}\vdash(\script{B} \eand \enot \script{B})$.
+\end{itemize}
+
+
+
+\practiceproblems
+
+\solutions
+\problempart
+\label{pr.justifyLSproof}
+Forneça uma justificação (regra e números de linha) para cada linha de prova que requer uma.
+\begin{multicols}{2}
+\begin{proof}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}
+\have{3}{W}{}
+\have{4}{\enot B} {}
+\have{5}{J \eand K} {}
+\have{6}{K}{}
+\end{proof}
+
+\begin{proof}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}
+\open
+	\hypo{a1}{\enot L}
+	\have{a2}{\enot O}{}
+	\have{a3}{L}{}
+	\have{a4}{\enot L}{}
+\close
+\have{3}{L}{}
+\end{proof}
+
+\begin{proof}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}
+\open
+	\hypo{a1}{\enot(N \eor  C)}
+	\have{a2}{\enot N \eand \enot C} {}
+	\open
+		\hypo{b1}{Z}
+		\have{b2}{C \eand \enot N}{}
+		\have{b3}{C}{}
+		\have{b4}{\enot C}{}
+	\close
+	\have{a3}{\enot Z}{}
+	\have{a4}{N \eand \enot C}{}
+	\have{a5}{N}{}
+	\have{a6}{\enot N}{}
+\close
+\have{3}{N \eor C}{}
+\end{proof}
+\end{multicols}
+
+\solutions
+\problempart
+\label{pr.solvedSLproofs}
+Dê uma prova para cada argumento em LS.
+\begin{earg}
+\item $K\eand L$, \therefore $K\eiff L$
+\item $A\eif (B\eif C)$, \therefore $(A\eand B)\eif C$
+\item $P \eand (Q\eor R)$, $P\eif \enot R$, \therefore $Q\eor E$
+\item $(C\eand D)\eor E$, \therefore $E\eor D$
+\item $\enot F\eif G$, $F\eif H$, \therefore $G\eor H$
+\item $(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M$ \therefore $M$
+\end{earg}
+
+\problempart
+Dê uma prova para cada argumento em LS.
+\begin{earg}
+\item $Q\eif(Q\eand\enot Q)$, \therefore\ $\enot Q$
+\item $J\eif\enot J$, \therefore\ $\enot J$
+\item $E\eor F$, $F\eor G$, $\enot F$, \therefore\ $E \eand G$
+\item $A\eiff B$, $B\eiff C$, \therefore\ $A\eiff C$
+\item $M\eor(N\eif M)$, \therefore\ $\enot M \eif \enot N$
+\item $S\eiff T$, \therefore\ $S\eiff (T\eor S)$
+\item $(M \eor N) \eand (O \eor P)$, $N \eif P$, $\enot P$, \therefore\ $M\eand O$
+\item $(Z\eand K) \eor (K\eand M)$, $K \eif D$, \therefore\ $D$
+\end{earg}
+
+
+
+\problempart
+Mostre que cada uma das seguintes sentenças é um teorema em LS.
+\begin{earg}
+\item $O \eif O$
+\item $N \eor \enot N$
+\item $\enot(P\eand \enot P)$
+\item $\enot(A \eif \enot C) \eif (A \eif C)$
+\item $J \eiff [J\eor (L\eand\enot L)]$
+\end{earg}
+
+\problempart
+Mostre que cada um dos seguintes pares de sentenças são comprovadamente equivalentes em LS.
+\begin{earg}
+\item $\enot\enot\enot\enot G$, $G$
+\item $T\eif S$, $\enot S \eif \enot T$
+\item $R \eiff E$, $E \eiff R$
+\item $\enot G \eiff H$, $\enot(G \eiff H)$
+\item $U \eif I$, $\enot(U \eand \enot I)$
+\end{earg}
+
+\problempart
+Forneça provas para mostrar cada um dos seguintes.
+\begin{earg}
+\item $M \eand (\enot N \eif \enot M) \vdash (N \eand M) \eor \enot M$
+\item \{$C\eif(E\eand G)$, $\enot C \eif G$\} $\vdash$ $G$
+\item \{$(Z\eand K)\eiff(Y\eand M)$, $D\eand(D\eif M)$\} $\vdash$ $Y\eif Z$
+\item \{$(W \eor X) \eor (Y \eor Z)$, $X\eif Y$, $\enot Z$\} $\vdash$ $W\eor Y$
+\end{earg}
+
+
+
+\problempart
+Para o seguinte, forneça provas usando apenas as regras básicas. As provas serão mais longas do que provas das mesmas afirmações usando as regras derivadas.
+\begin{earg}
+\item Mostre que MT é uma regra derivada legítima. Usando apenas as regras básicas, prove o seguinte: \script{A}\eif\script{B}, \enot\script{B}, \therefore\ \enot\script{A}
+\item Mostre que Comm é uma regra legítima para o bicondicional. Usando apenas as regras básicas, prove que $\script{A}\eiff\script{B}$ e $\script{B}\eiff\script{A}$ são equivalentes.
+\item Usando apenas as regras básicas, prove a seguinte instância das Leis de DeMorgan: $(\enot A \eand \enot B)$, \therefore\ $\enot(A \eor B)$
+\item Sem usar a regra QN, prove $\enot\exists x\enot\script{A} \vdash \forall x\script{A}$
+\item Mostre que {\eiff}{ex} é uma regra derivada legítima. Usando apenas as regras básicas, prove que $D\eiff E$ e $(D\eif E)\eand(E\eif D)$ são equivalentes.
+\end{earg}
+
+
+\solutions
+\problempart
+\label{pr.subinstanceQL}
+\begin{earg}
+\item Identifique quais dos seguintes são instâncias de substituição de $\forall x Rcx$: $Rac$, $Rca$, $Raa$, $Rcb$, $Rbc$, $Rcc$, $Rcd$, $Rcx$
+\item Identifique quais dos seguinitos são instâncias de substituição de $\exists x\forall y Lxy$:
+$\forall y Lby$, $\forall x Lbx$, $Lab$, $\exists x Lxa$
+\end{earg}
+
+
+
+\newpage
+\solutions
+\problempart
+\label{pr.justifyQLproof}
+Forneça uma justificação (regra e números de linha) para cada linha de prova que requer uma.
+\begin{multicols}{2}
+%$\{\forall x(\exists y)(Rxy \eor Ryx),\forall x\enot Rmx\}\vdash\exists xRxm$
+\begin{proof}
+\hypo{p1}{\forall x\exists y(Rxy \eor Ryx)}
+\hypo{p2}{\forall x\enot Rmx}
+\have{3}{\exists y(Rmy \eor Rym)}{}
+	\open
+		\hypo{a1}{Rma \eor Ram}
+		\have{a2}{\enot Rma}{}
+		\have{a3}{Ram}{}
+		\have{a4}{\exists x Rxm}{}
+	\close
+\have{n}{\exists x Rxm} {}
+\end{proof}
+
+%$\{\forall x(\exists yLxy \eif \forall zLzx), Lab\} \vdash \forall xLxx$
+\begin{proof}
+\hypo{1}{\forall x(\exists yLxy \eif \forall zLzx)}
+\hypo{2}{Lab}
+\have{3}{\exists y Lay \eif \forall zLza}{}
+\have{4}{\exists y Lay} {}
+\have{5}{\forall z Lza} {}
+\have{6}{Lca}{}
+\have{7}{\exists y Lcy \eif \forall zLzc}{}
+\have{8}{\exists y Lcy}{}
+\have{9}{\forall z Lzc}{}
+\have{10}{Lcc}{}
+\have{11}{\forall x Lxx}{}
+\end{proof}
+
+
+% $\{\forall x(Jx \eif Kx), \exists x\forall y Lxy, \forall x Jx\} \vdash \exists x(Kx \eand Lxx)$
+\begin{proof}
+\hypo{a}{\forall x(Jx \eif Kx)}
+\hypo{b}{\exists x\forall y Lxy}
+\hypo{c}{\forall x Jx}
+\open
+	\hypo{2}{\forall y Lay}
+	\have{d}{Ja}{}
+	\have{e}{Ja \eif Ka}{}
+	\have{f}{Ka}{}
+	\have{3}{Laa}{}
+	\have{4}{Ka \eand Laa}{}
+	\have{5}{\exists x(Kx \eand Lxx)}{}
+\close
+\have{j}{\exists x(Kx \eand Lxx)}{}
+\end{proof}
+
+
+
+
+
+%$\vdash \exists x Mx \eor \forall x\enot Mx$
+\begin{proof}
+	\open
+		\hypo{p1}{\enot (\exists x Mx \eor \forall x\enot Mx)}
+		\have{p2}{\enot \exists x Mx \eand \enot \forall x\enot Mx}{}
+		\have{p3}{\enot \exists x Mx}{}
+		\have{p4}{\forall x\enot Mx}{}
+		\have{p5}{\enot \forall x\enot Mx}{}
+	\close
+\have{n}{\exists x Mx \eor \forall x\enot Mx} {}
+\end{proof}
+\end{multicols}
+
+\solutions
+\problempart
+\label{pr.someQLproofs}
+Forneça uma prova de cada afirmação.
+\begin{earg}
+\item $\vdash \forall x Fx \eor \enot \forall x Fx$
+\item $\{\forall x(Mx \eiff Nx), Ma\eand\exists x Rxa\}\vdash \exists x Nx$
+\item $\{\forall x(\enot Mx \eor Ljx), \forall x(Bx\eif Ljx), \forall x(Mx\eor Bx)\}\vdash \forall xLjx$
+\item $\forall x(Cx \eand Dt)\vdash \forall xCx \eand Dt$
+\item $\exists x(Cx \eor Dt)\vdash \exists x Cx \eor Dt$
+\end{earg}
+
+\problempart
+Forneça uma prova do argumento sobre Billy na p.~\pageref{surgeon2}.
+
+
+
+\problempart
+\label{pr.BarbaraEtc.proof1}
+Olhe de volta para a Parte \ref{pr.BarbaraEtc} na p.~\pageref{pr.BarbaraEtc}. Forneça provas para mostrar que cada uma das formas de argumento é válida em LQ.
+
+
+
+\problempart
+\label{pr.BarbaraEtc.proof2}
+Aristóteles e seus sucessores identificaram outras formas silogísticas. Simbolize cada uma das seguintes formas de argumento em LQ e adicione as suposições adicionais `Há um $A$' e `Há um $B$.' Então prove que as formas de argumento suplementadas são válidas em LQ.
+
+\begin{description}
+\item[Darapti:] Todos $A$s são $B$s. Todos $A$s são $C$s.
+	\therefore\  Algum $B$ é $C$.
+\item[Felapton:] Nenhum $B$ é $C$. Todos $A$s são $B$s.
+	\therefore\  Algum $A$ não é $C$.
+\item[Barbari:] Todos $B$s são $C$s. Todos $A$s são $B$s.
+	\therefore\  Algum $A$ é $C$.
+\item[Camestros:] Todos $C$s são $B$s. Nenhum $A$ é $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Celaront:] Nenhum $B$ é $C$. Todos $A$s são $B$s.
+	\therefore\  Algum $A$ não é $C$.
+\item[Cesaro:] Nenhum $C$ é $B$. Todos $A$s são $B$s.
+	\therefore\  Algum $A$ não é $C$.
+\item[Fapesmo:] Todos $B$s são $C$s. Nenhum $A$ é $B$.
+	\therefore\  Algum $C$ não é $A$.
+\end{description}
+
+
+
+\problempart
+Forneça uma prova de cada afirmação.
+\begin{earg}
+\item $\forall x \forall y Gxy\vdash\exists x Gxx$
+\item $\forall x \forall y (Gxy \eif Gyx) \vdash \forall x\forall y (Gxy \eiff Gyx)$
+\item $\{\forall x(Ax\eif Bx), \exists x Ax\} \vdash \exists x Bx$
+\item $\{Na \eif \forall x(Mx \eiff Ma), Ma, \enot Mb\}\vdash \enot Na$
+\item $\vdash\forall z (Pz \eor \enot Pz)$
+\item $\vdash\forall x Rxx\eif \exists x \exists y Rxy$
+\item $\vdash\forall y \exists x (Qy \eif Qx)$
+\end{earg}
+
+
+
+\problempart
+Mostre que cada par de sentenças é comprovadamente equivalente.
+\begin{earg}
+\item $\forall x (Ax\eif \enot Bx)$, $\enot\exists x(Ax \eand Bx)$
+\item $\forall x (\enot Ax\eif Bd)$, $\forall x Ax \eor Bd$
+\item $\exists x Px \eif Qc$, $\forall x (Px \eif Qc)$
+\end{earg}
+
+
+
+\problempart
+Mostre que cada um dos seguintes é comprovadamente inconsistente.
+\begin{earg}
+\item \{$Sa\eif Tm$, $Tm \eif Sa$, $Tm \eand \enot Sa$\}
+\item \{$\enot\exists x Rxa$, $\forall x \forall y Ryx$\}
+\item \{$\enot\exists x \exists y Lxy$, $Laa$\}
+\item \{$\forall x(Px \eif Qx)$, $\forall z(Pz \eif Rz)$, $\forall y Py$, $\enot Qa \eand \enot Rb$\}
+\end{earg}
+
+
+
+\solutions
+\problempart
+\label{pr.likes}
+Escreva uma chave de simbolização para o seguinte argumento, traduza-o e prove-o:
+\begin{quote}
+Há alguém que gosta de todos que gostam de todos que ele gosta. Portanto, há alguém que gosta de si mesmo.
+\end{quote}
+
+\problempart
+\label{pr.identity}
+Forneça uma prova de cada afirmação.
+\begin{earg}
+\item $\{Pa \eor Qb, Qb \eif b=c, \enot Pa\}\vdash Qc$
+\item $\{m=n \eor n=o, An\}\vdash Am \eor Ao$
+\item $\{\forall x x=m, Rma\}\vdash \exists x Rxx$
+\item $\enot \exists x x \neq m \vdash \forall x\forall y (Px \eif Py)$
+\item $\forall x\forall y(Rxy \eif x=y)\vdash Rab \eif Rba$
+\item $\{\exists x Jx, \exists x \enot Jx\}\vdash \exists x \exists y\ x\neq y$
+\item $\{\forall x(x=n \eiff Mx), \forall x(Ox \eor \enot Mx)\}\vdash On$
+\item $\{\exists x Dx, \forall x(x=p \eiff Dx)\}\vdash Dp$
+\item $\{\exists x\bigl[Kx \eand \forall y(Ky \eif x=y) \eand Bx\bigr], Kd\}\vdash Bd$
+\item $\vdash Pa \eif \forall x(Px \eor x \neq a)$
+\end{earg}
+
+
+
+\problempart
+Olhe de volta para a Parte \ref{pr.QLarguments} na p.~\pageref{pr.QLarguments}. Para cada argumento: Se é válido em LQ, dê uma prova. Se é inválido, construa um modelo para mostrar que é inválido.
+
+\solutions
+\problempart
+\label{pr.QLequivornot}
+Para cada um dos seguintes pares de sentenças: Se são logicamente equivalentes em LQ, dê provas para mostrar isso. Se não são, construa um modelo para mostrar isso.
+\begin{earg}
+\item $\forall x Px \eif Qc$, $\forall x (Px \eif Qc)$
+\item $\forall x Px \eand Qc$, $\forall x (Px \eand Qc)$
+\item $Qc \eor \exists x Qx$, $\exists x (Qc \eor Qx)$
+\item $\forall x\forall y \forall z Bxyz$, $\forall x Bxxx$
+\item $\forall x\forall y Dxy$, $\forall y\forall x Dxy$
+\item $\exists x\forall y Dxy$, $\forall y\exists x Dxy$
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.QLvalidornot}
+Para cada um dos seguintes argumentos: Se é válido em LQ, dê uma prova. Se é inválido, construa um modelo para mostrar que é inválido.
+\begin{earg}
+\item $\forall x\exists y Rxy$, \therefore\ $\exists y\forall x Rxy$
+\item $\exists y\forall x Rxy$, \therefore\ $\forall x\exists y Rxy$
+\item $\exists x(Px \eand \enot Qx)$, \therefore\ $\forall x(Px \eif \enot Qx)$
+\item $\forall x(Sx \eif Ta)$, $Sd$, \therefore\ $Ta$
+\item $\forall x(Ax\eif Bx)$, $\forall x(Bx \eif Cx)$, \therefore\ $\forall x(Ax \eif Cx)$
+\item $\exists x(Dx \eor Ex)$, $\forall x(Dx \eif Fx)$, \therefore\ $\exists x(Dx \eand Fx)$
+\item $\forall x\forall y(Rxy \eor Ryx)$, \therefore\ $Rjj$
+\item $\exists x\exists y(Rxy \eor Ryx)$, \therefore\ $Rjj$
+\item $\forall x Px \eif \forall x Qx$, $\exists x \enot Px$, \therefore\ $\exists x \enot Qx$
+\item $\exists x Mx \eif \exists x Nx$, $\enot \exists x Nx$, \therefore\ $\forall x \enot Mx$
+\end{earg}
+
+
+
+
+
+
+\problempart
+\begin{earg}
+\item Se você sabe que $\script{A}\vdash\script{B}$, o que você pode dizer sobre $(\script{A}\eand\script{C})\vdash\script{B}$? Explique sua resposta.
+\item Se você sabe que $\script{A}\vdash\script{B}$, o que você pode dizer sobre $(\script{A}\eor\script{C})\vdash\script{B}$? Explique sua resposta.
+\end{earg}

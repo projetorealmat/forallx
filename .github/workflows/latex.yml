@@ -1,0 +1,59 @@
+name: Build and Validate PDF
+
+on:
+  # Branch pushes only; release tags use release-pdf.yml.
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: latex-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live with XeLaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-lang-english \
+            texlive-lang-portuguese \
+            texlive-xetex \
+            latexmk
+
+      - name: Compile forallx.tex with XeLaTeX
+        run: |
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error forallx.tex
+
+      - name: Fail on unresolved references
+        run: |
+          if grep -nE 'Reference .* undefined|There were undefined references' forallx.log; then
+            echo 'Unresolved LaTeX references detected.'
+            exit 1
+          fi
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: forallx-pdf-${{ github.sha }}
+          path: forallx.pdf
+          if-no-files-found: error

@@ -1,0 +1,436 @@
+%!TEX root = forallx.tex
+\chapter{Tabelas-verdade}
+\label{ch.TruthTables}
+
+Este capítulo introduz um modo de avaliar sentenças e argumentos de LS. Embora possa ser trabalhoso, o método das tabelas-verdade é um procedimento puramente mecânico, que não exige intuição nem qualquer tipo de "percepção" especial.
+
+\section{Conectivos verofuncionais}
+
+Qualquer sentença não atômica de LS é composta de sentenças atômicas com conectivos sentenciais. O valor de verdade da sentença composta depende apenas dos valores de verdade das sentenças atômicas que a compõem. Para saber o valor de verdade de $(D\eiff E)$, por exemplo, você só precisa saber o valor de verdade de $D$ e o valor de verdade de $E$. Conectivos que funcionam desse modo são chamados de \define{verofuncionais} (isto é, seu comportamento depende apenas dos valores de verdade das partes).
+
+Neste capítulo, exploraremos o fato de que todos os operadores lógicos de LS são verofuncionais — isso torna possível construir tabelas-verdade para determinar as propriedades lógicas das sentenças. É importante perceber, porém, que isso não vale para todas as linguagens. Em português (como em inglês), é possível formar uma nova sentença a partir de uma sentença mais simples \script{X} dizendo: "É possível que \script{X}". O valor de verdade dessa nova sentença não depende diretamente do valor de verdade de \script{X}. Mesmo que \script{X} seja falsa, pode ser que, em algum sentido, \script{X} \emph{pudesse} ter sido verdadeira — nesse caso, a nova sentença seria verdadeira. Alguns sistemas formais, chamados de \emph{lógicas modais}, têm um operador para {possibilidade}. Em uma lógica modal, poderíamos traduzir "É possível que \script{X}" como {\large $\diamond$}\script{X}. No entanto, a possibilidade de traduzir sentenças como essa vem com um custo: o operador {\large $\diamond$} não é verofuncional, e por isso lógicas modais não são adequadas para o uso de tabelas-verdade da forma simples que veremos aqui.
+
+
+\section{Tabelas-verdade completas}
+
+O valor de verdade de sentenças que contêm apenas um conectivo é dado pela tabela-verdade característica desse conectivo. No capítulo anterior, escrevemos essas tabelas-verdade com `T' para "verdadeiro" e `F' para "falso". É importante notar, porém, que aqui não estamos falando de "verdade" em nenhum sentido profundo ou "cosmológico". Poetas e filósofos podem discutir longamente sobre a natureza e o significado de \emph{verdade}, mas as funções de verdade em LS são apenas regras que transformam valores de entrada em valores de saída. Para destacar isso, neste capítulo escreveremos `1' e `0' em vez de `T' e `F'. Mesmo que interpretemos `1' como "verdadeiro" e `0' como "falso", computadores podem ser programados para preencher tabelas-verdade de modo puramente mecânico. Em uma máquina, `1' pode significar que um registrador está ligado, e `0', que o registrador está desligado. Do ponto de vista matemático, eles são apenas os dois valores possíveis que uma sentença de LS pode assumir.
+
+Aqui estão as tabelas-verdade dos conectivos de LS, escritas em termos de 1s e 0s.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{c|c}
+\script{A} & \enot\script{A}\\
+\hline
+1 & 0\\
+0 & 1 
+\end{tabular}
+\ \ \ \ 
+\begin{tabular}{c|c|c|c|c|c}
+\script{A} & \script{B} & \script{A}\eand\script{B} & \script{A}\eor\script{B} & \script{A}\eif\script{B} & \script{A}\eiff\script{B}\\
+\hline
+1 & 1 & 1 & 1 & 1 & 1\\
+1 & 0 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 1 & 1 & 0\\
+0 & 0 & 0 & 0 & 1 & 1
+\end{tabular}
+\end{center}
+\caption{As tabelas-verdade características dos conectivos de LS.}
+\label{table.CharacteristicTTs}
+\end{table}
+
+A tabela-verdade característica da conjunção, por exemplo, fornece as condições de verdade de qualquer sentença da forma $(\script{A}\eand\script{B})$. Mesmo que as conjunções \script{A} e \script{B} sejam sentenças longas e complicadas, a conjunção é verdadeira se, e somente se, tanto \script{A} quanto \script{B} forem verdadeiras. Considere a sentença $(H\eand I)\eif H$. Tomamos todas as possíveis combinações de verdadeiro e falso para $H$ e $I$, o que nos dá quatro linhas. Copiamos então os valores de verdade das letras sentenciais e os escrevemos sob as letras na sentença.
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
+$H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
+\hline
+ 1 & 1 & \TTbf{1} & & \TTbf{1} & & \TTbf{1}\\
+ 1 & 0 & \TTbf{1} & & \TTbf{0} & & \TTbf{1}\\
+ 0 & 1 & \TTbf{0} & & \TTbf{1} & & \TTbf{0}\\
+ 0 & 0 & \TTbf{0} & & \TTbf{0} & & \TTbf{0}
+\end{tabular}
+\end{center}
+Agora considere a subsentença $H\eand I$. Ela é uma conjunção \script{A}\eand\script{B} em que $H$ faz o papel de \script{A} e $I$ faz o papel de \script{B}. $H$ e $I$ são ambas verdadeiras na primeira linha. Como uma conjunção é verdadeira quando ambos os componentes da conjunção são verdadeiros, escrevemos 1 sob o símbolo de conjunção. Continuamos para as outras três linhas e obtemos:
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
+$H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
+\hline
+ & & \script{A} & \eand & \script{B} & & \\
+ 1 & 1 & 1 & \TTbf{1} & 1 & & 1\\
+ 1 & 0 & 1 & \TTbf{0} & 0 & & 1\\
+ 0 & 1 & 0 & \TTbf{0} & 1 & & 0\\
+ 0 & 0 & 0 & \TTbf{0} & 0 & & 0
+\end{tabular}
+\end{center}
+A sentença inteira é um condicional \script{A}\eif\script{B}, em que $(H \eand I)$ é \script{A} e $H$ é \script{B}. Na segunda linha, por exemplo, $(H\eand I)$ é falsa e $H$ é verdadeira. Como um condicional é verdadeiro quando o antecedente é falso, escrevemos 1 na segunda linha sob o símbolo do condicional. Fazemos isso para as demais linhas e obtemos:
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
+$H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
+\hline
+ & &  & \script{A} &  &\eif &\script{B} \\
+ 1 & 1 &  & {1} &  &\TTbf{1} & 1\\
+ 1 & 0 &  & {0} &  &\TTbf{1} & 1\\
+ 0 & 1 &  & {0} &  &\TTbf{1} & 0\\
+ 0 & 0 &  & {0} &  &\TTbf{1} & 0
+\end{tabular}
+\end{center}
+A coluna de 1s sob o condicional nos mostra que a sentença \mbox{$(H \eand I)\eif I$} é verdadeira independentemente dos valores de verdade de $H$ e $I$. Eles podem ser verdadeiros ou falsos em qualquer combinação e, ainda assim, a sentença composta sai verdadeira. É crucial que tenhamos considerado todas as combinações possíveis. Se tivéssemos apenas uma tabela de duas linhas, não poderíamos ter certeza de que a sentença não seria falsa em alguma outra combinação de valores de verdade.
+
+Neste exemplo, não repetimos todas as entradas em cada tabela sucessiva. Mas, quando realmente escrevemos tabelas-verdade no papel, é impraticável apagar colunas inteiras ou reescrever a tabela toda a cada passo. Embora fique mais "apertado", a tabela-verdade pode ser escrita assim:
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
+$H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
+\hline
+ 1 & 1 & 1 & {1} & 1 & 1 & 1\\
+ 1 & 0 & 1 & {0} & 0 & 1 & 1\\
+ 0 & 1 & 0 & {0} & 1 & 1 & 0\\
+ 0 & 0 & 0 & {0} & 0 & 1 & 0
+\end{tabular}
+\end{center}
+A maior parte das colunas sob a sentença está ali apenas para "controle de contas". Quando você ficar mais à vontade com tabelas-verdade, provavelmente não precisará mais copiar as colunas de cada letra sentencial. De todo modo, o valor de verdade da sentença em cada linha é apenas o valor na coluna sob o conectivo lógico principal da sentença; neste caso, a coluna sob o condicional.
+
+Uma \define{tabela-verdade completa} tem uma linha para cada combinação possível de 1 e 0 para todas as letras sentenciais envolvidas. O tamanho da tabela-verdade completa depende do número de letras sentenciais diferentes na sentença. Uma sentença que contém apenas uma letra sentencial exige apenas duas linhas, como na tabela característica da negação. Isso continua valendo mesmo que a mesma letra apareça muitas vezes, como na sentença
+$[(C\eiff C) \eif C] \eand \enot(C \eif C)$.
+A tabela-verdade completa exige apenas duas linhas porque há apenas duas possibilidades: $C$ pode ser verdadeira ou pode ser falsa. Uma mesma letra sentencial nunca pode ser marcada ao mesmo tempo como 1 e como 0 na mesma linha. A tabela-verdade para essa sentença fica assim:
+\begin{center}
+\begin{tabular}{c|@{\TTon}*{15}{c}@{\TToff}}
+$C$&$[($&$C$&\eiff&$C$&$)$&\eif&$C$&$]$&\eand&\enot&$($&$C$&\eif&$C$&$)$\\
+\hline
+ 1 &    & 1 &  1  & 1 &   & 1  & 1 & &\TTbf{0}&  0& &   1 &  1  & 1 &   \\
+ 0 &    & 0 &  1  & 0 &   & 0  & 0 & &\TTbf{0}&  0& &   0 &  1  & 0 &   \\
+\end{tabular}
+\end{center}
+Observando a coluna sob o conectivo principal, vemos que a sentença é falsa em ambas as linhas da tabela; isto é, ela é falsa tanto se $C$ é verdadeira quanto se $C$ é falsa.
+
+Uma sentença que contém duas letras sentenciais exige quatro linhas para uma tabela-verdade completa, como nas tabelas características e na tabela de $(H \eand I)\eif I$.
+
+Uma sentença que contém três letras sentenciais exige oito linhas. Por exemplo:
+\begin{center}
+\begin{tabular}{c|c|c|@{\TTon}*{5}{c}@{\TToff}}
+$M$&$N$&$P$&$M$&\eand&$(N$&\eor&$P)$\\
+\hline
+%           M        &     N   v   P
+1 & 1 & 1 & 1 & \TTbf{1} & 1 & 1 & 1\\
+1 & 1 & 0 & 1 & \TTbf{1} & 1 & 1 & 0\\
+1 & 0 & 1 & 1 & \TTbf{1} & 0 & 1 & 1\\
+1 & 0 & 0 & 1 & \TTbf{0} & 0 & 0 & 0\\
+0 & 1 & 1 & 0 & \TTbf{0} & 1 & 1 & 1\\
+0 & 1 & 0 & 0 & \TTbf{0} & 1 & 1 & 0\\
+0 & 0 & 1 & 0 & \TTbf{0} & 0 & 1 & 1\\
+0 & 0 & 0 & 0 & \TTbf{0} & 0 & 0 & 0
+\end{tabular}
+\end{center}
+A partir dessa tabela, sabemos que a sentença $M\eand(N\eor P)$ pode ser verdadeira ou falsa dependendo dos valores de verdade de $M$, $N$ e $P$.
+
+Uma tabela-verdade completa para uma sentença com quatro letras sentenciais diferentes exige 16 linhas. Com cinco letras, 32 linhas. Com seis letras, 64 linhas. E assim por diante. Em geral: se uma tabela-verdade completa tem $n$ letras sentenciais diferentes, então ela deve ter $2^n$ linhas.
+
+Para preencher as colunas de uma tabela-verdade completa, comece pela letra sentencial mais à direita e alterne 1s e 0s. Na próxima coluna à esquerda, escreva dois 1s, depois dois 0s, e repita. Para a terceira letra, escreva quatro 1s seguidos de quatro 0s. Isso gera uma tabela de oito linhas, como acima. Para uma tabela de 16 linhas, a próxima coluna de letras sentenciais deve ter oito 1s seguidos de oito 0s. Para uma tabela de 32 linhas, a próxima coluna terá 16 1s seguidos de 16 0s. E assim por diante.
+
+
+\section{Usando tabelas-verdade}
+
+\subsection{Tautologias, contradições e sentenças contingentes}
+
+Recorde que uma sentença (em linguagem natural) é uma tautologia se ela tem de ser verdadeira como questão de lógica. Com uma tabela-verdade completa, consideramos todos os modos como o mundo poderia ser. Se a sentença é verdadeira em todas as linhas de uma tabela-verdade completa, então ela é verdadeira como questão de lógica, independentemente de como o mundo de fato é.
+
+Assim, uma sentença é uma \define{tautologia em LS} se a coluna sob seu conectivo principal tem 1 em todas as linhas de uma tabela-verdade completa.
+
+De modo análogo, uma sentença é uma \define{contradição em LS} se a coluna sob seu conectivo principal tem 0 em todas as linhas de uma tabela-verdade completa.
+
+Uma sentença é \define{contingente em LS} se ela não é nem tautologia nem contradição; isto é, se ela tem 1 em pelo menos uma linha e 0 em pelo menos uma outra linha.
+
+Pelas tabelas da seção anterior, sabemos que $(H\eand I)\eif H$ é uma tautologia, que $[(C\eiff C) \eif C] \eand \enot(C \eif C)$ é uma contradição, e que $M \eand (N \eor P)$ é contingente.
+
+
+\subsection{Equivalência lógica}
+
+Duas sentenças são logicamente equivalentes em português se elas têm o mesmo valor de verdade como questão de lógica. Mais uma vez, as tabelas-verdade nos permitem definir um conceito análogo para LS: duas sentenças são \define{logicamente equivalentes em LS} se elas têm o mesmo valor de verdade em todas as linhas de uma tabela-verdade completa.
+
+Considere as sentenças $\enot(A \eor B)$ e $\enot A \eand \enot B$. Elas são logicamente equivalentes? Para descobrir, construímos uma tabela-verdade:
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{4}{c}@{\TToff}|@{\TTon}*{5}{c}@{\TToff}}
+$A$&$B$&\enot&$(A$&\eor&$B)$&\enot&$A$&\eand&\enot&$B$\\
+\hline
+ 1 & 1 & \TTbf{0} & 1 & 1 & 1 & 0 & 1 & \TTbf{0} & 0 & 1\\
+ 1 & 0 & \TTbf{0} & 1 & 1 & 0 & 0 & 1 & \TTbf{0} & 1 & 0\\
+ 0 & 1 & \TTbf{0} & 0 & 1 & 1 & 1 & 0 & \TTbf{0} & 0 & 1\\
+ 0 & 0 & \TTbf{1} & 0 & 0 & 0 & 1 & 0 & \TTbf{1} & 1 & 0
+\end{tabular}
+\end{center}
+Observe as colunas dos conectivos principais: negação, na primeira sentença, e conjunção, na segunda. Nas três primeiras linhas, ambas têm valor 0. Na última linha, ambas têm valor 1. Como coincidem em todas as linhas, as duas sentenças são logicamente equivalentes.
+
+
+\subsection{Consistência}
+
+Um conjunto de sentenças em português é consistente se é logicamente possível que todas sejam verdadeiras ao mesmo tempo.
+Um conjunto de sentenças é \define{logicamente consistente em LS} se existe pelo menos uma linha de uma tabela-verdade completa em que todas as sentenças sejam verdadeiras (todas com valor 1). Ele é \define{inconsistente} caso contrário (isto é, se não há linha em que todas sejam verdadeiras).
+
+
+\subsection{Validade}
+
+Um argumento em português é válido se é logicamente impossível que as premissas sejam verdadeiras e a conclusão falsa ao mesmo tempo.
+Um argumento é \define{válido em LS} se não há linha de uma tabela-verdade completa em que todas as premissas sejam 1 e a conclusão seja 0; o argumento é \define{inválido em LS} se existe uma linha assim.
+
+Considere este argumento:
+\begin{earg}
+\item[] $\enot L \eif (J \eor L)$
+\item[] $\enot L$
+\item[\therefore] $J$
+\end{earg}
+Ele é válido? Para descobrir, construímos uma tabela-verdade.
+\begin{center}
+\begin{tabular}{c|c|@{\TTon}*{6}{c}@{\TToff}|@{\TTon}*{2}{c}@{\TToff}|@{\TTon}c@{\TToff}}
+$J$&$L$&\enot&$L$&\eif&$(J$&\eor&$L)$&\enot&L&J\\
+\hline
+%J   L   -   L      ->     (J   v   L)
+ 1 & 1 & 0 & 1 & \TTbf{1} & 1 & 1 & 1 & \TTbf{0} & 1 & \TTbf{1}\\
+ 1 & 0 & 1 & 0 & \TTbf{1} & 1 & 1 & 0 & \TTbf{1} & 0 & \TTbf{1}\\
+ 0 & 1 & 0 & 1 & \TTbf{1} & 0 & 1 & 1 & \TTbf{0} & 1 & \TTbf{0}\\
+ 0 & 0 & 1 & 0 & \TTbf{0} & 0 & 0 & 0 & \TTbf{1} & 0 & \TTbf{0}
+\end{tabular}
+\end{center}
+Sim, o argumento é válido.
+A única linha em que ambas as premissas são 1 é a segunda linha, e nessa linha a conclusão também é 1.
+
+
+\section{Tabelas-verdade parciais}
+
+Para mostrar que uma sentença é uma tautologia, precisamos mostrar que ela vale 1 em todas as linhas. Portanto, precisamos de uma tabela-verdade completa. Mas, para mostrar que uma sentença \emph{não} é uma tautologia, basta uma linha: uma linha em que a sentença tenha valor 0. Assim, para mostrar que algo não é tautologia, basta fornecer uma \emph{tabela-verdade parcial} de uma linha — não importa quantas letras sentenciais a sentença contenha.
+
+Considere, por exemplo, a sentença $(U \eand T) \eif (S \eand W)$. Queremos mostrar que ela \emph{não} é uma tautologia, fornecendo uma tabela-verdade parcial. Preenchemos a coluna da sentença inteira com 0. O conectivo principal da sentença é um condicional. Para que o condicional seja falso, o antecedente deve ser verdadeiro (1) e o consequente, falso (0). Assim, preenchemos:
+\begin{center}
+\begin{tabular}{c|c|c|c|@{\TTon}*{7}{c}@{\TToff}}
+$S$&$T$&$U$&$W$&$(U$&\eand&$T)$&\eif    &$(S$&\eand&$W)$\\
+\hline
+   &   &   &   &    &  1  &    &\TTbf{0}&    &   0 &   
+\end{tabular}
+\end{center}
+Para que $(U\eand T)$ seja verdadeira, tanto $U$ quanto $T$ devem ser verdadeiras.
+\begin{center}
+\begin{tabular}{c|c|c|c|@{\TTon}*{7}{c}@{\TToff}}
+$S$&$T$&$U$&$W$&$(U$&\eand&$T)$&\eif    &$(S$&\eand&$W)$\\
+\hline
+   & 1 & 1 &   &  1 &  1  & 1  &\TTbf{0}&    &   0 &   
+\end{tabular}
+\end{center}
+Agora só precisamos tornar $(S\eand W)$ falsa. Para isso, basta tornar pelo menos uma das sentenças $S$ ou $W$ falsa. Podemos tornar as duas falsas, se quisermos. O importante é que a sentença inteira saia falsa nessa linha. Fazendo uma escolha arbitrária, completamos a tabela assim:
+\begin{center}
+\begin{tabular}{c|c|c|c|@{\TTon}*{7}{c}@{\TToff}}
+$S$&$T$&$U$&$W$&$(U$&\eand&$T)$&\eif    &$(S$&\eand&$W)$\\
+\hline
+ 0 & 1 & 1 & 0 &  1 &  1  & 1  &\TTbf{0}&  0 &   0 & 0  
+\end{tabular}
+\end{center}
+
+Mostrar que algo é uma contradição exige uma tabela-verdade completa. Mostrar que algo \emph{não} é uma contradição exige apenas uma tabela-verdade parcial de uma linha, em que a sentença seja verdadeira.
+
+Uma sentença é contingente se não é nem tautologia nem contradição. Então, mostrar que uma sentença é contingente exige uma tabela-verdade parcial de \emph{duas linhas}: a sentença deve ser verdadeira em uma linha e falsa em outra. Por exemplo, podemos mostrar que a sentença acima é contingente com a seguinte tabela:
+\begin{center}
+\begin{tabular}{c|c|c|c|@{\TTon}*{7}{c}@{\TToff}}
+$S$&$T$&$U$&$W$&$(U$&\eand&$T)$&\eif    &$(S$&\eand&$W)$\\
+\hline
+ 0 & 1 & 1 & 0 &  1 &  1  & 1  &\TTbf{0}&  0 &   0 & 0 \\
+ 0 & 1 & 0 & 0 &  0 &  0  & 1  &\TTbf{1}&  0 &   0 & 0
+\end{tabular}
+\end{center}
+Note que há muitas combinações de valores de verdade que tornariam a sentença verdadeira, portanto há muitas maneiras possíveis de escrever a segunda linha.
+
+Mostrar que uma sentença \emph{não} é contingente exige fornecer uma tabela-verdade completa, porque isso requer mostrar que a sentença é uma tautologia ou uma contradição. Se você não sabe se uma sentença é contingente, então não sabe de antemão se será necessária uma tabela completa ou parcial. Você sempre pode começar construindo a tabela completa. Se, no caminho, você encontrar linhas que mostram que a sentença é contingente, pode parar. Caso contrário, conclua a tabela. Embora duas linhas bem escolhidas sejam suficientes para mostrar que uma sentença contingente é contingente, não há nada de errado em preencher mais linhas.
+
+Mostrar que duas sentenças são logicamente equivalentes requer uma tabela-verdade completa. Mostrar que duas sentenças \emph{não} são logicamente equivalentes requer apenas uma tabela-verdade parcial de uma linha: basta construí-la de modo que uma das sentenças seja verdadeira e a outra falsa.
+
+Mostrar que um conjunto de sentenças é consistente requer fornecer uma linha de uma tabela-verdade em que todas as sentenças sejam verdadeiras. O resto da tabela é irrelevante, então uma tabela parcial de uma linha basta. Mostrar que um conjunto de sentenças é inconsistente, por outro lado, exige uma tabela-verdade completa: é preciso mostrar que, em toda linha, pelo menos uma das sentenças é falsa.
+
+Mostrar que um argumento é válido requer uma tabela-verdade completa. Mostrar que um argumento é \emph{inválido} exige apenas fornecer uma tabela-verdade de uma linha: se você consegue produzir uma linha em que as premissas são todas verdadeiras e a conclusão é falsa, então o argumento é inválido.
+
+A tabela a seguir resume quando é necessária uma tabela-verdade completa e quando uma tabela parcial é suficiente.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{c|c|c|}
+\cline{2-3}
+ & SIM & NÃO\\
+\cline{2-3}
+tautologia? & tabela-verdade completa & tabela-verdade parcial de uma linha\\
+contradição? &  tabela-verdade completa  & tabela-verdade parcial de uma linha\\
+contingente? & tabela-verdade parcial de duas linhas & tabela-verdade completa\\
+equivalente? & tabela-verdade completa & tabela-verdade parcial de uma linha\\
+consistente? & tabela-verdade parcial de uma linha & tabela-verdade completa\\
+válido? & tabela-verdade completa & tabela-verdade parcial de uma linha\\
+\cline{2-3}
+\end{tabular}
+\end{center}
+\caption{Você precisa de uma tabela-verdade completa ou parcial? Depende do que você quer mostrar.}
+\label{table.CompleteVsPartial}
+\end{table}
+
+ 
+
+%\section{The material conditional}
+%\label{MaterialConditional}
+
+%O condicional material tem algumas propriedades curiosas. Por exemplo, ele não exige que antecedente e consequente estejam relacionados de nenhuma forma "de conteúdo".
+
+%contradição no antecedente
+
+%tautologia no consequente
+
+
+%\fix{Resumo das condições de teste}
+
+
+\practiceproblems
+Se você quiser mais prática, pode construir tabelas-verdade para quaisquer sentenças e argumentos dos exercícios do capítulo anterior.
+
+\solutions
+\problempart
+\label{pr.TT.TTorC}
+Determine se cada sentença é uma tautologia, uma contradição ou uma sentença contingente. Justifique sua resposta com uma tabela-verdade completa ou parcial, conforme apropriado.
+\begin{earg}
+\item $A \eif A$ %tautologia
+\item $\enot B \eand B$ %contradição
+\item $C \eif\enot C$ %contingente
+\item $\enot D \eor D$ %tautologia
+\item $(A \eiff B) \eiff \enot(A\eiff \enot B)$ %tautologia
+\item $(A\eand B) \eor (B\eand A)$ %contingente
+\item $(A \eif B) \eor (B \eif A)$ %tautologia
+\item $\enot[A \eif (B \eif A)]$ %contradição
+\item $(A \eand B) \eif (B \eor A)$  %tautologia
+\item $A \eiff [A \eif (B \eand \enot B)]$ %contradição
+\item $\enot(A \eor B) \eiff (\enot A \eand \enot B)$ %tautologia
+\item $\enot(A\eand B) \eiff A$ %contingente
+\item $\bigl[(A\eand B) \eand\enot(A\eand B)\bigr] \eand C$ %contradição
+\item $A\eif(B\eor C)$ %contingente
+\item $[(A \eand B) \eand C] \eif B$ %tautologia
+\item $(A \eand\enot A) \eif (B \eor C)$ %tautologia
+\item $\enot\bigl[(C\eor A) \eor B\bigr]$ %contingente
+\item $(B\eand D) \eiff [A \eiff(A \eor C)]$%contingente
+\end{earg}
+
+
+\solutions
+\problempart
+\label{pr.TT.equiv}
+Determine se cada par de sentenças é logicamente equivalente. Justifique sua resposta com uma tabela-verdade completa ou parcial, conforme apropriado.
+\begin{earg}
+\item $A$, $\enot A$ %Não
+\item $A$, $A \eor A$ %Sim
+\item $A\eif A$, $A \eiff A$ %Não
+\item $A \eor \enot B$, $A\eif B$ %Não
+\item $A \eand \enot A$, $\enot B \eiff B$ %Sim
+\item $\enot(A \eand B)$, $\enot A \eor \enot B$ %Sim
+\item $\enot(A \eif B)$, $\enot A \eif \enot B$ %Não
+\item $(A \eif B)$, $(\enot B \eif \enot A)$ %Sim
+\item $[(A \eor B) \eor C]$, $[A \eor (B \eor C)]$ %Sim
+\item $[(A \eor B) \eand C]$, $[A \eor (B \eand C)]$ %Não
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.TT.consistent}
+Determine se cada conjunto de sentenças é consistente ou inconsistente. Justifique sua resposta com uma tabela-verdade completa ou parcial, conforme apropriado.
+\begin{earg}
+\item $A\eif A$, $\enot A \eif \enot A$, $A\eand A$, $A\eor A$ %consistente
+\item $A \eand B$, $C\eif \enot B$, $C$ %inconsistente
+\item $A\eor B$, $A\eif C$, $B\eif C$ %consistente
+\item $A\eif B$, $B\eif C$, $A$, $\enot C$ %inconsistente
+\item $B\eand(C\eor A)$, $A\eif B$, $\enot(B\eor C)$  %inconsistente
+\item $A \eor B$, $B\eor C$, $C\eif \enot A$ %consistente
+\item $A\eiff(B\eor C)$, $C\eif \enot A$, $A\eif \enot B$ %consistente
+\item $A$, $B$, $C$, $\enot D$, $\enot E$, $F$ %consistente
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.TT.valid}
+Determine se cada argumento é válido ou inválido. Justifique sua resposta com uma tabela-verdade completa ou parcial, conforme apropriado.
+\begin{earg}
+\item $A\eif A$, \therefore\ $A$ %inválido
+\item $A\eor\bigl[A\eif(A\eiff A)\bigr]$, \therefore\ A %inválido
+\item $A\eif(A\eand\enot A)$, \therefore\ $\enot A$ %válido
+\item $A\eiff\enot(B\eiff A)$, \therefore\ $A$ %inválido
+\item $A\eor(B\eif A)$, \therefore\ $\enot A \eif \enot B$ %válido
+\item $A\eif B$, $B$, \therefore\ $A$ %inválido
+\item $A\eor B$, $B\eor C$, $\enot A$, \therefore\ $B \eand C$ %inválido
+\item $A\eor B$, $B\eor C$, $\enot B$, \therefore\ $A \eand C$ %válido
+\item $(B\eand A)\eif C$, $(C\eand A)\eif B$, \therefore\ $(C\eand B)\eif A$ %inválido
+\item $A\eiff B$, $B\eiff C$, \therefore\ $A\eiff C$ %válido
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.TT.concepts}
+Responda cada questão abaixo e justifique sua resposta.
+\begin{earg}
+\item Suponha que \script{A} e \script{B} sejam logicamente equivalentes. O que você pode dizer sobre $\script{A}\eiff\script{B}$?
+%\script{A} e \script{B} têm o mesmo valor de verdade em todas as linhas de uma tabela-verdade completa, então $\script{A}\eiff\script{B}$ é verdadeira em todas as linhas. É uma tautologia.
+\item Suponha que $(\script{A}\eand\script{B})\eif\script{C}$ seja contingente. O que você pode dizer sobre o argumento "\script{A}, \script{B}, \therefore\script{C}"?
+%A sentença é falsa em alguma linha de uma tabela-verdade completa. Nessa linha, \script{A} e \script{B} são verdadeiras e \script{C} é falsa. Logo, o argumento é inválido.
+\item Suponha que $\{\script{A},\script{B}, \script{C}\}$ seja inconsistente. O que você pode dizer sobre $(\script{A}\eand\script{B}\eand\script{C})$?
+%Como não há linha de uma tabela-verdade completa em que as três sentenças sejam verdadeiras, a conjunção é falsa em todas as linhas. Logo, é uma contradição.
+\item Suponha que \script{A} seja uma contradição. O que você pode dizer sobre o argumento "\script{A}, \script{B}, \therefore\script{C}"?
+%Como \script{A} é falsa em todas as linhas da tabela-verdade completa, não há linha em que \script{A} e \script{B} sejam verdadeiras e \script{C} falsa. Logo, o argumento é válido.
+\item Suponha que \script{C} seja uma tautologia. O que você pode dizer sobre o argumento "\script{A}, \script{B}, \therefore\script{C}"?
+%Como \script{C} é verdadeira em todas as linhas de uma tabela-verdade completa, não há linha em que \script{A} e \script{B} sejam verdadeiras e \script{C} falsa. Logo, o argumento é válido.
+\item Suponha que \script{A} e \script{B} sejam logicamente equivalentes. O que você pode dizer sobre $(\script{A}\eor\script{B})$?
+%Não muito. $(\script{A}\eor\script{B})$ é uma tautologia se \script{A} e \script{B} são tautologias; é uma contradição se \script{A} e \script{B} são contradições; é contingente se \script{A} e \script{B} são contingentes.
+\item Suponha que \script{A} e \script{B} \emph{não} sejam logicamente equivalentes. O que você pode dizer sobre $(\script{A}\eor\script{B})$?
+%\script{A} e \script{B} têm valores de verdade diferentes em pelo menos uma linha de uma tabela-verdade completa, e $(\script{A}\eor\script{B})$ será verdadeira nessa linha. Em outras linhas, pode ser verdadeira ou falsa. Assim, $(\script{A}\eor\script{B})$ ou é uma tautologia ou é contingente; ela \emph{não} é uma contradição.
+\end{earg}
+
+\problempart
+\label{pr.altConnectives}
+Poderíamos eliminar o bicondicional (\eiff) da linguagem. Se fizéssemos isso, ainda poderíamos escrever `$A\eiff B$' para tornar as sentenças mais fáceis de ler, mas isso seria apenas uma abreviação para $(A\eif B) \eand (B\eif A)$. A linguagem resultante ainda seria formalmente equivalente a LS, já que $A\eiff B$ e $(A\eif B) \eand (B\eif A)$ são logicamente equivalentes em LS. Se déssemos mais peso à simplicidade formal do que à "riqueza expressiva", poderíamos substituir mais conectivos por convenções notacionais e ainda ter uma linguagem equivalente a LS.
+
+Existem várias linguagens equivalentes com apenas dois conectivos. Seria suficiente ter apenas negação e o condicional material. Mostre isso escrevendo sentenças logicamente equivalentes a cada uma das seguintes, usando apenas parênteses, letras sentenciais, negação (\enot) e condicional material (\eif).
+\begin{earg}
+\item\leftsolutions\ $A\eor B$
+%$\enot A \eif B$
+\item\leftsolutions\ $A\eand B$
+%$\enot(A \eif \enot B)$
+\item\leftsolutions\ $A\eiff B$
+%$\enot [(A\eif B) \eif \enot(B\eif A)]$
+\end{earg}
+%...
+% Saímos do ambiente {earg} para dar novas instruções. 
+
+Podemos ter uma linguagem equivalente a LS com apenas negação e disjunção como conectivos. Mostre isso: usando apenas parênteses, letras sentenciais, negação (\enot) e disjunção (\eor), escreva sentenças logicamente equivalentes a cada uma das seguintes.
+% Retomamos o ambiente {earg} e restauramos o contador.
+%...
+\begin{earg}
+\setcounter{eargnum}{\arabic{OLDeargnum}}
+\item $A \eand B$
+%$\enot(\enot A \eor \enot B)$
+\item $A \eif B$
+%$\enot A \eor B$
+\item $A \eiff B$
+%$\enot(\enot A \eor \enot B) \eor \enot(A \eor B)$
+\end{earg}
+%...
+O \emph{traço de Sheffer} (Sheffer stroke) é um conectivo lógico com a seguinte tabela-verdade característica:
+\begin{center}
+\begin{tabular}{c|c|c}
+\script{A} & \script{B} & \script{A}$|$\script{B}\\
+\hline
+1 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1\\
+0 & 0 & 1
+\end{tabular}
+\end{center}
+%...
+\begin{earg}
+\setcounter{eargnum}{\arabic{OLDeargnum}}
+\item Escreva uma sentença usando os conectivos de LS que seja logicamente equivalente a $(A|B)$.
+\end{earg}
+%...
+Toda sentença escrita com um conectivo de LS pode ser reescrita como uma sentença logicamente equivalente usando um ou mais traços de Sheffer. Usando apenas o traço de Sheffer, escreva sentenças equivalentes a cada uma das seguintes. 
+%...
+\begin{earg}
+\setcounter{eargnum}{\arabic{OLDeargnum}}
+\item $\enot A$
+\item $(A\eand B)$
+\item $(A\eor B)$
+\item $(A\eif B)$
+\item $(A\eiff B)$
+\end{earg}
