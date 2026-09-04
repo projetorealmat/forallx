@@ -1,0 +1,299 @@
+%!TEX root = forallx.tex
+\chapter{O que é lógica?}
+\label{ch.intro}
+
+A lógica é o ramo que estuda a avaliação de argumentos, separando os bons dos ruins. Na linguagem do dia a dia, às vezes usamos a palavra 'argumento' para nos referir a brigas barulhentas e cheias de hostilidade. Se você e um amigo têm um argumento nesse sentido, as coisas não vão bem entre vocês.
+
+Em lógica, não estamos interessados nesse tipo de argumento com gritos e puxões de cabelos. Um argumento lógico é estruturado para dar a alguém uma razão para acreditar em uma certa conclusão. Eis um exemplo de argumento:
+
+\label{argRaining}
+\begin{earg}
+\item[(1)] Está chovendo forte.
+\item[(2)] Se você não levar um guarda-chuva, vai ficar encharcado.
+\item[\therefore] Você deve levar um guarda-chuva.
+\end{earg}
+
+Os três pontos na terceira linha do argumento significam 'Portanto' e indicam que a frase final é a \emph{conclusão} do argumento. As outras frases são as \emph{premissas} do argumento. Se você acredita nas premissas, então o argumento lhe fornece uma razão para acreditar na conclusão.
+
+Este capítulo discute algumas noções lógicas básicas que se aplicam a argumentos em uma linguagem natural como o português. É importante começar com uma compreensão clara do que são argumentos e do que significa um argumento ser válido. Mais adiante, traduziremos argumentos do português para uma linguagem formal. Queremos que a validade formal, tal como será definida na linguagem formal, preserve pelo menos algumas das características importantes da validade em linguagem natural.
+
+\section{Argumentos}
+Quando as pessoas querem apresentar argumentos, elas frequentemente usam palavras como 'portanto' e 'porque'. Ao analisar um argumento, a primeira coisa a fazer é separar as premissas da conclusão. Palavras como essas são uma pista do que o argumento pretende ser, especialmente se --- na forma como o argumento é apresentado --- a conclusão vier no início ou no meio do argumento.
+
+\begin{description}
+\item[indicadores de premissa:] já que, porque, dado que
+\item[indicadores de conclusão:] portanto, logo, assim, então, \textbf{por isso}
+\end{description}
+
+Para sermos perfeitamente gerais, podemos definir um \define{argumento} como uma sequência de sentenças. As sentenças no início da sequência são as premissas. A última sentença da sequência é a conclusão. Se as premissas forem verdadeiras e o argumento for bom, então você tem uma razão para aceitar a conclusão.
+
+Perceba que essa definição é bastante geral. Considere este exemplo:
+\begin{earg}
+\item[] Há café na cafeteira.
+\item[] Há um dragão tocando fagote em cima do armário.
+\item[\therefore] Salvador Dalí jogava pôquer.
+\end{earg}
+Pode parecer estranho chamar isso de argumento, mas isso acontece porque seria um argumento {péssimo}. As duas premissas não têm absolutamente nada a ver com a conclusão. Ainda assim, dada a nossa definição, isso continua contando como um argumento — embora um argumento ruim. 
+
+\section{Sentenças}
+\label{intro.sentences}
+Em lógica, estamos interessados apenas em sentenças que possam aparecer como premissa ou conclusão de um argumento. Assim, diremos que uma \define{sentença} é algo que pode ser verdadeiro ou falso.
+
+Você não deve confundir a ideia de uma sentença que pode ser verdadeira ou falsa com a diferença entre fato e opinião. Com frequência, as sentenças em lógica expressarão coisas que normalmente contaríamos como fatos — como 'Kierkegaard era corcunda' ou 'Kierkegaard gostava de amêndoas'. Elas também podem expressar coisas que você talvez considere como questões de opinião — como 'Amêndoas são deliciosas.'
+
+Além disso, há coisas que contariam como 'sentenças' em um curso de linguística ou gramática e que nós não consideraremos como sentenças em lógica.
+
+\paragraph{Perguntas} Em uma aula de gramática, 'Você já está com sono?' contaria como uma sentença interrogativa. Embora você possa estar com sono ou acordado, a própria pergunta não é nem verdadeira nem falsa. Por essa razão, perguntas não contarão como sentenças em lógica. Suponha que você responda à pergunta: 'Eu não estou com sono.' Isso é verdadeiro ou falso, e portanto é uma sentença no sentido lógico. Em geral, \emph{perguntas} não contam como sentenças, mas \emph{respostas} sim.
+
+'Sobre o que é este curso?' não é uma sentença. 'Ninguém sabe sobre o que é este curso' é uma sentença.
+
+\paragraph{Imperativos} Ordens são muitas vezes formuladas como imperativos, como 'Acorde!', 'Sente-se direito' e assim por diante. Em uma aula de gramática, essas contariam como sentenças imperativas. Embora possa ou não ser bom sentar-se direito, a ordem em si não é nem verdadeira nem falsa. Note, porém, que comandos nem sempre são formulados como imperativos. 'Você vai respeitar minha autoridade' \emph{é} verdadeira ou falsa — ou você vai, ou não vai — e por isso conta como uma sentença no sentido lógico.
+
+\paragraph{Exclamações} 'Ai!' às vezes é chamado de sentença exclamativa, mas não é nem verdadeiro nem falso. Trataremos ``Ai, machuquei meu dedo do pé!'' como significando a mesma coisa que ``Machuquei meu dedo do pé''. O ``ai'' não acrescenta nada que possa ser verdadeiro ou falso.
+
+\section{Duas maneiras pelas quais argumentos podem falhar}
+Considere o argumento de que você deveria levar um guarda-chuva (na p.~\pageref{argRaining}, acima). Se a premissa (1) for falsa — se estiver ensolarado — então o argumento não lhe dá razão alguma para carregar um guarda-chuva. Mesmo que esteja chovendo, você pode não precisar de um guarda-chuva. Você pode estar usando uma capa de chuva, ou pode andar apenas por passagens cobertas. Nesses casos, a premissa (2) seria falsa, já que você poderia sair sem guarda-chuva e ainda assim evitar ficar encharcado.
+
+Suponha, por um momento, que ambas as premissas sejam verdadeiras. Você não tem capa de chuva. Você precisa ir a lugares onde não há passagens cobertas. O argumento mostra então que você deve levar um guarda-chuva? Não necessariamente. Talvez você goste de caminhar na chuva e queira ficar encharcado. Nesse caso, mesmo que as premissas sejam verdadeiras, a conclusão seria falsa.
+
+Para qualquer argumento, há duas maneiras pelas quais ele pode ser fraco. Primeiro, uma ou mais premissas podem ser falsas. Um argumento só lhe dá razão para acreditar na conclusão se você aceitar as premissas. Segundo, as premissas podem falhar em apoiar a conclusão. Mesmo que as premissas sejam verdadeiras, a forma do argumento pode ser fraca. O exemplo que acabamos de considerar é fraco nos dois sentidos.
+
+Quando um argumento é fraco no segundo sentido, há algo errado com a \emph{forma lógica}\footnote{A 'forma lógica' é a estrutura subjacente de um argumento ou sentença, abstraindo-se do conteúdo específico das palavras.} do argumento: premissas desse tipo não levam necessariamente a uma conclusão desse tipo. Estaremos interessados principalmente na forma lógica dos argumentos.
+
+Considere outro exemplo:
+\begin{earg}
+\item[] Você está lendo este livro.
+\item[] Este é um livro de lógica.
+\item[\therefore] Você é estudante de lógica.
+\end{earg}
+Este não é um argumento terrível. A maior parte das pessoas que lê este livro é estudante de lógica. Ainda assim, é possível que alguém que não seja estudante de lógica leia este livro. Se seu colega de quarto pegar o livro e folheá-lo, ele não se torna automaticamente um estudante de lógica. Assim, as premissas desse argumento, mesmo sendo verdadeiras, não garantem a verdade da conclusão. Sua forma lógica está longe de ser perfeita.
+
+Um argumento que não tivesse fraqueza do segundo tipo teria uma forma lógica perfeita. Se as suas premissas fossem verdadeiras, então a sua conclusão seria \emph{necessariamente} verdadeira. Chamamos um argumento assim de 'dedutivamente válido' ou simplesmente 'válido'.
+
+Embora possamos considerar o argumento acima como um bom argumento em certo sentido, ele não é válido; isto é, ele é 'inválido'. Uma das tarefas importantes da lógica é separar argumentos válidos de argumentos inválidos.
+
+\section{Validade dedutiva}
+Um argumento é dedutivamente \define{válido} se, e somente se, for impossível que as premissas sejam verdadeiras e a conclusão falsa.
+
+O ponto crucial sobre um argumento válido é que é impossível que as premissas sejam verdadeiras \emph{ao mesmo tempo} em que a conclusão é falsa. Considere este exemplo:
+
+\begin{earg}
+\item[] Laranjas são ou frutas ou instrumentos musicais.
+\item[] Laranjas não são frutas.
+\item[\therefore] Laranjas são instrumentos musicais.
+\end{earg}
+
+A conclusão desse argumento é ridícula. Ainda assim, ela decorre validamente das premissas. Este é um argumento válido. \emph{Se} ambas as premissas fossem verdadeiras, \emph{então} a conclusão seria necessariamente verdadeira.
+
+Isso mostra que um argumento dedutivamente válido não precisa ter premissas verdadeiras nem conclusão verdadeira. Por outro lado, ter premissas verdadeiras e conclusão verdadeira não basta para tornar um argumento válido. Considere este exemplo:
+
+\begin{earg}
+\item[] Maceió fica em Alagoas.
+\item[] Recife fica em Pernambuco.
+\item[\therefore] Salvador fica na Bahia.
+\end{earg}
+
+As premissas e a conclusão desse argumento são, de fato, todas verdadeiras. No entanto, este é um argumento péssimo, porque as premissas não têm nada a ver com a conclusão. Imagine o que aconteceria se Salvador deixasse de fazer parte da Bahia. Então a conclusão seria falsa, embora ambas as premissas continuassem verdadeiras. Assim, é \emph{logicamente possível} que as premissas desse argumento sejam verdadeiras e a conclusão falsa. O argumento é inválido.
+
+A coisa importante a lembrar é que a validade não diz respeito à verdade ou falsidade efetivas das sentenças no argumento. Em vez disso, ela diz respeito à forma do argumento: a verdade das premissas é incompatível com a falsidade da conclusão.
+
+\subsection{Argumentos indutivos}
+
+Podem existir bons argumentos que, ainda assim, não são dedutivamente válidos. Considere este exemplo, supondo que as observações tenham sido feitas em três anos consecutivos:
+
+\begin{earg}
+\item[] No primeiro ano observado, choveu em Maceió durante o mês de janeiro.
+\item[] No segundo ano observado, choveu em Maceió durante o mês de janeiro.
+\item[] No terceiro ano observado, choveu em Maceió durante o mês de janeiro.
+\item[\therefore] Chove todo mês de janeiro em Maceió.
+\end{earg}
+
+Este é um argumento \define{indutivo}, porque ele generaliza a partir de muitos casos para uma conclusão sobre todos os casos.
+
+Certamente, o argumento poderia ser fortalecido adicionando observações de outros anos: no quarto ano observado, choveu em Maceió durante o mês de janeiro; no quinto ano observado, choveu em Maceió durante o mês de janeiro; e assim por diante. Não importa quantas observações acrescentemos, contudo, o argumento ainda não será dedutivamente válido. É possível, embora talvez improvável, que não chova em Maceió no próximo mês de janeiro. Além disso, sabemos que o clima pode ser caprichoso. Nenhuma quantidade de evidência deveria nos convencer de que chove lá em \emph{todos} os meses de janeiro. Quem pode garantir que não haverá algum ano excepcional em que não chova em janeiro em Maceió? Um único contraexemplo já basta para tornar falsa a conclusão do argumento.
+
+Argumentos indutivos, mesmo bons argumentos indutivos, não são dedutivamente válidos. Não estaremos interessados em argumentos indutivos neste livro.
+
+\section{Outras noções lógicas}
+
+Além da validade dedutiva, estaremos interessados em alguns outros conceitos lógicos.
+
+\subsection{Valores de verdade}
+Verdadeiro ou falso é o que se chama o \define{valor de verdade} de uma sentença. Definimos sentenças como coisas que podem ser verdadeiras ou falsas; poderíamos ter dito, em vez disso, que sentenças são coisas que podem ter valores de verdade.
+
+\subsection{Verdade lógica}
+
+Ao considerar argumentos formalmente, nos preocupamos com o que seria verdadeiro \emph{se} as premissas fossem verdadeiras. Em geral, não nos interessa o valor de verdade efetivo de sentenças particulares — se elas são \emph{de fato} verdadeiras ou falsas. Ainda assim, há sentenças que precisam ser verdadeiras, simplesmente por uma questão de lógica.
+
+Considere estas sentenças:
+\begin{earg}
+\item[\ex{Acontingent}] Está chovendo.
+\item[\ex{Atautology}] Ou está chovendo, ou não está.
+\item[\ex{Acontradiction}] Está chovendo e não está chovendo ao mesmo tempo.
+\end{earg}
+Para saber se a sentença \ref{Acontingent} é verdadeira, você precisaria olhar pela janela ou consultar a previsão do tempo. Do ponto de vista lógico, ela pode ser verdadeira ou falsa. Sentenças como essa são chamadas de sentenças \emph{contingentes}.
+
+A sentença \ref{Atautology} é diferente. Você não precisa olhar para fora para saber que ela é verdadeira. Independentemente de como estiver o tempo, ou está chovendo ou não está. Essa sentença é \emph{logicamente verdadeira}; ela é verdadeira apenas em virtude da lógica, não importando como o mundo de fato seja. Uma sentença logicamente verdadeira é chamada de \define{tautologia}.
+
+Você também não precisa verificar o tempo para decidir a respeito da sentença \ref{Acontradiction}. Ela precisa ser falsa, simplesmente por uma questão de lógica. Pode estar chovendo aqui e não chovendo em outra cidade; pode estar chovendo agora e parar de chover enquanto você lê isto; mas é impossível que esteja ao mesmo tempo chovendo e não chovendo aqui, neste exato momento. A terceira sentença é \emph{logicamente falsa}; ela é falsa independentemente de como o mundo seja. Uma sentença logicamente falsa é chamada de \define{contradição}.
+
+Para sermos precisos, podemos definir uma \define{sentença contingente} como uma sentença que não é nem uma tautologia nem uma contradição.
+
+Uma sentença pode ser \emph{sempre} verdadeira e ainda assim ser contingente. Por exemplo, se nunca houve um momento em que o universo tivesse menos do que sete coisas, então a sentença 'Existem pelo menos sete coisas' será sempre verdadeira. Mesmo assim, a sentença é contingente; a sua verdade não é uma questão de lógica. Não há contradição em considerar um mundo possível em que existam menos que sete coisas. A questão importante é se a sentença \emph{precisa} ser verdadeira, apenas em virtude da lógica.
+
+\subsection{Equivalência lógica}
+Também podemos perguntar sobre as relações lógicas \emph{entre} duas sentenças. Por exemplo:
+\begin{earg}
+\item[] João foi ao mercado depois de lavar a louça.
+\item[] João lavou a louça antes de ir ao mercado.
+\end{earg}
+Essas duas sentenças são ambas contingentes, já que João poderia não ter ido ao mercado nem lavado a louça. Ainda assim, elas precisam ter o mesmo valor de verdade. Se uma delas for verdadeira, então a outra também é; se uma delas for falsa, então a outra também é. Quando duas sentenças necessariamente têm o mesmo valor de verdade, dizemos que elas são \define{logicamente equivalentes}.
+
+\subsection{Consistência}
+Considere estas duas sentenças:
+\begin{ekey}
+\item[B1] Meu único irmão é mais alto do que eu.
+\item[B2] Meu único irmão é mais baixo do que eu.
+\end{ekey}
+A lógica, por si só, não pode nos dizer qual dessas sentenças é verdadeira, se é que alguma delas é. Ainda assim, podemos dizer que \emph{se} a primeira sentença (B1) for verdadeira, \emph{então} a segunda (B2) deve ser falsa. E se B2 for verdadeira, então B1 deve ser falsa. Não pode acontecer de ambas as sentenças serem verdadeiras ao mesmo tempo.
+
+Se um conjunto de sentenças não puder ser verdadeiro em sua totalidade, como B1--B2, dizemos que ele é \define{inconsistente}. Caso contrário, dizemos que é \define{consistente}.
+
+Podemos perguntar sobre a consistência de qualquer quantidade de sentenças. Por exemplo, considere a seguinte lista:
+\label{MartianGiraffes}
+\begin{ekey}
+\item[G1] Há pelo menos quatro girafas na reserva de animais selvagens.
+\item[G2] Há exatamente sete gorilas na reserva de animais selvagens.
+\item[G3] Não há mais do que dois marcianos na reserva de animais selvagens.
+\item[G4] Toda girafa na reserva de animais selvagens é marciana.
+\end{ekey}
+G1 e G4, juntas, implicam que há pelo menos quatro girafas marcianas no parque. Isso entra em conflito com G3, que implica que não há mais do que duas girafas marcianas lá. Então o conjunto de sentenças G1--G4 é inconsistente. Note que a inconsistência não tem nada a ver com G2. G2 apenas acaba fazendo parte de um conjunto inconsistente.
+
+Às vezes, as pessoas dizem que um conjunto inconsistente de sentenças 'contém uma contradição'. Com isso, querem dizer que seria logicamente impossível que todas as sentenças fossem verdadeiras ao mesmo tempo. Um conjunto pode ser inconsistente mesmo que cada sentença nele seja contingente ou tautológica. Quando uma única sentença é uma contradição, então essa sentença sozinha não pode ser verdadeira.
+
+\section{Linguagens formais}
+
+Aqui está um argumento famoso e válido:
+\begin{earg}
+\item[] Sócrates é um homem.
+\item[] Todos os homens são mortais.
+\item[\therefore] Sócrates é mortal.
+\end{earg}
+Este é um argumento irrefutável. A única maneira de contestar a conclusão é negando uma das premissas — a forma lógica é impecável. E quanto ao argumento seguinte?
+
+\begin{earg}
+\item[] Sócrates é um homem.
+\item[] Todos os homens são cenouras.
+\item[\therefore] Sócrates é uma cenoura.
+\end{earg}
+
+Esse argumento talvez seja menos interessante que o primeiro, porque a segunda premissa é obviamente falsa. Não há nenhum sentido claro em que todos os homens sejam cenouras. Ainda assim, o argumento é válido. Para ver isso, note que ambos os argumentos têm a seguinte forma:
+
+\begin{earg}
+\item[] $S$ é $M$.
+\item[] Todos os $M$s são $C$s.
+\item[\therefore] $S$ é $C$.
+\end{earg}
+
+Nos dois argumentos, $S$ representa Sócrates e $M$ representa homem. No primeiro argumento, $C$ representa mortal; no segundo, $C$ representa cenoura. Ambos os argumentos têm essa forma, e todo argumento dessa forma é válido. Logo, ambos os argumentos são válidos.
+
+O que fizemos aqui foi substituir palavras como 'homem' ou 'cenoura' por símbolos como 'M' ou 'C' para tornar explícita a forma lógica. Essa é a ideia central por trás da lógica formal. Queremos remover aspectos irrelevantes ou distrações do argumento para tornar a forma lógica mais transparente.
+
+Partindo de um argumento em uma \emph{linguagem natural} como o português, traduzimos o argumento para uma \emph{linguagem formal}. Partes das sentenças em português são substituídas por letras e símbolos. O objetivo é revelar a estrutura formal do argumento, como fizemos com esses dois exemplos.
+
+Existem linguagens formais que funcionam de modo semelhante à simbolização que demos para esses dois argumentos. Uma lógica desse tipo foi desenvolvida por Aristóteles, um filósofo que viveu na Grécia no século IV a.C. Aristóteles foi aluno de Platão e tutor de Alexandre, o Grande. A lógica aristotélica, com algumas revisões, foi a lógica dominante no mundo ocidental por mais de dois milênios.
+
+Na lógica aristotélica, categorias são representadas por letras maiúsculas. Cada sentença de um argumento é então representada como tendo uma das quatro formas, que os lógicos medievais nomearam assim: (A) Todos os $A$s são $B$s. (E) Nenhum $A$ é $B$. (I) Algum $A$ é $B$. (O) Algum $A$ não é $B$.
+
+Isso permite descrever \emph{silogismos} válidos, isto é, argumentos de três linhas como os dois que consideramos acima. Lógicos medievais deram nomes mnemônicos a todas as formas de argumento válidas. A forma dos nossos dois argumentos, por exemplo, era chamada de \emph{Barbara}\footnote{Os nomes mnemônicos usavam vogais para indicar o tipo de proposição: A, E, I, O. "Barbara" tem três 'A's, indicando que todas as proposições são do tipo A ("Todos... são...").}. As vogais no nome, todas As, indicam que as duas premissas e a conclusão são sentenças da forma (A).
+
+Existem muitas limitações na lógica aristotélica. Uma delas é que ela não distingue claramente entre tipos (espécies, classes) e indivíduos. Assim, a primeira premissa poderia ser escrita igualmente como ``Todos os $S$s são $M$s'': todos os Sócrates\footnote{Aqui usamos o nome próprio no plural de forma intencional, tratando “Sócrates” como se fosse uma categoria de indivíduos, para ilustrar uma limitação da lógica aristotélica em distinguir indivíduos de tipos.} são homens. Apesar de sua importância histórica, a lógica aristotélica foi superada. O restante deste livro desenvolverá duas linguagens formais.
+
+A primeira é \textbf{LS}, que significa \emph{lógica sentencial}. Em LS, as menores unidades são as próprias sentenças. Sentenças simples são representadas por letras e conectadas por \emph{conectivos lógicos} como 'e' e 'não' para formar sentenças mais complexas.
+
+A segunda é \textbf{LQ}, que significa \emph{lógica quantificada}. Em LQ, as unidades básicas são objetos, propriedades de objetos e relações entre objetos.
+
+Quando traduzimos um argumento para uma linguagem formal, esperamos tornar sua estrutura lógica mais clara. Queremos incluir o suficiente da estrutura do argumento em língua portuguesa para podermos julgar se o argumento é válido ou inválido. Se incluíssemos todo o conteúdo da linguagem portuguesa, com toda a sua sutileza e nuance, então não haveria vantagem em traduzir para uma linguagem formal. Seria melhor simplesmente pensar sobre o argumento diretamente em português.
+
+Ao mesmo tempo, gostaríamos de ter uma linguagem formal que nos permita representar muitos tipos diferentes de argumentos em português. Essa é uma razão para preferir LQ à lógica aristotélica; LQ pode representar todos os argumentos válidos da lógica aristotélica e ainda mais.
+
+Assim, ao decidir sobre uma linguagem formal, há inevitavelmente uma tensão entre querer captar o máximo possível de estrutura e querer uma linguagem formal simples — linguagens formais mais simples deixam de fora mais detalhes. Isso significa que não existe uma linguagem formal perfeita. Algumas farão um trabalho melhor do que outras ao traduzir certos tipos de argumentos em linguagem natural.
+
+Neste livro, assumimos que \emph{verdadeiro} e \emph{falso} são os únicos valores de verdade possíveis. Linguagens lógicas formais que fazem essa suposição são chamadas de \emph{bivalentes}, o que significa \emph{com dois valores}. A lógica aristotélica, LS e LQ são todas bivalentes, mas há limites para o poder de lógicas bivalentes. Por exemplo, alguns filósofos afirmaram que o futuro ainda não está determinado. Se eles estiverem certos, então sentenças sobre \emph{o que virá a ser o caso} ainda não são verdadeiras nem falsas.
+Algumas linguagens formais levam isso em conta permitindo sentenças que não são nem verdadeiras nem falsas, mas algo intermediário.
+Outras linguagens formais, as chamadas lógicas paraconsistentes, permitem sentenças que são ao mesmo tempo verdadeiras \emph{e} falsas.
+
+As linguagens apresentadas neste livro não são as únicas linguagens formais possíveis. No entanto, a maior parte das lógicas não padrão estende a estrutura formal básica das lógicas bivalentes discutidas aqui. Por isso, este é um bom lugar para começar.
+
+\section*{Resumo das noções lógicas}
+\begin{itemize}
+\item Um argumento é (dedutivamente) \define{válido} se for impossível que as premissas sejam verdadeiras e a conclusão falsa; é \define{inválido} caso contrário.
+
+\item Uma \define{tautologia} é uma sentença que, por força da lógica, deve ser verdadeira.
+
+\item Uma \define{contradição} é uma sentença que, por força da lógica, deve ser falsa.
+
+\item Uma \define{sentença contingente} não é nem uma tautologia nem uma contradição.
+
+\item Duas sentenças são \define{logicamente equivalentes} se necessariamente tiverem o mesmo valor de verdade.
+
+\item Um conjunto de sentenças é \define{consistente} se for logicamente possível que todos os membros do conjunto sejam verdadeiros ao mesmo tempo; é \define{inconsistente} caso contrário.
+\end{itemize}
+
+\practiceproblems
+Ao final de cada capítulo, você encontrará uma série de exercícios que revisam e exploram o conteúdo tratado no capítulo. Não há substituto para realmente resolver problemas, porque lógica diz mais respeito a um modo de pensar do que a memorizar fatos. As respostas de alguns dos exercícios são fornecidas ao final do livro, no apêndice \ref{app.solutions}; os exercícios que têm solução no apêndice são marcados com um \solutions.
+
+\problempart
+Quais das sentenças a seguir são 'sentenças' no sentido lógico?
+\begin{earg}
+\item Alagoas é menor do que o Amazonas.
+\item O Rio Grande do Sul fica ao sul da Bahia.
+\item Pernambuco fica a leste de Goiás?
+\item O número atômico do hélio é 2.
+\item O número atômico do hélio é $\pi$.
+\item Eu odeio macarrão passado do ponto.
+\item Eca! Macarrão passado do ponto!
+\item Macarrão passado do ponto é nojento.
+\item Vá com calma.
+\item Esta é a última questão.
+\end{earg}
+
+\problempart
+\label{pr.EnglishTautology}
+Para cada uma das sentenças a seguir: ela é uma tautologia, uma contradição ou uma sentença contingente?
+\begin{earg}
+\item César atravessou o Rubicão\footnote{"Atravessar o Rubicão" é uma expressão que significa tomar uma decisão irreversível, originada do ato de Júlio César em 49 a.C. No contexto lógico, interessa apenas a estrutura da sentença.}.
+\item Alguém já atravessou o Rubicão.
+\item Ninguém jamais atravessou o Rubicão.
+\item Se César atravessou o Rubicão, então alguém o atravessou.
+\item Embora César tenha atravessado o Rubicão, ninguém jamais atravessou o Rubicão.
+\item Se alguém já atravessou o Rubicão, então foi César.
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.MartianGiraffes}
+Retome as sentenças G1--G4 na p.~\pageref{MartianGiraffes} e considere cada um dos seguintes conjuntos de sentenças. Quais são consistentes? Quais são inconsistentes?
+\begin{earg}
+\item G2, G3 e G4
+\item G1, G3 e G4
+\item G1, G2 e G4
+\item G1, G2 e G3
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.EnglishCombinations}
+Quais das situações a seguir são possíveis? Se for possível, dê um exemplo. Se não for possível, explique por quê.
+\begin{earg}
+\item Um argumento válido que tenha uma premissa falsa e uma premissa verdadeira
+\item Um argumento válido que tenha uma conclusão falsa
+\item Um argumento válido cuja conclusão seja uma contradição
+\item Um argumento inválido cuja conclusão seja uma tautologia
+\item Uma tautologia que seja contingente
+\item Duas sentenças logicamente equivalentes, ambas tautologias
+\item Duas sentenças logicamente equivalentes, uma das quais é uma tautologia e a outra é contingente
+\item Duas sentenças logicamente equivalentes que, juntas, formem um conjunto inconsistente
+\item Um conjunto consistente de sentenças que contenha uma contradição
+\item Um conjunto inconsistente de sentenças que contenha uma tautologia
+\end{earg}

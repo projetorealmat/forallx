@@ -1,0 +1,926 @@
+%!TEX root = forallx.tex
+\chapter[Soluções para exercícios selecionados]{Soluções para exercícios selecionados}
+\label{app.solutions}
+
+Muitos dos exercícios podem ser respondidos corretamente de diferentes maneiras. Quando esse for o caso, a solução aqui representa uma possível resposta correta.
+
+\solutionsection{ch.intro}{pr.MartianGiraffes}
+\begin{earg}
+%\nextSeq %G2, G3, and G4
+\item consistente
+%\noSeq %G1, G3, and G4
+\item inconsistente
+%\nextSeq %G1, G2, and G4
+\item consistente
+%\lastSeq %G1, G2, and G3
+\item consistente
+%são consistentes.
+\end{earg}
+
+\solutionsection{ch.intro}{pr.EnglishCombinations}
+%\begin{earg}
+%\item Um argumento válido que tem uma premissa falsa e uma premissa verdadeira
+%possível
+\nextSeq
+%\item Um argumento válido que tem uma conclusão falsa
+%possível
+\nextSeq
+%\item Um argumento válido, cuja conclusão é uma contradição
+%possível
+\nextSeq
+%\item Um argumento inválido, cuja conclusão é uma tautologia
+%não possível
+\noSeq
+%\item Uma tautologia que é contingente
+%não possível
+\noSeq
+%\item Duas sentenças logicamente equivalentes, ambas tautologias
+%possível
+\nextSeq
+%\item Duas sentenças logicamente equivalentes, uma das quais é uma tautologia e a outra é contingente
+%não possível
+\noSeq
+%\item Duas sentenças logicamente equivalentes que juntas são um conjunto inconsistente
+%possível
+\nextSeq
+%Considere duas contradições. Como questão de lógica, ambas são necessariamente falsas. Então elas têm o mesmo valor de verdade: falso. Isso as torna logicamente equivalentes.
+%\item Um conjunto consistente de sentenças que contém uma contradição
+%não possível
+\noSeq
+%\item Um conjunto inconsistente de sentenças que contém uma tautologia
+%possível
+\lastSeq
+%são possíveis.
+
+\solutionsection{ch.SL}{pr.monkeysuits}
+\begin{earg}
+\item $\enot M$
+\item $M \eor \enot M$
+\item $G \eor C$
+\item $\enot C \eand \enot G$
+\item $C \eif (\enot G \eand \enot M)$
+\item $M \eor (C \eor G)$
+\end{earg}
+
+
+\solutionsection{ch.SL}{pr.avacareer}
+\begin{earg}
+\item $E_1 \eand E_2$
+\item $F_1 \eif S_1$
+\item $F_1 \eor E_1$
+\item $E_2 \eand \enot S_2$
+\item $\enot E_1 \eand \enot E_2$
+\item $E_1 \eand E_2 \eand \enot(S_1 \eor S_2)$
+\item $S_2 \eif F_2$
+\item $(\enot E_1 \eif \enot E_2) \eand (E_1 \eif E_2)$
+\item $S_1 \eiff \enot S_2$
+\item $(E_2 \eand F_2) \eif S_2$
+\item $\enot(E_2 \eand F_2)$
+\item $(F_1 \eand F_2) \eiff (\enot E_1 \eand \enot E_2)$
+\end{earg}
+
+\solutionsection{ch.SL}{pr.spies}
+\begin{ekey}
+\item[A:] Alice é uma espiã.
+\item[B:] Bob é uma espiã.
+\item[C:] O código foi quebrado.
+\item[G:] A embaixada brasileira estará em polvorosa.
+\end{ekey}
+\begin{earg}
+\item %Alice e Bob são ambos espiões.
+$A \eand B$
+\item %Se Alice ou Bob é uma espiã, então o código foi quebrado.
+$(A \eor B) \eif C$
+\item %Se nem Alice nem Bob são espiões, então o código permanece intacto.
+$\enot(A \eor B) \eif \enot C$
+\item %A embaixada brasileira estará em polvorosa, a menos que alguém tenha quebrado o código.
+$G \eor C$
+\item %Ou o código foi quebrado ou não foi, mas a embaixada brasileira estará em polvorosa de qualquer maneira.
+$(C \eor \enot C) \eand G$
+\item %Ou Alice ou Bob é uma espiã, mas não ambos.
+$(A \eor B) \eand \enot(A \eand B)$
+\end{earg}
+
+
+\solutionsection{ch.SL}{pr.wiffLS}
+\begin{earg}
+\item %$(A)$
+(a) não (b) não
+\item %$J_{374} \eor \enot J_{374}$
+(a) não (b) sim
+\item %$\enot \enot \enot \enot F$
+(a) sim (b) sim
+\item %$\enot \eand S$
+(a) não (b) não
+\item %$(G \eand \enot G)$
+(a) sim (b) sim
+\item %$\script{A} \eif \script{A}$
+(a) não (b) não
+\item %$(A \eif (A \eand \enot F)) \eor (D \eiff E)$
+(a) não (b) sim
+\item %$[(Z \eiff S) \eif W] \eand [J \eor X]$
+(a) não (b) sim
+\item %$(F \eiff \enot D \eif J) \eor (C \eand D)$
+(a) não (b) não
+\end{earg}
+
+
+
+
+\solutionsection{ch.TruthTables}{pr.TT.TTorC}
+\begin{earg}
+\item tautologia
+\item contradição
+\item contingente
+\item tautologia
+\item tautologia
+\item contingente
+\item tautologia
+\item contradição
+\item tautologia
+\item contradição
+\item tautologia
+\item contingente
+\item contradição
+\item contingente
+\item tautologia
+\item tautologia
+\item contingente
+\item contingente
+\end{earg}
+
+\solutionsection{ch.TruthTables}{pr.TT.equiv}
+%\begin{earg}
+%\item não equivalente
+\noSeq
+%\item equivalente
+\nextSeq
+%\item equivalente
+\nextSeq
+%\item não equivalente
+\noSeq
+%\item equivalente
+\nextSeq
+%\item equivalente
+\nextSeq
+%\item não equivalente
+\noSeq
+%\item equivalente
+\nextSeq
+%\item equivalente
+\lastSeq
+%\item não equivalente
+\noSeq
+%são logicamente equivalentes.
+
+\solutionsection{ch.TruthTables}{pr.TT.consistent}
+%\item $A\eif A$, $\enot A \eif \enot A$, $A\eand A$, $A\eor A$ %consistente
+\nextSeq
+%\item $A \eand B$, $C\eif \enot B$, $C$ %inconsistente
+\noSeq
+%\item $A\eor B$, $A\eif C$, $B\eif C$ %consistente
+\nextSeq
+%\item $A\eif B$, $B\eif C$, $A$, $\enot C$ %inconsistente
+\noSeq
+%\item $B\eand(C\eor A)$, $A\eif B$, $\enot(B\eor C)$  %inconsistente
+\noSeq
+%\item $A \eor B$, $B\eor C$, $C\eif \enot A$ %consistente
+\nextSeq
+%\item $A\eiff(B\eor C)$, $C\eif \enot A$, $A\eif \enot B$ %consistente
+\nextSeq
+%\item $A$, $B$, $C$, $\enot D$, $\enot E$, $F$ %consistente
+\lastSeq
+são consistentes.
+
+\solutionsection{ch.TruthTables}{pr.TT.valid}
+%\item $A\eif A$, \therefore\ $A$ %inválido
+\noSeq
+%\item $A\eor\bigl[A\eif(A\eiff A)\bigr]$, \therefore\ A %inválido
+\noSeq
+%\item $A\eif(A\eand\enot A)$, \therefore\ $\enot A$ %válido
+\nextSeq
+%\item $A\eiff\enot(B\eiff A)$, \therefore\ $A$ %inválido
+\noSeq
+%\item $A\eor(B\eif A)$, \therefore\ $\enot A \eif \enot B$ %válido
+\nextSeq
+%\item $A\eif B$, $B$, \therefore\ $A$ %inválido
+\noSeq
+%\item $A\eor B$, $B\eor C$, $\enot A$, \therefore\ $B \eand C$ %inválido
+\noSeq
+%\item $A\eor B$, $B\eor C$, $\enot B$, \therefore\ $A \eand C$ %válido
+\nextSeq
+%\item $(B\eand A)\eif C$, $(C\eand A)\eif B$, \therefore\ $(C\eand B)\eif A$ %inválido
+\noSeq
+%\item $A\eiff B$, $B\eiff C$, \therefore\ $A\eiff C$ %válido
+\lastSeq
+são válidos.
+
+
+\solutionsection{ch.TruthTables}{pr.TT.concepts}
+\begin{earg}
+\item %Suponha que \script{A} e \script{B} são logicamente equivalentes. O que você pode dizer sobre $\script{A}\eiff\script{B}$?
+\script{A} e \script{B} têm o mesmo valor de verdade em cada linha de uma tabela-verdade completa, então $\script{A}\eiff\script{B}$ é verdadeira em cada linha. É uma tautologia.
+\item %Suponha que $(\script{A}\eand\script{B})\eif\script{C}$ é contingente. O que você pode dizer sobre o argumento ``\script{A}, \script{B}, \therefore\script{C}''?
+A sentença é falsa em alguma linha de uma tabela-verdade completa. Nessa linha, \script{A} e \script{B} são verdadeiras e \script{C} é falsa. Então o argumento é inválido.
+\item %Suponha que $\{\script{A},\script{B}, \script{C}\}$ é inconsistente. O que você pode dizer sobre $(\script{A}\eand\script{B}\eand\script{C})$?
+Como não há linha de uma tabela-verdade completa na qual todas as três sentenças são verdadeiras, a conjunção é falsa em cada linha. Então é uma contradição.
+\item %Suponha que \script{A} é uma contradição. O que você pode dizer sobre o argumento ``\script{A}, \script{B}, \therefore\script{C}''?
+Como \script{A} é falsa em cada linha de uma tabela-verdade completa, não há linha na qual \script{A} e \script{B} são verdadeiras e \script{C} é falsa. Então o argumento é válido.
+\item %Suponha que \script{C} é uma tautologia. O que você pode dizer sobre o argumento ``\script{A}, \script{B}, \therefore\script{C}''?
+Como \script{C} é verdadeira em cada linha de uma tabela-verdade completa, não há linha na qual \script{A} e \script{B} são verdadeiras e \script{C} é falsa. Então o argumento é válido.
+\item %Suponha que \script{A} e \script{B} são logicamente equivalentes. O que você pode dizer sobre $(\script{A}\eor\script{B})$?
+Não muito. $(\script{A}\eor\script{B})$ é uma tautologia se \script{A} e \script{B} são tautologias; é uma contradição se são contradições; é contingente se são contingentes.
+\item %Suponha que \script{A} e \script{B} são \emph{não} logicamente equivalentes. O que você pode dizer sobre $(\script{A}\eor\script{B})$?
+\script{A} e \script{B} têm valores de verdade diferentes em pelo menos uma linha de uma tabela-verdade completa, e $(\script{A}\eor\script{B})$ será verdadeira nessa linha. Em outras linhas, pode ser verdadeira ou falsa. Então $(\script{A}\eor\script{B})$ ou é uma tautologia ou é contingente; é \emph{não} uma contradição.
+\end{earg}
+
+
+\solutionsection{ch.TruthTables}{pr.altConnectives}
+\begin{earg}
+\item %$A\eor B$
+$\enot A \eif B$
+\item %$A\eand B$
+$\enot(A \eif \enot B)$
+\item %$A\eiff B$
+$\enot [(A\eif B) \eif \enot(B\eif A)]$
+%\item %$A \eand B$
+%$\enot(\enot A \eor \enot B)$
+%\item %$A \eif B$
+%$\enot A \eor B$
+%\item %$A \eiff B$
+%$\enot(\enot A \eor \enot B) \eor \enot(A \eor B)$
+\end{earg}
+
+
+
+\solutionsection{ch.QL}{pr.QLalligators}
+\begin{earg}
+\item %Amos, Bouncer e Cleo todos moram no zoológico.
+$Za \eand Zb \eand Zc$
+\item %Bouncer é um réptil, mas não um jacaré. 
+$Rb \eand \enot Ab$
+\item %Se Cleo ama Bouncer, então Bouncer é um macaco. 
+$Lcb \eif Mb$
+\item %Se ambos Bouncer e Cleo são jacarés, então Amos ama ambos.
+$(Ab \eand Ac)\eif(Lab \eand Lac)$
+\item %Algum réptil mora no zoológico. 
+$\exists x(Rx \eand Zx)$
+\item %Todo jacaré é um réptil. 
+$\forall x(Ax \eif Rx)$
+\item %Qualquer animal que mora no zoológico é ou um macaco ou um jacaré. 
+$\forall x\bigl[Zx \eif (Mx \eor Ax)\bigr]$
+\item %Há répteis que não são jacarés.
+$\exists x(Rx \eand \enot Ax)$
+\item %Cleo ama um réptil.
+$\exists x(Rx \eand Lcx)$
+\item %Bouncer ama todos os macacos que moram no zoológico.
+$\forall x\bigl[(Mx \eand Zx) \eif Lbx\bigr]$
+\item %Todos os macacos que Amos ama o amam de volta.
+$\forall x\bigl[(Mx \eand Lax) \eif Lxa\bigr]$
+\item %Se algum animal é um réptil, então Amos é.
+$\exists x Rx \eif Ra$
+\item %Se algum animal é um jacaré, então é um réptil.
+$\forall x(Ax \eif Rx)$
+\item %Todo macaco que Cleo ama também é amado por Amos.
+$\forall x\bigl[(Mx \eand Lcx) \eif Lax\bigr]$
+\item %Há um macaco que ama Bouncer, mas infelizmente Bouncer não reciprocra este amor.
+$\exists x(Mx \eand Lxb \eand \enot Lbx)$
+\end{earg}
+
+
+\solutionsection{ch.QL}{pr.QLcandies}
+\begin{earg}
+\item %Boris nunca experimentou nenhum doce.
+$\enot\exists x Tx$
+\item %O maçapão é sempre feito com açúcar.
+$\forall x(Mx \eif Sx)$
+\item %Algum doce é sem açúcar.
+$\exists x \enot Sx$
+\item %O melhor doce é o chocolate.
+$\exists x[Cx \eand \enot\exists y Byx]$
+\item %Nenhum doce é melhor que si mesmo.
+$\enot \exists x Bxx$
+\item %Boris nunca experimentou chocolate sem açúcar.
+$\enot \exists x(Cx \eand \enot Sx \eand Tx)$
+\item %Boris experimentou maçapão e chocolate, mas nunca juntos.
+$\exists x(Cx \eand Tx) \eand \exists x(Mx \eand Tx) \eand \enot \exists x(Cx \eand Mx \eand Tx)$
+%\item Boris não experimentou nada que seja melhor que maçapão sem açúcar.
+%$\enot\exists x[Bx \eand \exists y(
+\item %Qualquer doce com chocolate é melhor que qualquer doce sem ele.
+$\forall x[Cx \eif \forall y(\enot Cy \eif Bxy)]$
+\item %Qualquer doce com chocolate e maçapão é melhor que qualquer doce sem nenhum dos dois.
+$\forall x\bigl((Cx \eand Mx) \eif \forall y[(\enot Cy \eand \enot My) \eif Bxy]\bigr)$
+\end{earg}
+
+
+\solutionsection{ch.QL}{pr.QLballet}
+\begin{earg}
+\item %Todos os filhos de Patrick são bailarinos de balé.
+$\forall x(Cxp \eif Dx)$
+\item %Jane é filha de Patrick.
+$Cjp \eand Fj$
+\item %Patrick tem uma filha.
+$\exists x(Cxp \eand Fx)$
+\item %Jane é filha única.
+$\enot\exists x Sxj$
+\item %Todas as filhas de Patrick dançam balé.
+$\forall x\bigl[(Cxp \eand Fx)\eif Dx\bigr]$
+\item %Patrick não tem filhos.
+$\enot\exists x(Cxp \eand Mx)$
+\item %Jane é sobrinha de Elmer.
+$\exists x(Cjx \eand Sxe \eand Fj)$
+\item %Patrick é irmão de Elmer.
+$Spe \eand Mp$
+\item %Os irmãos de Patrick não têm filhos.
+$\forall x\bigl[(Sxp \eand Mx) \eif \enot\exists y Cyx\bigr]$
+\item %Jane é tia.
+$\exists x(Sxj \eand \exists y Cyx \eand Fj)$
+\item %Todos que dançam no balé têm uma irmã que também dança no balé.
+$\forall x\bigl[Dx \eif \exists y(Sxy \eand Fy \eand Dy)\bigr]$
+\item %Todo homem que dança no balé é filho de alguém que dança no balé.
+$\forall x\bigl[(Mx \eand Dx) \eif \exists y(Cxy \eand Dy)\bigr]$
+\end{earg}
+
+\solutionsection{ch.QL}{pr.QLcards}
+\begin{earg}
+\item %Todos os paus são cartas pretas.
+$\forall x(Cx \eif Bx)$
+\item %Não há curingas.
+$\enot\exists x Wx$
+\item %Há pelo menos dois paus.
+$\exists x \exists y(Cx \eand Cy \eand x\neq y)$
+\item %Há mais de um valete de um olho só.
+$\exists x \exists y(Jx \eand Ox \eand Jy \eand Oy \eand x\neq y)$
+\item %Há no máximo dois valetes de um olho só.
+$\forall x\forall y\forall z\bigl[(Jx \eand Ox \eand Jy \eand Oy \eand Jz \eand Oz)\eif(x=y \eor x=z \eor y=z)\bigr]$
+\item %Há dois valetes pretos.
+$\exists x\exists y\bigl(Jx \eand Bx \eand Jy \eand By \eand x \neq y\eand \forall z[(Jz \eand Bz) \eif (x=z \eor y=z)]\bigr)$
+\item %Há quatro duques.
+$\exists x_1\exists x_2\exists x_3\exists x_4\bigl[Dx_1 \eand Dx_2 \eand Dx_3 \eand Dx_4 \eand x_1 \neq x_2 \eand x_1 \neq x_3 \eand x_1 \neq x_4 \eand x_2 \neq x_3 \eand x_2 \neq x_4 \eand x_3 \neq x_4  \eand \enot\exists y(Dy \eand y\neq x_1 \eand y\neq x_2 \eand y\neq x_3 \eand y\neq x_4)\bigr]$
+\item %O duque de paus é uma carta preta.
+$\exists x\bigl(Dx \eand Cx \eand \forall y[(Dy\eand Cy) \eif x=y] \eand Bx\bigr)$
+\item %Valetes de um olho só e o homem com o machado são curingas.
+$\forall x\bigl[(Ox \eand Jx) \eif Wx\bigr] \eand \exists x\bigl[Mx \eand \forall y(My \eif x=y) \eand Wx\bigr]$
+\item %Se o duque de paus é curinga, então há exatamente um curinga.
+$\exists x\bigl(Dx \eand Cx \eand \forall y[(Dy\eand Cy) \eif x=y] \eand Wx\bigr)\eif \exists x\forall y(Wx \eiff x=y)$
+\item %O homem com o machado não é um valete.
+escopo amplo: $\enot \exists x\bigl[Mx \eand \forall y(My \eif x=y) \eand Jx\bigr]$\\
+escopo restrito: $\exists x\bigl[Mx \eand \forall y(My \eif x=y) \eand \enot Jx\bigr]$
+\item %O duque de paus não é o homem com o machado.
+escopo amplo: $\enot \exists x\exists z\bigl[Dx \eand Cx \eand Mz \eand \forall y[(Dy\eand Cy) \eif x=y]  \eand \forall y[(My \eif z=y) \eand x=z]\bigr]$\\
+escopo restrito: $\exists x\exists z\bigl[Dx \eand Cx \eand Mz \eand \forall y[(Dy\eand Cy) \eif x=y]  \eand \forall y[(My \eif z=y) \eand x\neq z]\bigr]$
+\end{earg}
+
+
+
+
+
+\solutionsection{ch.semantics}{pr.TorF1}
+%\item $Bc$
+\noSeq
+%\item $Ac \eiff \enot Nc$
+\nextSeq
+%\item $Nc \eif (Ac \eor Bc)$
+\nextSeq
+%\item $\forall x Ax$
+\nextSeq
+%\item $\forall x \enot Bx$
+\noSeq
+%\item $\exists x(Ax \eand Bx)$
+\nextSeq
+%\item $\exists x(Ax \eif Nx)$
+\noSeq
+%\item $\forall x(Nx \eor \enot Nx)$
+\nextSeq
+%\item $\exists x Bx \eif \forall x Ax$
+\lastSeq
+são verdadeiras no modelo.
+
+\solutionsection{ch.semantics}{pr.TorF2}
+\noSeq%\item $\exists x(Rxm \eand Rmx)$
+\noSeq%\item $\forall x(Rxm \eor Rmx)$
+\noSeq%\item $\forall x(Hx \eiff Wx)$
+\nextSeq%\item $\forall x(Rxm \eif Wx)$
+\nextSeq%\item $\forall x\bigl[Wx \eif(Hx \eand Wx)\bigr]$
+\noSeq%\item $\exists x Rxx$
+\lastSeq%\item $\exists x\exists y Rxy$
+\noSeq%\item $\forall x \forall y Rxy$
+\noSeq%\item $\forall x \forall y (Rxy \eor Ryx)$
+\noSeq%\item $\forallx \forall y \forall z\bigl[(Rxy \eand Ryz) \eif Rxz\bigr]$
+são verdadeiras no modelo.
+
+\solutionsection{ch.semantics}{pr.InterpretationToModel}
+\begin{partialmodel}
+UD & \{10,11,12,13\}\\
+\extension{O} & \{11,13\}\\
+\extension{S} & $\emptyset$\\
+\extension{T} & \{10,11,12,13\}\\
+\extension{U} & \{13\}\\
+\extension{N} & \{\ntuple{11,10},\ntuple{12,11},\ntuple{13,12}\}\\
+\end{partialmodel}
+
+
+
+\solutionsection{ch.semantics}{pr.Contingent}
+\begin{earg}
+\item %$Da \eand Db$
+	A sentença é verdadeira neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan\}\\
+		\extension{D} & \{Stan\}\\
+		\referent{a} & Stan\\
+		\referent{b} & Stan
+	\end{partialmodel}
+	E é falsa neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan\}\\
+		\extension{D} & $\emptyset$\\
+		\referent{a} & Stan\\
+		\referent{b} & Stan
+	\end{partialmodel}
+\item %$\exists x Txh$
+	A sentença é verdadeira neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan\}\\
+		\extension{T} & \{\ntuple{Stan, Stan}\}\\
+		\referent{h} & Stan
+	\end{partialmodel}
+	E é falsa neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan\}\\
+		\extension{T} & $\emptyset$\\
+		\referent{h} & Stan
+	\end{partialmodel}
+\item %$Pm \eand \enot\forall x Px$
+	A sentença é verdadeira neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan, Ollie\}\\
+		\extension{P} & \{Stan\}\\
+		\referent{m} & Stan
+	\end{partialmodel}
+	E é falsa neste modelo:
+	\begin{partialmodel}
+		UD & \{Stan\}\\
+		\extension{P} & $\emptyset$\\
+		\referent{m} & Stan
+	\end{partialmodel}
+\end{earg}
+
+
+
+\solutionsection{ch.semantics}{pr.NotEquiv}
+Há muitas respostas corretas possíveis. Aqui estão algumas:
+\begin{earg}
+\item %$Ja$, $Ka$
+	Tornando a primeira sentença verdadeira e a segunda falsa:
+	\begin{partialmodel}
+		UD & \{alfa\}\\
+		\extension{J} & \{alfa\}\\
+		\extension{K} & $\emptyset$\\
+		\referent{a} & alfa
+	\end{partialmodel}
+\item %$\exists x Jx$, $Jm$
+	Tornando a primeira sentença verdadeira e a segunda falsa:
+	\begin{partialmodel}
+		UD & \{alfa, ômega\}\\
+		\extension{J} & \{alfa\}\\\
+		\referent{m} & ômega
+	\end{partialmodel}
+\item %$\forall x Rxx$, $\exists x Rxx$
+	Tornando a primeira sentença falsa e a segunda verdadeira:
+	\begin{partialmodel}
+		UD & \{alfa, ômega\}\\
+		\extension{R} & \{\ntuple{alfa,alfa}\}
+	\end{partialmodel}
+\item %$\exists x Px \eif Qc$, $\exists x (Px \eif Qc)$
+	Tornando a primeira sentença falsa e a segunda verdadeira:
+	\begin{partialmodel}
+		UD & \{alfa, ômega\}\\
+		\extension{P} & \{alfa\}\\
+		\extension{Q} & $\emptyset$\\
+		\referent{c} & alfa
+	\end{partialmodel}
+\item %$\forall x(Px \eif \enot Qx)$, $\exists x(Px \eand \enot Qx)$
+	Tornando a primeira sentença verdadeira e a segunda falsa:
+	\begin{partialmodel}
+		UD & \{iota\}\\
+		\extension{P} & $\emptyset$\\
+		\extension{Q} & $\emptyset$
+	\end{partialmodel}
+\item %$\exists x(Px \eand Qx)$, $\exists x(Px \eif Qx)$
+	Tornando a primeira sentença falsa e a segunda verdadeira:
+	\begin{partialmodel}
+		UD & \{iota\}\\
+		\extension{P} & $\emptyset$\\
+		\extension{Q} & \{iota\}
+	\end{partialmodel}
+\item %$\forall x(Px\eif Qx)$, $\forall x(Px \eand Qx)$
+	Tornando a primeira sentença verdadeira e a segunda falsa:
+	\begin{partialmodel}
+		UD & \{iota\}\\
+		\extension{P} & $\emptyset$\\
+		\extension{Q} & \{iota\}
+	\end{partialmodel}
+\item %$\forall x\exists y Rxy$, $\exists x\forall y Rxy$
+	Tornando a primeira sentença verdadeira e a segunda falsa:
+	\begin{partialmodel}
+		UD & \{alfa, ômega\}\\
+		\extension{R} & \{\ntuple{alfa, ômega}, \ntuple{ômega, alfa}\}
+	\end{partialmodel}
+\item %$\forall x\exists y Rxy$, $\forall x\exists y Ryx$
+	Tornando a primeira sentença falsa e a segunda verdadeira:
+	\begin{partialmodel}
+		UD & \{alfa, ômega\}\\
+		\extension{R} & \{\ntuple{alfa, alfa}, \ntuple{alfa, ômega}\}
+	\end{partialmodel}
+\end{earg}
+
+\solutionsection{ch.semantics}{pr.IdentityModels}
+\begin{earg}
+\item %Mostre que $\{{\enot}Raa, \forall x (x=a \eor Rxa)\}$ é consistente.
+Há muitas respostas possíveis. Aqui está uma:
+\begin{partialmodel}
+UD & \{Harry, Sally\}\\
+\extension{R} &\{\ntuple{Sally, Harry}\}\\
+\referent{a} & Harry
+\end{partialmodel}
+\item %Mostre que $\{\forall x\forall y\forall z(x=y \eor y=z \eor x=z), \exists x\exists y\ x\neq y\}$ é consistente.
+Não há predicados ou constantes, então só precisamos dar um UD.
+Qualquer UD com 2 membros servirá.
+\item %Mostre que $\{\forall x\forall y\ x=y, \exists x\ x \neq a\}$ é inconsistente.
+Precisamos mostrar que é impossível construir um modelo no qual ambos são verdadeiros. Suponha que $\exists x\ x \neq a$ é verdadeira em um modelo. Há algo no universo de discurso que \emph{não} é o referente de $a$. Então há pelo menos duas coisas no universo de discurso: \referent{a} e essa outra coisa. Chame essa outra coisa de $\beta$--- sabemos $a \neq \beta$. Mas se $a \neq \beta$, então $\forall x\forall y\ x=y$ é falsa. Então a primeira sentença deve ser falsa se a segunda sentença é verdadeira. Como tal, não há modelo no qual ambas são verdadeiras. Portanto, são inconsistentes.
+\end{earg}
+
+\solutionsection{ch.semantics}{pr.SemanticsEssay}
+\begin{earg}
+\stepcounter{eargnum}
+\item Não, não faria diferença. A satisfação de uma fórmula com uma ou mais variáveis livres depende do que a atribuição de variável faz para essas variáveis. Porém, como uma sentença não tem variáveis livres, sua satisfação não depende da atribuição de variável. Então uma sentença que é satisfeita por \emph{alguma} atribuição de variável é satisfeita por \emph{toda} outra atribuição de variável também.
+\end{earg}
+
+
+\solutionsection{ch.proofs}{pr.justifyLSproof}
+
+\begin{multicols}{2}
+\begin{proof}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}
+\have{3}{W}\ae{2}
+\have{4}{\enot B} \ce{1,3}
+\have{5}{J \eand K} \oe{2b,4}
+\have{6}{K} \ae{5}
+\end{proof}
+
+\begin{proof}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}
+\open
+	\hypo{a1}{\enot L}
+	\have{a2}{\enot O}\oe{2,a1}
+	\have{a3}{L}\be{1,a2}
+	\have{a4}{\enot L}\by{R}{a1}
+\close
+\have{3}{L}\ne{a1-a4}
+\end{proof}
+
+\begin{proof}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}
+\open
+	\hypo{a1}{\enot(N \eor  C)}
+	\have{a2}{\enot N \eand \enot C} \by{DeM}{a1}
+	\open
+		\hypo{b1}{Z} 
+		\have{b2}{C \eand \enot N}\ce{1,b1}
+		\have{b3}{C}\ae{b2}
+		\have{b4}{\enot C}\ae{a2}
+	\close
+	\have{a3}{\enot Z}\ni{b1-b4}
+	\have{a4}{N \eand \enot C}\ce{2,a3}
+	\have{a5}{N}\ae{a4}
+	\have{a6}{\enot N}\ae{a2}
+\close
+\have{3}{N \eor C}\ne{a1-a6}
+\end{proof}
+\end{multicols}
+
+\solutionsection{ch.proofs}{pr.solvedSLproofs}
+%Dê uma prova para cada argumento em SL.
+\begin{earg}
+\item%$K\eand L$, \therefore $K\eiff L$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{K\eand L} \want{K\eiff L}
+	\open
+		\hypo{b1}{K} \want{L}
+		\have{b2}{L} \ae{a1}
+	\close
+	\open
+		\hypo{c1}{L} \want{K}
+		\have{c2}{K} \ae{a1}
+	\close
+	\have{d1}{K \eiff L} \bi{b1-b2,c1-c2}
+\end{proof}
+\end{solutioninlist}
+\item%$A\eif (B\eif C)$, \therefore $(A\eand B)\eif C$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{A\eif (B\eif C)} \want{(A\eand B)\eif C}
+	\open
+		\hypo{b1}{A\eand B} \want{C}
+		\have{b2}{A} \ae{b1}
+		\have{b3}{B\eif C} \ce{a1,b2}
+		\have{b4}{B} \ae{b1}
+		\have{b5}{C} \ce{b3, b4}
+	\close
+	\have{c}{(A\eand B)\eif C} \ci{b1-b5}
+\end{proof}
+\end{solutioninlist}
+\item%$P \eand (Q\eor R)$, $P\eif \enot R$, \therefore $Q\eor E$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{P \eand (Q\eor R)}
+	\hypo{a2}{P\eif \enot R} \want{Q\eor E}
+	\have{a3}{P} \andE{a1}
+	\have{a4}{\enot R} \ifE{a2,a3}
+	\have{a5}{Q\eor R} \andE{a1}
+	\have{a6}{Q} \orE{a5,a4}
+	\have{c}{Q\eor E} \orI{a6}
+\end{proof}
+\end{solutioninlist}
+\item%$(C\eand D)\eor E$, \therefore $E\eor D$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{(C\eand D)\eor E} \want{E\eor D}
+	\open
+		\hypo{b1}{\enot E} \want{D}
+		\have{b2}{C\eand D} \oe{a1,b1}
+		\have{b3}{D} \ae{b2}
+	\close
+	\have{c1}{\enot E\eif D} \ci{b1-b3}
+	\have{c2}{E\eor D} \by{MC}{c1}
+\end{proof}
+\end{solutioninlist}
+\item%$\enot F\eif G$, $F\eif H$, \therefore $G\eor H$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{\enot F\eif G}
+	\hypo{a2}{F\eif H} \want{G\eor H}
+	\open
+		\hypo{b1}{\enot G} \want{H}
+		\have{b2}{\enot\enot F} \by{MT}{a1,b1}
+		\have{b3}{F} \by{DN}{b2}
+		\have{b4}{H} \ce{a2,b3}
+	\close
+	\have{c1}{\enot G \eif H} \ci{b1-b4}
+	\have{c2}{G\eor H} \by{MC}{c1}
+\end{proof}
+\end{solutioninlist}
+\item%$(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M$ \therefore $M$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{(X\eand Y)\eor(X\eand Z)}
+	\hypo{a2}{\enot(X\eand D)}
+	\hypo{a3}{D\eor M} \want{M}
+	\open
+		\hypo{b1}{\enot X} \by{para reductio}{}
+		\have{b2}{\enot X\eor \enot Y} \oi{b1}
+		\have{b3}{\enot (X \eand Y)} \by{DeM}{b2}
+		\have{b4}{X\eand Z} \oe{a1,b3}
+		\have{b5}{X} \ae{b4}
+		\have{b6}{\enot X} \by{R}{b1}
+	\close
+	\have{c}{X} \ne{b1-b6}
+	\open
+		\hypo{d1}{\enot M} \by{para reductio}{}
+		\have{d2}{D} \oe{a3,d1}
+		\have{d3}{X\eand D} \ai{c,d2}
+		\have{d4}{\enot(X\eand D)} \by{R}{a2}
+	\close
+	\have{e}{M} \ne{d1-d4}
+\end{proof}
+\end{solutioninlist}
+\end{earg}
+
+
+\solutionsection{ch.proofs}{pr.subinstanceQL}
+\begin{earg}
+\item $Rca$, $Rcb$, $Rcc$ e $Rcd$ são instâncias de substituição de $\forall x Rcx$.
+\item Das expressões listadas, apenas $\forall y Lby$ é uma instância de substituição de $\exists x\forall y Lxy$.
+\end{earg}
+
+
+\solutionsection{ch.proofs}{pr.justifyQLproof}
+
+\begin{multicols}{2}
+%$\{\forall x(\exists y)(Rxy \eor Ryx),\forall x\enot Rmx\}\vdash\exists xRxm$
+\begin{proof}
+\hypo{p1}{\forall x\exists y(Rxy \eor Ryx)}
+\hypo{p2}{\forall x\enot Rmx}
+\have{3}{\exists y(Rmy \eor Rym)}\Ae{p1}
+	\open
+		\hypo{a1}{Rma \eor Ram}
+		\have{a2}{\enot Rma}\Ae{p2}
+		\have{a3}{Ram}\oe{a1,a2}
+		\have{a4}{\exists x Rxm}\Ei{a3}
+	\close
+\have{n}{\exists x Rxm} \Ee{3,a1-a4}
+\end{proof}
+
+%$\{\forall x(\exists yLxy \eif \forall zLzx), Lab\} \vdash \forall xLxx$
+\begin{proof}
+\hypo{1}{\forall x(\exists yLxy \eif \forall zLzx)}
+\hypo{2}{Lab}
+\have{3}{\exists y Lay \eif \forall zLza}\Ae{1}
+\have{4}{\exists y Lay} \Ei{2}
+\have{5}{\forall z Lza} \ce{3,4}
+\have{6}{Lca}\Ae{5}
+\have{7}{\exists y Lcy \eif \forall zLzc}\Ae{1}
+\have{8}{\exists y Lcy}\Ei{6}
+\have{9}{\forall z Lzc}\ce{7,8}
+\have{10}{Lcc}\Ae{9}
+\have{11}{\forall x Lxx}\Ai{10}
+\end{proof}
+
+% $\{\forall x(Jx \eif Kx), \exists x\forall y Lxy, \forall x Jx\} \vdash \exists x(Kx \eand Lxx)$
+\begin{proof}
+\hypo{a}{\forall x(Jx \eif Kx)}
+\hypo{b}{\exists x\forall y Lxy}
+\hypo{c}{\forall x Jx}
+\open
+	\hypo{2}{\forall y Lay}
+	\have{d}{Ja}\Ae{c}
+	\have{e}{Ja \eif Ka}\Ae{a}
+	\have{f}{Ka}\ce{e,d}
+	\have{3}{Laa}\Ae{2}
+	\have{4}{Ka \eand Laa}\ai{f,3}
+	\have{5}{\exists x(Kx \eand Lxx)}\Ei{4}
+\close
+\have{j}{\exists x(Kx \eand Lxx)}\Ee{b,2-5}
+\end{proof}
+
+
+%$\vdash \exists x Mx \eor \forall x\enot Mx$
+\begin{proof}
+	\open
+		\hypo{p1}{\enot (\exists x Mx \eor \forall x\enot Mx)}
+		\have{p2}{\enot \exists x Mx \eand \enot \forall x\enot Mx} \by{DeM}{p1}
+		\have{p3}{\enot \exists x Mx}\ae{p2}
+		\have{p4}{\forall x\enot Mx}\by{QN}{p3}
+		\have{p5}{\enot \forall x\enot Mx}\ae{p2}
+	\close
+\have{n}{\exists x Mx \eor \forall x\enot Mx} \ne{p1-p5}
+\end{proof}
+\end{multicols}
+
+
+\solutionsection{ch.proofs}{pr.someQLproofs}
+
+\begin{earg}
+\item%$\vdash \forall x Fx \eor \enot \forall x Fx$
+\begin{solutioninlist}
+\begin{proof}
+	\open
+		\hypo{p1}{\enot(\forall x Fx \eor \enot\forall x Fx)} \by{para reductio}{}
+		\have{s1}{\enot\forall x Fx \eand \enot\enot\forall x Fx} \by{DeM}{p1}
+		\have{s2}{\enot \forall x Fx}\ae{s1}
+		\have{s3}{\enot\enot\forall x Fx}\ae{s1}
+	\close
+	\have{c}{\forall x Fx \eor \enot\forall x Fx} \ne{p1-s3}
+\end{proof}
+\end{solutioninlist}
+\item %$\{\forall x(Mx \eiff Nx), Ma\eand\exists x Rxa\}\vdash \exists x Nx$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{p1}{\forall x(Mx \eiff Nx)}
+	\hypo{p2}{Ma \eand \exists x Rxa} \by{quer $\exists x Nx$}{}
+	\have{a1}{Ma \eiff Na} \Ae{p1}
+	\have{a2}{Ma} \ae{p2}
+	\have{a3}{Na} \be{a1,a2}
+	\have{c}{\exists x Nx} \Ei{a3}
+\end{proof}
+\end{solutioninlist}
+\item %$\{\forall x(\enot Mx \eor Ljx), \forall x(Bx\eif Ljx), \forall x(Mx\eor Bx)\}\vdash \forall xLjx$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{\forall x(\enot Mx \eor Ljx)}
+	\hypo{a2}{\forall x(Bx \eif Ljx)}
+	\hypo{a3}{\forall x(Mx \eor Bx)} \by{quer $\forall x Ljx$}{}
+	\have{a4}{\enot Ma \eor Lja} \Ae{a1}
+	\have{a5}{Ma \eif Lja} \by{MC}{a4}
+	\have{a6}{Ba \eif Lja} \Ae{a2}
+	\have{a7}{Ma \eor Ba} \Ae{a3}
+	\have{a8}{Lja}  \by{DIL}{a7, a5, a6}
+	\have{a9}{\forall x Ljx} \Ai{a8}
+\end{proof}
+\end{solutioninlist}
+\item %$\forall x(Cx \eand Dt)\vdash \forall xCx \eand Dt$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{\forall x(Cx \eand Dt)} \by{quer $\forall x Cx \eand Dt$}{}
+	\have{a2}{Ca \eand Dt} \Ae{a1}
+	\have{a3}{Ca} \ae{a2}
+	\have{a4}{\forall x Cx} \Ai{a3}
+	\have{a5}{Dt} \ae{a2}
+	\have{a6}{\forall x Cx \eand Dt} \ai{a4, a5}
+\end{proof}
+\end{solutioninlist}
+\item %$\exists x(Cx \eor Dt)\vdash \exists x Cx \eor Dt$
+\begin{solutioninlist}
+\begin{proof}
+	\hypo{a1}{\exists x(Cx \eor Dt)} \by{quer $\exists x Cx \eor Dt$}{}
+	\open
+		\hypo{a2}{Ca \eor Dt} \by{para {$\exists$}E}{}
+		\open
+			\hypo{a3}{\enot(\exists x Cx \eor Dt)} \by{para reductio}{}
+			\have{a4}{\enot\exists x Cx \eand \enot Dt} \by{DeM}{a3}
+			\have{a5}{\enot Dt} \ae{a4}
+			\have{a6}{Ca} \oe{a2,a5}
+			\have{a7}{\exists x Cx} \Ei{a6}
+			\have{a8}{\enot\exists x Cx} \ae{a4}
+		\close
+		\have{a9}{\exists x Cx \eor Dt} \ne{a3-a8}
+	\close
+	\have{a10}{\exists x Cx \eor Dt} \Ee{a1,a2-a9}
+\end{proof}
+\end{solutioninlist}
+\end{earg}
+
+
+
+\solutionsection{ch.proofs}{pr.likes}
+Quanto à tradução deste argumento, veja p.~\pageref{likes2}.
+
+\begin{proof}
+\hypo{1}{\exists x\forall y[\forall z(Lxz \eif Lyz) \eif Lxy]}
+\open
+	\hypo{a}{\forall y[\forall z(Laz \eif Lyz) \eif Lay]}
+	\have{b}{\forall z(Laz \eif Laz) \eif Laa} \Ae{a}
+	\open
+		\hypo{c1}{\enot \exists x Lxx} \by{para reductio}{}
+		\have{c2}{\forall x\enot Lxx} \by{QN}{c1}
+		\have{c3}{\enot Laa} \Ae{c2}
+		\have{c4}{\enot \forall z(Laz \eif Laz)} \by{MT}{c2,c3}
+		\open
+			\hypo{d1}{Lab}
+			\have{d2}{Lab} \by{R}{d1}
+		\close
+		\have{c5}{Lab \eif Lab} \ci{d1--d2}
+		\have{c6}{\forall z(Laz \eif Laz)} \Ai{c5}
+		\have{cn}{\enot \forall z(Laz \eif Laz)} \by{R}{c4}
+	\close
+	\have{h}{\exists x Lxx} \ne{c1--cn}
+\close
+\have{n}{\exists x Lxx} \Ee{1, a--h}
+\end{proof}
+
+
+\solutionsection{ch.proofs}{pr.QLequivornot}
+%\item $\forall x Px \eif Qc$, $\forall x (Px \eif Qc)$
+\noSeq
+%\item $\forall x Px \eand Qc$, $\forall x (Px \eand Qc)$
+\nextSeq
+%\item $Qc \eor \exists x Qx$, $\exists x (Qc \eor Qx)$
+\nextSeq
+%\item $\forall x\forall y \forall z Bxyz$, $\forall x Bxxx$
+\noSeq
+%\item $\forall x\forall y Dxy$, $\forall y\forall x Dxy$
+\lastSeq
+%\item $\exists x\forall y Dxy$, $\forall y\exists x Dxy$
+\noSeq
+são logicamente equivalentes.
+
+\solutionsection{ch.proofs}{pr.QLvalidornot}
+\noSeq%\item $\forall x\exists y Rxy$, \therefore\ $\exists y\forall x Rxy$
+\nextSeq%\item $\exists y\forall x Rxy$, \therefore\ $\forall x\exists y Rxy$
+\noSeq%\item $\exists x(Px \eand \enot Qx)$, \therefore\ $\forall x(Px \eif \enot Qx)$
+\nextSeq%\item $\forall x(Sx \eif Ta)$, $Sd$, \therefore\ $Ta$
+\nextSeq%\item $\forall x(Ax\eif Bx)$, $\forall x(Bx \eif Cx)$, \therefore\ $\forall x(Ax \eif Cx)$
+\noSeq%\item $\exists x(Dx \eor Ex)$, $\forall x(Dx \eif Fx)$, \therefore\ $\exists x(Dx \eand Fx)$
+\nextSeq%\item $\forall x\forall y(Rxy \eor Ryx)$, \therefore\ $Rjj$
+\noSeq%\item $\exists x\exists y(Rxy \eor Ryx)$, \therefore\ $Rjj$
+\noSeq%\item $\forall x Px \eif \forall x Qx$, $\exists x \enot Px$, \therefore\ $\exists x \enot Qx$
+\lastSeq%\item $\exists x Mx \eif \exists x Nx$, $\enot \exists x Nx$, \therefore\ $\forall x \enot Mx$
+são válidos. Aqui estão respostas completas para alguns deles:
+\begin{earg}
+\item %$\forall x\exists y Rxy$, \therefore\ $\exists y\forall x Rxy$
+	\begin{solutioninlist}
+	\begin{partialmodel}
+		UD & \{mocha, freddo\}\\
+		\extension{R} & \{\ntuple{mocha, freddo}, \ntuple{freddo, mocha}\}
+	\end{partialmodel}
+	\end{solutioninlist}
+\item %$\exists y\forall x Rxy$, \therefore\ $\forall x\exists y Rxy$
+	\begin{solutioninlist}
+	\begin{proof}
+		\hypo{p}{\exists y\forall x Rxy} \by{quer $\forall x\exists y Rxy$}{}
+		\open
+			\hypo{ass}{\forall x Rxa}
+			\have{R}{Rba} \Ae{ass}
+			\have{ER}{\exists y Rby} \Ei{R}
+			\have{AER}{\forall x \exists y Rxy} \Ai{ER}
+		\close
+		\have{c}{\forall x\exists y Rxy} \Ee{p, ass-AER}
+	\end{proof}
+	\end{solutioninlist}
+\end{earg}

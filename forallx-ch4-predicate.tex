@@ -1,0 +1,1043 @@
+%!TEX root = forallx.tex
+\chapter{Lógica quantificada}
+\label{ch.QL}
+
+Este capítulo introduz uma linguagem lógica chamada LQ. Ela é uma versão de \emph{lógica quantificada}, porque permite quantificadores como \emph{todos} e \emph{alguns}. A lógica quantificada também é chamada, às vezes, de \emph{lógica de predicados}, porque as unidades básicas da linguagem são predicados e termos.
+
+
+\section{Das sentenças aos predicados}
+Considere o seguinte argumento, que é obviamente válido em português:
+\begin{quote}
+Se todo mundo conhece lógica, então ou ninguém ficará confuso ou todo mundo ficará. Todo mundo ficará confuso somente se tentarmos acreditar em uma contradição. Esta é uma aula de lógica, então todo mundo conhece lógica.\\
+\therefore\ Se não tentarmos acreditar em uma contradição, então ninguém ficará confuso.
+\end{quote}
+Para simbolizar esse argumento em LS, vamos precisar de uma chave de simbolização.
+\begin{ekey}
+\item[L:] Todo mundo conhece lógica.
+\item[N:] Ninguém ficará confuso.
+\item[E:] Todo mundo ficará confuso.
+\item[B:] Tentamos acreditar em uma contradição.
+\end{ekey}
+Note que $N$ e $E$ tratam ambos de pessoas estarem confusas, mas são duas letras sentenciais diferentes. Não podemos substituir $E$ por $\enot N$. Por quê? $\enot N$ significa `Não é o caso que ninguém ficará confuso.' Isso seria verdadeiro se ao menos uma pessoa ficasse confusa, o que está bem longe de dizer que \emph{todo mundo} ficará confuso.
+
+Uma vez que usamos letras sentenciais separadas para $N$ e $E$, apagamos qualquer conexão entre as duas. Elas passam a ser apenas duas sentenças atômicas que podem ser verdadeiras ou falsas de maneira independente. Em português, é impossível que ao mesmo tempo ninguém e todo mundo esteja confuso. Como sentenças de LS, porém, existe uma atribuição de valores de verdade para a qual $N$ e $E$ são ambas verdadeiras.
+
+Expressões como `ninguém', `todo mundo' e `alguém' são chamadas de \emph{quantificadores}. Ao traduzir $N$ e $E$ como sentenças atômicas separadas, deixamos de fora a \emph{estrutura quantificacional} das sentenças. Felizmente, a estrutura quantificacional não é o que torna esse argumento válido. Portanto, podemos ignorá-la com segurança. Para ver isso, traduzimos o argumento para LS:
+\begin{earg}
+\item[]$L \eif (N \eor E)$
+\item[]$E \eif B$
+\item[]$L$
+\item[\therefore]$\enot B \eif N$
+\end{earg}
+Esse é um argumento válido em LS. (Você pode fazer uma tabela-verdade para verificar.)
+
+Agora considere outro argumento. Este também é válido em português.
+
+\begin{quote}
+\label{willard1}
+Willard é um lógico. Todos os lógicos usam chapéus engraçados.\\
+\therefore\ Willard usa um chapéu engraçado.
+\end{quote}
+
+Para simbolizá-lo em LS, definimos a seguinte chave de simbolização:
+\begin{ekey}
+\item[L:] Willard é um lógico.
+\item[A:] Todos os lógicos usam chapéus engraçados.
+\item[F:] Willard usa um chapéu engraçado.
+\end{ekey}
+
+Agora simbolizamos o argumento:
+\begin{earg}
+\item[]$L$
+\item[]$A$
+\item[\therefore] $F$
+\end{earg}
+
+Esse argumento é \emph{inválido} em LS. (Novamente, você pode confirmar isso com uma tabela-verdade.) Há algo de muito errado aqui, porque em português esse é claramente um argumento válido. A simbolização em LS deixou de fora toda a estrutura importante. Mais uma vez, a tradução para LS ignora a estrutura quantificacional: a sentença `Todos os lógicos usam chapéus engraçados' fala tanto de lógicos quanto do fato de usar chapéus engraçados. Ao não traduzir essa estrutura, perdemos a conexão entre o fato de Willard ser lógico e o fato de Willard usar chapéu.
+
+Alguns argumentos com estrutura quantificacional podem ser capturados em LS, como o primeiro exemplo, mesmo que LS ignore essa estrutura. Outros argumentos são completamente estragados em LS, como o segundo exemplo. Note que o problema não é termos cometido algum erro ao simbolizar o segundo argumento. Essas são as melhores simbolizações que podemos dar para esses argumentos \emph{em LS}.
+
+De modo geral, se um argumento que contém quantificadores sai \emph{válido em LS}, então o argumento em linguagem natural é válido. Se o argumento sai \emph{inválido em LS}, então não podemos concluir que o argumento em linguagem natural seja inválido. Ele pode ser válido por causa de uma estrutura quantificacional que o argumento em linguagem natural tem e que o argumento em LS não tem.
+
+De forma semelhante, se uma sentença com quantificadores sai como uma \emph{tautologia em LS}, então a sentença em português é logicamente verdadeira. Se ela sai como \emph{contingente em LS}, isso pode ser devido à estrutura quantificacional que é perdida quando traduzimos para a linguagem formal.
+
+Para simbolizar argumentos que dependem da estrutura quantificacional, precisamos desenvolver uma linguagem lógica diferente. Chamaremos essa linguagem de lógica quantificada, LQ.
+
+
+\section{Blocos básicos de LQ}
+
+Assim como as sentenças eram a unidade básica da lógica sentencial, os predicados serão a unidade básica da lógica quantificada. Um predicado é uma expressão como `é um cachorro'. Essa expressão, por si só, não é uma sentença. Ela não é nem verdadeira nem falsa. Para que seja verdadeira ou falsa, precisamos especificar algo: quem ou o que é esse ser que é um cachorro?
+
+Os detalhes disso serão explicados ao longo do capítulo, mas aqui está a ideia básica: em LQ, representaremos predicados com letras maiúsculas. Por exemplo, podemos deixar $D$ representar `\blank\ é um cachorro'. Usaremos letras minúsculas como nomes de coisas específicas. Por exemplo, podemos deixar $b$ representar Bertie. A expressão $Db$ será uma sentença em LQ. Ela é a tradução da sentença `Bertie é um cachorro'.
+
+Para representar a estrutura quantificacional, também teremos símbolos que representam quantificadores. Por exemplo, `$\exists$' significará `Existe algum\blank'. Assim, para dizer que existe um cachorro, podemos escrever $\exists x Dx$; isto é: existe algum $x$ tal que $x$ é um cachorro.
+
+Isso virá mais adiante. Começaremos definindo termos singulares e predicados.
+
+
+\subsection{Termos singulares}
+Em português, um \define{termo singular} é uma palavra ou expressão que se refere a uma pessoa, lugar ou coisa \emph{específica}. A palavra `cachorro' não é um termo singular, porque há muitos cachorros. A expressão `o cachorro Bertie do Philip' é um termo singular, porque se refere a um terrierzinho específico.
+
+Um \define{nome próprio} é um termo singular que seleciona um indivíduo sem descrevê-lo. O nome `Emerson' é um nome próprio, e o nome, por si só, não diz nada sobre Emerson. Claro, alguns nomes são tradicionalmente dados a meninos e outros, a meninas. Se `Jack Hathaway' é usado como termo singular, você pode supor que se refere a um homem. No entanto, o nome não significa necessariamente que a pessoa referida seja um homem — ou mesmo que a criatura referida seja uma pessoa. Jack poderia ser uma girafa, e você não teria como saber isso apenas pelo nome. Há muita discussão filosófica em torno dessa questão, mas o ponto importante aqui é que um nome é um termo singular porque seleciona um único indivíduo específico.
+
+Outros termos singulares transmitem de modo mais óbvio informações sobre aquilo a que se referem. Por exemplo, você pode saber, sem que lhe digam mais nada, que `o cachorro Bertie do Philip' é um termo singular que se refere a um cachorro. Uma \define{descrição definida} seleciona um indivíduo por meio de uma descrição única. Em português, descrições definidas costumam ser expressões iniciadas por um artigo definido, como `o...' ou `a...'. Elas se referem a \emph{a} coisa específica que satisfaz a descrição dada. Por exemplo, `o membro mais alto do Monty Python' e `o primeiro imperador da China' são descrições definidas. Uma descrição que não seleciona um indivíduo específico não é uma descrição definida. `Um membro do Monty Python' e `um imperador da China' não são descrições definidas.
+
+Podemos usar nomes próprios e descrições definidas para nos referirmos à mesma coisa. O nome próprio `Monte Rainier' nomeia o lugar selecionado pela descrição definida `o pico mais alto do estado de Washington'. As expressões referem-se ao mesmo lugar de maneiras diferentes. Você não aprende muita coisa quando alguém diz que está indo para o Monte Rainier, a não ser que já conheça um pouco de geografia. Você até poderia supor que se trata de uma montanha, mas nem isso é garantido; por tudo o que você sabe, poderia ser uma faculdade, como o Mount Holyoke. Já se eu disser que estou indo para o pico mais alto do estado de Washington, você sabe imediatamente que estou indo para uma montanha no estado de Washington.
+
+Em inglês, a especificação de um termo singular pode depender do contexto; `Willard' significa uma pessoa específica e não apenas alguém chamado Willard; `P.D. Magnus', como termo singular lógico, significa \emph{eu} e não outro P.D. Magnus. Convivemos com esse tipo de ambiguidade em português, mas é importante ter em mente que termos singulares em LQ devem se referir a exatamente uma coisa específica.
+
+Em LQ, simbolizaremos termos singulares com letras minúsculas de $a$ a $w$. Podemos adicionar subscritos se quisermos usar alguma letra mais de uma vez. Assim, $a,b,c,\ldots w, a_1, f_{32}, j_{390}$ e $m_{12}$ são todos termos em LQ.
+
+Termos singulares são chamados de \define{constantes} porque selecionam indivíduos específicos. Note que $x, y$ e $z$ não são constantes em LQ. Eles serão \define{variáveis}, letras que não representam nenhuma coisa específica. Iremos precisar delas quando introduzirmos os quantificadores.
+
+\subsection{Predicados}
+Os predicados mais simples são propriedades de indivíduos. Eles são coisas que você pode dizer sobre um objeto. `\blank\ é um cachorro' e `\blank\ é um integrante do Monty Python' são ambos predicados. Ao traduzir sentenças do português, o termo nem sempre aparece no começo da sentença: `Um piano caiu sobre \blank' também é um predicado. Predicados como esses são chamados de \define{monádicos} ou \define{de um lugar}, porque há apenas um espaço em branco a ser preenchido. Um predicado monádico e um termo singular se combinam para formar uma sentença.
+
+Outros predicados expressam a \emph{relação} entre duas coisas. Por exemplo, `\blank\ é maior do que \blank', `\blank\ está à esquerda de \blank' e `\blank\ deve dinheiro a \blank'. Esses são predicados \define{diádicos} ou \define{de dois lugares}, porque precisam ser preenchidos com dois termos para formar uma sentença.
+
+De modo geral, você pode pensar em predicados como sentenças esquemáticas que precisam ser completadas com um certo número de termos. De maneira inversa, você pode começar com sentenças e obter predicados a partir delas removendo termos. Considere a sentença `Vinnie pegou o carro da família emprestado de Nunzio.' Removendo um termo singular, podemos reconhecer que essa sentença usa qualquer um de três diferentes predicados monádicos:
+\begin{center}
+\blank pegou o carro da família emprestado de Nunzio.\\
+Vinnie pegou \blank emprestado de Nunzio.\\
+Vinnie pegou o carro da família emprestado de \blank.
+\end{center}
+
+Removendo dois termos singulares, podemos reconhecer três diferentes predicados diádicos:
+\begin{center}
+Vinnie pegou \blank emprestado de \blank.\\
+\blank pegou o carro da família emprestado de \blank.\\
+\blank pegou \blank emprestado de Nunzio.
+\end{center}
+
+Removendo todos os três termos singulares, obtemos um predicado \define{triádico} ou \define{de três lugares}:
+\begin{center}
+\blank pegou \blank emprestado de \blank.
+\end{center}
+
+Se estivermos traduzindo essa sentença para LQ, devemos traduzi-la com um predicado de uma, duas ou três posições? Depende do que queremos ser capazes de dizer. Se a única coisa que precisarmos discutir é o fato de o carro da família ser emprestado, então a generalidade de um predicado triádico é desnecessária. Se a única coisa que precisarmos simbolizar for pessoas diferentes pegando emprestado o carro da família de Nunzio, então um predicado monádico basta.
+
+Em geral, podemos ter predicados com quantas posições forem necessárias. Predicados com mais de uma posição são chamados \define{políadicos}. Predicados com $n$ posições, para algum número $n$, são chamados \define{de n lugares} ou \define{n-ádicos}.
+
+Em LQ, simbolizamos predicados com letras maiúsculas de $A$ a $Z$, com ou sem subscritos. Quando fornecermos uma chave de simbolização para predicados, não usaremos espaços em branco; em vez disso, usaremos variáveis. Por convenção, constantes são listadas ao final da chave. Assim, podemos escrever uma chave como:
+\begin{ekey}
+\item[Ax:] $x$ está com raiva.
+\item[Hx:] $x$ está feliz.
+\item[T$_1$xy:] $x$ é tão alto quanto, ou mais alto do que, $y$.
+\item[T$_2$xy:] $x$ é tão durão quanto, ou mais durão do que, $y$.
+\item[Bxyz:] $y$ está entre $x$ e $z$.
+\item[d:] Donald
+\item[g:] Gregor
+\item[m:] Marybeth
+\end{ekey}
+
+Podemos simbolizar sentenças que usem qualquer combinação desses predicados e termos. Por exemplo:
+\begin{earg}
+\item[\ex{terms1}] Donald está com raiva.
+\item[\ex{terms2}] Se Donald está com raiva, então Gregor e Marybeth também estão.
+\item[\ex{terms3}] Marybeth é pelo menos tão alta e tão durona quanto Gregor.
+\item[\ex{terms4}] Donald é mais baixo do que Gregor.
+\item[\ex{terms5}] Gregor está entre Donald e Marybeth.
+\end{earg}
+
+A sentença \ref{terms1} é direta: $Ad$. O `$x$' na entrada da chave `$Ax$' é apenas um marcador de lugar; podemos substituí-lo por outros termos ao traduzir.
+
+A sentença \ref{terms2} pode ser parafraseada como `Se $Ad$, então $Ag$ e $Am$.' LQ possui todos os conectivos verofuncionais de LS, então traduzimos isso como $Ad \eif (Ag \eand Am)$.
+
+A sentença \ref{terms3} pode ser traduzida como $T_1mg \eand T_2mg$.
+
+A sentença \ref{terms4} pode parecer exigir um novo predicado. Se precisássemos simbolizar apenas essa sentença, poderíamos definir um predicado como $Sxy$ para significar `$x$ é mais baixo do que $y$'. No entanto, isso ignoraria a conexão lógica entre `mais baixo' e `mais alto'. Considerados apenas como símbolos de LQ, não há conexão entre $S$ e $T_1$. Eles poderiam significar qualquer coisa. Em vez de introduzir um novo predicado, parafraseamos \ref{terms4} usando predicados já presentes na chave: `Não é o caso que Donald é tão alto quanto, ou mais alto do que, Gregor.' Podemos traduzir como $\enot T_1dg$.
+
+A sentença \ref{terms5} exige que prestemos atenção cuidadosa à ordem dos termos na chave. Ela se torna $Bdgm$.
+
+
+\section{Quantificadores}
+Agora estamos prontos para introduzir os quantificadores. Considere estas sentenças:
+\begin{earg}
+\item[\ex{q.a}] Todo mundo está feliz.
+\item[\ex{q.ac}] Todo mundo é pelo menos tão durão quanto Donald.
+\item[\ex{q.e}] Alguém está com raiva.
+\end{earg}
+
+Pode ser tentador traduzir a sentença \ref{q.a} como $Hd \eand Hg \eand Hm$. Mas isso diria apenas que Donald, Gregor e Marybeth estão felizes. Queremos dizer que \emph{todo mundo} está feliz, mesmo que não tenhamos definido constantes para nomear todas essas pessoas. Para isso, introduzimos o símbolo `$\forall$'. Ele é chamado de \define{quantificador universal}.
+
+Um quantificador deve sempre ser seguido por uma variável e por uma fórmula que contenha essa variável. Podemos traduzir a sentença \ref{q.a} como $\forall x Hx$. Em português, podemos parafrasear como `Para todo $x$, $x$ está feliz.'
+Chamamos $\forall x$ de um \emph{quantificador sobre x}. A fórmula que vem depois do quantificador é chamada de \emph{escopo} do quantificador. Daremos uma definição formal de escopo mais adiante, mas intuitivamente trata-se da parte da sentença sobre a qual o quantificador quantifica. Em $\forall x Hx$, o escopo do quantificador universal é $Hx$.
+
+A sentença \ref{q.ac} pode ser parafraseada como `Para todo $x$, $x$ é pelo menos tão durão quanto Donald.' Isso se traduz como $\forall x T_2xd$.
+
+Nessas sentenças quantificadas, a variável $x$ funciona como um tipo de marcador de lugar. A expressão $\forall x$ significa que você pode escolher qualquer um e colocá-lo no lugar de $x$. Não há motivo especial para usar $x$ em vez de outra variável. A sentença $\forall x Hx$ significa exatamente a mesma coisa que $\forall y Hy$, $\forall z Hz$ e $\forall x_5 Hx_5$.
+
+Para traduzir a sentença \ref{q.e}, introduzimos outro símbolo novo: o \define{quantificador existencial}, $\exists$. Assim como o quantificador universal, o quantificador existencial exige uma variável. A sentença \ref{q.e} pode ser traduzida como $\exists x Ax$. Isso significa que existe algum $x$ que está com raiva. Mais precisamente, significa que existe \emph{pelo menos uma} pessoa com raiva. Mais uma vez, a variável é um marcador de lugar; poderíamos ter traduzido igualmente como $\exists z Az$.
+
+Considere agora estas sentenças:
+\begin{earg}
+\item[\ex{q.ne}] Ninguém está com raiva.
+\item[\ex{q.en}] Existe alguém que não está feliz.
+\item[\ex{q.na}] Nem todo mundo está feliz.
+\end{earg}
+
+A sentença \ref{q.ne} pode ser parafraseada como `Não é o caso que alguém está com raiva.' Isso pode ser traduzido usando negação e um quantificador existencial: $\enot \exists x Ax$. No entanto, a sentença \ref{q.ne} também pode ser parafraseada como `Todo mundo não está com raiva.' Com isso em mente, pode ser traduzida usando negação e um quantificador universal: $\forall x \enot Ax$. Ambas são traduções aceitáveis, porque são logicamente equivalentes. O ponto crítico é se a negação vem antes ou depois do quantificador.
+
+Em geral, $\forall x\script{A}$ é logicamente equivalente a $\enot\exists x\enot\script{A}$. Isso significa que qualquer sentença que possa ser simbolizada com um quantificador universal pode ser simbolizada com um quantificador existencial, e vice-versa. Uma tradução pode parecer mais natural que a outra, mas não há diferença lógica em traduzir com um quantificador ou com o outro. Para algumas sentenças, será apenas uma questão de gosto.
+
+A sentença \ref{q.en} é mais naturalmente parafraseada como `Existe algum $x$ tal que $x$ não está feliz.' Isso se torna $\exists x \enot Hx$. De modo equivalente, poderíamos escrever $\enot\forall x Hx$.
+
+A sentença \ref{q.na} é mais naturalmente traduzida como $\enot\forall xHx$. Ela é logicamente equivalente à sentença \ref{q.en} e, portanto, também poderia ser traduzida como $\exists x \enot Hx$.
+
+Embora tenhamos dois quantificadores em LQ, poderíamos ter uma linguagem formal equivalente com apenas um quantificador. Poderíamos trabalhar apenas com o quantificador universal, por exemplo, e tratar o quantificador existencial como uma convenção notacional. Usamos colchetes [ ] para tornar algumas sentenças mais legíveis, mas sabemos que eles são, na verdade, apenas parênteses ( ). Do mesmo modo, poderíamos escrever `$\exists x$' sabendo que isso é apenas uma abreviação de `$\enot \forall x \enot$'. Há uma escolha entre tornar a lógica formalmente simples e torná-la expressivamente simples. Em LQ, optamos pela simplicidade expressiva. Tanto $\forall$ quanto $\exists$ serão símbolos de LQ.
+
+
+\subsection{Universo de discurso}
+Dada a chave de simbolização que estamos usando, $\forall xHx$ significa `Todo mundo está feliz.' Quem está incluído nesse `todo mundo'? Quando usamos sentenças assim em português, normalmente não queremos dizer todo mundo vivo na Terra neste momento. Certamente não queremos dizer todo mundo que já viveu ou que ainda viverá. Queremos algo mais modesto: todos no prédio, todos na turma, todos na sala.
+
+Para eliminar essa ambiguidade, precisaremos especificar um \define{universo de discurso} — abreviado UD. O UD é o conjunto das coisas sobre as quais estamos falando. Se quisermos falar de pessoas em Maceió, definimos o UD como sendo `pessoas em Maceió'. Escrevemos isso no início da chave de simbolização, assim:
+\begin{ekey}
+\item[UD:] pessoas em Maceió
+\end{ekey}
+Os quantificadores \emph{varrem} o universo de discurso. Dado esse UD, $\forall x$ significa `Todo mundo em Maceió' e $\exists x$ significa `Alguém em Maceió'. Cada constante nomeia algum membro do UD, então só podemos usar esse UD com a chave de simbolização acima se Donald, Gregor e Marybeth estiverem todos em Maceió. Se quisermos falar de pessoas em outros lugares além de Maceió, precisamos incluí-las no UD.
+
+Em LQ, o UD deve ser \emph{não vazio}; isto é, deve conter pelo menos uma coisa. É possível construir linguagens formais que permitam UDs vazios, mas isso introduz complicações.
+
+Mesmo permitir um UD com apenas um membro já pode produzir resultados estranhos. Suponha que tenhamos a seguinte chave de simbolização:
+\begin{ekey}
+\item[UD:] o Cristo Redentor
+\item[Px:] $x$ está no Rio de Janeiro.
+\end{ekey}
+A sentença $\forall x Px$ poderia ser parafraseada em português como `Tudo está no Rio de Janeiro.' Mas isso seria enganoso. Ela significa que tudo o que está no \emph{UD} está no Rio de Janeiro. Como esse UD contém apenas o Cristo Redentor, com essa chave de simbolização $\forall x Px$ simplesmente significa que o Cristo Redentor está no Rio de Janeiro.
+
+
+\subsection{Termos não referenciais}
+Em LQ, cada constante deve selecionar exatamente um membro do UD. Uma constante não pode se referir a mais de uma coisa — ela é um termo \emph{singular}. Ainda assim, cada constante deve selecionar \emph{alguma} coisa. Isso está ligado a um problema filosófico clássico: o chamado problema dos \emph{termos não referenciais}.
+
+Filósofos medievais costumavam usar sentenças sobre a \emph{quimera} para exemplificar esse problema. Quimera é uma criatura mitológica; ela não existe de fato. Considere estas duas sentenças:
+\begin{earg}
+\item[\ex{chimera1}] Quimera está com raiva.
+\item[\ex{chimera2}] Quimera não está com raiva.
+\end{earg}
+É tentador simplesmente definir uma constante para significar `quimera'. A chave de simbolização ficaria assim:
+\begin{ekey}
+\item[UD:] criaturas na Terra
+\item[Ax:] $x$ está com raiva.
+\item[c:] quimera
+\end{ekey}
+Poderíamos então traduzir a sentença \ref{chimera1} como $Ac$ e a sentença \ref{chimera2} como $\enot Ac$.
+
+Problemas surgem quando perguntamos se essas sentenças são verdadeiras ou falsas.
+
+Uma opção seria dizer que a sentença \ref{chimera1} não é verdadeira, porque não existe quimera. Se a sentença \ref{chimera1} é falsa porque fala de algo inexistente, então a sentença \ref{chimera2} também deve ser falsa pela mesma razão. Mas isso significaria que $Ac$ e $\enot Ac$ seriam ambas falsas. Dadas as condições de verdade da negação, isso não pode acontecer.
+
+Como não podemos dizer que ambas são falsas, o que devemos fazer? Outra opção seria dizer que a sentença \ref{chimera1} é \emph{sem sentido} por falar de uma coisa que não existe. Então $Ac$ seria uma expressão significativa em LQ para algumas interpretações, mas não para outras. Isso, porém, tornaria nossa linguagem formal dependente de interpretações particulares. Como nos interessa a forma lógica, queremos considerar a força lógica de uma sentença como $Ac$ independentemente de qualquer interpretação específica. Se $Ac$ fosse às vezes significativa e às vezes sem sentido, não conseguiríamos fazer isso.
+
+Esse é o \emph{problema dos termos não referenciais}, e voltaremos a ele mais adiante (veja p.~\pageref{subsec.defdesc}.) O ponto importante, por enquanto, é que cada constante de LQ \emph{deve} se referir a algo no UD, embora o UD possa ser qualquer conjunto de coisas que quisermos. Se quisermos simbolizar argumentos sobre criaturas mitológicas, então precisamos definir um UD que as inclua. Essa opção é importante se quisermos levar em conta a lógica de histórias. Podemos traduzir uma sentença como `Sherlock Holmes morava no 221B Baker Street' incluindo personagens fictícios como Sherlock Holmes em nosso UD.
+
+
+\section{Traduzindo para LQ}
+Agora já temos todas as peças de LQ. Traduzir sentenças mais complicadas será apenas uma questão de saber a maneira correta de combinar predicados, constantes, quantificadores, variáveis e conectivos. Considere estas sentenças:
+\begin{earg}
+\item[\ex{quan1}] Toda moeda no meu bolso é uma \emph{moeda de 25 centavos}.
+\item[\ex{quan2}] Alguma moeda sobre a mesa é uma \emph{moeda de 10 centavos}.
+\item[\ex{quan3}] Nem todas as moedas sobre a mesa são \emph{moedas de 10 centavos}.
+\item[\ex{quan4}] Nenhuma das moedas no meu bolso é uma \emph{moeda de 10 centavos}.
+\end{earg}
+Ao fornecer uma chave de simbolização, precisamos especificar um UD. Como estamos falando de moedas no meu bolso e sobre a mesa, o UD deve conter pelo menos todas essas moedas. Como não estamos falando de nada além de moedas, deixamos o UD ser todas as moedas. Como não estamos falando de moedas específicas, não precisamos definir constantes. Então definimos esta chave:
+\begin{ekey}
+\item[UD:] todas as moedas
+\item[Px:] $x$ está no meu bolso.
+\item[Tx:] $x$ está sobre a mesa.
+\item[Qx:] $x$ é uma moeda de 25 centavos.
+\item[Dx:] $x$ é uma moeda de 10 centavos.
+\end{ekey}
+A sentença \ref{quan1} é mais naturalmente traduzida com um quantificador universal. O quantificador universal diz algo sobre tudo no UD, não apenas sobre as moedas no meu bolso. A sentença \ref{quan1} significa que (para qualquer moeda) \emph{se} essa moeda está no meu bolso, \emph{então} ela é uma moeda de 25 centavos. Assim, podemos traduzi-la como $\forall x(Px \eif Qx)$.
+
+Como a sentença \ref{quan1} fala de moedas que estão ao mesmo tempo no meu bolso \emph{e} que são moedas de 25 centavos, pode ser tentador traduzi-la usando uma conjunção. No entanto, a sentença $\forall x(Px \eand Qx)$ significaria que tudo no UD está no meu bolso e é uma moeda de 25 centavos: todas as moedas que existem são moedas de 25 centavos no meu bolso. Isso seria algo muito estranho de se dizer, e significa algo bem diferente da sentença \ref{quan1}.
+
+A sentença \ref{quan2} é mais naturalmente traduzida com um quantificador existencial. Ela diz que existe alguma moeda que está sobre a mesa e que é uma moeda de 10 centavos. Então podemos traduzi-la como $\exists x(Tx \eand Dx)$.
+
+Note que precisamos usar um condicional com o quantificador universal, mas usamos uma conjunção com o quantificador existencial. O que significaria escrever $\exists x(Tx \eif Dx)$? Provavelmente não o que você imagina. Isso significa que existe algum membro do UD que satisfaz a subfórmula; grosso modo, existe algum $a$ tal que $(Ta \eif Da)$ é verdadeiro. Em LS, $\script{A} \eif \script{B}$ é logicamente equivalente a $\enot\script{A} \eor \script{B}$, e isso também valerá em LQ. Assim, $\exists x(Tx \eif Dx)$ é verdadeiro se existe algum $a$ tal que $(\enot Ta \eor Da)$; isto é, é verdadeiro se alguma moeda é \emph{ou} não está sobre a mesa \emph{ou} é uma moeda de 10 centavos. É claro que existe alguma moeda que não está sobre a mesa — há moedas em muitos outros lugares. Portanto, $\exists x(Tx \eif Dx)$ é trivialmente verdadeiro. Um condicional normalmente será o conectivo natural a ser usado com um quantificador universal, mas um condicional no escopo de um quantificador existencial pode produzir coisas muito estranhas. Como regra geral, não coloque condicionais no escopo de quantificadores existenciais a menos que você tenha certeza de que precisa de um.
+
+A sentença \ref{quan3} pode ser parafraseada como: `Não é o caso que toda moeda sobre a mesa é uma moeda de 10 centavos.' Assim, podemos traduzi-la como $\enot \forall x(Tx \eif Dx)$. Você poderia olhar para a sentença \ref{quan3} e parafraseá-la em vez disso como: `Alguma moeda sobre a mesa não é uma moeda de 10 centavos.' Então a traduziria como $\exists x(Tx \eand \enot Dx)$. Embora isso provavelmente não seja óbvio, essas duas traduções são logicamente equivalentes. (Isso decorre da equivalência lógica entre $\enot\forall x\script{A}$ e $\exists x\enot\script{A}$, juntamente com a equivalência entre $\enot(\script{A}\eif\script{B})$ e $\script{A}\eand\enot\script{B}$.)
+
+A sentença \ref{quan4} pode ser parafraseada como: `Não é o caso que exista alguma moeda de 10 centavos no meu bolso.' Isso pode ser traduzido como $\enot\exists x(Px \eand Dx)$. Ela também pode ser parafraseada como: `Tudo que está no meu bolso é uma não-moeda de 10 centavos', e então poderia ser traduzida como $\forall x(Px \eif \enot Dx)$. Mais uma vez, as duas traduções são logicamente equivalentes. Ambas são traduções corretas da sentença \ref{quan4}.
+
+Agora podemos traduzir o argumento da p.~\pageref{willard1}, aquele que motivou a necessidade de quantificadores:
+\begin{quote}
+Willard é um lógico. Todos os lógicos usam chapéus engraçados.\\
+\therefore\ Willard usa um chapéu engraçado.
+\end{quote}
+\begin{ekey}
+\item[UD:] pessoas
+\item[Lx:] $x$ é um lógico.
+\item[Fx:] $x$ usa um chapéu engraçado.
+\item[w:] Willard
+\end{ekey}
+Traduzindo, obtemos:
+\begin{earg}
+\item[] $Lw$
+\item[] $\forall x(Lx \eif Fx)$
+\item[\therefore] $Fw$
+\end{earg}
+
+Isto captura a estrutura que havia sido deixada de fora na tradução em LS desse argumento, e este é um argumento válido em LQ.
+
+
+
+
+
+
+\subsection{Predicados vazios}
+Um predicado não precisa se aplicar a nada no UD. Um predicado que não se aplica a nada no UD é chamado de predicado \define{vazio}.
+
+Suponha que queiramos simbolizar estas duas sentenças:
+\begin{earg}
+\item[\ex{monkey1}]Todo macaco sabe linguagem de sinais.
+\item[\ex{monkey2}]Algum macaco sabe linguagem de sinais.
+\end{earg}
+É possível escrever a chave de simbolização para essas sentenças da seguinte maneira:
+\begin{ekey}
+\item[UD:] animais
+\item[Mx:] $x$ é um macaco.
+\item[Sx:] $x$ sabe linguagem de sinais.
+\end{ekey}
+
+A sentença \ref{monkey1} pode agora ser traduzida como $\forall x(Mx \eif Sx)$.
+
+A sentença \ref{monkey2} torna-se $\exists x(Mx \eand Sx)$.
+
+É tentador dizer que a sentença \ref{monkey1} implica a sentença \ref{monkey2}; isto é: se todo macaco sabe linguagem de sinais, então deve ser o caso que algum macaco sabe linguagem de sinais. Essa é uma inferência válida na lógica aristotélica: Todos os $M$ são $S$, \therefore\ algum $M$ é $S$. No entanto, a implicação não vale em LQ. É possível que a sentença $\forall x(Mx \eif Sx)$ seja verdadeira mesmo que a sentença $\exists x(Mx \eand Sx)$ seja falsa.
+
+Como isso pode acontecer? A resposta vem de considerar se essas sentenças seriam verdadeiras ou falsas \emph{se não houvesse macacos}.
+
+Definimos $\forall$ e $\exists$ de maneira que $\forall\script{A}$ seja equivalente a $\enot \exists\enot \script{A}$. Assim, o quantificador universal não envolve a existência de nada — apenas a não existência. Se a sentença \ref{monkey1} é verdadeira, então \emph{não} há macacos que não saibam linguagem de sinais. Se não houvesse macacos, então $\forall x(Mx \eif Sx)$ seria verdadeira e $\exists x(Mx \eand Sx)$ seria falsa.
+
+Permitimos predicados vazios porque queremos poder dizer coisas como: `Não sei se há algum macaco, mas quaisquer macacos que houver sabem linguagem de sinais.' Isto é, queremos poder ter predicados que não (ou possam não) se referir a nada.
+
+O que acontece se adicionarmos um predicado vazio $R$ à interpretação acima? Por exemplo, poderíamos definir $Rx$ como `x é uma geladeira'. Agora a sentença $\forall x(Rx \eif Mx)$ será verdadeira. Isso é contra-intuitivo, já que não queremos dizer que há um monte de macacos-geladeira. É importante lembrar, porém, que $\forall x(Rx \eif Mx)$ significa que qualquer membro do UD que seja uma geladeira é um macaco. Como o UD é animais, não há geladeiras no UD e, portanto, a sentença é trivialmente verdadeira.
+
+Se você realmente estivesse traduzindo a sentença `Todas as geladeiras são macacos', então precisaria incluir eletrodomésticos no UD. Nesse caso, o predicado $R$ não seria vazio e a sentença $\forall x(Rx \eif Mx)$ seria falsa.
+
+\begin{table}[h!]
+\factoidbox{
+\begin{itemize}
+\item Um UD deve ter \emph{pelo menos} um membro.
+\item Um predicado pode se aplicar a alguns, a todos ou a nenhum membro do UD.
+\item Uma constante deve selecionar \emph{exatamente} um membro do UD.
+
+Um membro do UD pode ser selecionado por uma constante, por várias constantes ou por nenhuma.
+\end{itemize}
+}
+\end{table}
+
+\subsection{Escolhendo um universo de discurso}
+A simbolização adequada de uma sentença em língua portuguesa em LQ dependerá da chave de simbolização. De certo modo, isso é óbvio: importa se $Dx$ significa `$x$ é delicado' ou `$x$ é perigoso'. O significado de sentenças em LQ também depende do UD.
+
+Seja $Rx$ `x é uma rosa', seja $Tx$ `x tem um espinho', e considere esta sentença:
+\begin{earg}
+\item[\ex{pickUDrose}] Toda rosa tem um espinho.
+\end{earg}
+
+É tentador dizer que a sentença \ref{pickUDrose} deve ser traduzida como $\forall x(Rx \eif Tx)$. Se o UD contiver todas as rosas, isso estaria correto. Ainda assim, se o UD for apenas \emph{coisas sobre a minha mesa da cozinha}, então $\forall x(Rx \eif Tx)$ significará apenas que toda rosa sobre a minha mesa da cozinha tem um espinho. Se não houver rosas sobre a minha mesa, a sentença será trivialmente verdadeira.
+
+O quantificador universal só percorre os membros do UD, então precisamos incluir todas as rosas no UD para traduzir a sentença \ref{pickUDrose}. Temos duas opções. Primeiro, podemos restringir o UD para incluir todas as rosas, mas \emph{apenas} rosas. Nesse caso, a sentença \ref{pickUDrose} se torna $\forall x Tx$. Isso significa que tudo no UD tem um espinho; como o UD é justamente o conjunto das rosas, isso significa que toda rosa tem um espinho. Essa opção pode nos poupar trabalho se todas as sentenças que quisermos traduzir com essa chave forem sobre rosas.
+
+Segundo, podemos deixar o UD conter coisas além de rosas: rododendros, ratos, rifles e o que mais houver. Então a sentença \ref{pickUDrose} deve ser $\forall x(Rx \eif Tx)$.
+
+Se quiséssemos que o quantificador universal significasse \emph{tudo}, sem restrição, poderíamos tentar especificar um UD que contivesse tudo. Isso levaria a problemas. Será que `tudo' inclui coisas que só foram imaginadas, como personagens fictícios? Por um lado, queremos ser capazes de simbolizar argumentos sobre Hamlet ou Sherlock Holmes. Então precisamos ter a opção de incluir personagens fictícios no UD. Por outro lado, nunca precisamos falar sobre todas as coisas que não existem. Isso talvez nem faça sentido. Há questões filosóficas aqui que não tentaremos tratar. Podemos evitar essas dificuldades especificando sempre o UD. Por exemplo, se quisermos falar de plantas, pessoas e cidades, então o UD pode ser `seres vivos e lugares'.
+
+Suponha que queiramos traduzir a sentença \ref{pickUDrose} e, com a mesma chave de simbolização, traduzir estas sentenças:
+
+\begin{earg}
+\item[\ex{pickUDhair}] Esmerelda tem uma rosa no cabelo.
+\item[\ex{pickUDcross}] Todo mundo está zangado com Esmerelda.
+\end{earg}
+
+Precisamos de um UD que inclua rosas (para que possamos simbolizar a sentença \ref{pickUDrose}) e um UD que inclua pessoas (para que possamos traduzir as sentenças \ref{pickUDhair}--\ref{pickUDcross}.) Eis uma chave adequada:
+\begin{ekey}
+\item[UD:] pessoas e plantas
+\item[Px:] $x$ é uma pessoa.
+\item[Rx:] $x$ é uma rosa.
+\item[Tx:] $x$ tem um espinho.
+\item[Cxy:] $x$ está zangado com $y$.
+\item[Hxy:] $x$ tem $y$ no cabelo.
+\item[e:] Esmerelda
+\end{ekey}
+
+Como não temos um predicado que signifique `$\ldots$ tem uma rosa no cabelo', traduzir a sentença \ref{pickUDhair} exigirá uma paráfrase. A sentença diz que há uma rosa no cabelo de Esmerelda; isto é, há algo que é ao mesmo tempo uma rosa e está no cabelo de Esmerelda. Assim, obtemos: $\exists x(Rx \eand Hex)$.
+
+É tentador traduzir a sentença \ref{pickUDcross} como $\forall x Cxe$. Infelizmente, isso significaria que todo membro do UD está zangado com Esmerelda — tanto pessoas quanto plantas. Significaria, por exemplo, que a rosa no cabelo de Esmerelda está zangada com ela. Evidentemente, a sentença \ref{pickUDcross} não quer dizer isso.
+
+`Todo mundo' significa toda pessoa, não todo membro do UD. Então podemos parafrasear a sentença \ref{pickUDcross} como: `Toda pessoa está zangada com Esmerelda.' Sabemos como traduzir sentenças assim: $\forall x(Px \eif Cxe)$
+
+Em geral, o quantificador universal pode ser usado para significar `todo mundo' se o UD contiver apenas pessoas. Se houver pessoas e outras coisas no UD, então `todo mundo' deve ser tratado como `toda pessoa'.
+
+
+\subsection{Traduzindo pronomes}
+Ao traduzir para LQ, é importante entender a estrutura das sentenças que você quer traduzir. O que importa é a tradução final em LQ, e às vezes você conseguirá passar de uma sentença em língua natural diretamente para uma sentença de LQ. Outras vezes, ajuda parafrasear a sentença uma ou mais vezes. Cada paráfrase sucessiva deve aproximar a sentença original de algo que você consiga traduzir diretamente em LQ.
+
+Nos próximos exemplos, usaremos esta chave de simbolização:
+
+\begin{ekey}
+\item[UD:] pessoas
+\item[Gx:] $x$ sabe tocar guitarra.
+\item[Rx:] $x$ é uma estrela do rock.
+\item[l:] Lemmy
+\end{ekey}
+
+Agora considere estas sentenças:
+
+\begin{earg}
+\item[\ex{pronoun1}] Se Lemmy sabe tocar guitarra, então ele é uma estrela do rock.
+\item[\ex{pronoun2}] Se uma pessoa sabe tocar guitarra, então ela é uma estrela do rock.
+\end{earg}
+
+A sentença \ref{pronoun1} e a sentença \ref{pronoun2} têm o mesmo consequente (`$\ldots$ ele é uma estrela do rock'), mas não podem ser traduzidas da mesma maneira. Ajuda parafraseá-las, substituindo pronomes por referências explícitas.
+
+A sentença \ref{pronoun1} pode ser parafraseada como: `Se Lemmy sabe tocar guitarra, então \emph{Lemmy} é uma estrela do rock.' Isso pode obviamente ser traduzido como $Gl \eif Rl$.
+
+A sentença \ref{pronoun2} deve ser parafraseada de modo diferente: `Se uma pessoa sabe tocar guitarra, então \emph{essa pessoa} é uma estrela do rock.' Essa sentença não é sobre nenhuma pessoa em particular, então precisamos de uma variável. Traduzindo pela metade, podemos parafraseá-la como: `Para qualquer pessoa $x$, se $x$ sabe tocar guitarra, então $x$ é uma estrela do rock.' Agora isso pode ser traduzido como $\forall x (Gx \eif Rx)$. Isso é o mesmo que dizer: `Todo mundo que sabe tocar guitarra é uma estrela do rock.'
+
+
+Considere estas frases adicionais:
+
+\begin{earg}
+\item[\ex{anyone1}] Se \textbf{alguém} pode tocar guitarra, então Lemmy pode.
+\item[\ex{anyone2}] Se \textbf{qualquer um} pode tocar guitarra, então essa pessoa é uma estrela do rock.
+\end{earg}
+
+Estas duas frases possuem o mesmo antecedente (``Se alguém/qualquer um pode tocar guitarra\ldots''), mas têm estruturas lógicas diferentes.
+
+A sentença \ref{anyone1} pode ser parafraseada como: ``Se existe alguém que pode tocar guitarra, então Lemmy pode tocar guitarra.'' O antecedente e o consequente são frases separadas, portanto pode ser simbolizada com um condicional como operador lógico principal: $\exists x Gx \eif Gl$.
+
+A sentença \ref{anyone2} pode ser parafraseada como: ``Para toda pessoa, se ela pode tocar guitarra, então ela é uma estrela do rock.'' Seria um erro simbolizar isso com um quantificador existencial, pois a frase está falando sobre todos. A frase equivale a ``Todos os guitarristas são estrelas do rock.'' É melhor traduzida como $\forall x(Gx \eif Rx)$.
+
+As palavras \textbf{``algum''} e \textbf{``qualquer''} normalmente devem ser traduzidas usando quantificadores. Como mostram estes dois exemplos, às vezes elas exigem um quantificador existencial (como \textbf{``alguém''} na frase \ref{anyone1}) e outras vezes um quantificador universal (como \textbf{``qualquer um''} na frase \ref{anyone2}). Se você tiver dificuldade para determinar qual é necessário, reformule a frase em português usando palavras diferentes de \textbf{``algum''} ou \textbf{``qualquer''}.
+
+\subsection{Quantificadores e escopo}
+
+Na sentença $\exists x Gx \eif Gl$, o escopo do quantificador existencial é a expressão $Gx$. Faria diferença se o escopo do quantificador fosse a sentença toda? Isto é, a sentença $\exists x (Gx \eif Gl)$ significa algo diferente?
+
+Com a chave dada acima, $\exists x Gx \eif Gl$ significa que, se existe algum guitarrista, então Lemmy é guitarrista. Já $\exists x (Gx \eif Gl)$ significaria que existe alguma pessoa tal que, se essa pessoa fosse guitarrista, então Lemmy seria guitarrista. Lembre-se de que o condicional aqui é um condicional material; o condicional é verdadeiro se o antecedente é falso. Seja $p$ a constante que denota o autor deste livro, alguém que certamente não é guitarrista. A sentença $Gp \eif Gl$ é verdadeira porque $Gp$ é falsa. Como alguém (no caso, $p$) satisfaz a sentença, então $\exists x (Gx \eif Gl)$ é verdadeira. A sentença é verdadeira porque existe um não-guitarrista, independentemente da habilidade de Lemmy com a guitarra.
+
+Algo estranho aconteceu quando mudamos o escopo do quantificador, porque o condicional em LQ é um condicional material. Para manter o significado, precisaríamos mudar o quantificador: $\exists x Gx \eif Gl$ significa a mesma coisa que $\forall x (Gx \eif Gl)$, e $\exists x (Gx \eif Gl)$ significa a mesma coisa que $\forall x Gx \eif Gl$.
+
+Essa estranheza não surge com outros conectivos nem quando a variável está no consequente do condicional. Por exemplo, $\exists x Gx \eand Gl$ significa a mesma coisa que $\exists x (Gx \eand Gl)$, e $Gl \eif \exists x Gx$ significa a mesma coisa que $\exists x(Gl \eif Gx)$.
+
+
+\subsection{Predicados ambíguos}
+
+Suponha que queiramos apenas traduzir esta sentença:
+\begin{earg}
+\item[\ex{surgeon1}] Adina é uma cirurgiã habilidosa.
+\end{earg}
+Seja o UD pessoas, seja $Kx$ `x é uma cirurgiã habilidosa' e seja $a$ Adina. A sentença \ref{surgeon1} é simplesmente $Ka$.
+
+Suponha, em vez disso, que queiramos traduzir este argumento:
+\begin{quote}
+O hospital só contratará uma cirurgiã habilidosa. Todas as cirurgiãs são gananciosas. Billy é cirurgião, mas não é habilidoso. Logo, Billy é ganancioso, mas o hospital não o contratará.
+\end{quote}
+Precisamos distinguir ser um \emph{cirurgião habilidoso} de ser apenas um \emph{cirurgião}. Então definimos esta chave de simbolização:
+\begin{ekey}
+\item[UD:] pessoas
+\item[Gx:] $x$ é ganancioso.
+\item[Hx:] o hospital contratará $x$.
+\item[Rx:] $x$ é cirurgião.
+\item[Kx:] $x$ é habilidoso.
+\item[b:] Billy
+\end{ekey}
+
+Agora o argumento pode ser traduzido assim:
+\begin{earg}
+\label{surgeon2}
+\item[] $\forall x\bigl[\enot (Rx \eand Kx) \eif \enot Hx\bigr]$
+\item[] $\forall x(Rx \eif Gx)$
+\item[] $Rb \eand \enot Kb$
+\item[\therefore] $Gb \eand \enot Hb$
+\end{earg}
+
+Em seguida, suponha que queiramos traduzir este argumento:
+\begin{quote}
+\label{surgeon3}
+Carol é uma cirurgiã habilidosa e uma tenista. Logo, Carol é uma tenista habilidosa.
+\end{quote}
+Se começarmos com a chave de simbolização usada no argumento anterior, poderíamos acrescentar um predicado (seja $Tx$ `x é tenista') e uma constante (seja $c$ Carol). Então o argumento se torna:
+\begin{earg}
+\item[] $(Rc \eand Kc) \eand Tc$
+\item[\therefore] $Tc \eand Kc$
+\end{earg}
+Essa tradução é um desastre! Ela transforma o que, em português, é um argumento péssimo em um argumento válido em LQ. O problema é que há uma diferença entre ser \emph{habilidoso como cirurgião} e ser \emph{habilidoso como tenista}. Traduzir esse argumento corretamente exige dois predicados distintos, um para cada tipo de habilidade. Se deixarmos $K_1x$ significar `x é habilidoso como cirurgião' e $K_2x$ significar `x é habilidoso como tenista', então podemos simbolizar o argumento desta forma:
+\begin{earg}
+\label{surgeon3correct}
+\item[] $(Rc \eand K_1c) \eand Tc$
+\item[\therefore] $Tc \eand K_2c$
+\end{earg}
+Como o argumento em língua natural que ele traduz, este é inválido.
+
+A moral desses exemplos é que você precisa ter cuidado ao simbolizar predicados de maneira ambígua. Problemas semelhantes podem surgir com predicados como \emph{bom}, \emph{ruim}, \emph{grande} e \emph{pequeno}. Assim como cirurgiões habilidosos e tenistas habilidosos têm habilidades diferentes, cães grandes, ratos grandes e grandes problemas são grandes de maneiras diferentes.
+
+Basta ter um predicado que signifique `$x$ é um cirurgião habilidoso', em vez de dois predicados `$x$ é habilidoso' e `$x$ é cirurgião'? Às vezes, sim. Como mostra a sentença \ref{surgeon1}, às vezes não precisamos distinguir entre cirurgiões habilidosos e outros cirurgiões.
+
+Precisamos sempre distinguir entre diferentes maneiras de ser habilidoso, bom, ruim ou grande? Não. Como o argumento sobre Billy mostra, às vezes só precisamos falar de um tipo de habilidade. Se você estiver traduzindo um argumento que é apenas sobre cães, é perfeitamente aceitável definir um predicado que significa `$x$ é grande'. Se o UD incluir cães e ratos, porém, provavelmente será melhor fazer o predicado significar `$x$ é grande para um cão'.
+
+
+\subsection{Múltiplos quantificadores}
+Considere a seguinte chave de simbolização e as sentenças que a seguem:
+\begin{ekey}
+\item{UD:} pessoas e cães
+\item{Dx:} $x$ é um cão.
+\item{Fxy:} $x$ é amigo de $y$.
+\item{Oxy:} $x$ é dono de $y$.
+\item{f:} Fifi
+\item{g:} Gerald
+\end{ekey}
+
+\begin{earg}
+\item[\ex{dog1}] Fifi é um cão.
+\item[\ex{dog2}] Gerald é dono de cachorro.
+\item[\ex{dog3}] Alguém é dono de cachorro.
+\item[\ex{dog4}] Todos os amigos de Gerald são donos de cachorro.
+\item[\ex{dog5}] Todo dono de cachorro é amigo de algum dono de cachorro.
+\end{earg}
+
+A sentença \ref{dog1} é fácil: $Df$.
+
+A sentença \ref{dog2} pode ser parafraseada como: `Existe um cão de que Gerald é dono.' Isso pode ser traduzido como $\exists x(Dx \eand Ogx)$.
+
+A sentença \ref{dog3} pode ser parafraseada como: `Existe algum $y$ tal que $y$ é dono de cachorro.' A subsentença `$y$ é dono de cachorro' é exatamente como a sentença \ref{dog2}, exceto pelo fato de que é sobre $y$ em vez de ser sobre Gerald. Assim, podemos traduzir a sentença \ref{dog3} como $\exists y \exists x(Dx \eand Oyx)$. 
+
+A sentença \ref{dog4} pode ser parafraseada como: `Todo amigo de Gerald é dono de cachorro.' Traduzindo parte dessa sentença, obtemos $\forall x(Fxg \eif\mbox{`$x$ é dono de cachorro'})$. Mais uma vez, é importante reconhecer que `$x$ é dono de cachorro' é estruturalmente igual à sentença \ref{dog2}. Como já temos um quantificador sobre $x$, precisaremos de uma variável diferente para o quantificador existencial. Qualquer outra variável serve. Usando $z$, a sentença \ref{dog4} pode ser traduzida como $\forall x\bigl[Fxg \eif\exists z(Dz \eand Oxz)\bigr]$.
+
+A sentença \ref{dog5} pode ser parafraseada como `Para qualquer $x$ que é dono de cachorro, existe um dono de cachorro que é amigo de $x$.' Traduzida parcialmente, isso se torna
+$$\forall x\bigl[\mbox{$x$ é dono de cachorro}\eif\exists y(\mbox{$y$ é dono de cachorro}\eand Fxy)\bigr].$$
+Completando a tradução, a sentença \ref{dog5} torna-se
+$$\forall x\bigl[\exists z(Dz \eand Oxz)\eif\exists y\bigl(\exists z(Dz \eand Oyz)\eand Fxy\bigr)\bigr].$$
+
+Considere agora esta chave de simbolização e estas sentenças:
+\begin{ekey}
+\item[UD:] pessoas
+\item[Lxy:] $x$ gosta de $y$.
+\item[i:] Imre.
+\item[k:] Karl.
+\end{ekey}
+\begin{earg}
+\item[\ex{likes1}]Imre gosta de todo mundo de quem Karl gosta.
+\item[\ex{likes2}]Existe alguém que gosta de todo mundo que gosta de todo mundo de quem essa pessoa gosta.
+\end{earg}
+
+A sentença \ref{likes1} pode ser parcialmente traduzida como $\forall x(\mbox{Karl gosta de $x$}\eif\mbox{Imre gosta de $x$})$. Isso se torna $\forall x(Lkx\eif Lix)$.
+
+A sentença \ref{likes2} é quase um trava-língua. Há pouca esperança de escrever imediatamente a tradução completa, mas podemos proceder em pequenos passos. Uma tradução inicial e parcial poderia ser assim:
+$$\exists x\ \mbox{todo mundo que gosta de todo mundo de quem $x$ gosta é alguém de quem $x$ gosta}$$
+A parte que permanece em linguagem natural é uma sentença universal, então traduzimos mais um pouco:
+$$\exists x\forall y(\mbox{$y$ gosta de todo mundo de quem $x$ gosta}\eif\mbox{$x$ gosta de $y$}).$$
+O antecedente do condicional é estruturalmente igual à sentença \ref{likes1}, com $y$ e $x$ no lugar de Imre e Karl. Assim, a sentença \ref{likes2} pode ser completamente traduzida da seguinte forma:
+$$\exists x\forall y\bigl[\forall z(Lxz \eif Lyz) \eif Lxy\bigr]$$
+
+Ao simbolizar sentenças com múltiplos quantificadores, é melhor proceder em pequenos passos. Parafraseie a sentença em língua natural de modo que a estrutura lógica fique facilmente simbolizável em LQ. Depois, traduza em partes, substituindo a tarefa assustadora de traduzir uma sentença longa pela tarefa mais simples de traduzir fórmulas menores.
+
+
+\section{Sentenças de LQ}
+
+Nesta seção, fornecemos uma definição formal de \emph{fórmula bem formada} (wff) e de \emph{sentença} de LQ.
+
+\subsection{Expressões}
+Há seis tipos de símbolos em LQ:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+predicados & $A,B,C,\ldots,Z$\\
+com subscritos, quando necessário & $A_1, B_1,Z_1,A_2,A_{25},J_{375},\ldots$\\
+\hline
+constantes & $a,b,c,\ldots,w$\\
+com subscritos, quando necessário & $a_1, w_4, h_7, m_{32},\ldots$\\
+\hline
+variáveis & $x,y,z$\\
+com subscritos, quando necessário & $x_1, y_1, z_1, x_2,\ldots$\\
+\hline
+conectivos & \enot,\eand,\eor,\eif,\eiff\\
+\hline
+parênteses&( , )\\
+\hline
+quantificadores& $\forall, \exists$\\
+\hline
+\end{tabular}
+\end{center}
+
+
+%copied from the definition for LS
+Definimos uma \define{expressão de LQ} como qualquer sequência de símbolos de LQ. Pegue quaisquer símbolos de LQ e escreva-os em qualquer ordem: isso já é uma expressão.
+
+\subsection{Fórmulas bem formadas}
+
+Por definição, um \define{termo de LQ} é ou uma constante ou uma variável.
+
+Uma \define{fórmula atômica de LQ} é um predicado $n$-ário seguido de $n$ termos.
+
+Assim como fizemos em LS, daremos uma definição \emph{recursiva} para uma wff de LQ. Na verdade, a maior parte da definição será muito parecida com a definição de wff de LS: toda fórmula atômica é uma wff, e podemos construir novas wffs aplicando os conectivos sentenciais.
+
+Poderíamos simplesmente acrescentar uma regra para cada um dos quantificadores e encerrar o assunto. Por exemplo: se \script{A} é uma wff, então $\forall x\script{A}$ e $\exists x\script{A}$ são wffs. No entanto, isso permitiria sentenças esquisitas como $\forall x\exists x Dx$ e $\forall x Dw$. O que essas fórmulas poderiam significar? Poderíamos adotar alguma interpretação para tais sentenças, mas, em vez disso, vamos escrever a definição de wff de modo que tais aberrações nem mesmo contem como bem formadas.
+
+Para que $\forall x\script{A}$ seja uma wff, \script{A} deve conter a variável $x$ e não deve já conter um quantificador sobre $x$. $\forall x Dw$ não será considerada uma wff porque `$x$' não ocorre em $Dw$, e $\forall x \exists x Dx$ não será considerada uma wff porque $\exists x Dx$ já contém um quantificador sobre $x$.
+
+\begin{enumerate}
+\item Toda fórmula atômica é uma wff.
+\item Se \script{A} é uma wff, então $\enot\script{A}$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eand\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, $(\script{A}\eor\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eif\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eiff\script{B})$ é uma wff.
+\item Se \script{A} é uma wff, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\forall\script{x}\script{A}$ é uma wff.
+\item Se \script{A} é uma wff, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\exists\script{x}\script{A}$ é uma wff.
+\item Todas e somente as wffs de LQ podem ser geradas por aplicações dessas regras.
+\end {enumerate}
+
+Note que a `\script{x}' que aparece na definição acima não é a variável $x$. É uma \emph{metavariável} que representa qualquer variável de LQ. Assim, $\forall xAx$ é uma wff, mas também o são $\forall yAy$, $\forall zAz$, $\forall x_4Ax_4$ e $\forall z_9Az_9$.
+
+Agora podemos dar uma definição formal de escopo: o \define{escopo} de um quantificador é a subfórmula para a qual o quantificador é o operador lógico principal. 
+
+\subsection{Sentenças}
+
+Uma {sentença} é algo que pode ser verdadeiro ou falso. Em LS, toda wff era uma sentença. Isso não será o caso em LQ. Considere a seguinte chave de simbolização:
+\begin{ekey}
+\item[UD:] pessoas
+\item[Lxy:] $x$ ama $y$
+\item[b:] Boris
+\end{ekey}
+Considere a expressão $Lzz$. Ela é uma fórmula atômica: um predicado binário seguido de dois termos. Toda fórmula atômica é uma wff, então $Lzz$ é uma wff. Ela significa alguma coisa? Você pode pensar que significa que $z$ ama a si mesmo, do mesmo modo que $Lbb$ significa que Boris ama a si mesmo. No entanto, $z$ é uma variável; ela não nomeia uma pessoa da maneira como uma constante nomeia. A wff $Lzz$ não nos diz como interpretar $z$. Ele significa todo mundo? alguém qualquer? alguma pessoa? Se tivéssemos um quantificador sobre $z$, isso nos diria como interpretar $z$. Por exemplo, $\exists zLzz$ significaria que alguém ama a si mesmo.
+
+Algumas linguagens formais tratam uma wff como $Lzz$ como se tivesse, implicitamente, um quantificador universal na frente. Não faremos isso em LQ. Se você quer dizer que todo mundo ama a si mesmo, então precisa escrever o quantificador: $\forall zLzz$
+
+Para dar sentido a uma variável, precisamos de um quantificador que nos diga como interpretar essa variável. O escopo de um quantificador sobre $x$, por exemplo, é a parte da fórmula onde o quantificador diz como interpretar $x$.
+
+Para sermos precisos quanto a isso, definimos uma \define{variável ligada} como uma ocorrência de uma variável \script{x} que está no escopo de um quantificador sobre \script{x}. Uma \define{variável livre} é uma ocorrência de variável que não está ligada.
+
+Por exemplo, considere a wff $\forall x(Ex \eor Dy) \eif \exists z(Ex \eif Lzx)$. O escopo do quantificador universal $\forall x$ é $(Ex \eor Dy)$, de modo que a primeira ocorrência de $x$ está ligada pelo quantificador universal, mas a segunda e a terceira ocorrência de $x$ são livres. Não há quantificador sobre $y$, então o $y$ é livre. O escopo do quantificador existencial $\exists z$ é $(Ex \eif Lzx)$, de modo que ambas as ocorrências de $z$ estão ligadas por ele.
+
+Definimos uma \define{sentença} de LQ como uma wff de LQ que não contém variáveis livres.
+
+
+
+\subsection{Convenções notacionais}
+
+Adotaremos as mesmas convenções notacionais que usamos para LS (p.~\pageref{LSconventions}.) Em primeiro lugar, podemos omitir os parênteses mais externos de uma fórmula. Em segundo lugar, usaremos colchetes `[' e `]' no lugar de parênteses para aumentar a legibilidade das fórmulas. Em terceiro lugar, omitiremos parênteses entre cada par de conjunções ao escrever séries longas de conjunções. Em quarto lugar, omitiremos parênteses entre cada par de disjunções ao escrever séries longas de disjunções.
+
+\section{Identidade}
+\label{sec.identity}
+
+Considere esta sentença:
+\begin{earg}
+\item[\ex{else1}] Pavel deve dinheiro a todas as outras pessoas.
+\end{earg}
+Seja o UD o conjunto das pessoas; isso nos permitirá traduzir `todo mundo' com um quantificador universal. Seja $Oxy$ `x deve dinheiro a y', e seja $p$ Pavel. Agora podemos simbolizar a sentença \ref{else1} como $\forall x Opx$. Infelizmente, essa tradução tem consequências estranhas. Ela diz que Pavel deve dinheiro a todo membro do UD, incluindo o próprio Pavel; em particular, implica que Pavel deve dinheiro a si mesmo. No entanto, a sentença \ref{else1} não diz que Pavel deve dinheiro a si mesmo; ele deve dinheiro a todos os \emph{outros}. Este é um problema, porque $\forall x Opx$ é a melhor tradução que conseguimos dar para essa sentença em LQ.
+
+A solução é acrescentar outro símbolo a LQ. O símbolo `$=$' é um predicado binário. Como ele tem um significado lógico especial, escrevemo-lo de modo um pouco diferente: para dois termos $t_1$ e $t_2$, $t_1=t_2$ é uma fórmula atômica.
+
+O predicado $x=y$ significa `x é idêntico a y'. Isso não quer dizer apenas que $x$ e $y$ são indistinguíveis ou que os mesmos predicados são verdadeiros de ambos. Quer dizer que $x$ e $y$ são exatamente a mesma coisa.
+
+Quando escrevemos $x \neq y$, queremos dizer que $x$ e $y$ não são idênticos. Não há necessidade de introduzir isso como um predicado adicional. Em vez disso, $x \neq y$ é uma abreviação de $\enot(x = y)$.
+
+Agora suponha que queiramos simbolizar esta sentença:
+\begin{earg}
+\item[\ex{else2}] Pavel é o senhor Checkov.
+\end{earg}
+Seja a constante $c$ o senhor Checkov. A sentença \ref{else2} pode ser simbolizada como $p=c$. Isso significa que as constantes $p$ e $c$ referem-se ao mesmo sujeito.
+
+Tudo isso é muito bom, mas como isso ajuda com a sentença \ref{else1}? Essa sentença pode ser parafraseada como: `Toda pessoa que não é Pavel é alguém a quem Pavel deve dinheiro.' Essa é uma estrutura de sentença que já sabemos simbolizar: `Para todo $x$, se $x$ não é Pavel, então $x$ é alguém a quem Pavel deve dinheiro.' Em LQ com identidade, isso se torna $\forall x (x\neq p \eif Opx)$.
+
+Além de sentenças que usam a palavra `outro', a identidade será útil ao simbolizar algumas sentenças que contêm as palavras `além de' e `apenas'. Considere estes exemplos:
+
+\begin{earg}
+\item[\ex{else3}] Ninguém além de Pavel deve dinheiro a Hikaru.
+\item[\ex{else4}] Só Pavel deve dinheiro a Hikaru.
+\end{earg}
+
+Acrescentamos a constante $h$, que significa Hikaru.
+
+A sentença \ref{else3} pode ser parafraseada como: `Ninguém que não seja Pavel deve dinheiro a Hikaru.' Isso pode ser traduzido como $\enot\exists x(x\neq p \eand Oxh)$.
+
+A sentença \ref{else4} pode ser parafraseada como: `Pavel deve dinheiro a Hikaru \emph{e} ninguém além de Pavel deve dinheiro a Hikaru.' Já traduzimos um dos componentes da conjunção, e o outro é direto. A sentença \ref{else4} torna-se $Oph \eand \enot\exists x(x\neq p \eand Oxh)$.
+
+
+\subsection{Expressões de quantidade}
+Também podemos usar a identidade para dizer quantas coisas há de um determinado tipo. Por exemplo, considere estas sentenças:
+\begin{earg}
+\item[\ex{atleast1}] Há pelo menos uma maçã sobre a mesa.
+\item[\ex{atleast2}] Há pelo menos duas maçãs sobre a mesa.
+\item[\ex{atleast3}] Há pelo menos três maçãs sobre a mesa.
+\end{earg}
+Seja o UD o conjunto das \emph{coisas sobre a mesa}, e seja $Ax$ `x é uma maçã'.
+
+A sentença \ref{atleast1} não exige identidade. Ela pode ser traduzida adequadamente como $\exists x Ax$: existe alguma maçã sobre a mesa — talvez muitas, mas pelo menos uma.
+
+Pode ser tentador também traduzir a sentença \ref{atleast2} sem identidade. No entanto, considere a sentença $\exists x \exists y(Ax \eand Ay)$. Ela significa que existe alguma maçã $x$ no UD e alguma maçã $y$ no UD. Como nada impede que $x$ e $y$ escolham o mesmo membro do UD, isso seria verdadeiro mesmo que houvesse apenas uma maçã. Para garantir que haja duas maçãs \emph{diferentes}, precisamos do predicado de identidade. A sentença \ref{atleast2} precisa dizer que as duas maçãs existentes não são idênticas, então pode ser traduzida como $\exists x \exists y(Ax \eand Ay \eand x\neq y)$.
+
+A sentença \ref{atleast3} exige falar de três maçãs diferentes. Ela pode ser traduzida como $\exists x \exists y\exists z(Ax \eand Ay \eand Az \eand x\neq y \eand y\neq z \eand x \neq z)$.
+
+Continuando dessa forma, poderíamos traduzir `Há pelo menos $n$ maçãs sobre a mesa.' Há um resumo de como simbolizar sentenças desse tipo na p.~\pageref{summary.atleast}.
+
+
+Agora considere estas sentenças:
+\begin{earg}
+\item[\ex{atmost1}] Há no máximo uma maçã sobre a mesa.
+\item[\ex{atmost2}] Há no máximo duas maçãs sobre a mesa.
+\end{earg}
+
+A sentença \ref{atmost1} pode ser parafraseada como: `Não é o caso que haja pelo menos \emph{duas} maçãs sobre a mesa.' Isso é simplesmente a negação da sentença \ref{atleast2}:
+$$\enot \exists x \exists y(Ax \eand Ay \eand x\neq y)$$
+A sentença \ref{atmost1} também pode ser abordada de outra maneira. Ela significa que quaisquer maçãs que houver sobre a mesa devem ser uma única e mesma maçã, de modo que pode ser traduzida como $\forall x\forall y\bigl[(Ax \eand Ay) \eif x=y\bigr]$. As duas traduções são logicamente equivalentes, portanto ambas estão corretas.
+
+De modo semelhante, a sentença \ref{atmost2} pode ser traduzida de duas formas equivalentes. Ela pode ser parafraseada como: `Não é o caso que haja \emph{três} ou mais maçãs distintas', de modo que pode ser traduzida como a negação da sentença \ref{atleast3}. Usando quantificadores universais, também pode ser traduzida como
+$$\forall x\forall y\forall z\bigl[(Ax \eand Ay \eand Az) \eif (x=y \eor x=z \eor y=z)\bigr].$$
+
+Veja p.~\pageref{summary.atmost} para o caso geral.
+
+Os exemplos acima são sentenças sobre maçãs, mas a estrutura lógica dessas sentenças traduz desigualdades matemáticas como $a\geq 3$, $a \leq 2$ e assim por diante. Também queremos poder traduzir afirmações de igualdade que dizem exatamente quantas coisas há. Por exemplo:
+\begin{earg}
+\item[\ex{exactly1}] Há exatamente uma maçã sobre a mesa.
+\item[\ex{exactly2}] Há exatamente duas maçãs sobre a mesa.
+\end{earg}
+
+A sentença \ref{exactly1} pode ser parafraseada como: `Há \emph{pelo menos} uma maçã sobre a mesa, e há \emph{no máximo} uma maçã sobre a mesa.' Isso é apenas a conjunção da sentença \ref{atleast1} com a sentença \ref{atmost1}: $\exists x Ax \eand \forall x\forall y\bigl[(Ax \eand Ay) \eif x=y\bigr]$. Esse é um modo um pouco complicado de proceder. Talvez seja mais direto parafrasear a sentença \ref{exactly1} como: `Há uma coisa que é a única maçã sobre a mesa.' Entendida assim, a sentença pode ser traduzida como $\exists x\bigl[Ax \eand \enot\exists y(Ay \eand x\neq y)\bigr]$.
+
+De modo análogo, a sentença \ref{exactly2} pode ser parafraseada como: `Há duas maçãs diferentes sobre a mesa, e essas são as únicas maçãs sobre a mesa.' Isso pode ser traduzido como $\exists x\exists y\bigl[Ax \eand Ay \eand x\neq y \eand \enot\exists z(Az \eand x\neq z \eand y\neq z)\bigr]$.
+
+Finalmente, considere esta sentença:
+\begin{earg}
+\item[\ex{atmost2inUD}] Há no máximo duas coisas sobre a mesa.
+\end{earg}
+Pode ser tentador acrescentar um predicado tal que $Tx$ signifique `x é uma coisa sobre a mesa'. No entanto, isso é desnecessário. Como o UD é o conjunto das coisas sobre a mesa, todos os membros do UD estão sobre a mesa. Se quisermos falar de uma \emph{coisa sobre a mesa}, basta usar um quantificador. A sentença \ref{atmost2inUD} pode ser simbolizada como a sentença \ref{atmost2} (que dizia que havia no máximo duas maçãs), mas omitindo completamente o predicado. Isto é, a sentença \ref{atmost2inUD} pode ser traduzida como $\forall x \forall y \forall z(x=y \eor x=z \eor y=z)$.
+
+Técnicas para simbolizar expressões de quantidade (`no máximo', `pelo menos' e `exatamente') são resumidas na p.~\pageref{summary.atleast}.
+
+
+\subsection{Descrições definidas}
+\label{subsec.defdesc}
+Lembre que uma constante de LQ deve referir-se a algum membro do UD. Essa restrição nos permite evitar o problema de termos que não se referem a nada. Dados um UD que incluísse apenas criaturas realmente existentes e uma constante $c$ que significasse `quimera' (uma criatura mítica), sentenças contendo $c$ se tornariam impossíveis de avaliar.
+
+A solução mais influente para esse problema foi introduzida por Bertrand Russell em 1905. Russell perguntou como deveríamos entender a seguinte sentença:
+\begin{earg}
+\item[\ex{defdesc1}] O atual rei da França é careca.
+\end{earg}
+A expressão `o atual rei da França' deveria selecionar um indivíduo por meio de uma descrição definida. No entanto, não havia rei da França em 1905 e não há nenhum agora. Como a descrição é um termo que não se refere a nada, não podemos simplesmente definir uma constante para significar `o atual rei da França' e traduzir a sentença como $Kf$.
+
+A ideia de Russell era que sentenças que contêm descrições definidas têm uma estrutura lógica diferente da estrutura de sentenças que contêm nomes próprios, ainda que compartilhem a mesma forma gramatical. O que queremos dizer quando usamos uma descrição referencial sem problema, como `o pico mais alto do estado de Washington'? Queremos dizer que há tal pico, porque não poderíamos falar dele de outro modo. Também queremos dizer que ele é o único pico desse tipo. Se houvesse outro pico no estado de Washington com altura exatamente igual à do Monte Rainier, então o Monte Rainier não seria \emph{o} pico mais alto.
+
+De acordo com essa análise, a sentença \ref{defdesc1} está dizendo três coisas. Primeiro, ela faz uma afirmação de \emph{existência}: existe um atual rei da França. Segundo, faz uma afirmação de \emph{unicidade}: esse sujeito é o único atual rei da França. Terceiro, faz uma afirmação de \emph{predicação}: esse sujeito é careca.
+
+Para simbolizar descrições definidas desse modo, precisamos do predicado de identidade. Sem ele, não poderíamos traduzir a afirmação de unicidade que (segundo Russell) está implícita na descrição definida.
+
+Seja o UD o conjunto das \emph{pessoas atualmente vivas}, seja $Fx$ `x é o atual rei da França', e seja $Bx$ `x é careca'. A sentença \ref{defdesc1} pode então ser traduzida como $\exists x\bigl[Fx \eand \enot\exists y(Fy \eand x\neq y) \eand Bx\bigr]$. Isso diz que existe algum sujeito que é o atual rei da França, ele é o único atual rei da França e ele é careca.
+
+Entendida assim, a sentença \ref{defdesc1} é significativa, mas falsa. Ela diz que esse sujeito existe, mas ele não existe.
+
+O problema dos termos sem referência é mais incômodo quando tentamos traduzir negações. Portanto, considere esta sentença:
+\begin{earg}
+\item[\ex{defdesc2}] O atual rei da França não é careca.
+\end{earg}
+Segundo Russell, a formulação original dessa sentença é ambígua em inglês. Ela poderia significar duas coisas diferentes:
+\begin{earg}
+\item[\ref{defdesc2}a.] Não é o caso que o atual rei da França seja careca.
+\item[\ref{defdesc2}b.] O atual rei da França é não-careca.
+\end{earg}
+Ambos os possíveis significados negam a sentença \ref{defdesc1}, mas colocam a negação em lugares diferentes.
+
+A sentença \ref{defdesc2}a é chamada de \define{negação de escopo amplo}, porque nega a sentença inteira. Ela pode ser traduzida como $\enot\exists x\bigl[Fx \eand \enot\exists y(Fy \eand x\neq y) \eand Bx\bigr]$. Isso não diz nada sobre o atual rei da França, mas afirma que certa sentença sobre o atual rei da França é falsa. Como a sentença \ref{defdesc1} é falsa, a sentença \ref{defdesc2}a é verdadeira.
+
+A sentença \ref{defdesc2}b diz algo sobre o atual rei da França. Ela afirma que ele não tem a propriedade de ser careca. Como a sentença \ref{defdesc1}, ela faz uma afirmação de existência e uma de unicidade; apenas nega a afirmação de predicação. Isso é chamado de \define{negação de escopo estreito}. Pode ser traduzida como $\exists x\bigl[Fx \eand \enot\exists y(Fy \eand x\neq y) \eand \enot Bx\bigr]$. Como não há atual rei da França, essa sentença é falsa.
+
+A teoria de descrições definidas de Russell resolve o problema dos termos sem referência e também explica por que ele parecia tão paradoxal. Antes de distinguirmos entre a negação de escopo amplo e a de escopo estreito, parecia que sentenças como \ref{defdesc2} deveriam ser ao mesmo tempo verdadeiras e falsas. Ao mostrar que tais sentenças são ambíguas, Russell mostrou que elas são verdadeiras se entendidas de um modo, mas falsas se entendidas de outro.
+
+Para uma discussão mais detalhada da teoria das descrições definidas de Russell, incluindo objeções a ela, veja a entrada de Peter Ludlow `descriptions' em \emph{The Stanford Encyclopedia of Philosophy}: edição do verão de 2005, editada por Edward N. Zalta, \url{http://plato.stanford.edu/archives/sum2005/entries/descriptions/}
+
+
+%\fix{glossário?}
+%variável livre
+%variável ligada
+%escopo
+
+\practiceproblems
+
+\solutions
+\problempart
+\label{pr.QLalligators}
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ.
+\begin{ekey}
+\item[UD:] todos os animais
+\item[Ax:] $x$ é um jacaré.
+\item[Mx:] $x$ é um macaco.
+\item[Rx:] $x$ é um réptil.
+\item[Zx:] $x$ vive no zoológico.
+\item[Lxy:] $x$ ama $y$.
+\item[a:] Amos
+\item[b:] Bouncer
+\item[c:] Cleo
+\end{ekey}
+\begin{earg}
+\item Amos, Bouncer e Cleo vivem todos no zoológico. 
+\item Bouncer é um réptil, mas não é um jacaré. 
+\item Se Cleo ama Bouncer, então Bouncer é um macaco. 
+\item Se tanto Bouncer quanto Cleo são jacarés, então Amos ama os dois.
+\item Algum réptil vive no zoológico. 
+\item Todo jacaré é um réptil. 
+\item Todo animal que vive no zoológico é ou um macaco ou um jacaré. 
+\item Há répteis que não são jacarés.
+\item Cleo ama um réptil.
+\item Bouncer ama todos os macacos que vivem no zoológico.
+\item Todos os macacos que Amos ama o amam de volta.
+\item Se algum animal é réptil, então Amos é réptil.
+\item Se algum animal é jacaré, então ele é réptil.
+\item Todo macaco que Cleo ama também é amado por Amos.
+\item Existe um macaco que ama Bouncer, mas infelizmente Bouncer não retribui esse amor.
+\end{earg}
+
+
+
+\problempart
+\label{pr.BarbaraEtc}
+Estas são figuras silogísticas identificadas por Aristóteles e seus sucessores, juntamente com seus nomes medievais. Traduza cada argumento para LQ.
+\begin{description}
+\item[Barbara] Todos os $B$ são $C$. Todos os $A$ são $B$.
+	\therefore\  Todos os $A$ são $C$.
+\item[Baroco] Todos os $C$ são $B$. Algum $A$ não é $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Bocardo] Algum $B$ não é $C$. Todos os $A$ são $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Celantes] Nenhum $B$ é $C$. Todos os $A$ são $B$.
+	\therefore\  Nenhum $C$ é $A$.
+\item[Celarent] Nenhum $B$ é $C$. Todos os $A$ são $B$.
+	\therefore\  Nenhum $A$ é $C$.
+\item[Cemestres] Nenhum $C$ é $B$. Nenhum $A$ é $B$.
+	\therefore\  Nenhum $A$ é $C$.
+\item[Cesare] Nenhum $C$ é $B$. Todos os $A$ são $B$.
+	\therefore\  Nenhum $A$ é $C$.
+\item[Dabitis] Todos os $B$ são $C$. Algum $A$ é $B$.
+	\therefore\  Algum $C$ é $A$.
+\item[Darii] Todos os $B$ são $C$. Algum $A$ é $B$.
+	\therefore\  Algum $A$ é $C$.
+\item[Datisi] Todos os $B$ são $C$. Todo $A$ é $C$.
+	\therefore\  Algum $A$ é $C$.
+\item[Disamis] Algum $A$ é $B$. Todos os $A$ são $C$.
+	\therefore\  Algum $B$ é $C$.
+\item[Ferison] Nenhum $B$ é $C$. Algum $A$ é $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Ferio] Nenhum $B$ é $C$. Algum $A$ é $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Festino] Nenhum $C$ é $B$. Algum $A$ é $B$.
+	\therefore\  Algum $A$ não é $C$.
+\item[Baralipton] Todos os $B$ são $C$. Todos os $A$ são $B$.
+	\therefore\  Algum $C$ é $A$.
+\item[Frisesomorum] Algum $B$ é $C$. Nenhum $A$ é $B$.
+	\therefore\  Algum $C$ não é $A$.
+\end{description}
+
+
+
+\problempart Usando a chave de simbolização dada, traduza cada sentença em português para LQ.
+\begin{ekey}
+\item[UD:] todos os animais
+\item[Dx:] $x$ é um cachorro.
+\item[Sx:] $x$ gosta de filmes de samurai.
+\item[Lxy:] $x$ é maior que $y$.
+\item[b:] Bertie
+\item[e:] Emerson
+\item[f:] Fergis
+\end{ekey}
+\begin{earg}
+\item Bertie é um cachorro que gosta de filmes de samurai.
+\item Bertie, Emerson e Fergis são todos cachorros.
+\item Emerson é maior que Bertie, e Fergis é maior que Emerson.
+\item Todos os cachorros gostam de filmes de samurai.
+\item Somente cachorros gostam de filmes de samurai.
+\item Existe um cachorro que é maior que Emerson.
+\item Se existe um cachorro maior que Fergis, então existe um cachorro maior que Emerson.
+\item Nenhum animal que gosta de filmes de samurai é maior que Emerson.
+\item Nenhum cachorro é maior que Fergis.
+\item Qualquer animal que não gosta de filmes de samurai é maior que Bertie.
+\item Existe um animal que está, em tamanho, entre Bertie e Emerson.
+\item Não há cachorro que esteja, em tamanho, entre Bertie e Emerson.
+\item Nenhum cachorro é maior do que ele mesmo.
+\item Para todo cachorro, existe algum cachorro maior do que ele.
+\item Existe um animal que é menor do que todo cachorro.
+\item Se existe um animal que é maior do que qualquer cachorro, então esse animal não gosta de filmes de samurai.
+\end{earg}
+
+
+\problempart
+\label{pr.QLarguments}
+Para cada argumento, escreva uma chave de simbolização e traduza o argumento para LQ.
+\begin{earg}
+\item Nada sobre a minha mesa escapa à minha atenção. Há um computador sobre a minha mesa. Logo, há um computador que não escapa à minha atenção.
+\item Todos os meus sonhos são em preto e branco. Os programas antigos de TV são em preto e branco. Portanto, alguns dos meus sonhos são programas antigos de TV.
+\item Nem Holmes nem Watson esteve na Austrália. Uma pessoa só poderia ver um canguru se tivesse estado na Austrália ou em um zoológico. Embora Watson não tenha visto um canguru, Holmes viu. Portanto, Holmes esteve em um zoológico.
+\item Ninguém espera a Inquisição Espanhola. Ninguém conhece as dificuldades que eu tenho enfrentado. Portanto, qualquer um que espera a Inquisição Espanhola conhece as dificuldades que eu tenho enfrentado.
+\item Uma antílope é maior do que uma caixa de pão. Estou pensando em algo que não é maior do que uma caixa de pão, e que é ou uma antílope ou um melão. Assim, estou pensando em um melão.
+\item Todos os bebês são ilógicos. Ninguém que seja ilógico consegue controlar um crocodilo. Berthold é um bebê. Portanto, Berthold é incapaz de controlar um crocodilo.
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.QLcandies}
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ.
+\begin{ekey}
+\item[UD:] doces
+\item[Cx:] $x$ tem chocolate.
+\item[Mx:] $x$ tem marzipã.
+\item[Sx:] $x$ tem açúcar.
+\item[Tx:] Boris provou $x$.
+\item[Bxy:] $x$ é melhor do que $y$.
+\end{ekey}
+\begin{earg}
+\item Boris nunca provou nenhum doce.
+\item Marzipã é sempre feito com açúcar.
+\item Algum doce é sem açúcar.
+\item O melhor de todos os doces é o chocolate.
+\item Nenhum doce é melhor do que ele mesmo.
+\item Boris nunca provou chocolate sem açúcar.
+\item Boris já provou marzipã e chocolate, mas nunca juntos.
+%\item Boris nunca provou nada que seja melhor do que marzipã sem açúcar.
+\item Qualquer doce com chocolate é melhor do que qualquer doce sem chocolate.
+\item Qualquer doce com chocolate e marzipã é melhor do que qualquer doce que não tenha nem chocolate nem marzipã.
+\end{earg}
+
+
+
+\problempart
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ.
+\begin{ekey}
+\item[UD:] pessoas e pratos em um almoço comunitário
+\item[Rx:] $x$ acabou.
+\item[Tx:] $x$ está na mesa.
+\item[Fx:] $x$ é comida.
+\item[Px:] $x$ é uma pessoa.
+\item[Lxy:] $x$ gosta de $y$.
+\item[e:] Eli
+\item[f:] Francesca
+\item[g:] a farofa
+\end{ekey}
+\begin{earg}
+\item Toda a comida está sobre a mesa.
+\item Se a farofa não acabou, então ela está na mesa.
+\item Todo mundo gosta da farofa.
+\item Se alguém gosta da farofa, então Eli gosta.
+\item Francesca só gosta dos pratos que já acabaram.
+\item Francesca não gosta de ninguém, e ninguém gosta de Francesca.
+\item Eli gosta de qualquer pessoa que goste da farofa.
+\item Eli gosta de qualquer pessoa que goste das pessoas de quem ele gosta.
+\item Se já houver uma pessoa em cima da mesa, então toda a comida já deve ter acabado.
+\end{earg}
+
+
+\solutions
+\problempart
+\label{pr.QLballet}
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ.
+\begin{ekey}
+\item[UD:] pessoas
+\item[Dx:] $x$ dança balé.
+\item[Fx:] $x$ é mulher.
+\item[Mx:] $x$ é homem.
+\item[Cxy:] $x$ é filho de $y$.
+\item[Sxy:] $x$ é irmão de $y$.
+\item[e:] Elmer
+\item[j:] Jane
+\item[p:] Patrick
+\end{ekey}
+\begin{earg}
+\item Todos os filhos de Patrick dançam balé.
+\item Jane é filha de Patrick.
+\item Patrick tem uma filha.
+\item Jane é filha única.
+\item Todas as filhas de Patrick dançam balé.
+\item Patrick não tem filhos homens.
+\item Jane é sobrinha de Elmer.
+\item Patrick é irmão de Elmer.
+\item Os irmãos de Patrick não têm filhos.
+\item Jane é tia.
+\item Todo mundo que dança balé tem uma irmã que também dança balé.
+\item Todo homem que dança balé é filho de alguém que dança balé.
+\end{earg}
+
+\problempart
+\label{pr.freeQL}
+Identifique quais variáveis estão ligadas e quais estão livres.
+\begin{earg}
+\item $\exists x Lxy \eand \forall y Lyx$
+\item $\forall x Ax \eand Bx$
+\item $\forall x (Ax \eand Bx) \eand \forall y(Cx \eand Dy)$
+\item $\forall x\exists y[Rxy \eif (Jz \eand Kx)] \eor Ryx$
+\item $\forall x_1(Mx_2 \eiff Lx_2x_1) \eand \exists x_2 Lx_3x_2$
+\end{earg}
+
+
+\problempart
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ com identidade. A última sentença é ambígua e pode ser traduzida de duas maneiras; você deve fornecer ambas as traduções. (Dica: a identidade só é necessária para as quatro últimas sentenças.)
+\begin{ekey}
+\item[UD:] pessoas
+\item[Kx:] $x$ conhece a combinação do cofre.
+\item[Sx:] $x$ é espião.
+\item[Vx:] $x$ é vegetariano.
+\item[Txy:] $x$ confia em $y$.
+\item[h:] Hofthor
+\item[i:] Ingmar
+\end{ekey}
+\begin{earg}
+\item Hofthor é espião, mas nenhum vegetariano é espião.
+\item Ninguém conhece a combinação do cofre, a menos que Ingmar conheça.
+\item Nenhum espião conhece a combinação do cofre.
+\item Nem Hofthor nem Ingmar é vegetariano.
+\item Hofthor confia em um vegetariano.
+\item Todo mundo que confia em Ingmar confia em um vegetariano.
+\item Todo mundo que confia em Ingmar confia em alguém que confia em um vegetariano.
+\item Só Ingmar conhece a combinação do cofre.
+\item Ingmar confia em Hofthor, mas em mais ninguém.
+\item A pessoa que conhece a combinação do cofre é vegetariana.
+\item A pessoa que conhece a combinação do cofre não é espiã.
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.QLcards}
+Usando a chave de simbolização dada, traduza cada sentença em português para LQ com identidade. As duas últimas sentenças são ambíguas e podem ser traduzidas de duas maneiras; você deve fornecer ambas as traduções para cada uma delas.
+\begin{ekey}
+\item[UD:] cartas de um baralho padrão
+\item[Bx:] $x$ é preta.
+\item[Cx:] $x$ é de paus.
+\item[Dx:] $x$ é um dois.
+\item[Jx:] $x$ é um valete.
+\item[Mx:] $x$ é o homem com o machado.
+\item[Ox:] $x$ tem um olho só.
+\item[Wx:] $x$ é coringa.
+\end{ekey}
+\begin{earg}
+\item Todas as cartas de paus são pretas.
+\item Não há cartas coringa.
+\item Há pelo menos duas cartas de paus.
+\item Há mais de um valete de um olho só.
+\item Há no máximo dois valetes de um olho só.
+\item Há dois valetes pretos.
+\item Há quatro cartas de dois.
+\item O dois de paus é uma carta preta.
+\item Os valetes de um olho só e o homem com o machado são curingas.
+\item Se o dois de paus for coringa, então há exatamente uma carta coringa.
+\item O homem com o machado não é um valete.
+\item O dois de paus não é o homem com o machado.
+\end{earg}
+
+
+\problempart Usando a chave de simbolização dada, traduza cada sentença em português para LQ com identidade. As duas últimas sentenças são ambíguas e podem ser traduzidas de duas maneiras; você deve fornecer ambas as traduções para cada uma delas.
+\begin{ekey}
+\item[UD:] animais no mundo
+\item[Bx:] $x$ está no campo do fazendeiro Brown.
+\item[Hx:] $x$ é um cavalo.
+\item[Px:] $x$ é um Pégaso.
+\item[Wx:] $x$ tem asas.
+\end{ekey}
+\begin{earg}
+\item Há pelo menos três cavalos no mundo.
+\item Há pelo menos três animais no mundo.
+\item Há mais de um cavalo no campo do fazendeiro Brown.
+\item Há três cavalos no campo do fazendeiro Brown.
+\item Há uma única criatura alada no campo do fazendeiro Brown; quaisquer outras criaturas no campo não têm asas.
+\item O Pégaso é um cavalo alado.
+\item O animal no campo do fazendeiro Brown não é um cavalo.
+\item O cavalo no campo do fazendeiro Brown não tem asas.
+\end{earg}

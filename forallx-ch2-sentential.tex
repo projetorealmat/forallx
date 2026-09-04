@@ -1,0 +1,590 @@
+%!TEX root = forallx.tex
+\chapter{Lógica sentencial}
+\label{ch.SL}
+
+Este capítulo apresenta uma linguagem lógica chamada LS. Ela é uma versão de \emph{lógica sentencial}, porque as unidades básicas da linguagem vão representar sentenças inteiras.
+
+\section{Letras de sentença}
+Em LS, letras maiúsculas são usadas para representar sentenças básicas. Considerada apenas como um símbolo de LS, a letra $A$ pode significar qualquer sentença. Portanto, ao traduzir do português para LS, é importante fornecer uma \emph{chave de simbolização}. A chave associa a cada letra de sentença usada uma sentença em linguagem natural (aqui, em português).
+
+Por exemplo, considere este argumento:
+\begin{earg}
+\item[] Há uma maçã sobre a mesa.
+\item[] Se há uma maçã sobre a mesa, então Jenny chegou à aula.
+\item[\therefore] Jenny chegou à aula.
+\end{earg}
+Este é obviamente um argumento válido em português. Ao simbolizá-lo, queremos preservar a estrutura do argumento que o torna válido.
+O que acontece se simplesmente substituirmos cada sentença por uma letra? Nossa chave de simbolização ficaria assim:
+\begin{ekey}
+\item[A:] Há uma maçã sobre a mesa.
+\item[B:] Se há uma maçã sobre a mesa, então Jenny chegou à aula.
+\item[C:] Jenny chegou à aula.
+\end{ekey}
+Então simbolizaríamos o argumento da seguinte forma:
+\begin{earg}
+\item[] $A$
+\item[] $B$
+\item[\therefore] $C$
+\end{earg}
+Não há conexão necessária entre alguma sentença $A$, que poderia ser qualquer sentença, e outras sentenças $B$ e $C$, que também poderiam ser quaisquer sentenças.
+A estrutura do argumento foi completamente perdida nessa tradução.
+
+O ponto importante sobre o argumento é que a segunda premissa não é apenas \emph{uma} sentença qualquer, logicamente desconectada das outras. A segunda premissa contém a primeira premissa e a conclusão \emph{como partes}. Nossa chave de simbolização para o argumento só precisa incluir significados para $A$ e $C$, e podemos construir a segunda premissa a partir dessas peças. Assim, simbolizamos o argumento desta forma:
+\begin{earg}
+\item[] $A$
+\item[] Se $A$, então $C$.
+\item[\therefore] $C$
+\end{earg}
+Isso preserva a estrutura do argumento que o torna válido, mas ainda faz uso da expressão em português `Se$\ldots$ então$\ldots$'. Embora queiramos, ao final, substituir todas as expressões da linguagem natural por notação lógica, este já é um bom começo.
+
+As sentenças que podem ser simbolizadas por letras de sentença são chamadas de \emph{sentenças atômicas}, porque elas são os blocos básicos a partir dos quais sentenças mais complexas podem ser construídas. Qualquer estrutura lógica interna de uma sentença é perdida quando ela é traduzida como sentença atômica. Do ponto de vista de LS, a sentença vira apenas uma letra. Ela pode ser usada para construir sentenças mais complexas, mas não pode ser "desmontada".
+
+Há apenas vinte e seis letras no alfabeto, mas não há limite lógico para o número de sentenças atômicas. Podemos usar a mesma letra para simbolizar sentenças atômicas diferentes acrescentando um subscrito, um pequeno número escrito após a letra. Assim, poderíamos ter uma chave de simbolização como esta:
+\begin{ekey}
+\item[A$_1$:] A maçã está embaixo do armário.
+\item[A$_2$:] Argumentos em LS sempre contêm sentenças atômicas.
+\item[A$_3$:] Aline Alves está pegando um avião de Aracaju para Altamira.
+\item[$\vdots$]
+\item[A$_{294}$:] Aliterações aborrecem astronautas afáveis.
+\end{ekey}
+Lembre-se de que cada uma dessas é uma letra de sentença diferente. Quando há subscritos na chave de simbolização, é importante acompanhá-los com cuidado.
+
+
+\section{Conectivos}
+Conectivos lógicos são usados para construir sentenças complexas a partir de componentes atômicos. Há cinco conectivos lógicos em LS. A tabela abaixo os resume; em seguida, cada um é explicado.
+
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|}
+\hline
+símbolo&como é chamado&o que significa\\
+\hline
+\enot&negação&`Não é o caso que$\ldots$'\\
+\eand&conjunção&`Tanto$\ldots$\ e $\ldots$'\\
+\eor&disjunção&`Ou$\ldots$\ ou $\ldots$'\\
+\eif&condicional&`Se $\ldots$\ então $\ldots$'\\
+\eiff&bicondicional&`$\ldots$ se e somente se $\ldots$'\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Negação}
+Considere como poderíamos simbolizar estas sentenças:
+\begin{earg}
+\item[\ex{not1}] Bruna está em Brasília.
+\item[\ex{not2}] Bruna não está em Brasília.
+\item[\ex{not3}] Bruna está em algum lugar diferente de Brasília.
+\end{earg}
+
+Para simbolizar a sentença \ref{not1}, precisamos de uma letra de sentença. Podemos fornecer a seguinte chave de simbolização:
+
+\begin{ekey}
+\item[B:] Bruna está em Brasília.
+\end{ekey}
+
+Observe que aqui estamos dando a $B$ uma interpretação diferente daquela usada na seção anterior. A chave de simbolização só especifica o que $B$ significa \emph{em um contexto específico}. É fundamental que continuemos a usar esse significado de $B$ enquanto estivermos falando sobre Bruna e Brasília. Mais tarde, ao simbolizar sentenças diferentes, podemos escrever uma nova chave de simbolização e usar $B$ para significar outra coisa.
+
+Agora, a sentença \ref{not1} é simplesmente $B$.
+
+Como a sentença \ref{not2} é obviamente relacionada à sentença \ref{not1}, não queremos introduzir outra letra de sentença. Em parte em português, a sentença significa ``não $B$''. Para simbolizá-la, precisamos de um símbolo para a negação lógica. Usaremos `\enot'. Assim, podemos traduzir ``não $B$'' por $\enot B$.
+
+A sentença \ref{not3} fala sobre se Bruna está ou não em Brasília, embora não contenha a palavra ``não''. Ainda assim, ela é claramente logicamente equivalente à sentença \ref{not2}. Ambas significam: Não é o caso que Bruna está em Brasília. Portanto, podemos traduzir tanto a sentença \ref{not2} quanto a \ref{not3} como $\enot B$.
+
+\factoidbox{
+Uma sentença pode ser simbolizada como $\enot\script{A}$ se puder ser parafraseada em português como `Não é o caso que \script{A}.'
+}
+
+Considere agora estes exemplos:
+\begin{earg}
+\item[\ex{not4}] A peça pode ser substituída se quebrar.
+\item[\ex{not5}] A peça é insubstituível.
+\item[\ex{not5b}] A peça não é insubstituível.
+\end{earg}
+
+Se deixarmos $R$ significar `A peça é substituível', então a sentença \ref{not4} pode ser traduzida como $R$.
+
+E quanto à sentença \ref{not5}? Dizer que a peça é insubstituível significa que não é o caso que a peça é substituível. Assim, embora a sentença \ref{not5} não seja negativa em português, nós a simbolizamos usando negação: $\enot R$.
+
+A sentença \ref{not5b} pode ser parafraseada como `Não é o caso que a peça é insubstituível.' Usando negação duas vezes, traduzimos isso como $\enot\enot R$. As duas negações em sequência funcionam cada uma como negação, de modo que a sentença significa "não é o caso que$\ldots$ não é o caso que$\ldots$ $R$". Pensando em português, ela é logicamente equivalente à sentença \ref{not4}. Assim, quando definirmos equivalência lógica em LS, faremos com que $R$ e $\enot\enot R$ sejam logicamente equivalentes.
+
+Mais exemplos:
+\begin{earg}
+\item[\ex{not6}] Elliott está feliz.
+\item[\ex{not7}] Elliott está infeliz.
+\end{earg}
+
+Se deixarmos $H$ significar `Elliott está feliz', então podemos simbolizar a sentença \ref{not6} como $H$.
+
+No entanto, seria um erro simbolizar a sentença \ref{not7} como $\enot H$. Se Elliott está infeliz, então ele não está feliz — mas a sentença \ref{not7} não significa o mesmo que "não é o caso que Elliott está feliz". Pode ser que ele não esteja feliz, mas também não esteja infeliz; talvez esteja em algum ponto intermediário. Para permitir a possibilidade de indiferença, precisamos de uma nova letra de sentença para simbolizar \ref{not7}.
+
+Para qualquer sentença \script{A}: se \script{A} é verdadeira, então \enot\script{A} é falsa. Se \enot\script{A} é verdadeira, então \script{A} é falsa. Usando `V' para verdadeiro e `F' para falso, podemos resumir isso numa \emph{tabela de verdade característica} para a negação:
+\begin{center}
+\begin{tabular}{c|c}
+\script{A} & \enot\script{A}\\
+\hline
+V & F\\
+F & V 
+\end{tabular}
+\end{center}
+Falaremos mais detalhadamente de tabelas de verdade no próximo capítulo.
+
+
+\subsection{Conjunção}
+Considere estas sentenças:
+\begin{earg}
+\item[\ex{and1}] Adam é atlético.
+\item[\ex{and2}] Barbara é atlética.
+\item[\ex{and3}] Adam é atlético, e Barbara também é atlética.
+\end{earg}
+
+Precisaremos de letras de sentença distintas para \ref{and1} e \ref{and2}, então definimos esta chave de simbolização:
+\begin{ekey}
+\item[A:] Adam é atlético.
+\item[B:] Barbara é atlética.
+\end{ekey}
+
+A sentença \ref{and1} pode ser simbolizada como $A$.
+
+A sentença \ref{and2} pode ser simbolizada como $B$.
+
+A sentença \ref{and3} pode ser parafraseada como `$A$ e $B$'. Para simbolizá-la completamente, precisamos de outro símbolo. Usaremos `\eand'. Traduzimos então `$A$ e $B$' como $A\eand B$. O conectivo lógico `\eand' é chamado de \define{conjunção}, e $A$ e $B$ são chamados de \define{conjuntos} (ou conjunções parciais).
+
+Observe que não tentamos simbolizar a palavra `também' em \ref{and3}. Palavras como `tanto', `ambos' e `também' servem apenas para chamar a atenção para o fato de que duas coisas estão sendo conjuntadas. Elas não têm função lógica adicional, então não precisamos representá-las em LS.
+
+Mais alguns exemplos:
+\begin{earg}
+\item[\ex{and4}] Barbara é atlética e energética.
+\item[\ex{and5}] Barbara e Adam são ambos atléticos.
+\item[\ex{and6}] Embora Barbara seja energética, ela não é atlética.
+\item[\ex{and7}] Barbara é atlética, mas Adam é mais atlético do que ela.
+\end{earg}
+
+A sentença \ref{and4} é claramente uma conjunção. A sentença diz duas coisas sobre Barbara; em português é permitido mencionar Barbara apenas uma vez. Poderia ser tentador traduzir assim: já que $B$ significa `Barbara é atlética', alguém poderia parafrasear como `$B$ e energética'. Isso seria um erro. Uma vez que traduzimos parte da sentença como $B$, qualquer estrutura interna é perdida. $B$ é uma sentença atômica; não é mais do que verdadeira ou falsa. Por outro lado, `energética' não é uma sentença; sozinha não é nem verdadeira nem falsa. Devemos, ao contrário, parafraseá-la como `$B$ e Barbara é energética.' Agora precisamos acrescentar uma letra de sentença à chave de simbolização. Seja $E$ `Barbara é energética'. Agora a sentença pode ser traduzida como $B\eand E$.
+
+\factoidbox{
+Uma sentença pode ser simbolizada como $\script{A}\eand\script{B}$ se puder ser parafraseada em português como `Tanto \script{A} quanto \script{B}.' Cada um dos conjuntos deve ser uma sentença.
+}
+
+A sentença \ref{and5} afirma uma coisa sobre dois sujeitos distintos. Ela diz, tanto de Barbara quanto de Adam, que são atléticos, e em português usamos a palavra `atléticos' apenas uma vez. Ao traduzir para LS, é importante perceber que a sentença pode ser parafraseada como `Barbara é atlética, e Adam é atlética.' Isso se traduz como $B\eand A$.
+
+A sentença \ref{and6} é um pouco mais complicada. A palavra `embora' estabelece um contraste entre a primeira parte da sentença e a segunda. Ainda assim, a sentença diz tanto que Barbara é energética quanto que ela não é atlética. Para fazer com que cada um dos conjuntos seja uma sentença atômica, precisamos substituir `ela' por `Barbara'.
+
+Podemos então parafrasear \ref{and6} como `\emph{Tanto} Barbara é energética \emph{como} Barbara não é atlética.' A segunda conjunção contém uma negação, então podemos parafrasear ainda mais: `\emph{Tanto} Barbara é energética \emph{como} \emph{não é o caso que} Barbara é atlética.' Isso se traduz como $E\eand\enot B$.
+
+A sentença \ref{and7} tem uma estrutura contrastiva semelhante. Isso é irrelevante para a tradução em LS, então podemos parafraseá-la como `\emph{Tanto} Barbara é atlética, \emph{como} Adam é mais atlético do que Barbara.' (Observe que novamente substituímos o pronome `ela' pelo nome.) Como traduzir o segundo conjunto? Já temos a letra $A$ que fala de Adam ser atlético e $B$ que fala de Barbara ser atlética, mas nenhuma delas fala de um ser mais atlético do que o outro. Precisamos de uma nova letra de sentença. Seja $R$ `Adam é mais atlético do que Barbara.' Agora a sentença se traduz como $B\eand R$.
+
+\factoidbox{Sentenças que podem ser parafraseadas como `\script{A}, mas \script{B}' ou `Embora \script{A}, \script{B}' são melhor simbolizadas usando conjunção: \script{A}\eand\script{B}}
+
+É importante lembrar que as letras de sentença $A$, $B$ e $R$ são sentenças atômicas. Consideradas como símbolos de LS, elas não têm significado além de serem verdadeiras ou falsas. Nós as usamos para simbolizar sentenças em português que, todas, falam de pessoas atléticas; mas essa semelhança é completamente perdida quando traduzimos para LS. Nenhuma linguagem formal consegue capturar toda a estrutura da linguagem natural, mas, enquanto essa estrutura extra não for importante para o argumento, nada é perdido ao deixá-la de lado.
+
+Para quaisquer sentenças \script{A} e \script{B}, \script{A}\eand\script{B} é verdadeira se, e somente se, tanto \script{A} quanto \script{B} forem verdadeiras. Podemos resumir isso na {tabela de verdade característica} para a conjunção:
+\begin{center}
+\begin{tabular}{c|c|c}
+\script{A} & \script{B} & \script{A}\eand\script{B}\\
+\hline
+V & V & V\\
+V & F & F\\
+F & V & F\\
+F & F & F
+\end{tabular}
+\end{center}
+
+A conjunção é \emph{simétrica}, porque podemos trocar os conjuntos sem mudar o valor de verdade da sentença. Quaisquer que sejam \script{A} e \script{B}, \script{A}\eand\script{B} é logicamente equivalente a \script{B}\eand\script{A}.
+
+
+
+\subsection{Disjunção}
+Considere estas sentenças:
+\begin{earg}
+\item[\ex{or1}] Ou Denison vai jogar golfe comigo, ou ele vai assistir a filmes.
+\item[\ex{or2}] Ou Denison ou Ellery vai jogar golfe comigo. 
+\end{earg}
+
+Para essas sentenças podemos usar a seguinte chave de simbolização:
+
+\begin{ekey}
+\item[D:] Denison vai jogar golfe comigo.
+\item[E:] Ellery vai jogar golfe comigo.
+\item[M:] Denison vai assistir a filmes.
+\end{ekey}
+
+A sentença \ref{or1} é `Ou $D$ ou $M$.' Para simbolizá-la completamente, introduzimos um novo símbolo. A sentença torna-se $D \eor M$. O conectivo `\eor' é chamado de \define{disjunção}, e $D$ e $M$ são chamados de \define{disjuntos}.
+
+A sentença \ref{or2} é apenas um pouco mais complicada. Há dois sujeitos, mas a sentença em português só apresenta o verbo uma vez. Ao traduzir, podemos parafraseá-la como `Ou Denison vai jogar golfe comigo, ou Ellery vai jogar golfe comigo.' Agora, ela claramente se traduz como $D \eor E$.
+
+\factoidbox{
+Uma sentença pode ser simbolizada como $\script{A}\eor\script{B}$ se puder ser parafraseada em português como `Ou \script{A}, ou \script{B}.' Cada disjunto deve ser uma sentença.
+}
+
+Às vezes, em português, a palavra `ou' exclui a possibilidade de os dois disjuntos serem verdadeiros. Isso é chamado de \define{ou exclusivo}. Um \emph{ou exclusivo} é claramente pretendido quando, em um cardápio, se diz: `Os pratos principais vêm com sopa ou salada.' Você pode escolher sopa; pode escolher salada; mas, se quiser \emph{tanto} sopa \emph{quanto} salada, precisará pagar a mais.
+
+Em outras situações, a palavra `ou' permite a possibilidade de ambos os disjuntos serem verdadeiros. Provavelmente é o caso em \ref{or2}, acima. Eu posso jogar com Denison, com Ellery, ou com ambos. A sentença \ref{or2} apenas diz que vou jogar com \emph{pelo menos} um deles. Isso é chamado de \define{ou inclusivo}.
+
+O símbolo `\eor' representa um \emph{ou inclusivo}.
+Assim, $D \eor E$ é verdadeiro se $D$ é verdadeiro, se $E$ é verdadeiro, ou se tanto $D$ quanto $E$ são verdadeiros. Ele é falso apenas se tanto $D$ quanto $E$ forem falsos. Podemos resumir isso na {tabela de verdade característica} da disjunção:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\script{A} & \script{B} & \script{A}\eor\script{B} \\
+\hline
+V & V & V\\
+V & F & V\\
+F & V & V\\
+F & F & F
+\end{tabular}
+\end{center}
+
+Assim como a conjunção, a disjunção é simétrica. \script{A}\eor\script{B} é logicamente equivalente a \script{B}\eor\script{A}.
+
+Estas sentenças são um pouco mais complicadas:
+
+\begin{earg}
+\item[\ex{or3}] Ou você não vai tomar sopa, ou você não vai tomar salada.
+\item[\ex{or4}] Você não vai tomar nem sopa nem salada.
+\item[\ex{or.xor}] Você ganha sopa ou salada, mas não as duas.
+\end{earg}
+
+Seja $S_1$ `você toma sopa' e $S_2$ `você toma salada'.
+
+A sentença \ref{or3} pode ser parafraseada assim: `Ou \emph{não é o caso que} você toma sopa, ou \emph{não é o caso que} você toma salada.' Traduzir isso exige disjunção e negação. Fica $\enot S_1 \eor \enot S_2$.
+
+A sentença \ref{or4} também exige negação. Ela pode ser parafraseada como `\emph{Não é o caso que} (você toma sopa ou você toma salada).' Precisamos de alguma forma indicar que a negação não está apenas negando o disjunto da direita ou da esquerda, mas sim a disjunção inteira. Para isso, colocamos parênteses em torno da disjunção: `Não é o caso que $(S_1 \eor S_2)$.' Isso se torna simplesmente $\enot (S_1 \eor S_2)$.
+
+Observe que os parênteses fazem um trabalho importante aqui. A sentença $\enot S_1 \eor S_2$ significaria `Ou você não toma sopa, ou você toma salada.'
+
+A sentença \ref{or.xor} é um \emph{ou exclusivo}. Podemos decompor a sentença em duas partes. A primeira parte diz que você ganha uma coisa ou outra. Traduzimos isso como $(S_1 \eor S_2)$. A segunda parte diz que você não ganha ambas. Podemos parafraseá-la como `Não é o caso que você toma sopa e salada.' Usando negação e conjunção, traduzimos isso como $\enot(S_1 \eand S_2)$. Agora só falta juntar as duas partes. Como vimos antes, `mas' geralmente pode ser traduzido como conjunção. Assim, \ref{or.xor} pode ser traduzida como $(S_1 \eor S_2) \eand \enot(S_1 \eand S_2)$.
+
+Embora `\eor' seja um \emph{ou inclusivo}, podemos simbolizar um \emph{ou exclusivo} em {LS}. Só precisamos de mais de um conectivo para fazê-lo.
+
+
+\subsection{Condicional}
+Para as sentenças a seguir, deixe $R$ significar `Você vai cortar o fio vermelho' e $B$ significar `A bomba vai explodir.'
+
+\begin{earg}
+\item[\ex{if1}] Se você cortar o fio vermelho, então a bomba vai explodir.
+\item[\ex{if2}] A bomba vai explodir somente se você cortar o fio vermelho.
+\end{earg}
+
+A sentença \ref{if1} pode ser parcialmente traduzida como `Se $R$, então $B$.' Usaremos o símbolo `\eif' para representar o condicional lógico. A sentença se torna $R\eif B$. O conectivo é chamado de \define{condicional}. A sentença à esquerda do condicional ($R$ neste exemplo) é chamada de \define{antecedente}. A sentença à direita ($B$) é chamada de \define{consequente}.
+
+A sentença \ref{if2} também é um condicional. Como a palavra `se' aparece na segunda metade da sentença, pode ser tentador simbolizá-la da mesma forma que a sentença \ref{if1}. Isso seria um erro.
+
+O condicional $R\eif B$ diz que, \emph{se} $R$ for verdadeiro, \emph{então} $B$ também será verdadeiro. Ele não diz que cortar o fio vermelho é a \emph{única} maneira pela qual a bomba poderia explodir; outra pessoa pode cortar o fio, ou a bomba pode estar em um temporizador. A sentença $R\eif B$ não diz nada sobre o que esperar se $R$ for falso. A sentença \ref{if2} é diferente. Ela diz que as únicas condições sob as quais a bomba explodirá envolvem você ter cortado o fio vermelho; isto é, se a bomba explodir, então você deve ter cortado o fio. Assim, \ref{if2} deve ser simbolizada como $B \eif R$.
+
+É importante lembrar que o conectivo `\eif' diz apenas que, se o antecedente é verdadeiro, então o consequente é verdadeiro. Ele não diz nada sobre a conexão \emph{causal} entre os dois eventos. Traduzir \ref{if2} como $B \eif R$ não significa que a explosão da bomba causaria o fato de você cortar o fio. Tanto \ref{if1} quanto \ref{if2} sugerem que, se você cortar o fio vermelho, esse corte seria a causa da explosão. Elas diferem na conexão \emph{lógica}. Se \ref{if2} fosse verdadeira, então uma explosão nos diria — a nós que estamos longe da bomba — que você cortou o fio vermelho. Sem explosão, \ref{if2} não nos diz nada.
+
+\factoidbox{
+A sentença parafraseada como `\script{A} somente se \script{B}' é logicamente equivalente a `Se \script{A}, então \script{B}.'
+}
+
+`Se \script{A} então \script{B}' significa que, se \script{A} é verdadeira, então \script{B} também é. Sabemos, portanto, que se o antecedente \script{A} for verdadeiro e o consequente \script{B} for falso, o condicional `Se \script{A} então \script{B}' é falso. Qual é o valor de verdade de `Se \script{A} então \script{B}' nas outras situações? Suponha, por exemplo, que o antecedente \script{A} seja falso. A sentença `Se \script{A} então \script{B}' não nos dirá nada sobre o valor de verdade efetivo do consequente \script{B}, e não é óbvio qual deveria ser o valor de verdade do condicional.
+
+Em português (e em inglês), a verdade de condicionais muitas vezes depende do que \emph{aconteceria} se o antecedente \emph{fosse verdadeiro} — mesmo que, de fato, o antecedente seja falso. Isso cria um problema para traduzir condicionais para LS. Consideradas como sentenças de LS, $R$ e $B$ nos exemplos acima não têm, por si mesmas, nenhuma relação interna. Para considerar como o mundo seria se $R$ fosse verdadeira, precisaríamos analisar o conteúdo de $R$. Mas, como $R$ é um símbolo atômico de LS, não há estrutura interna a ser analisada. Ao substituir uma sentença por uma letra de sentença, passamos a considerá-la apenas como uma sentença atômica que pode ser verdadeira ou falsa.
+
+Para traduzir condicionais em LS, não tentaremos capturar todas as sutilezas da expressão natural `Se$\ldots$ então$\ldots$'. Em vez disso, o símbolo `\eif' será um \emph{condicional material}. Isso significa que, quando \script{A} é falsa, o condicional \script{A}\eif\script{B} é automaticamente verdadeiro, independentemente do valor de verdade de \script{B}. Se tanto \script{A} quanto \script{B} forem verdadeiras, então o condicional \script{A}\eif\script{B} também é verdadeiro.
+
+Em resumo, \script{A}\eif\script{B} é falso se, e somente se, \script{A} é verdadeira e \script{B} é falsa. Podemos resumir isso com a tabela de verdade característica do condicional.
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\script{A} & \script{B} & \script{A}\eif\script{B}\\
+\hline
+V & V & V\\
+V & F & F\\
+F & V & V\\
+F & F & V
+\end{tabular}
+\end{center}
+
+O condicional é \emph{assimétrico}. Não podemos trocar antecedente e consequente sem mudar o significado da sentença, porque \script{A}\eif\script{B} e \script{B}\eif\script{A} não são logicamente equivalentes.
+
+Nem todas as sentenças da forma `Se$\ldots$ então$\ldots$' são condicionais reais. Considere esta sentença:
+
+\begin{earg}
+\item[\ex{if5}] Se alguém quiser me ver, estarei na varanda.\footnote{Em português, assim como na formulação original, esta construção condicional é frequentemente usada para expressar uma declaração incondicional sobre onde a pessoa estará, daí ser traduzida simplesmente como $P$.}
+\end{earg}
+
+Se eu digo isso, quero dizer que vou estar na varanda, independentemente de alguém querer me ver ou não — mas, se alguém quiser me ver, deve me procurar lá. Se deixarmos $P$ significar `Eu estarei na varanda', então \ref{if5} pode ser traduzida simplesmente como $P$.
+
+
+\subsection{Bicondicional}
+Considere estas sentenças:
+\begin{earg}
+\item[\ex{iff1}] A figura no quadro é um triângulo somente se tiver exatamente três lados.
+\item[\ex{iff2}] A figura no quadro é um triângulo, se tiver exatamente três lados.
+\item[\ex{iff3}] A figura no quadro é um triângulo se e somente se tiver exatamente três lados.
+\end{earg}
+
+Seja $T$ `A figura é um triângulo' e $S$ `A figura tem três lados.'
+
+A sentença \ref{iff1}, pelos motivos discutidos acima, pode ser traduzida como $T\eif S$.
+
+A sentença \ref{iff2} é importante e diferentemente construída. Ela pode ser parafraseada como `Se a figura tem três lados, então é um triângulo.' Assim, pode ser traduzida como $S\eif T$.
+
+A sentença \ref{iff3} diz que $T$ é verdadeira \emph{se e somente se} $S$ é verdadeira; podemos inferir $S$ a partir de $T$, e podemos inferir $T$ a partir de $S$. Isso é chamado de \define{bicondicional}, porque implica os dois condicionais $S\eif T$ e $T \eif S$. Usaremos `\eiff' para representar o bicondicional; assim, \ref{iff3} pode ser traduzida como $S \eiff T$.
+
+Poderíamos viver sem um novo símbolo para o bicondicional. Como \ref{iff3} significa `$T \eif S$ e $S\eif T$', poderíamos traduzi-la como $(T \eif S)\eand(S\eif T)$. Precisaríamos de parênteses para indicar que $(T \eif S)$ e $(S\eif T)$ são conjunções separadas; a expressão $T \eif S\eand S\eif T$ seria ambígua.
+
+Como sempre poderíamos escrever $(\script{A}\eif\script{B})\eand(\script{B}\eif\script{A})$ no lugar de $\script{A}\eiff\script{B}$, não \emph{precisaríamos}, em sentido estrito, introduzir um novo símbolo para o bicondicional. Ainda assim, linguagens lógicas geralmente têm esse símbolo. LS terá um, o que torna mais simples traduzir expressões como `se e somente se'.
+
+\script{A}\eiff\script{B} é verdadeira se, e somente se, \script{A} e \script{B} tiverem o mesmo valor de verdade. Esta é a tabela de verdade característica do bicondicional:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\script{A} & \script{B} & \script{A}\eiff\script{B}\\
+\hline
+V & V & V\\
+V & F & F\\
+F & V & F\\
+F & F & V
+\end{tabular}
+\end{center}
+
+
+
+\section{Outras simbolizações}
+Agora já introduzimos todos os conectivos de LS. Podemos usá-los em conjunto para traduzir muitos tipos de sentenças. Considere estes exemplos de sentenças com o conectivo em português `a menos que':
+
+\begin{earg}
+\item[\ex{unless1}] A menos que você vista um casaco, vai pegar um resfriado. 
+\item[\ex{unless2}] Você vai pegar um resfriado, a menos que vista um casaco. 
+\end{earg}
+
+Seja $J$ `Você vai vestir um casaco' e $D$ `Você vai pegar um resfriado.'
+
+Podemos parafrasear \ref{unless1} como `A menos que $J$, $D$.' Isso significa que, se você não vestir um casaco, vai pegar um resfriado; com isso em mente, podemos traduzi-la como $\enot J \eif D$. Também significa que, se você não pegar um resfriado, então deve ter vestido um casaco; com isso em mente, podemos traduzi-la como $\enot D \eif J$.
+
+Qual dessas é a tradução correta da sentença \ref{unless1}? As duas traduções são corretas, porque são logicamente equivalentes em LS.
+
+A sentença \ref{unless2}, em português, é logicamente equivalente à \ref{unless1}. Ela também pode ser traduzida tanto como $\enot J \eif D$ quanto como $\enot D \eif J$.
+
+Ao simbolizar sentenças como \ref{unless1} e \ref{unless2}, é fácil se confundir. Como o condicional não é simétrico, seria errado traduzir qualquer uma delas como $J \eif \enot D$. Felizmente, há outras expressões logicamente equivalentes. Ambas as sentenças significam que você vai vestir um casaco ou — se não vestir um casaco — então vai pegar um resfriado. Assim, podemos traduzi-las como $J \eor D$. (Você poderia achar que o `ou' aqui deveria ser exclusivo. No entanto, as sentenças não excluem a possibilidade de que você \emph{vista} um casaco \emph{e ainda assim} pegue um resfriado; casacos não protegem contra todas as formas possíveis de pegar um resfriado.)
+
+\factoidbox{
+Se uma sentença pode ser parafraseada como `A menos que \script{A}, \script{B}', então ela pode ser simbolizada como $\script{A}\eor\script{B}$ ou $\enot \script{A} \eif \script{B}$.
+}
+
+A simbolização de tipos padrão de sentença é resumida na p.~\pageref{app.symbolization}.
+
+
+
+\section{Sentenças de LS}
+A sentença `Maçãs são vermelhas, ou frutas vermelhas são azuis' é uma sentença em português, e a expressão `$(A\eor B)$' é uma sentença de LS. Embora consigamos reconhecer sentenças do português quando as vemos, não temos uma definição formal de `sentença do português'. Em LS, é possível definir formalmente o que conta como sentença. Esse é um dos aspectos em que uma linguagem formal como LS é mais precisa que uma linguagem natural como o português (ou o inglês).
+
+É importante distinguir entre a linguagem lógica LS, que estamos desenvolvendo, e a linguagem que usamos para falar sobre LS. Quando falamos sobre uma linguagem, a linguagem \emph{de que estamos falando} é chamada de \define{linguagem-objeto}. A linguagem que usamos para falar sobre a linguagem-objeto é chamada de \define{metalinguagem}.
+\label{def.metalanguage}
+
+A linguagem-objeto neste capítulo é LS. A metalinguagem é o português matemático, suplementado com vocabulário lógico e matemático. A expressão `$(A\eor B)$' é uma sentença na linguagem-objeto, porque usa apenas símbolos de LS. Já a palavra `sentença' não faz parte de LS; assim, a frase `Esta expressão é uma sentença de LS' não é uma sentença de LS. É uma sentença na metalinguagem, usada para falar \emph{sobre} LS.
+
+Nesta seção, daremos uma definição formal de `sentença de LS'. A definição será dada em português matemático (a metalinguagem).
+
+
+\subsection{Expressões}
+Há três tipos de símbolos em LS:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+letras de sentença & $A,B,C,\ldots,Z$\\
+com subscritos, se necessário & $A_1, B_1,Z_1,A_2,A_{25},J_{375},\ldots$\\
+\hline
+conectivos & \enot,\eand,\eor,\eif,\eiff\\
+\hline
+parênteses&( , )\\
+\hline
+\end{tabular}
+\end{center}
+
+Definimos uma \define{expressão de LS} como qualquer sequência (string) de símbolos de LS. Pegue quaisquer símbolos de LS e escreva-os em alguma ordem: você terá uma expressão.
+
+
+\subsection{Fórmulas bem formadas}
+
+Como qualquer sequência de símbolos é uma expressão, muitas expressões de LS serão simplesmente sem sentido. Uma expressão significativa é chamada de \emph{fórmula bem formada}. É comum usar a sigla em inglês \emph{wff} (well-formed formula); o plural é wffs.
+
+Obviamente, letras de sentença individuais como $A$ e $G_{13}$ serão wffs. Podemos formar novas wffs a partir delas usando os conectivos. Usando negação, obtemos $\enot A$ e $\enot G_{13}$. Usando conjunção, obtemos $A \eand G_{13}$, $G_{13} \eand A$, $A \eand A$ e $G_{13} \eand G_{13}$. Também poderíamos aplicar negação repetidamente e obter wffs como $\enot \enot A$, ou aplicar negação junto com conjunção e obter wffs como $\enot(A \eand G_{13})$ e $\enot(G_{13} \eand \enot G_{13})$. As combinações possíveis são infinitas, mesmo começando apenas com essas duas letras de sentença, e há infinitas letras de sentença. Portanto, não faz sentido tentar listar todas as wffs.
+
+Em vez disso, descreveremos o processo pelo qual as wffs podem ser construídas. Considere a negação: dada qualquer wff \script{A} de LS, $\enot\script{A}$ é uma wff de LS. É importante notar que \script{A} aqui não é a letra de sentença $A$. Ela é uma variável que representa qualquer wff. Observe que essa variável \script{A} não é um símbolo de LS, de modo que $\enot\script{A}$ não é uma expressão de LS. Em vez disso, é uma expressão da metalinguagem que nos permite falar sobre infinitas expressões de LS: todas as expressões que começam com o símbolo de negação. Como \script{A} faz parte da metalinguagem, é chamada de \emph{metavariável}.
+
+Podemos dizer algo semelhante para cada um dos outros conectivos. Por exemplo, se \script{A} e \script{B} são wffs de LS, então $(\script{A}\eand\script{B})$ é uma wff de LS. Fornecendo cláusulas desse tipo para todos os conectivos, chegamos à seguinte definição formal de {fórmula bem formada de LS}:
+
+\begin{enumerate}
+\item Toda sentença atômica é uma wff.
+\item Se \script{A} é uma wff, então $\enot\script{A}$ é uma wff de LS.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eand\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eor\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eif\script{B})$ é uma wff.
+\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eiff\script{B})$ é uma wff.
+\item Todas e somente as wffs de LS podem ser geradas por aplicações dessas regras.
+\end{enumerate}
+
+Note que não podemos aplicar imediatamente essa definição para verificar se uma expressão qualquer é ou não uma wff. Suponha que queiramos saber se $\enot \enot \enot D$ é uma wff de LS. Olhando a segunda cláusula da definição, sabemos que $\enot \enot \enot D$ é uma wff \emph{se} $\enot \enot D$ for uma wff. Então precisamos perguntar se $\enot \enot D$ é uma wff. De novo, pela segunda cláusula, $\enot \enot D$ é uma wff \emph{se} $\enot D$ for. E, por sua vez, $\enot D$ é uma wff \emph{se} $D$ for uma wff. Agora, $D$ é uma letra de sentença, uma sentença atômica de LS, então sabemos pela primeira cláusula que $D$ é uma wff. Assim, para uma fórmula composta como $\enot \enot \enot D$, precisamos aplicar a definição repetidamente. Eventualmente, chegamos às sentenças atômicas a partir das quais a wff é construída.
+
+Definições desse tipo são chamadas de \emph{recursivas}. Definições recursivas começam com alguns elementos-base especificáveis e definem maneiras de compor indefinidamente esses elementos-base. Assim como a definição recursiva permite construir sentenças complexas a partir de partes simples, podemos usá-la para decompor sentenças em partes mais simples. Para determinar se algo se encaixa na definição, podemos precisar recorrer a ela muitas vezes.
+
+O conectivo que você observa primeiro ao decompor uma sentença é chamado de \define{principal operador lógico} (ou operador lógico principal) daquela sentença. Por exemplo: o operador lógico principal de $\enot (E \eor (F \eif G))$ é a negação, \enot. O operador lógico principal de $(\enot E \eor (F \eif G))$ é a disjunção, \eor.
+
+
+\subsection{Sentenças}
+Lembre-se de que uma sentença é uma expressão significativa que pode ser verdadeira ou falsa. Como as expressões significativas de LS são as wffs e como toda wff de LS é verdadeira ou falsa, a definição de sentença de LS coincide com a definição de wff. Nem toda linguagem formal terá essa propriedade agradável. Na linguagem LQ, desenvolvida mais adiante no livro, há wffs que não são sentenças.
+
+A estrutura recursiva das sentenças em LS será importante quando considerarmos as circunstâncias em que uma sentença é verdadeira ou falsa. A sentença $\enot \enot \enot D$ é verdadeira se, e somente se, a sentença $\enot \enot D$ for falsa; e assim por diante, ao longo da estrutura, até chegarmos ao componente atômico: $\enot \enot \enot D$ é verdadeira se, e somente se, a sentença atômica $D$ for falsa. Voltaremos a esse ponto no próximo capítulo.
+
+
+\subsection{Convenções notacionais}
+\label{LSconventions}
+Uma wff como $(Q \eand R)$ precisa estar cercada por parênteses, porque poderíamos aplicar de novo a definição e usar isso como parte de uma sentença ainda mais complicada. Se negarmos $(Q \eand R)$, obtemos $\enot(Q \eand R)$. Se nós tivéssemos apenas $Q \eand R$ sem parênteses e colocássemos uma negação na frente, teríamos $\enot Q \eand R$. É mais natural ler isso como significando o mesmo que $(\enot Q \eand R)$, algo muito diferente de $\enot(Q\eand R)$. A sentença $\enot(Q \eand R)$ diz que não é o caso que tanto $Q$ quanto $R$ sejam verdadeiros; $Q$ pode ser falso, ou $R$ pode ser falso, mas a sentença não nos diz qual. Já $(\enot Q \eand R)$ diz especificamente que $Q$ é falso e $R$ é verdadeiro. Assim, os parênteses são cruciais para o significado.
+
+Portanto, estritamente falando, $Q \eand R$ sem parênteses \emph{não} é uma sentença de LS. No uso prático de LS, porém, muitas vezes poderemos relaxar a definição precisa para facilitar nossa vida. Faremos isso de várias maneiras.
+
+Primeiro, entendemos que $Q \eand R$ significa o mesmo que $(Q \eand R)$. Por convenção, podemos omitir parênteses que ocorram \emph{em torno de toda a sentença}.
+
+Segundo, sentenças longas com muitos pares de parênteses encaixados podem ser difíceis de ler. Adotamos a convenção de usar colchetes `[' e `]' no lugar dos parênteses. Não há diferença lógica entre $(P\eor Q)$ e $[P\eor Q]$, por exemplo. A sentença pesada
+$$(((H \eif I) \eor (I \eif H)) \eand (J \eor K))$$
+poderia ser escrita assim:
+$$\bigl[(H \eif I) \eor (I \eif H)\bigr] \eand (J \eor K)$$
+
+Terceiro, às vezes queremos traduzir a conjunção de três ou mais sentenças. Para a sentença `Alice, Bob e Candice foram todos à festa', suponha que $A$ signifique `Alice foi', $B$ `Bob foi' e $C$ `Candice foi'. A definição só nos permite formar conjunção de duas sentenças de cada vez, então podemos traduzir como $(A \eand B) \eand C$ ou como $A \eand (B \eand C)$. Não há motivo para distinguir essas opções, já que são logicamente equivalentes. Não há diferença lógica entre a primeira, em que $(A \eand B)$ é conjuntada com $C$, e a segunda, em que $A$ é conjuntada com $(B \eand C)$. Portanto, podemos simplesmente escrever $A \eand B \eand C$. Por convenção, podemos omitir parênteses quando conjuntamos três ou mais sentenças.
+
+Quarto, uma situação semelhante ocorre com múltiplas disjunções. `Ou Alice, Bob ou Candice foi à festa' pode ser traduzida como $(A \eor B) \eor C$ ou como $A \eor (B \eor C)$. Como as duas traduções são logicamente equivalentes, podemos escrever $A \eor B \eor C$.
+
+Essas duas últimas convenções só valem para múltiplas conjunções ou múltiplas disjunções. Se uma série de conectivos inclui tanto disjunções quanto conjunções, então os parênteses são essenciais; como em $(A \eand B) \eor C$ e $A \eand (B \eor C)$. Os parênteses também são necessários se há uma série de condicionais ou bicondicionais; como em $(A \eif B) \eif C$ e $A \eiff (B \eiff C)$.
+
+Adotamos essas quatro regras como \emph{convenções notacionais}, e não como mudanças na definição de sentença. Estritamente falando, $A \eor B \eor C$ ainda não é uma sentença. Em vez disso, é um tipo de abreviação. Escrevemo-la por conveniência, mas queremos dizer, na verdade, a sentença $(A \eor (B \eor C))$.
+
+Se tivéssemos dado uma definição diferente de wff, poderíamos fazer com que tais abreviações fossem wffs. Poderíamos ter escrito a regra 3 assim: ``Se \script{A}, \script{B}, $\ldots$ \script{Z} são wffs, então $(\script{A}\eand\script{B}\eand\ldots\eand\script{Z})$ é uma wff.'' Isso tornaria mais fácil traduzir algumas sentenças em português, mas teria o custo de tornar nossa linguagem formal mais complicada. Teríamos de carregar essa definição complexa quando desenvolvêssemos tabelas de verdade e o sistema de provas. Queremos uma linguagem lógica que seja \emph{simples do ponto de vista formal} e ainda assim permita traduzir bem a partir do português (ou do inglês). Adotar convenções notacionais é um meio-termo entre essas duas exigências.
+
+
+
+\practiceproblems
+
+\solutions
+\problempart Usando a chave de simbolização dada, traduza cada sentença em português para LS.
+\label{pr.monkeysuits}
+\begin{ekey}
+\item[M:] Aqueles seres são pessoas disfarçadas.
+\item[C:] Aqueles seres são chimpanzés.
+\item[G:] Aqueles seres são gorilas.
+\end{ekey}
+\begin{earg}
+\item Aqueles seres não são homens fantasiados.
+\item Aqueles seres são homens fantasiados, ou não são.
+\item Aqueles seres são gorilas ou são chimpanzés.
+\item Aqueles seres não são nem gorilas nem chimpanzés.
+\item Se aqueles seres são chimpanzés, então eles não são nem gorilas nem homens fantasiados.
+\item A menos que aqueles seres sejam homens fantasiados, eles são ou chimpanzés ou gorilas.
+\end{earg}
+
+
+\problempart Usando a chave de simbolização dada, traduza cada sentença em português para LS.
+\begin{ekey}
+\item[A:] Mister Ace foi assassinado.
+\item[B:] O mordomo fez isso.
+\item[C:] A cozinheira fez isso.
+\item[D:] A Duquesa está mentindo.
+\item[E:] Mister Edge foi assassinado.
+\item[F:] A arma do crime foi uma frigideira.
+\end{ekey}
+\begin{earg}
+\item Ou Mister Ace ou Mister Edge foi assassinado.
+\item Se Mister Ace foi assassinado, então a cozinheira fez isso.
+\item Se Mister Edge foi assassinado, então a cozinheira não fez isso.
+\item Ou o mordomo fez isso, ou a Duquesa está mentindo.
+\item A cozinheira fez isso somente se a Duquesa estiver mentindo.
+\item Se a arma do crime foi uma frigideira, então a culpada só pode ter sido a cozinheira.
+\item Se a arma do crime não foi uma frigideira, então a culpada foi ou a cozinheira ou o mordomo.
+\item Mister Ace foi assassinado se e somente se Mister Edge não foi assassinado.
+\item A Duquesa está mentindo, a menos que tenha sido Mister Edge o assassinado.
+\item Se Mister Ace foi assassinado, ele foi morto com uma frigideira.
+\item Já que a cozinheira fez isso, o mordomo não fez.
+\item É claro que a Duquesa está mentindo!
+\end{earg}
+
+
+
+\solutions
+\problempart Usando a chave de simbolização dada, traduza cada sentença em português para LS.
+\label{pr.avacareer}
+\begin{ekey}
+\item[E$_1$:] Ava é eletricista.
+\item[E$_2$:] Harrison é eletricista.
+\item[F$_1$:] Ava é bombeira.
+\item[F$_2$:] Harrison é bombeiro.
+\item[S$_1$:] Ava está satisfeita com sua carreira.
+\item[S$_2$:] Harrison está satisfeito com sua carreira.
+\end{ekey}
+\begin{earg}
+\item Ava e Harrison são ambos eletricistas.
+\item Se Ava é bombeira, então ela está satisfeita com sua carreira.
+\item Ava é bombeira, a menos que seja eletricista.
+\item Harrison é um eletricista insatisfeito.
+\item Nem Ava nem Harrison é eletricista.
+\item Ava e Harrison são ambos eletricistas, mas nenhum dos dois acha isso satisfatório.
+\item Harrison está satisfeito somente se ele for bombeiro.
+\item Se Ava não é eletricista, então Harrison também não é, mas se ela é, então ele também é.
+\item Ava está satisfeita com sua carreira se e somente se Harrison não estiver satisfeito com a dele.
+\item Se Harrison é simultaneamente eletricista e bombeiro, então ele deve estar satisfeito com o trabalho.
+\item Não pode ser que Harrison seja ao mesmo tempo eletricista e bombeiro.
+\item Harrison e Ava são ambos bombeiros se e somente se nenhum dos dois for eletricista.
+\end{earg}
+
+
+
+
+\solutions
+\problempart
+\label{pr.spies}
+Dê uma chave de simbolização e simbolize as sentenças a seguir em LS.
+\begin{earg}
+\item Alice e Bob são ambos espiões.
+\item Se ou Alice ou Bob é espião, então o código foi decifrado.
+\item Se nem Alice nem Bob é espião, então o código permanece indecifrado.
+\item A embaixada brasileira ficará em alvoroço, a menos que alguém tenha decifrado o código.
+\item Ou o código foi decifrado ou não foi, mas a embaixada brasileira ficará em alvoroço de qualquer forma.
+\item Ou Alice ou Bob é espião, mas não ambos.
+\end{earg}
+
+
+\problempart Dê uma chave de simbolização e simbolize as sentenças a seguir em LS.
+\begin{earg}
+\item Se Gregor jogar como goleiro, então o time vai perder.
+\item O time vai perder, a menos que aconteça um milagre.
+\item O time ou vai perder ou não vai, mas Gregor vai jogar como goleiro de qualquer forma.
+\item A mãe de Gregor vai fazer um bolo se e somente se Gregor jogar como goleiro.
+\item Se acontecer um milagre, então a mãe de Gregor não vai fazer um bolo.
+\end{earg}
+
+
+\problempart
+Para cada argumento, escreva uma chave de simbolização e traduza o argumento o melhor possível em LS.
+\begin{earg}
+\item Se Dorothy toca piano de manhã, então Roger acorda mal-humorado. Dorothy toca piano de manhã, a menos que esteja distraída. Logo, se Roger não acorda mal-humorado, então Dorothy deve estar distraída.
+\item Ou vai chover ou fará sol na terça-feira. Se chover, Neville ficará triste. Se fizer sol, Neville sentirá calor. Portanto, Neville ficará ou triste ou com calor na terça-feira.
+\item Se Zoog lembrou de fazer os afazeres, então as coisas estão limpas, mas não arrumadas. Se ele se esqueceu, então as coisas estão arrumadas, mas não limpas. Portanto, as coisas estão ou arrumadas ou limpas — mas não ambas.
+\end{earg}
+
+
+
+\solutions
+\problempart
+\label{pr.wiffLS}
+Para cada expressão a seguir: (a) Ela é uma wff de LS? (b) Ela é uma sentença de LS, levando em conta as convenções notacionais?
+\begin{earg}
+\item $(A)$
+\item $J_{374} \eor \enot J_{374}$
+\item $\enot \enot \enot \enot F$
+\item $\enot \eand S$
+\item $(G \eand \enot G)$
+\item $\script{A} \eif \script{A}$
+\item $(A \eif (A \eand \enot F)) \eor (D \eiff E)$
+\item $[(Z \eiff S) \eif W] \eand [J \eor X]$
+\item $(F \eiff \enot D \eif J) \eor (C \eand D)$
+\end{earg}
+
+
+
+\problempart
+\begin{earg}
+\item Existe alguma wff de LS que não contenha letras de sentença? Por quê?
+\item No capítulo, simbolizamos um \emph{ou exclusivo} usando \eor, \eand e \enot. Como você poderia traduzir um \emph{ou exclusivo} usando apenas dois conectivos? Há alguma maneira de traduzir um \emph{ou exclusivo} usando apenas um conectivo?
+\end{earg}
