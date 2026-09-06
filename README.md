@@ -54,17 +54,9 @@ Em uma compilação local, o PDF será identificado como uma versão de desenvol
 
 ## Publicação de uma versão
 
-Depois de revisar e mesclar as alterações em `main`, siga o procedimento detalhado em [RELEASE.md](RELEASE.md). Em resumo:
+Depois de revisar o conteúdo em `main`, abra **Releases** no GitHub e clique em **Draft a new release**. Digite a versão, por exemplo `v0.1.0`, selecione **Create new tag on publish**, mantenha `main` como destino, escreva as notas e publique a Release.
 
-~~~sh
-git fetch origin main
-git switch main
-git pull --ff-only origin main
-git tag --annotate v1.0.0 --message "forallx v1.0.0 — primeira tradução aprovada"
-git push origin v1.0.0
-~~~
-
-O workflow **Publicar release do livro** validará a tag, compilará o livro, criará o pacote-fonte, calculará os checksums e criará a Release com notas automáticas.
+Não anexe o PDF manualmente. O workflow **Publicar release do livro** será acionado pela nova tag, compilará o livro, criará o pacote-fonte, calculará os checksums e anexará os arquivos gerados. Para uma nova correção, use a próxima versão; não reutilize uma tag existente.
 
 ## Créditos e licença
 
