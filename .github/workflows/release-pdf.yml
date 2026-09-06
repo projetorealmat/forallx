@@ -107,17 +107,32 @@ jobs:
 
           sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" > SHA256SUMS
 
-      - name: Create GitHub Release
+      - name: Create or complete GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
 
-          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
-            echo "Release ${RELEASE_TAG} already exists; refusing to overwrite its assets."
-            exit 1
-          fi
-
           source_asset="forallx-${RELEASE_TAG}-source.tar.gz"
-          gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — edição brasileira" --generate-notes
+          release_assets=("forallx.pdf" "${source_asset}" "${RELEASE_METADATA}" "SHA256SUMS")
+
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${RELEASE_TAG} already exists; preserving its notes and uploading missing assets."
+            existing_assets="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json assets --jq '.assets[].name')"
+
+            for asset in "${release_assets[@]}"; do
+              if grep -Fxq "${asset}" <<< "${existing_assets}"; then
+                echo "Asset ${asset} already exists; keeping it."
+              else
+                gh release upload "${RELEASE_TAG}" "${asset}" --repo "${GITHUB_REPOSITORY}"
+              fi
+            done
+
+            is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json isDraft --jq '.isDraft')"
+            if [[ "${is_draft}" == "true" ]]; then
+              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --draft=false
+            fi
+          else
+            gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — edição brasileira" --generate-notes
+          fi
