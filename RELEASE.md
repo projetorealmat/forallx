@@ -42,6 +42,8 @@ git tag --annotate v1.0.0 --message "forallx v1.0.0 — primeira tradução apro
 git push origin v1.0.0
 ~~~
 
+Não crie antes um rascunho de Release pela interface do GitHub: a própria automação criará a Release depois de validar a compilação. Se uma Release com a tag já existir, o workflow recusará sobrescrever seus arquivos.
+
 O workflow **Publicar release do livro** validará a tag, compilará o PDF e criará a release. Para uma nova correção, use a próxima versão; não reutilize `v1.0.0`.
 
 ## Relação com o portal REALMat
