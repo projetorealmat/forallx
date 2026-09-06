@@ -25,26 +25,27 @@ O workflow publica automaticamente:
 
 O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento.
 
-## Publicar uma versão
+## Publicar uma versão pela interface do GitHub
 
-Antes de criar a tag:
+Antes de publicar:
 
-1. confirme que o conteúdo foi revisado e mesclado em `main`;
+1. confirme que o conteúdo foi revisado e está em `main`;
 2. confirme que o workflow **Build and Validate PDF** passou;
-3. confirme o número da versão conforme as regras acima;
-4. crie a tag a partir de `main`:
+3. escolha a próxima versão conforme as regras acima.
 
-~~~sh
-git fetch origin main
-git switch main
-git pull --ff-only origin main
-git tag --annotate v1.0.0 --message "forallx v1.0.0 — primeira tradução aprovada"
-git push origin v1.0.0
-~~~
+Na página do repositório:
 
-Não crie antes um rascunho de Release pela interface do GitHub: a própria automação criará a Release depois de validar a compilação. Se uma Release com a tag já existir, o workflow recusará sobrescrever seus arquivos.
+1. abra **Releases** e clique em **Draft a new release**;
+2. em **Choose a tag**, digite a versão, por exemplo `v0.1.0`;
+3. selecione **Create new tag on publish** e mantenha `main` como destino;
+4. use um título como `forallx v0.1.0 — versão intermediária`;
+5. escreva as notas da versão;
+6. não anexe o PDF manualmente: o workflow o compilará e anexará os arquivos;
+7. clique em **Publish release**.
 
-O workflow **Publicar release do livro** validará a tag, compilará o PDF e criará a release. Para uma nova correção, use a próxima versão; não reutilize `v1.0.0`.
+A publicação da tag acionará o workflow **Publicar release do livro**, que validará a tag, compilará o PDF, criará o pacote-fonte, calculará os checksums e completará a Release com os arquivos gerados. Se a Release já tiver sido criada pela interface, a automação preservará suas notas e enviará apenas os arquivos ausentes.
+
+Para uma nova correção, use a próxima versão; não reutilize uma tag existente.
 
 ## Relação com o portal REALMat
 
