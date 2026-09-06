@@ -1,4 +1,4 @@
-name: Publish PDF Release
+name: Publicar release do livro
 
 on:
   push:
@@ -14,6 +14,7 @@ concurrency:
 
 jobs:
   publish:
+    name: Build and publish release
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -21,35 +22,63 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Prepare release metadata
+      - name: Validate tag and release target
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          if [[ ! "${GITHUB_REF_NAME}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+
+          if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Release tags must follow vMAJOR.MINOR.PATCH."
             exit 1
           fi
 
+          git fetch --no-tags origin main
+          if ! git merge-base --is-ancestor "${GITHUB_SHA}" "origin/main"; then
+            echo "The release tag must point to a commit already contained in main."
+            exit 1
+          fi
+
+      - name: Prepare release metadata
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
           release_date="$(TZ=America/Maceio date +%d/%m/%Y)"
+          release_status="versão publicada"
+          if [[ "${RELEASE_TAG}" == "v1.0.0" ]]; then
+            release_status="tradução aprovada"
+          fi
+
           {
-            printf '\\renewcommand*{\\editionversion}{%s}\n' "${GITHUB_REF_NAME}"
+            printf '\\renewcommand*{\\editionversion}{%s}\n' "${RELEASE_TAG}"
             printf '\\renewcommand*{\\editiondate}{%s}\n' "${release_date}"
+            printf '\\renewcommand*{\\editionstatus}{%s}\n' "${release_status}"
           } > forallx-build-metadata.tex
+
+          release_metadata="forallx-${RELEASE_TAG}-metadata.txt"
+          {
+            printf 'Livro: forallx — Introdução à lógica formal\n'
+            printf 'Versão: %s\n' "${RELEASE_TAG}"
+            printf 'Data de publicação: %s\n' "${release_date}"
+            printf 'Status editorial: %s\n' "${release_status}"
+            printf 'Commit: %s\n' "${GITHUB_SHA}"
+            printf 'Repositório: https://github.com/${GITHUB_REPOSITORY}\n'
+            printf 'Licença: Creative Commons Attribution 4.0 International\n'
+          } > "${release_metadata}"
+
+          echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
           cat forallx-build-metadata.tex
+          cat "${release_metadata}"
 
       - name: Install TeX Live with XeLaTeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            texlive-latex-base \
-            texlive-latex-recommended \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-lang-english \
-            texlive-lang-portuguese \
-            texlive-xetex \
-            latexmk
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-lang-english texlive-lang-portuguese texlive-xetex latexmk
 
       - name: Compile forallx.tex with XeLaTeX
         run: |
@@ -62,30 +91,33 @@ jobs:
             exit 1
           fi
 
-      - name: Package reproducible source
+      - name: Package reproducible source and checksums
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          source_dir="forallx-${GITHUB_REF_NAME}-source"
+
+          source_dir="forallx-${RELEASE_TAG}-source"
           source_asset="${source_dir}.tar.gz"
-          mkdir "${source_dir}"
-          git archive "${GITHUB_SHA}" | tar -x -C "${source_dir}"
+
+          git archive --format=tar --prefix="${source_dir}/" "${GITHUB_SHA}" | tar -x
           cp forallx-build-metadata.tex "${source_dir}/"
+          cp "${RELEASE_METADATA}" "${source_dir}/"
           tar -czf "${source_asset}" "${source_dir}"
 
-      - name: Create or update GitHub Release
+          sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" > SHA256SUMS
+
+      - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          source_asset="forallx-${GITHUB_REF_NAME}-source.tar.gz"
 
-          if gh release view "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
-            gh release upload "${GITHUB_REF_NAME}" forallx.pdf "${source_asset}" \
-              --repo "${GITHUB_REPOSITORY}" \
-              --clobber
-          else
-            gh release create "${GITHUB_REF_NAME}" forallx.pdf "${source_asset}" \
-              --repo "${GITHUB_REPOSITORY}" \
-              --title "forallx ${GITHUB_REF_NAME}" \
-              --generate-notes
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${RELEASE_TAG} already exists; refusing to overwrite its assets."
+            exit 1
           fi
+
+          source_asset="forallx-${RELEASE_TAG}-source.tar.gz"
+          gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — edição brasileira" --generate-notes
