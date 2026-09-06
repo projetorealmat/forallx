@@ -4,29 +4,37 @@ Este repositório contém uma tradução e adaptação brasileira de *forall x: 
 
 **Tradutor e adaptador:** Carlos André Duarte Costa.
 
-A tradução está em revisão editorial. Sugestões e correções são bem-vindas por meio das [issues](https://github.com/CarlosCostaMath/forallx/issues) e dos *pull requests*.
+A tradução está em revisão editorial. Sugestões e correções são bem-vindas por meio das [issues](https://github.com/projetorealmat/forallx/issues) e dos *pull requests*.
 
 ## Arquivos principais
 
 - [Fonte principal em LaTeX](forallx.tex)
 - [Metadados da edição](forallx-metadata.tex)
-- [PDF da última versão publicada](https://github.com/CarlosCostaMath/forallx/releases/latest/download/forallx.pdf)
-- [Releases e versões anteriores](https://github.com/CarlosCostaMath/forallx/releases)
-- [Execuções dos workflows](https://github.com/CarlosCostaMath/forallx/actions)
+- [PDF da última versão publicada](https://github.com/projetorealmat/forallx/releases/latest/download/forallx.pdf)
+- [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
+- [Política de releases](RELEASE.md)
+- [Execuções dos workflows](https://github.com/projetorealmat/forallx/actions)
 
-O PDF oficial é publicado automaticamente em uma Release quando uma tag de versão, como **v0.1.1**, é criada. O link acima sempre aponta para a Release marcada pelo GitHub como mais recente. O arquivo **forallx.pdf** é produzido durante a compilação e não é mantido como arquivo versionado na raiz do repositório.
+O PDF oficial é publicado automaticamente em uma Release quando uma tag no formato `vMAJOR.MINOR.PATCH` é criada. O arquivo `forallx.pdf` não é mantido como arquivo versionado na raiz do repositório.
 
 ## Versões publicadas e arquivos-fonte
 
-A página de [Releases](https://github.com/CarlosCostaMath/forallx/releases) é o catálogo das versões publicadas. Cada Release preserva:
+A primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
+
+- `v1.0.0`: primeira tradução aprovada;
+- `v1.0.1`: correção técnica ou editorial pequena;
+- `v1.1.0`: adaptação ou acréscimo compatível com a mesma edição;
+- `v2.0.0`: nova edição, com mudança estrutural ou editorial ampla.
+
+Cada Release preserva:
 
 - o PDF correspondente à versão;
-- os arquivos-fonte da tag nos links automáticos **Source code (zip)** e **Source code (tar.gz)**;
-- nas Releases produzidas pelo workflow atualizado, o pacote **forallx-vX.Y.Z-source.tar.gz**, que também contém os metadados usados na compilação do PDF.
+- os arquivos-fonte automáticos da tag;
+- o pacote-fonte reproduzível;
+- os metadados usados na compilação;
+- o arquivo `SHA256SUMS`.
 
-A Release **v0.1.0** foi criada antes dessa melhoria e já preserva o PDF e os arquivos-fonte automáticos do GitHub. A partir da próxima Release, o pacote-fonte reproduzível também será anexado.
-
-Para consultar uma versão anterior, abra [Releases](https://github.com/CarlosCostaMath/forallx/releases), escolha a versão desejada e baixe o PDF ou um dos arquivos-fonte. Os commits e as tags do repositório também preservam estados intermediários do projeto.
+Para consultar uma versão anterior, abra [Releases](https://github.com/projetorealmat/forallx/releases), escolha a versão desejada e baixe o PDF ou os arquivos-fonte. Os commits e as tags preservam também estados intermediários do projeto.
 
 ## Compilação local
 
@@ -36,24 +44,27 @@ Com uma instalação do TeX Live que inclua XeLaTeX e **latexmk**, execute na ra
 latexmk -xelatex -interaction=nonstopmode -halt-on-error forallx.tex
 ~~~
 
-O comando gera **forallx.pdf** e os arquivos auxiliares da compilação. Para limpar esses arquivos, use:
+O comando gera `forallx.pdf` e os arquivos auxiliares da compilação. Para limpar esses arquivos, use:
 
 ~~~sh
 latexmk -C forallx.tex
 ~~~
 
-Em uma compilação local, o PDF será identificado como uma versão de desenvolvimento e receberá a data da compilação. O workflow de Release substitui automaticamente esses dados pela tag e pela data da publicação.
+Em uma compilação local, o PDF será identificado como uma versão de desenvolvimento e receberá a data da compilação. O workflow de Release substitui automaticamente esses dados pela tag, pela data de publicação e pelo status editorial da versão.
 
 ## Publicação de uma versão
 
-Depois de revisar e mesclar as alterações na **master**, crie uma tag seguindo o formato **vMAJOR.MINOR.PATCH**. Para a próxima publicação depois de **v0.1.0**, use:
+Depois de revisar e mesclar as alterações em `main`, siga o procedimento detalhado em [RELEASE.md](RELEASE.md). Em resumo:
 
 ~~~sh
-git tag v0.1.1
-git push origin v0.1.1
+git fetch origin main
+git switch main
+git pull --ff-only origin main
+git tag --annotate v1.0.0 --message "forallx v1.0.0 — primeira tradução aprovada"
+git push origin v1.0.0
 ~~~
 
-O workflow **Publish PDF Release** será executado automaticamente. Se a compilação passar, o GitHub criará ou atualizará a Release, anexará o **forallx.pdf**, anexará o pacote-fonte reproduzível e gerará as notas da versão.
+O workflow **Publicar release do livro** validará a tag, compilará o livro, criará o pacote-fonte, calculará os checksums e criará a Release com notas automáticas.
 
 ## Créditos e licença
 

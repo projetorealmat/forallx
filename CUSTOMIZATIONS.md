@@ -5,9 +5,10 @@
 Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada na edição mantida pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx).
 
 - **Tradutor e adaptador:** Carlos André Duarte Costa, Universidade Estadual de Alagoas (UNEAL).
-- **Fonte desta edição:** [CarlosCostaMath/forallx](https://github.com/CarlosCostaMath/forallx).
-- **PDF da última versão publicada:** [baixar o PDF](https://github.com/CarlosCostaMath/forallx/releases/latest/download/forallx.pdf).
-- **Versões publicadas e arquivos-fonte:** consulte as [Releases](https://github.com/CarlosCostaMath/forallx/releases). Cada Release preserva o PDF e os arquivos-fonte da respectiva tag; as Releases futuras também anexarão o pacote-fonte reproduzível usado na compilação.
+- **Fonte desta edição:** [projetorealmat/forallx](https://github.com/projetorealmat/forallx).
+- **PDF da última versão publicada:** [baixar o PDF](https://github.com/projetorealmat/forallx/releases/latest/download/forallx.pdf).
+- **Versões publicadas e arquivos-fonte:** consulte as [Releases](https://github.com/projetorealmat/forallx/releases). Cada Release preserva o PDF e os arquivos-fonte da respectiva tag, além do pacote-fonte reproduzível, dos metadados e dos checksums.
+- **Política de releases:** consulte [RELEASE.md](RELEASE.md).
 - **Metadados da edição:** [forallx-metadata.tex](forallx-metadata.tex).
 - **Compilação:** consulte as [instruções no README](README.md#compilação-local).
 - **Licença:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/), com atribuição ao autor original e ao tradutor.
@@ -16,7 +17,7 @@ Esta edição não é uma publicação oficial do Open Logic Project. Ela é uma
 
 ## Outras edições
 
-A obra **forallx** foi adaptada e incorporada a mais de uma dúzia de edições personalizadas e obras derivadas. Abaixo está uma lista de algumas delas.
+A obra **forall x** foi adaptada e incorporada a mais de uma dúzia de edições personalizadas e obras derivadas. Abaixo está uma lista de algumas delas.
 
 O ano indicado é o da primeira derivação (*fork*). Muitas edições foram revisadas e possuem uma edição mais recente.
 

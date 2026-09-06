@@ -1,0 +1,20 @@
+changelog:
+  categories:
+    - title: "Tradução, conteúdo e revisão"
+      labels:
+        - "tradução"
+        - "conteúdo"
+        - "revisão"
+    - title: "Construção e publicação"
+      labels:
+        - "ci"
+        - "build"
+        - "release"
+    - title: "Outros"
+      labels:
+        - "*"
+  exclude:
+    labels:
+      - "dependabot"
+    authors:
+      - "dependabot[bot]"
