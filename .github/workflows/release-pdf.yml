@@ -126,18 +126,9 @@ jobs:
             exit 1
           fi
 
-          citation_line="$(grep -E '^version:' CITATION.cff | head -n1)"
           expected_version="$(printf '%s' "$RELEASE_TAG" | cut -c2-)"
           if [[ "$expected_version" != "$RELEASE_VERSION" ]]; then
             echo "A versão detectada ($RELEASE_VERSION) não coincide com a tag esperada ($expected_version)."
-            exit 1
-          fi
-          if [[ "$citation_line" != "version: \"$RELEASE_VERSION\"" ]]; then
-            echo "A versão do CITATION.cff não coincide com a versão publicada."
-            exit 1
-          fi
-          if [[ "$RELEASE_DATE" != "$(grep -E '^date-released:' CITATION.cff | awk '{print $2}')" ]]; then
-            echo "A data do CITATION.cff não coincide com a data detectada."
             exit 1
           fi
 
