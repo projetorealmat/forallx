@@ -14,6 +14,8 @@ As tags seguem `vMAJOR.MINOR.PATCH`:
 
 Uma release é um retrato imutável do livro naquele ponto do histórico. Uma correção nunca deve sobrescrever uma release existente: deve receber uma nova tag.
 
+O workflow aplica automaticamente o status da release: versões `v0.x.x` são publicadas como **pre-release**; `v1.0.0` e versões posteriores são releases estáveis, salvo regra editorial documentada em contrário.
+
 ## Conteúdo de cada release
 
 O workflow publica automaticamente:
