@@ -27,7 +27,8 @@ Para uma correção específica, abra uma issue antes de alterar muitos arquivos
 
 5. Abra um pull request para `main` e preencha o checklist.
 6. Aguarde a revisão apropriada: linguística/terminológica, matemática/editorial ou técnica.
-7. Só crie uma tag de release depois que o conteúdo estiver em `main` e os workflows passarem.
+7. Se as alterações forem destinadas à próxima publicação, atualize no mesmo pull request a versão e a data em `CITATION.cff`. Não crie a tag nem o GitHub Release manualmente.
+8. Depois que o pull request for mesclado, o workflow criará a tag, compilará o PDF, publicará o release e proporá a atualização do portal.
 
 ## Critérios editoriais
 
@@ -42,7 +43,7 @@ Traduções e adaptações devem manter a atribuição à obra original e indica
 - `v1.x.y`: correções ou alterações compatíveis com a edição aprovada;
 - `v2.0.0` ou superior: nova edição ou alteração estrutural ampla.
 
-Cada release é imutável. Não reutilize tags nem substitua os arquivos de uma release existente.
+Cada release é imutável. Não reutilize tags nem substitua os arquivos de uma release existente. Alterar outros metadados do `CITATION.cff` sem alterar `version` não cria release.
 
 ## Conduta
 

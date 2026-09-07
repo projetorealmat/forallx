@@ -29,41 +29,40 @@ O workflow publica automaticamente:
 
 O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento. A release `v0.x.y` é uma referência pública em revisão; a primeira referência aprovada será `v1.0.0`.
 
-## Publicar uma versão pela interface do GitHub
+## Como publicar uma versão
 
-Antes de publicar:
+A publicação é controlada pela alteração da versão no `CITATION.cff`. Você não precisa criar a tag nem o GitHub Release manualmente.
 
-1. confirme que o conteúdo foi revisado e está em `main`;
-2. confirme que o workflow **Build and Validate PDF** passou;
-3. atualize `CITATION.cff` com a versão e a data da release;
-4. escolha a próxima versão conforme as regras acima.
+1. Crie uma branch a partir de `main`.
+2. Faça as alterações do conteúdo que devem entrar na publicação.
+3. Atualize no mesmo branch:
+   - `version`, usando a próxima versão;
+   - `date-released`, usando a data prevista da publicação.
+4. Abra um pull request para `main` e aguarde a revisão.
+5. Depois que o pull request for mesclado, o workflow:
+   - valida a nova versão;
+   - cria a tag correspondente;
+   - cria ou completa o GitHub Release;
+   - compila e anexa o PDF;
+   - gera o pacote-fonte e os checksums;
+   - propõe a atualização do catálogo do portal REALMat.
 
-Na página do repositório:
+Não crie a tag pelo menu **Releases**, não anexe o PDF manualmente e não altere a versão diretamente na `main`.
 
-1. abra **Releases** e clique em **Draft a new release**;
-2. em **Choose a tag**, digite a versão, por exemplo `v0.1.0`;
-3. selecione **Create new tag on publish** e mantenha `main` como destino;
-4. use um título como `forallx v0.1.0 — versão intermediária`;
-5. escreva as notas da versão;
-6. não anexe o PDF manualmente: o workflow o compilará e anexará os arquivos;
-7. clique em **Publish release**.
+O workflow compara a versão atual do `CITATION.cff` com a versão do commit anterior. Alterações em autores, ORCID, título ou outros metadados, sem mudança de `version`, não criam uma nova release.
 
-A publicação da tag acionará o workflow **Publicar release do livro**, que validará a tag, compilará o PDF, criará o pacote-fonte, calculará os checksums e completará a Release com os arquivos gerados. Se a Release já tiver sido criada pela interface, a automação preservará suas notas e enviará apenas os arquivos ausentes.
-
-Para uma nova correção, use a próxima versão; não reutilize uma tag existente.
+Se a compilação falhar antes da criação da tag, corrija o problema em um novo PR e escolha a próxima versão; a versão já mesclada não deve ser reutilizada. Se a falha ocorrer depois de criar a tag, a execução pode ser reexecutada: a automação verifica se a tag já aponta para o mesmo commit e preserva os arquivos e as notas existentes.
 
 ## Relação com o portal REALMat
 
-O portal deve apontar para uma versão específica, por exemplo:
+O portal aponta para versões específicas, por exemplo:
 
 ~~~text
 https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf
 ~~~
 
-O portal pode manter um arquivo de catálogo com a versão atualmente recomendada e links para as versões anteriores. Uma eventual release agregadora do REALMat será apenas um índice de versões dos livros, não substituirá as releases individuais.
+O catálogo mantém a versão atualmente recomendada e os links para versões anteriores. Uma eventual release agregadora do REALMat será apenas um índice de versões dos livros, não substituirá as releases individuais.
 
-## Atualização automática do portal
+Depois de publicar a release, o workflow calcula o SHA-256 do PDF e envia um evento ao portal REALMat. O portal transforma esse evento em um pull request de atualização do catálogo; ele não publica diretamente na `main`.
 
-Depois de criar a release, o workflow calcula o SHA-256 do PDF e pode enviar um evento ao portal REALMat. O portal transforma esse evento em um pull request de atualização do catálogo; ele não publica diretamente na `main`.
-
-Para ativar essa integração, o proprietário do repositório deve criar o secret de Actions `PORTAL_DISPATCH_TOKEN`, com permissão de conteúdo para o repositório `projetorealmat/projetorealmat.github.io`. Sem esse secret, a release continua funcionando normalmente e a atualização do catálogo pode ser feita manualmente por pull request.
+Para ativar essa integração, o proprietário do repositório deve manter o secret de Actions `PORTAL_DISPATCH_TOKEN`, com permissão de conteúdo para o repositório `projetorealmat/projetorealmat.github.io`. Sem esse secret, a release continua funcionando normalmente e a atualização do catálogo pode ser feita manualmente por pull request.
