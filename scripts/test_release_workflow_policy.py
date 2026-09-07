@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for release status, Release PR, and catalog path policies."""
+"""Regression checks for release status, Release PR, recovery, and catalog policies."""
 
 from __future__ import annotations
 
@@ -39,9 +39,6 @@ assert "github.event.pull_request.head.repo.full_name == github.repository" in W
 assert 'expected_branch="release/${release_tag}"' in WORKFLOW, (
     "the Release PR branch must match the version declared in CITATION.cff"
 )
-assert 'git show "${RELEASE_COMMIT}^:CITATION.cff"' in WORKFLOW, (
-    "the workflow must verify that the Release PR changed the Citation version"
-)
 assert 'git tag -a "${RELEASE_TAG}" "${RELEASE_COMMIT}"' in WORKFLOW, (
     "the workflow must create the release tag only after final validation/build"
 )
@@ -50,6 +47,35 @@ assert 'git push origin "refs/tags/${RELEASE_TAG}"' in WORKFLOW, (
 )
 assert "--draft" in WORKFLOW, (
     "the GitHub Release must be assembled as a draft before publication"
+)
+
+# Recovery must be explicit, bound to the original merged Release PR, and idempotent.
+assert "workflow_dispatch:" in WORKFLOW and "release_pr:" in WORKFLOW, (
+    "a failed publication must be recoverable by explicitly naming its merged Release PR"
+)
+assert 'gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}"' in WORKFLOW, (
+    "recovery must resolve authoritative metadata for the original Release PR"
+)
+assert "RELEASE_BASE_SHA" in WORKFLOW, (
+    "release validation must retain the Release PR base commit"
+)
+assert 'git show "${RELEASE_BASE_SHA}:CITATION.cff"' in WORKFLOW, (
+    "version changes must be validated against the Release PR base, not a merge parent guess"
+)
+assert 'git config user.name "github-actions[bot]"' in WORKFLOW, (
+    "annotated tag creation must configure a Git identity"
+)
+assert 'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"' in WORKFLOW, (
+    "annotated tag creation must configure the bot email"
+)
+assert 'existing_commit="$(git rev-parse "${RELEASE_TAG}^{commit}")"' in WORKFLOW, (
+    "recovery must verify any existing tag points to the intended release commit"
+)
+assert "--clobber" in WORKFLOW, (
+    "draft release recovery must be able to restore generated assets deterministically"
+)
+assert "recuper" in POLICY.lower(), (
+    "release policy must document recovery after a failed publication"
 )
 
 # Release PR preparation is itself automated and auditable.
