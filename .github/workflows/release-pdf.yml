@@ -95,24 +95,12 @@ jobs:
 
           echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
           echo "RELEASE_STATUS=${release_status}" >> "${GITHUB_ENV}"
+          echo "RELEASE_DATE=${release_date}" >> "${GITHUB_ENV}"
           cat forallx-build-metadata.tex
           cat "${release_metadata}"
 
-      - name: Install TeX Live with XeLaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-lang-english texlive-lang-portuguese texlive-xetex latexmk
-
-      - name: Compile forallx.tex with XeLaTeX
-        run: |
-          latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error forallx.tex
-
-      - name: Fail on unresolved references
-        run: |
-          if grep -nE 'Reference .* undefined|There were undefined references' forallx.log; then
-            echo 'Unresolved LaTeX references detected.'
-            exit 1
-          fi
+      - name: Validar e compilar PDF
+        uses: ./.github/actions/compile-pdf
 
       - name: Package reproducible source and checksums
         env:
@@ -159,3 +147,55 @@ jobs:
           else
             gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" --generate-notes
           fi
+
+      - name: Propor atualização do catálogo REALMat
+        env:
+          PORTAL_DISPATCH_TOKEN: ${{ secrets.PORTAL_DISPATCH_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_STATUS: ${{ env.RELEASE_STATUS }}
+          RELEASE_DATE: ${{ env.RELEASE_DATE }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${PORTAL_DISPATCH_TOKEN}" ]]; then
+            echo "::notice::PORTAL_DISPATCH_TOKEN não configurado; a atualização do catálogo continuará manual."
+            exit 0
+          fi
+
+          pdf_sha256="$(awk '$2 == "forallx.pdf" {print $1}' SHA256SUMS)"
+          if [[ ! "${pdf_sha256}" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "SHA-256 do PDF não encontrado em SHA256SUMS."
+            exit 1
+          fi
+          export PDF_SHA256="${pdf_sha256}"
+
+          python3 - <<'PY' > /tmp/catalog-dispatch.json
+          import json
+          import os
+
+          tag = os.environ["RELEASE_TAG"]
+          repository = os.environ["GITHUB_REPOSITORY"]
+          payload = {
+              "id": "forallx",
+              "title": "forallx: Lógica",
+              "short_title": "forallx",
+              "subject": "lógica formal",
+              "version": tag,
+              "status": os.environ["RELEASE_STATUS"],
+              "repository": repository,
+              "ref": tag,
+              "release_url": f"https://github.com/{repository}/releases/tag/{tag}",
+              "pdf_url": f"https://github.com/{repository}/releases/download/{tag}/forallx.pdf",
+              "pdf_path": "/assets/books/forallx.pdf",
+              "sha256": os.environ["PDF_SHA256"],
+              "release_date": os.environ["RELEASE_DATE"],
+          }
+          print(json.dumps({"event_type": "book-release", "client_payload": payload}))
+          PY
+
+          curl --fail --silent --show-error --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${PORTAL_DISPATCH_TOKEN}" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --data-binary @/tmp/catalog-dispatch.json \
+            https://api.github.com/repos/projetorealmat/projetorealmat.github.io/dispatches
