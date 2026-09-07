@@ -19,7 +19,7 @@ FILES = (
     ROOT / "CONTRIBUTING.md",
     ROOT / "CITATION.cff",
 )
-URL_RE = re.compile(r"""https?://[^\\s)<>"']+""")
+URL_RE = re.compile(r"""https?://[^\s)<>"']+""")
 TRAILING = ".,;:!?]}>'"
 USER_AGENT = "REALMat-link-check/1.0"
 
