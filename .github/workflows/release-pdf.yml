@@ -1,37 +1,41 @@
 name: Publicar release do livro
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - CITATION.cff
+    types:
+      - closed
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-pdf-${{ github.repository }}-${{ github.ref }}
+  group: release-pdf-${{ github.repository }}-${{ github.event.pull_request.number }}
   cancel-in-progress: false
 
 jobs:
-  detect:
-    name: Detectar nova versão
+  publish:
+    name: Build and publish release
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'release/v')
     runs-on: ubuntu-24.04
-    outputs:
-      publish: ${{ steps.release.outputs.publish }}
-      release_tag: ${{ steps.release.outputs.release_tag }}
-      release_version: ${{ steps.release.outputs.release_version }}
-      release_date: ${{ steps.release.outputs.release_date }}
+    permissions:
+      contents: write
+    env:
+      RELEASE_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
+      RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout release commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
           fetch-depth: 0
 
-      - name: Detectar mudança de versão no CITATION.cff
-        id: release
+      - name: Validar Release PR e metadados
         shell: bash
         run: |
           set -euo pipefail
@@ -57,10 +61,11 @@ jobs:
           PY
           }
 
-          current_version="$(extract_field version CITATION.cff)"
+          release_version="$(extract_field version CITATION.cff)"
           release_date="$(extract_field date-released CITATION.cff)"
+          release_tag="v${release_version}"
 
-          if [[ ! "${current_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ ! "${release_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "A versão do CITATION.cff deve seguir MAJOR.MINOR.PATCH."
             exit 1
           fi
@@ -68,77 +73,48 @@ jobs:
             echo "date-released deve seguir AAAA-MM-DD."
             exit 1
           fi
-
-          previous_version=""
-          if git rev-parse HEAD^ >/dev/null 2>&1; then
-            if git show HEAD^:CITATION.cff > "${RUNNER_TEMP}/previous-CITATION.cff" 2>/dev/null; then
-              previous_version="$(extract_field version "${RUNNER_TEMP}/previous-CITATION.cff")"
-            fi
+          if ! date -u -d "${release_date}" +%F >/dev/null 2>&1; then
+            echo "date-released não representa uma data válida."
+            exit 1
           fi
 
-          release_tag="v${current_version}"
-          publish=true
-          if [[ -n "${previous_version}" && "${current_version}" == "${previous_version}" ]]; then
-            publish=false
-            echo "A versão do CITATION.cff não mudou; nenhuma release será criada."
-          else
-            echo "Nova versão detectada: ${release_tag}."
-          fi
-
-          {
-            echo "publish=${publish}"
-            echo "release_tag=${release_tag}"
-            echo "release_version=${current_version}"
-            echo "release_date=${release_date}"
-          } >> "${GITHUB_OUTPUT}"
-
-  publish:
-    name: Build and publish release
-    needs: detect
-    if: needs.detect.outputs.publish == 'true'
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    env:
-      RELEASE_TAG: ${{ needs.detect.outputs.release_tag }}
-      RELEASE_VERSION: ${{ needs.detect.outputs.release_version }}
-      RELEASE_DATE: ${{ needs.detect.outputs.release_date }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-
-      - name: Validar versão e destino da publicação
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Release tags must follow vMAJOR.MINOR.PATCH."
+          expected_branch="release/${release_tag}"
+          if [[ "${RELEASE_BRANCH}" != "${expected_branch}" ]]; then
+            echo "A Release PR deve usar a branch ${expected_branch}; branch recebida: ${RELEASE_BRANCH}."
             exit 1
           fi
 
           git fetch --no-tags origin main
-          if ! git merge-base --is-ancestor "${GITHUB_SHA}" "origin/main"; then
-            echo "A publicação deve apontar para um commit já contido em main."
+          if ! git merge-base --is-ancestor "${RELEASE_COMMIT}" "origin/main"; then
+            echo "O commit da Release PR deve estar contido em main antes da publicação."
             exit 1
           fi
 
-          expected_version="$(printf '%s' "$RELEASE_TAG" | cut -c2-)"
-          if [[ "$expected_version" != "$RELEASE_VERSION" ]]; then
-            echo "A versão detectada ($RELEASE_VERSION) não coincide com a tag esperada ($expected_version)."
+          if git show "${RELEASE_COMMIT}^:CITATION.cff" > "${RUNNER_TEMP}/previous-CITATION.cff" 2>/dev/null; then
+            previous_version="$(extract_field version "${RUNNER_TEMP}/previous-CITATION.cff")"
+            if [[ "${release_version}" == "${previous_version}" ]]; then
+              echo "A Release PR não alterou a versão do CITATION.cff."
+              exit 1
+            fi
+          fi
+
+          if git ls-remote --exit-code --refs origin "refs/tags/${release_tag}" >/dev/null 2>&1; then
+            echo "A tag ${release_tag} já existe; releases são imutáveis e não podem ser reutilizadas."
             exit 1
           fi
+
+          {
+            echo "RELEASE_TAG=${release_tag}"
+            echo "RELEASE_VERSION=${release_version}"
+            echo "RELEASE_DATE=${release_date}"
+          } >> "${GITHUB_ENV}"
 
       - name: Prepare release metadata
         shell: bash
         run: |
           set -euo pipefail
 
-          release_date_iso="$RELEASE_DATE"
-          release_date_display="$(date -u -d "${release_date_iso}" +%d/%m/%Y)"
+          release_date_display="$(date -u -d "${RELEASE_DATE}" +%d/%m/%Y)"
           release_major="${RELEASE_TAG#v}"
           release_major="${release_major%%.*}"
           release_status="em revisão"
@@ -173,19 +149,19 @@ jobs:
             printf 'Versão: %s\n' "${RELEASE_TAG}"
             printf 'Data de publicação: %s\n' "${release_date_display}"
             printf 'Status editorial: %s\n' "${release_status}"
-            printf 'Commit: %s\n' "${GITHUB_SHA}"
-            printf 'Repositório: https://github.com/${GITHUB_REPOSITORY}\n'
+            printf 'Commit: %s\n' "${RELEASE_COMMIT}"
+            printf 'Release PR: #%s\n' "${{ github.event.pull_request.number }}"
+            printf 'Repositório: https://github.com/%s\n' "${GITHUB_REPOSITORY}"
             printf 'Licença: Creative Commons Attribution 4.0 International\n'
           } > "${release_metadata}"
 
           echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
           echo "RELEASE_STATUS=${release_status}" >> "${GITHUB_ENV}"
-          echo "RELEASE_DATE=${release_date_iso}" >> "${GITHUB_ENV}"
           echo "RELEASE_IS_PRERELEASE=${release_is_prerelease}" >> "${GITHUB_ENV}"
           cat forallx-build-metadata.tex
           cat "${release_metadata}"
 
-      - name: Validar e compilar PDF
+      - name: Validar e compilar PDF final
         uses: ./.github/actions/compile-pdf
 
       - name: Verificar metadados incorporados no PDF
@@ -216,7 +192,7 @@ jobs:
           source_dir="forallx-${RELEASE_TAG}-source"
           source_asset="${source_dir}.tar.gz"
 
-          git archive --format=tar --prefix="${source_dir}/" "${GITHUB_SHA}" | tar -x
+          git archive --format=tar --prefix="${source_dir}/" "${RELEASE_COMMIT}" | tar -x
           cp forallx-build-metadata.tex "${source_dir}/"
           cp "${RELEASE_METADATA}" "${source_dir}/"
           cp forallx-build-environment.txt "${source_dir}/"
@@ -224,25 +200,15 @@ jobs:
 
           sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" forallx-build-environment.txt > SHA256SUMS
 
-      - name: Criar ou validar tag da release
+      - name: Criar tag imutável da release
         shell: bash
         run: |
           set -euo pipefail
 
-          if git ls-remote --exit-code --refs origin "refs/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
-            git fetch origin "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
-            existing_commit="$(git rev-parse "${RELEASE_TAG}^{commit}")"
-            if [[ "${existing_commit}" != "${GITHUB_SHA}" ]]; then
-              echo "A tag ${RELEASE_TAG} já existe e aponta para outro commit."
-              exit 1
-            fi
-            echo "A tag ${RELEASE_TAG} já aponta para este commit; continuando."
-          else
-            git tag -a "${RELEASE_TAG}" "${GITHUB_SHA}" -m "forallx ${RELEASE_TAG}"
-            git push origin "refs/tags/${RELEASE_TAG}"
-          fi
+          git tag -a "${RELEASE_TAG}" "${RELEASE_COMMIT}" -m "forallx ${RELEASE_TAG}"
+          git push origin "refs/tags/${RELEASE_TAG}"
 
-      - name: Create or complete GitHub Release
+      - name: Criar Release como draft e anexar assets
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -250,36 +216,43 @@ jobs:
           set -euo pipefail
 
           source_asset="forallx-${RELEASE_TAG}-source.tar.gz"
-          release_assets=("forallx.pdf" "${source_asset}" "${RELEASE_METADATA}" "forallx-build-environment.txt" "SHA256SUMS")
+          release_flags=(--draft)
+          if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+            release_flags+=(--prerelease)
+          fi
 
-          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
-            echo "Release ${RELEASE_TAG} already exists; preserving its notes and uploading missing assets."
-            existing_assets="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json assets --jq '.assets[].name')"
+          gh release create "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --target "${RELEASE_COMMIT}" \
+            --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" \
+            --generate-notes \
+            "${release_flags[@]}"
 
-            for asset in "${release_assets[@]}"; do
-              if grep -Fxq "${asset}" <<< "${existing_assets}"; then
-                echo "Asset ${asset} already exists; keeping it."
-              else
-                gh release upload "${RELEASE_TAG}" "${asset}" --repo "${GITHUB_REPOSITORY}"
-              fi
-            done
+          gh release upload "${RELEASE_TAG}" \
+            forallx.pdf \
+            "${source_asset}" \
+            "${RELEASE_METADATA}" \
+            forallx-build-environment.txt \
+            SHA256SUMS \
+            --repo "${GITHUB_REPOSITORY}"
 
-            is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json isDraft --jq '.isDraft')"
-            if [[ "${is_draft}" == "true" ]]; then
-              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --draft=false
-            fi
+      - name: Publicar GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
 
-            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
-              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --prerelease
-            else
-              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --prerelease=false
-            fi
+          if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+            gh release edit "${RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --draft=false \
+              --prerelease
           else
-            release_flags=()
-            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
-              release_flags+=(--prerelease)
-            fi
-            gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" forallx-build-environment.txt SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" --generate-notes "${release_flags[@]}"
+            gh release edit "${RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --draft=false \
+              --prerelease=false
           fi
 
       - name: Propor atualização do catálogo REALMat
