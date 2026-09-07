@@ -24,6 +24,7 @@ O workflow publica automaticamente:
 - o pacote-fonte correspondente à tag;
 - `forallx-<versão>-metadata.txt`;
 - `SHA256SUMS`;
+- `forallx-build-environment.txt`, com o ambiente efetivo usado na compilação;
 - as notas da versão geradas pelo GitHub.
 
 O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento. A release `v0.x.y` é uma referência pública em revisão; a primeira referência aprovada será `v1.0.0`.
