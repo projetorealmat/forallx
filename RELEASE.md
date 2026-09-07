@@ -51,7 +51,7 @@ Não crie a tag pelo menu **Releases**, não anexe o PDF manualmente e não alte
 
 O workflow compara a versão atual do `CITATION.cff` com a versão do commit anterior. Alterações em autores, ORCID, título ou outros metadados, sem mudança de `version`, não criam uma nova release.
 
-Se a compilação falhar, corrija o problema no conteúdo e abra um novo PR. Se a execução falhar depois de criar a tag, ela pode ser reexecutada: a automação verifica se a tag já aponta para o mesmo commit e preserva os arquivos e as notas existentes.
+Se a compilação falhar antes da criação da tag, corrija o problema em um novo PR e escolha a próxima versão; a versão já mesclada não deve ser reutilizada. Se a falha ocorrer depois de criar a tag, a execução pode ser reexecutada: a automação verifica se a tag já aponta para o mesmo commit e preserva os arquivos e as notas existentes.
 
 ## Relação com o portal REALMat
 
