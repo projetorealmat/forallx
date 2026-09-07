@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Próxima versão, sem o prefixo v (ex.: 0.1.2)"
+        description: "Próxima versão, sem o prefixo v (ex.: 0.1.3)"
         required: true
         type: string
       release_date:
@@ -95,7 +95,7 @@ jobs:
             echo "release_branch=${release_branch}"
           } >> "${GITHUB_OUTPUT}"
 
-      - name: Atualizar CITATION.cff
+      - name: Atualizar metadados da release
         shell: bash
         env:
           REQUESTED_VERSION: ${{ inputs.version }}
@@ -109,9 +109,10 @@ jobs:
           from pathlib import Path
 
           version, release_date = sys.argv[1:]
-          path = Path("CITATION.cff")
-          text = path.read_text(encoding="utf-8")
+          release_tag = f"v{version}"
 
+          citation = Path("CITATION.cff")
+          text = citation.read_text(encoding="utf-8")
           text, version_count = re.subn(
               r'''^version:\s*.*$''',
               f'version: "{version}"',
@@ -128,11 +129,34 @@ jobs:
           )
           if version_count != 1 or date_count != 1:
               raise SystemExit("Não foi possível atualizar version/date-released de forma inequívoca.")
-          path.write_text(text, encoding="utf-8")
+          citation.write_text(text, encoding="utf-8")
+
+          readme = Path("README.md")
+          readme_text = readme.read_text(encoding="utf-8")
+          start = "<!-- release-pdf-current:start -->"
+          end = "<!-- release-pdf-current:end -->"
+          if readme_text.count(start) != 1 or readme_text.count(end) != 1:
+              raise SystemExit("README.md não contém um bloco único release-pdf-current.")
+
+          replacement = (
+              f"{start}\n"
+              f"- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/{release_tag}/forallx.pdf) ({release_tag})\n"
+              f"{end}"
+          )
+          readme_text, count = re.subn(
+              re.escape(start) + r".*?" + re.escape(end),
+              replacement,
+              readme_text,
+              count=1,
+              flags=re.DOTALL,
+          )
+          if count != 1:
+              raise SystemExit("Não foi possível atualizar o bloco de PDF recomendado do README.md.")
+          readme.write_text(readme_text, encoding="utf-8")
           PY
 
           git diff --check
-          git diff -- CITATION.cff
+          git diff -- CITATION.cff README.md
 
       - name: Criar branch e commit de release
         env:
@@ -144,7 +168,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "${RELEASE_BRANCH}"
-          git add CITATION.cff
+          git add CITATION.cff README.md
           git commit -m "chore(release): prepare ${RELEASE_TAG}"
           git push --set-upstream origin "${RELEASE_BRANCH}"
 
@@ -163,6 +187,7 @@ jobs:
           Esta PR representa a intenção explícita de publicar **${RELEASE_TAG}** em **${RELEASE_DATE}**.
 
           - Atualiza \`CITATION.cff\` para a versão da release.
+          - Atualiza o README para apontar para o PDF recomendado da nova versão.
           - O workflow **Build and Validate PDF** deve passar antes do merge.
           - O merge desta PR autoriza a criação automática da tag, do PDF final e do GitHub Release.
           - Após a publicação, o portal REALMat receberá uma proposta automática de atualização do catálogo.

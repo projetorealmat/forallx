@@ -14,17 +14,21 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 - [Fonte principal em LaTeX](forallx.tex)
 - [Metadados da edição](forallx-metadata.tex)
 - [Metadados de citação](CITATION.cff)
-- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf) (v0.1.0, em revisão)
+<!-- release-pdf-current:start -->
+- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.2/forallx.pdf) (v0.1.2)
+<!-- release-pdf-current:end -->
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
 - [Fluxo editorial do projeto](EDITORIAL_WORKFLOW.md)
 - [Execuções dos workflows](https://github.com/projetorealmat/forallx/actions)
 
-O PDF oficial é publicado automaticamente em uma Release quando uma tag no formato `vMAJOR.MINOR.PATCH` é criada. O arquivo `forallx.pdf` não é mantido como arquivo versionado na raiz do repositório.
+O PDF oficial de cada versão é compilado e publicado automaticamente depois do merge da respectiva **Release PR**. O arquivo `forallx.pdf` não é mantido como arquivo versionado na raiz do repositório.
 
 ## Versões publicadas e arquivos-fonte
 
-A versão `v0.1.0` existente é uma tradução em revisão e foi preservada como registro histórico. Após esta revisão ser incorporada, a próxima correção deverá ser publicada como `v0.1.1`; a primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
+A versão atualmente recomendada é `v0.1.2`, ainda em revisão editorial. Versões anteriores permanecem preservadas como registro histórico. A primeira tradução aprovada será publicada como `v1.0.0`.
+
+O versionamento segue estas regras:
 
 - `v0.x.y`: tradução em revisão;
 - `v1.0.0`: primeira tradução aprovada;
@@ -60,9 +64,20 @@ Em uma compilação local, o PDF será identificado como uma versão de desenvol
 
 ## Publicação de uma versão
 
-Depois de revisar o conteúdo em `main`, atualize a versão e a data em `CITATION.cff` para a próxima tag (por exemplo, `0.1.1` e `v0.1.1`). Em seguida, abra **Releases** no GitHub e clique em **Draft a new release**. Digite `v0.1.1`, selecione **Create new tag on publish**, mantenha `main` como destino, escreva as notas e publique a Release. O workflow verifica que a versão do `CITATION.cff` coincide com a tag.
+A publicação usa o padrão **Release PR**.
 
-Não anexe o PDF manualmente. O workflow **Publicar release do livro** será acionado pela nova tag, compilará o livro, criará o pacote-fonte, calculará os checksums e anexará os arquivos gerados. Para uma nova correção, use a próxima versão; não reutilize uma tag existente.
+1. Incorpore primeiro em `main`, por PRs normais, todas as alterações de conteúdo que devem fazer parte da versão.
+2. Abra **Actions → Preparar Release PR → Run workflow**.
+3. Informe a próxima versão, sem o prefixo `v`, e a data da publicação.
+4. A automação cria a branch `release/vMAJOR.MINOR.PATCH`, atualiza `CITATION.cff`, atualiza neste README o link do PDF recomendado e abre a Release PR.
+5. Revise os checks e o PDF candidato.
+6. O **merge da Release PR** é a autorização explícita para publicar.
+7. Depois do merge, o workflow compila o PDF final, cria a tag, monta a GitHub Release como draft, anexa os artefatos e publica a Release.
+8. O portal REALMat recebe o evento da nova versão e propõe a atualização de seu catálogo.
+
+Não crie a tag, o GitHub Release nem anexe o PDF manualmente. Para uma nova correção, use uma nova versão; nunca reutilize uma tag existente.
+
+Detalhes, validações e procedimento de recuperação em caso de falha estão em [RELEASE.md](RELEASE.md).
 
 ## Créditos e licença
 

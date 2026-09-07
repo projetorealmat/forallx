@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for release status, Release PR, recovery, and catalog policies."""
+"""Regression checks for release status, Release PR, recovery, README sync, and catalog policies."""
 
 from __future__ import annotations
 
@@ -17,6 +17,8 @@ PREPARE_WORKFLOW = (ROOT / ".github" / "workflows" / "prepare-release-pr.yml").r
 )
 LATEX_WORKFLOW = (ROOT / ".github" / "workflows" / "latex.yml").read_text(encoding="utf-8")
 POLICY = (ROOT / "RELEASE.md").read_text(encoding="utf-8")
+README = (ROOT / "README.md").read_text(encoding="utf-8")
+CITATION = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
 DISPATCH = ROOT / "scripts" / "build_catalog_dispatch.py"
 
 assert "--prerelease" in WORKFLOW, "v0 releases must be created as pre-releases"
@@ -93,6 +95,28 @@ assert "gh pr create" in PREPARE_WORKFLOW, (
 )
 assert "Release PR" in POLICY, (
     "the release policy must document Release PR as the publication model"
+)
+
+# README and citation version must remain aligned with the recommended published PDF.
+assert "release-pdf-current:start" in README and "release-pdf-current:end" in README, (
+    "README must expose a machine-maintainable block for the recommended PDF"
+)
+assert "README.md" in PREPARE_WORKFLOW and "release-pdf-current:start" in PREPARE_WORKFLOW, (
+    "Release PR preparation must update the README recommended PDF automatically"
+)
+assert "git add CITATION.cff README.md" in PREPARE_WORKFLOW, (
+    "CITATION.cff and README.md must be committed together in the Release PR"
+)
+
+import re
+citation_match = re.search(r'^version:\s*["\']?([0-9]+\.[0-9]+\.[0-9]+)["\']?\s*$', CITATION, re.MULTILINE)
+assert citation_match is not None, "CITATION.cff must contain a semantic version"
+current_tag = f"v{citation_match.group(1)}"
+assert f"/releases/download/{current_tag}/forallx.pdf" in README, (
+    "README recommended PDF must match the version declared in CITATION.cff"
+)
+assert f"({current_tag})" in README, (
+    "README recommended PDF label must match the version declared in CITATION.cff"
 )
 
 # Ordinary PRs may edit citation metadata, but release version/date are reserved.
