@@ -6,34 +6,113 @@ on:
       - main
     types:
       - closed
+  workflow_dispatch:
+    inputs:
+      release_pr:
+        description: "Número de uma Release PR já mesclada a recuperar"
+        required: true
+        type: string
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
-  group: release-pdf-${{ github.repository }}-${{ github.event.pull_request.number }}
+  group: release-pdf-${{ github.repository }}-${{ github.event.pull_request.number || inputs.release_pr }}
   cancel-in-progress: false
 
 jobs:
   publish:
     name: Build and publish release
     if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      startsWith(github.event.pull_request.head.ref, 'release/v')
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       startsWith(github.event.pull_request.head.ref, 'release/v')) ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-    env:
-      RELEASE_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
-      RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
+      pull-requests: read
 
     steps:
-      - name: Checkout release commit
+      - name: Checkout main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          ref: main
           fetch-depth: 0
+
+      - name: Resolver Release PR
+        id: release_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_PR_NUMBER: ${{ github.event.pull_request.number }}
+          REQUESTED_PR_NUMBER: ${{ inputs.release_pr }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+            pr_number="${EVENT_PR_NUMBER}"
+          else
+            pr_number="${REQUESTED_PR_NUMBER}"
+          fi
+
+          if [[ ! "${pr_number}" =~ ^[0-9]+$ ]]; then
+            echo "O número da Release PR deve ser um inteiro positivo."
+            exit 1
+          fi
+
+          pr_json="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}")"
+          merged="$(jq -r '.merged' <<< "${pr_json}")"
+          base_ref="$(jq -r '.base.ref' <<< "${pr_json}")"
+          base_sha="$(jq -r '.base.sha' <<< "${pr_json}")"
+          head_ref="$(jq -r '.head.ref' <<< "${pr_json}")"
+          head_repo="$(jq -r '.head.repo.full_name // ""' <<< "${pr_json}")"
+          merge_commit="$(jq -r '.merge_commit_sha // ""' <<< "${pr_json}")"
+
+          if [[ "${merged}" != "true" ]]; then
+            echo "A PR #${pr_number} não foi mesclada."
+            exit 1
+          fi
+          if [[ "${base_ref}" != "main" ]]; then
+            echo "A Release PR deve ter main como branch base."
+            exit 1
+          fi
+          if [[ "${head_repo}" != "${GITHUB_REPOSITORY}" ]]; then
+            echo "A Release PR deve pertencer ao próprio repositório."
+            exit 1
+          fi
+          if [[ ! "${head_ref}" =~ ^release/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "A branch da Release PR deve seguir release/vMAJOR.MINOR.PATCH."
+            exit 1
+          fi
+          if [[ ! "${merge_commit}" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Não foi possível determinar o commit mesclado da Release PR."
+            exit 1
+          fi
+          if [[ ! "${base_sha}" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Não foi possível determinar o commit-base da Release PR."
+            exit 1
+          fi
+
+          {
+            echo "RELEASE_PR_NUMBER=${pr_number}"
+            echo "RELEASE_COMMIT=${merge_commit}"
+            echo "RELEASE_BASE_SHA=${base_sha}"
+            echo "RELEASE_BRANCH=${head_ref}"
+          } >> "${GITHUB_ENV}"
+
+          echo "Release PR #${pr_number}: ${head_ref} -> ${base_ref}"
+          echo "Commit da release: ${merge_commit}"
+
+      - name: Checkout release commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          git checkout --detach "${RELEASE_COMMIT}"
 
       - name: Validar Release PR e metadados
         shell: bash
@@ -90,17 +169,24 @@ jobs:
             exit 1
           fi
 
-          if git show "${RELEASE_COMMIT}^:CITATION.cff" > "${RUNNER_TEMP}/previous-CITATION.cff" 2>/dev/null; then
-            previous_version="$(extract_field version "${RUNNER_TEMP}/previous-CITATION.cff")"
-            if [[ "${release_version}" == "${previous_version}" ]]; then
-              echo "A Release PR não alterou a versão do CITATION.cff."
-              exit 1
-            fi
+          if ! git show "${RELEASE_BASE_SHA}:CITATION.cff" > "${RUNNER_TEMP}/previous-CITATION.cff" 2>/dev/null; then
+            echo "Não foi possível recuperar o CITATION.cff anterior à Release PR."
+            exit 1
+          fi
+          previous_version="$(extract_field version "${RUNNER_TEMP}/previous-CITATION.cff")"
+          if [[ "${release_version}" == "${previous_version}" ]]; then
+            echo "A Release PR não alterou a versão do CITATION.cff."
+            exit 1
           fi
 
           if git ls-remote --exit-code --refs origin "refs/tags/${release_tag}" >/dev/null 2>&1; then
-            echo "A tag ${release_tag} já existe; releases são imutáveis e não podem ser reutilizadas."
-            exit 1
+            git fetch origin "refs/tags/${release_tag}:refs/tags/${release_tag}"
+            existing_commit="$(git rev-parse "${release_tag}^{commit}")"
+            if [[ "${existing_commit}" != "${RELEASE_COMMIT}" ]]; then
+              echo "A tag ${release_tag} já existe e aponta para outro commit."
+              exit 1
+            fi
+            echo "A tag ${release_tag} já aponta para o commit correto; recuperação idempotente permitida."
           fi
 
           {
@@ -150,7 +236,7 @@ jobs:
             printf 'Data de publicação: %s\n' "${release_date_display}"
             printf 'Status editorial: %s\n' "${release_status}"
             printf 'Commit: %s\n' "${RELEASE_COMMIT}"
-            printf 'Release PR: #%s\n' "${{ github.event.pull_request.number }}"
+            printf 'Release PR: #%s\n' "${RELEASE_PR_NUMBER}"
             printf 'Repositório: https://github.com/%s\n' "${GITHUB_REPOSITORY}"
             printf 'Licença: Creative Commons Attribution 4.0 International\n'
           } > "${release_metadata}"
@@ -200,15 +286,28 @@ jobs:
 
           sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" forallx-build-environment.txt > SHA256SUMS
 
-      - name: Criar tag imutável da release
+      - name: Criar ou validar tag imutável da release
         shell: bash
         run: |
           set -euo pipefail
 
-          git tag -a "${RELEASE_TAG}" "${RELEASE_COMMIT}" -m "forallx ${RELEASE_TAG}"
-          git push origin "refs/tags/${RELEASE_TAG}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Criar Release como draft e anexar assets
+          if git ls-remote --exit-code --refs origin "refs/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
+            git fetch origin "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
+            existing_commit="$(git rev-parse "${RELEASE_TAG}^{commit}")"
+            if [[ "${existing_commit}" != "${RELEASE_COMMIT}" ]]; then
+              echo "A tag ${RELEASE_TAG} já existe e aponta para outro commit."
+              exit 1
+            fi
+            echo "A tag ${RELEASE_TAG} já existe no commit correto; continuando."
+          else
+            git tag -a "${RELEASE_TAG}" "${RELEASE_COMMIT}" -m "forallx ${RELEASE_TAG}"
+            git push origin "refs/tags/${RELEASE_TAG}"
+          fi
+
+      - name: Criar ou completar Release draft e assets
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -216,25 +315,47 @@ jobs:
           set -euo pipefail
 
           source_asset="forallx-${RELEASE_TAG}-source.tar.gz"
-          release_flags=(--draft)
-          if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
-            release_flags+=(--prerelease)
+          release_assets=(
+            forallx.pdf
+            "${source_asset}"
+            "${RELEASE_METADATA}"
+            forallx-build-environment.txt
+            SHA256SUMS
+          )
+
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json isDraft --jq '.isDraft')"
+            if [[ "${is_draft}" == "true" ]]; then
+              gh release upload "${RELEASE_TAG}" "${release_assets[@]}" \
+                --repo "${GITHUB_REPOSITORY}" \
+                --clobber
+            else
+              existing_assets="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json assets --jq '.assets[].name')"
+              for asset in "${release_assets[@]}"; do
+                asset_name="$(basename "${asset}")"
+                if ! grep -Fxq "${asset_name}" <<< "${existing_assets}"; then
+                  echo "A Release ${RELEASE_TAG} já está pública, mas falta o asset ${asset_name}; recusando mutação de release publicada."
+                  exit 1
+                fi
+              done
+              echo "A Release ${RELEASE_TAG} já está pública e completa; continuando apenas para etapas downstream."
+            fi
+          else
+            release_flags=(--draft)
+            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+              release_flags+=(--prerelease)
+            fi
+
+            gh release create "${RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --target "${RELEASE_COMMIT}" \
+              --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" \
+              --generate-notes \
+              "${release_flags[@]}"
+
+            gh release upload "${RELEASE_TAG}" "${release_assets[@]}" \
+              --repo "${GITHUB_REPOSITORY}"
           fi
-
-          gh release create "${RELEASE_TAG}" \
-            --repo "${GITHUB_REPOSITORY}" \
-            --target "${RELEASE_COMMIT}" \
-            --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" \
-            --generate-notes \
-            "${release_flags[@]}"
-
-          gh release upload "${RELEASE_TAG}" \
-            forallx.pdf \
-            "${source_asset}" \
-            "${RELEASE_METADATA}" \
-            forallx-build-environment.txt \
-            SHA256SUMS \
-            --repo "${GITHUB_REPOSITORY}"
 
       - name: Publicar GitHub Release
         env:
@@ -243,16 +364,21 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
-            gh release edit "${RELEASE_TAG}" \
-              --repo "${GITHUB_REPOSITORY}" \
-              --draft=false \
-              --prerelease
+          is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json isDraft --jq '.isDraft')"
+          if [[ "${is_draft}" == "true" ]]; then
+            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+              gh release edit "${RELEASE_TAG}" \
+                --repo "${GITHUB_REPOSITORY}" \
+                --draft=false \
+                --prerelease
+            else
+              gh release edit "${RELEASE_TAG}" \
+                --repo "${GITHUB_REPOSITORY}" \
+                --draft=false \
+                --prerelease=false
+            fi
           else
-            gh release edit "${RELEASE_TAG}" \
-              --repo "${GITHUB_REPOSITORY}" \
-              --draft=false \
-              --prerelease=false
+            echo "A Release ${RELEASE_TAG} já está publicada; nenhuma mutação necessária."
           fi
 
       - name: Propor atualização do catálogo REALMat
