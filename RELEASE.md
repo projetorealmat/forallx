@@ -32,7 +32,8 @@ Antes de publicar:
 
 1. confirme que o conteúdo foi revisado e está em `main`;
 2. confirme que o workflow **Build and Validate PDF** passou;
-3. escolha a próxima versão conforme as regras acima.
+3. atualize `CITATION.cff` com a versão e a data da release;
+4. escolha a próxima versão conforme as regras acima.
 
 Na página do repositório:
 
