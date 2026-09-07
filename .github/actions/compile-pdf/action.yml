@@ -7,10 +7,18 @@ runs:
       shell: bash
       run: python3 scripts/check_editorial_placeholders.py .
 
-    - name: Verificar espaços indevidos no commit
+    - name: Verificar espaços indevidos nas alterações
       shell: bash
-      run: git diff-tree --check --no-commit-id -r HEAD
-
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      run: |
+        set -euo pipefail
+        if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+          git diff --check "${BASE_SHA}" "${GITHUB_SHA}"
+        else
+          git diff-tree --check --no-commit-id -r "${GITHUB_SHA}"
+        fi
     - name: Instalar TeX Live com XeLaTeX
       shell: bash
       run: |
