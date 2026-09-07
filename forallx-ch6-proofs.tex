@@ -65,7 +65,7 @@ Todas as regras introduzidas neste capítulo são resumidas a partir da p.~\page
 Pense por um momento: O que você precisaria mostrar para provar $E \eand F$?
 
 Claro, você poderia mostrar $E \eand F$ provando $E$ e separadamente provando $F$. 
-Isso é válido mesmo que as duas conjunções não sejam sentenças atômicas. Se você pode provar $[(A \eor J) \eif V]$ e  $[(V \eif L) \eiff (F \eor N)]$, então você efetivamente provou
+Isso é válido mesmo que os dois componentes não sejam sentenças atômicas. Se você pode provar $[(A \eor J) \eif V]$ e  $[(V \eif L) \eiff (F \eor N)]$, então você efetivamente provou
 $$[(A \eor J) \eif V] \eand [(V \eif L) \eiff (F \eor N)].$$
 Então esta será nossa regra de introdução da conjunção, que abreviamos {\eand}I:
 
@@ -118,7 +118,7 @@ A regra {\eand}I requer que tenhamos cada um dos componentes disponíveis em alg
 
 Esta prova é trivial, mas mostra como podemos usar regras de prova juntas para demonstrar a validade de uma forma de argumento. Além disso: Usar uma tabela-verdade para mostrar que este argumento é válido exigiria uma impressionante tabela de 256 linhas, já que há oito letras de sentença no argumento.
 
-%Quando definimos uma fbf, não permitimos conjunções com mais de dois componentes. Se tivéssemos feito isso, então poderíamos definir uma versão mais geral das regras de prova para conjunção.
+%Quando definimos uma FBF, não permitimos conjunções com mais de dois componentes. Se tivéssemos feito isso, então poderíamos definir uma versão mais geral das regras de prova para conjunção.
 
 
 \subsection{Disjunção}
@@ -152,7 +152,7 @@ Isto é apenas silogismo disjuntivo, será a regra de eliminação da disjunçã
 \begin{proof}
 	\have[m]{ab}{\script{A}\eor\script{B}}
 	\have[n]{na}{\enot\script{A}}
-	\have[\ ]{b}{\script{B}} \oe{ab,nb}
+\have[\ ]{b}{\script{B}} \oe{ab,na}
 \end{proof}
 
 \end{multicols}
@@ -385,7 +385,7 @@ As regras do sistema de dedução natural são destinadas a serem sistemáticas.
 	\have[\ ]{c}{\script{C}} \by{DIL}{ab,ac,bc}
 \end{proof}
 
-Vamos chamar esta regra de Dilema (DIL) Pode parecer que haverá algumas provas que não podemos fazer com nosso sistema de prova, porque não temos isso como uma regra básica. No entanto, este não é o caso. Qualquer prova que você pode fazer usando a regra do Dilema pode ser feita com as regras básicas do nosso sistema de dedução natural. Considere esta prova:
+Vamos chamar esta regra de Dilema (DIL). Pode parecer que haverá algumas provas que não podemos fazer com nosso sistema de prova, porque não temos isso como uma regra básica. No entanto, este não é o caso. Qualquer prova que você pode fazer usando a regra do Dilema pode ser feita com as regras básicas do nosso sistema de dedução natural. Considere esta prova:
 
 \begin{proof}
 	\hypo{ab}{\script{A}\eor\script{B}}
@@ -557,11 +557,11 @@ Como todas as regras derivadas de LS são derivadas das regras básicas, elas ta
 
 Para enunciar concisamente as regras para os quantificadores, precisamos de uma maneira de marcar a relação entre sentenças quantificadas e suas instâncias. Por exemplo, a sentença $Pa$ é uma instância particular da afirmação geral $\forall x Px$.
 
-Para uma fbf \script{A}, uma constante \script{c} e uma variável \script{x}, defina uma \define{instância de substituição} de $\forall \script{x}\script{A}$ ou $\exists \script{x}\script{A}$ como a fbf que obtemos substituindo toda ocorrência de \script{x} em \script{A} por \script{c}. Chamamos \script{c} de \define{constante instanciadora}.
+Para uma FBF \script{A}, uma constante \script{c} e uma variável \script{x}, defina uma \define{instância de substituição} de $\forall \script{x}\script{A}$ ou $\exists \script{x}\script{A}$ como a FBF que obtemos substituindo toda ocorrência de \script{x} em \script{A} por \script{c}. Chamamos \script{c} de \define{constante instanciadora}.
 
 Para enfatizar o fato de que a variável \script{x} é substituída pela constante instanciadora \script{c}, escreveremos as expressões quantificadas originais como $\forall \script{x}\script{A}\script{x}$ e $\exists \script{x}\script{A}\script{x}$. E escreveremos a instância de substituição \script{A}\script{c}.
 
-Note que \script{A}, \script{x} e \script{c} são todas meta-variáveis. Isto é, elas são representantes de qualquer fbf, variável e constante whatsoever. E quando escrevemos \script{A}\script{c}, a constante \script{c} pode ocorrer múltiplas vezes na fbf \script{A}.
+Note que \script{A}, \script{x} e \script{c} são todas metavariáveis. Isto é, elas representam qualquer FBF, variável ou constante. E quando escrevemos \script{A}\script{c}, a constante \script{c} pode ocorrer múltiplas vezes na FBF \script{A}.
 
 
 Por exemplo:
@@ -672,11 +672,11 @@ Suponha que soubéssemos ambos $\exists x Sx$ e $\forall x(Sx \eif Tx)$. Poderí
 \begin{quote}
 Como $\exists x Sx$, há algo que é um $S$. Não sabemos quais constantes se referem a essa coisa, se alguma o faz, então chame essa coisa de 'Ishmael'. De $\forall x(Sx \eif Tx)$, segue que se Ishmael é um $S$, então é um $T$. Portanto, Ishmael é um $T$.  Porque Ishmael é um $T$, sabemos que $\exists x Tx$.
 \end{quote}
-Neste parágrafo, introduzimos um nome para a coisa que é um $S$. Demos a ela um nome arbitrário ('Ishmael') para que pudéssemos raciocinar sobre ela e derivar algumas consequências de haver um $S$. Como 'Ishmael' é apenas um nome falso introduzido para o propósito da prova e não uma constante genuína, não poderíamos mencioná-lo na conclusão. No entanto, poderíamos derivar uma sentença que não menciona Ishmael; namely, $\exists x Tx$. Esta sentença segue das duas premissas.
+Neste parágrafo, introduzimos um nome para a coisa que é um $S$. Demos a ela um nome arbitrário ('Ishmael') para que pudéssemos raciocinar sobre ela e derivar algumas consequências de haver um $S$. Como 'Ishmael' é apenas um nome fictício introduzido para o propósito da prova e não uma constante genuína, não poderíamos mencioná-lo na conclusão. No entanto, poderíamos derivar uma sentença que não menciona Ishmael; a saber, $\exists x Tx$. Esta sentença segue das duas premissas.
 
 Queremos que a regra de eliminação existencial funcione de forma similar. No entanto, como palavras em português como 'Ishmael' não são símbolos de LQ, não podemos usá-las em provas formais. Em vez disso, usaremos constantes de LQ que não apareçam de outra forma na prova.
 
-Uma constante que é usada para representar seja o que for que satisfaça uma afirmação existencial é chamada de \define{proxy}. O raciocínio com o proxy deve ocorrer totalmente dentro de uma subprova, e o proxy não pode ser uma constante que esteja fazendo trabalho em outro lugar da prova.
+Uma constante que é usada para representar seja o que for que satisfaça uma afirmação existencial é chamada de \define{constante testemunha} (ou \emph{proxy}). O raciocínio com a constante testemunha deve ocorrer totalmente dentro de uma subprova, e ela não pode ser uma constante que esteja fazendo trabalho em outro lugar da prova.
 
 Esta é a forma esquemática da regra de eliminação existencial ($\exists$E): 
 
@@ -847,7 +847,7 @@ Quando você está iniciando uma prova, olhe para as premissas; mais tarde, olhe
 
 Por exemplo: Se você tem $\forall x\script{A}$, pense em instanciá-la para qualquer constante que possa ser útil. Se você tem $\exists x\script{A}$ e pretende usar a regra $\exists$E, então você deve assumir $\script{A}[c|x]$ para algum $c$ que não esteja em uso e então derivar uma conclusão que não contenha $c$.
 
-Para uma prova curta, você pode ser capaz de eliminar as premissas e introduzir a conclusão. Uma prova longa é formalmente apenas um número de provas curtas ligadas together, então você pode preencher a lacuna alternando trabalhar de trás para frente a partir da conclusão e de frente para trás a partir das premissas.
+Para uma prova curta, você pode ser capaz de eliminar as premissas e introduzir a conclusão. Uma prova longa é formalmente apenas um número de provas curtas ligadas entre si, então você pode preencher a lacuna alternando entre trabalhar de trás para frente a partir da conclusão e de frente para trás a partir das premissas.
 
 
 \paragraph{Mude o que você está olhando.}
@@ -857,7 +857,7 @@ Por exemplo: É frequentemente difícil provar uma disjunção usando as regras 
 
 Mostrar $\enot \exists x\script{A}$ também pode ser difícil, e é frequentemente mais fácil mostrar  $\forall x\enot \script{A}$ e usar a regra QN.
 
-Algumas regras de substituição devem se tornar segunda natureza. Se você vir uma disjunção negada, por exemplo, você deveria immediately pensar na regra de DeMorgan.
+Algumas regras de substituição devem se tornar segunda natureza. Se você vir uma disjunção negada, por exemplo, você deveria imediatamente pensar na regra de De Morgan.
 
 \paragraph{Não se esqueça da prova indireta.}
 Se você não consegue encontrar uma maneira de mostrar algo diretamente, tente assumir sua negação.
@@ -902,7 +902,7 @@ O conjunto de sentenças $\{\script{A}_1,\script{A}_2,\ldots\}$ é \define{compr
 \section{Provas e modelos}
 Como você já deve suspeitar, há uma conexão entre \emph{teoremas} e \emph{tautologias}.
 
-Há uma maneira formal de mostrar que uma sentença é um teorema: Prove-a. Para cada linha, podemos verificar se essa linha segue pela regra citada. Pode ser difícil produzir uma prova de vinte linhas, mas não é tão difícil verificar cada linha da prova e confirmar que é legítima--- e se cada linha da prova individualmente é legítima, então toda a prova é legítima. Mostrar que uma sentença é uma tautologia, however, requer raciocinar em português sobre todos os modelos possíveis. Não há uma maneira formal de verificar se o raciocínio é sólido. Dada a escolha entre mostrar que uma sentença é um teorema e mostrar que é uma tautologia, seria mais fácil mostrar que é um teorema.
+Há uma maneira formal de mostrar que uma sentença é um teorema: Prove-a. Para cada linha, podemos verificar se essa linha segue pela regra citada. Pode ser difícil produzir uma prova de vinte linhas, mas não é tão difícil verificar cada linha da prova e confirmar que é legítima--- e se cada linha da prova individualmente é legítima, então toda a prova é legítima. Mostrar que uma sentença é uma tautologia, no entanto, requer raciocinar em português sobre todos os modelos possíveis. Não há uma maneira formal de verificar se o raciocínio é sólido. Dada a escolha entre mostrar que uma sentença é um teorema e mostrar que é uma tautologia, seria mais fácil mostrar que é um teorema.
 
 Por outro lado, não há uma maneira formal de mostrar que uma sentença é \emph{não} um teorema. Precisaríamos raciocinar em português sobre todas as provas possíveis. No entanto, há um método formal para mostrar que uma sentença não é uma tautologia. Precisamos apenas construir um modelo no qual a sentença é falsa. Dada a escolha entre mostrar que uma sentença não é um teorema e mostrar que não é uma tautologia, seria mais fácil mostrar que não é uma tautologia.
 
@@ -963,7 +963,7 @@ Felizmente, há uma maneira de abordar isso passo a passo. Se usar a regra {\ean
 
 A estratégia é mostrar para toda regra de inferência que ela sozinha não poderia tornar um argumento válido em inválido. Segue que as regras usadas em combinação não tornariam um argumento válido inválido. Como uma prova é apenas uma série de linhas, cada uma justificada por uma regra de inferência, isso mostraria que todo argumento provável é válido.
 
-Considere, por exemplo, a regra {\eand}I. Suponha que a usemos para adicionar \script{A}\eand\script{B} a um argumento válido. Para que a regra seja aplicável, \script{A} e \script{B} já devem estar disponíveis na prova. Uma vez que o argumento até agora é válido, \script{A} e \script{B} são ou premissas do argumento ou consequências válidas das premissas. Como tal, qualquer modelo no qual as premissas são verdadeiras deve ser um modelo no qual \script{A} e \script{B} são verdadeiros. De acordo com a definição de \define{verdade em QL}, isso significa que \script{A}\eand\script{B} também é verdadeiro em tal modelo. Portanto, \script{A}\eand\script{B} segue validamente das premissas. Isso significa que usar a regra {\eand}E para estender uma prova válida produz outra prova válida.
+Considere, por exemplo, a regra {\eand}I. Suponha que a usemos para adicionar \script{A}\eand\script{B} a um argumento válido. Para que a regra seja aplicável, \script{A} e \script{B} já devem estar disponíveis na prova. Uma vez que o argumento até agora é válido, \script{A} e \script{B} são ou premissas do argumento ou consequências válidas das premissas. Como tal, qualquer modelo no qual as premissas são verdadeiras deve ser um modelo no qual \script{A} e \script{B} são verdadeiros. De acordo com a definição de \define{verdade em LQ}, isso significa que \script{A}\eand\script{B} também é verdadeiro em tal modelo. Portanto, \script{A}\eand\script{B} segue validamente das premissas. Isso significa que usar a regra {\eand}I para estender uma prova válida produz outra prova válida.
 
 Para mostrar que o sistema de prova é correto, precisaríamos mostrar isso para as outras regras de inferência. Como as regras derivadas são consequências das regras básicas, seria suficiente fornecer argumentos similares para as outras 16 regras básicas. Este exercício tedioso está além do escopo deste livro.
 

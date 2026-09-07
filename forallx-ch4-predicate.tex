@@ -20,7 +20,7 @@ Para simbolizar esse argumento em LS, vamos precisar de uma chave de simbolizaç
 \end{ekey}
 Note que $N$ e $E$ tratam ambos de pessoas estarem confusas, mas são duas letras sentenciais diferentes. Não podemos substituir $E$ por $\enot N$. Por quê? $\enot N$ significa `Não é o caso que ninguém ficará confuso.' Isso seria verdadeiro se ao menos uma pessoa ficasse confusa, o que está bem longe de dizer que \emph{todo mundo} ficará confuso.
 
-Uma vez que usamos letras sentenciais separadas para $N$ e $E$, apagamos qualquer conexão entre as duas. Elas passam a ser apenas duas sentenças atômicas que podem ser verdadeiras ou falsas de maneira independente. Em português, é impossível que ao mesmo tempo ninguém e todo mundo esteja confuso. Como sentenças de LS, porém, existe uma atribuição de valores de verdade para a qual $N$ e $E$ são ambas verdadeiras.
+Uma vez que usamos letras sentenciais separadas para $N$ e $E$, apagamos qualquer conexão entre as duas. Elas passam a ser apenas duas sentenças atômicas que podem ser verdadeiras ou falsas de maneira independente. Em português, é impossível que, ao mesmo tempo, ninguém esteja confuso e todo mundo esteja confuso. Como sentenças de LS, porém, existe uma atribuição de valores de verdade para a qual $N$ e $E$ são ambas verdadeiras.
 
 Expressões como `ninguém', `todo mundo' e `alguém' são chamadas de \emph{quantificadores}. Ao traduzir $N$ e $E$ como sentenças atômicas separadas, deixamos de fora a \emph{estrutura quantificacional} das sentenças. Felizmente, a estrutura quantificacional não é o que torna esse argumento válido. Portanto, podemos ignorá-la com segurança. Para ver isso, traduzimos o argumento para LS:
 \begin{earg}
@@ -84,9 +84,9 @@ Outros termos singulares transmitem de modo mais óbvio informações sobre aqui
 
 Podemos usar nomes próprios e descrições definidas para nos referirmos à mesma coisa. O nome próprio `Monte Rainier' nomeia o lugar selecionado pela descrição definida `o pico mais alto do estado de Washington'. As expressões referem-se ao mesmo lugar de maneiras diferentes. Você não aprende muita coisa quando alguém diz que está indo para o Monte Rainier, a não ser que já conheça um pouco de geografia. Você até poderia supor que se trata de uma montanha, mas nem isso é garantido; por tudo o que você sabe, poderia ser uma faculdade, como o Mount Holyoke. Já se eu disser que estou indo para o pico mais alto do estado de Washington, você sabe imediatamente que estou indo para uma montanha no estado de Washington.
 
-Em inglês, a especificação de um termo singular pode depender do contexto; `Willard' significa uma pessoa específica e não apenas alguém chamado Willard; `P.D. Magnus', como termo singular lógico, significa \emph{eu} e não outro P.D. Magnus. Convivemos com esse tipo de ambiguidade em português, mas é importante ter em mente que termos singulares em LQ devem se referir a exatamente uma coisa específica.
+Em uma língua natural, a especificação de um termo singular pode depender do contexto; `Willard' significa uma pessoa específica e não apenas alguém chamado Willard; `P.D. Magnus', como termo singular lógico, significa \emph{eu} e não outro P.D. Magnus. Convivemos com esse tipo de ambiguidade em português, mas é importante ter em mente que termos singulares em LQ devem se referir a exatamente uma coisa específica.
 
-Em LQ, simbolizaremos termos singulares com letras minúsculas de $a$ a $w$. Podemos adicionar subscritos se quisermos usar alguma letra mais de uma vez. Assim, $a,b,c,\ldots w, a_1, f_{32}, j_{390}$ e $m_{12}$ são todos termos em LQ.
+Em LQ, simbolizaremos termos singulares com letras minúsculas de $a$ a $w$. Podemos adicionar subscritos se quisermos usar alguma letra mais de uma vez. Assim, $a,b,c,\ldots,w, a_1, f_{32}, j_{390}$ e $m_{12}$ são todos termos em LQ.
 
 Termos singulares são chamados de \define{constantes} porque selecionam indivíduos específicos. Note que $x, y$ e $z$ não são constantes em LQ. Eles serão \define{variáveis}, letras que não representam nenhuma coisa específica. Iremos precisar delas quando introduzirmos os quantificadores.
 
@@ -176,7 +176,7 @@ Considere agora estas sentenças:
 \item[\ex{q.na}] Nem todo mundo está feliz.
 \end{earg}
 
-A sentença \ref{q.ne} pode ser parafraseada como `Não é o caso que alguém está com raiva.' Isso pode ser traduzido usando negação e um quantificador existencial: $\enot \exists x Ax$. No entanto, a sentença \ref{q.ne} também pode ser parafraseada como `Todo mundo não está com raiva.' Com isso em mente, pode ser traduzida usando negação e um quantificador universal: $\forall x \enot Ax$. Ambas são traduções aceitáveis, porque são logicamente equivalentes. O ponto crítico é se a negação vem antes ou depois do quantificador.
+A sentença \ref{q.ne} pode ser parafraseada como `Não é o caso que alguém está com raiva.' Isso pode ser traduzido usando negação e um quantificador existencial: $\enot \exists x Ax$. No entanto, a sentença \ref{q.ne} também pode ser parafraseada como `Ninguém está com raiva.' Com isso em mente, pode ser traduzida usando negação e um quantificador universal: $\forall x \enot Ax$. Ambas são traduções aceitáveis, porque são logicamente equivalentes. O ponto crítico é se a negação vem antes ou depois do quantificador.
 
 Em geral, $\forall x\script{A}$ é logicamente equivalente a $\enot\exists x\enot\script{A}$. Isso significa que qualquer sentença que possa ser simbolizada com um quantificador universal pode ser simbolizada com um quantificador existencial, e vice-versa. Uma tradução pode parecer mais natural que a outra, mas não há diferença lógica em traduzir com um quantificador ou com o outro. Para algumas sentenças, será apenas uma questão de gosto.
 
@@ -481,32 +481,32 @@ Precisamos sempre distinguir entre diferentes maneiras de ser habilidoso, bom, r
 \subsection{Múltiplos quantificadores}
 Considere a seguinte chave de simbolização e as sentenças que a seguem:
 \begin{ekey}
-\item{UD:} pessoas e cães
-\item{Dx:} $x$ é um cão.
-\item{Fxy:} $x$ é amigo de $y$.
-\item{Oxy:} $x$ é dono de $y$.
-\item{f:} Fifi
-\item{g:} Gerald
+\item[UD:] pessoas e cães
+\item[Dx:] $x$ é um cão.
+\item[Fxy:] $x$ é amigo de $y$.
+\item[Oxy:] $x$ é dono de $y$.
+\item[f:] Fifi
+\item[g:] Gerald
 \end{ekey}
 
 \begin{earg}
 \item[\ex{dog1}] Fifi é um cão.
-\item[\ex{dog2}] Gerald é dono de cachorro.
-\item[\ex{dog3}] Alguém é dono de cachorro.
-\item[\ex{dog4}] Todos os amigos de Gerald são donos de cachorro.
-\item[\ex{dog5}] Todo dono de cachorro é amigo de algum dono de cachorro.
+\item[\ex{dog2}] Gerald é dono de um cachorro.
+\item[\ex{dog3}] Alguém é dono de um cachorro.
+\item[\ex{dog4}] Todos os amigos de Gerald são donos de um cachorro.
+\item[\ex{dog5}] Todo dono de um cachorro é amigo de algum dono de um cachorro.
 \end{earg}
 
 A sentença \ref{dog1} é fácil: $Df$.
 
 A sentença \ref{dog2} pode ser parafraseada como: `Existe um cão de que Gerald é dono.' Isso pode ser traduzido como $\exists x(Dx \eand Ogx)$.
 
-A sentença \ref{dog3} pode ser parafraseada como: `Existe algum $y$ tal que $y$ é dono de cachorro.' A subsentença `$y$ é dono de cachorro' é exatamente como a sentença \ref{dog2}, exceto pelo fato de que é sobre $y$ em vez de ser sobre Gerald. Assim, podemos traduzir a sentença \ref{dog3} como $\exists y \exists x(Dx \eand Oyx)$. 
+A sentença \ref{dog3} pode ser parafraseada como: `Existe algum $y$ tal que $y$ é dono de um cachorro.' A subsentença `$y$ é dono de um cachorro' é exatamente como a sentença \ref{dog2}, exceto pelo fato de que é sobre $y$ em vez de ser sobre Gerald. Assim, podemos traduzir a sentença \ref{dog3} como $\exists y \exists x(Dx \eand Oyx)$.
 
-A sentença \ref{dog4} pode ser parafraseada como: `Todo amigo de Gerald é dono de cachorro.' Traduzindo parte dessa sentença, obtemos $\forall x(Fxg \eif\mbox{`$x$ é dono de cachorro'})$. Mais uma vez, é importante reconhecer que `$x$ é dono de cachorro' é estruturalmente igual à sentença \ref{dog2}. Como já temos um quantificador sobre $x$, precisaremos de uma variável diferente para o quantificador existencial. Qualquer outra variável serve. Usando $z$, a sentença \ref{dog4} pode ser traduzida como $\forall x\bigl[Fxg \eif\exists z(Dz \eand Oxz)\bigr]$.
+A sentença \ref{dog4} pode ser parafraseada como: `Todo amigo de Gerald é dono de um cachorro.' Traduzindo parte dessa sentença, obtemos $\forall x(Fxg \eif\mbox{`$x$ é dono de um cachorro'})$. Mais uma vez, é importante reconhecer que `$x$ é dono de um cachorro' é estruturalmente igual à sentença \ref{dog2}. Como já temos um quantificador sobre $x$, precisaremos de uma variável diferente para o quantificador existencial. Qualquer outra variável serve. Usando $z$, a sentença \ref{dog4} pode ser traduzida como $\forall x\bigl[Fxg \eif\exists z(Dz \eand Oxz)\bigr]$.
 
-A sentença \ref{dog5} pode ser parafraseada como `Para qualquer $x$ que é dono de cachorro, existe um dono de cachorro que é amigo de $x$.' Traduzida parcialmente, isso se torna
-$$\forall x\bigl[\mbox{$x$ é dono de cachorro}\eif\exists y(\mbox{$y$ é dono de cachorro}\eand Fxy)\bigr].$$
+A sentença \ref{dog5} pode ser parafraseada como `Para qualquer $x$ que é dono de um cachorro, existe um dono de um cachorro que é amigo de $x$.' Traduzida parcialmente, isso se torna
+$$\forall x\bigl[\mbox{$x$ é dono de um cachorro}\eif\exists y(\mbox{$y$ é dono de um cachorro}\eand Fxy)\bigr].$$
 Completando a tradução, a sentença \ref{dog5} torna-se
 $$\forall x\bigl[\exists z(Dz \eand Oxz)\eif\exists y\bigl(\exists z(Dz \eand Oyz)\eand Fxy\bigr)\bigr].$$
 
@@ -518,8 +518,8 @@ Considere agora esta chave de simbolização e estas sentenças:
 \item[k:] Karl.
 \end{ekey}
 \begin{earg}
-\item[\ex{likes1}]Imre gosta de todo mundo de quem Karl gosta.
-\item[\ex{likes2}]Existe alguém que gosta de todo mundo que gosta de todo mundo de quem essa pessoa gosta.
+\item[\ex{likes1}] Imre gosta de todo mundo de quem Karl gosta.
+\item[\ex{likes2}] Existe alguém que gosta de todo mundo que gosta de todo mundo de quem essa pessoa gosta.
 \end{earg}
 
 A sentença \ref{likes1} pode ser parcialmente traduzida como $\forall x(\mbox{Karl gosta de $x$}\eif\mbox{Imre gosta de $x$})$. Isso se torna $\forall x(Lkx\eif Lix)$.
@@ -536,7 +536,7 @@ Ao simbolizar sentenças com múltiplos quantificadores, é melhor proceder em p
 
 \section{Sentenças de LQ}
 
-Nesta seção, fornecemos uma definição formal de \emph{fórmula bem formada} (wff) e de \emph{sentença} de LQ.
+Nesta seção, fornecemos uma definição formal de \define{fórmula bem formada} (FBF) e de \emph{sentença} de LQ.
 
 \subsection{Expressões}
 Há seis tipos de símbolos em LQ:
@@ -572,47 +572,47 @@ Por definição, um \define{termo de LQ} é ou uma constante ou uma variável.
 
 Uma \define{fórmula atômica de LQ} é um predicado $n$-ário seguido de $n$ termos.
 
-Assim como fizemos em LS, daremos uma definição \emph{recursiva} para uma wff de LQ. Na verdade, a maior parte da definição será muito parecida com a definição de wff de LS: toda fórmula atômica é uma wff, e podemos construir novas wffs aplicando os conectivos sentenciais.
+Assim como fizemos em LS, daremos uma definição \emph{recursiva} para uma FBF de LQ. Na verdade, a maior parte da definição será muito parecida com a definição de FBF de LS: toda fórmula atômica é uma FBF, e podemos construir novas FBFs aplicando os conectivos sentenciais.
 
-Poderíamos simplesmente acrescentar uma regra para cada um dos quantificadores e encerrar o assunto. Por exemplo: se \script{A} é uma wff, então $\forall x\script{A}$ e $\exists x\script{A}$ são wffs. No entanto, isso permitiria sentenças esquisitas como $\forall x\exists x Dx$ e $\forall x Dw$. O que essas fórmulas poderiam significar? Poderíamos adotar alguma interpretação para tais sentenças, mas, em vez disso, vamos escrever a definição de wff de modo que tais aberrações nem mesmo contem como bem formadas.
+Poderíamos simplesmente acrescentar uma regra para cada um dos quantificadores e encerrar o assunto. Por exemplo: se \script{A} é uma FBF, então $\forall x\script{A}$ e $\exists x\script{A}$ são FBFs. No entanto, isso permitiria sentenças esquisitas como $\forall x\exists x Dx$ e $\forall x Dw$. O que essas fórmulas poderiam significar? Poderíamos adotar alguma interpretação para tais sentenças, mas, em vez disso, vamos escrever a definição de FBF de modo que tais aberrações nem mesmo contem como bem formadas.
 
-Para que $\forall x\script{A}$ seja uma wff, \script{A} deve conter a variável $x$ e não deve já conter um quantificador sobre $x$. $\forall x Dw$ não será considerada uma wff porque `$x$' não ocorre em $Dw$, e $\forall x \exists x Dx$ não será considerada uma wff porque $\exists x Dx$ já contém um quantificador sobre $x$.
+Para que $\forall x\script{A}$ seja uma FBF, \script{A} deve conter a variável $x$ e não deve já conter um quantificador sobre $x$. $\forall x Dw$ não será considerada uma FBF porque `$x$' não ocorre em $Dw$, e $\forall x \exists x Dx$ não será considerada uma FBF porque $\exists x Dx$ já contém um quantificador sobre $x$.
 
 \begin{enumerate}
-\item Toda fórmula atômica é uma wff.
-\item Se \script{A} é uma wff, então $\enot\script{A}$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eand\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, $(\script{A}\eor\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eif\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eiff\script{B})$ é uma wff.
-\item Se \script{A} é uma wff, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\forall\script{x}\script{A}$ é uma wff.
-\item Se \script{A} é uma wff, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\exists\script{x}\script{A}$ é uma wff.
-\item Todas e somente as wffs de LQ podem ser geradas por aplicações dessas regras.
+\item Toda fórmula atômica é uma FBF.
+\item Se \script{A} é uma FBF, então $\enot\script{A}$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eand\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eor\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eif\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eiff\script{B})$ é uma FBF.
+\item Se \script{A} é uma FBF, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\forall\script{x}\script{A}$ é uma FBF.
+\item Se \script{A} é uma FBF, \script{x} é uma variável, \script{A} contém pelo menos uma ocorrência de \script{x}, e \script{A} não contém quantificadores sobre \script{x}, então $\exists\script{x}\script{A}$ é uma FBF.
+\item Todas e somente as FBFs de LQ podem ser geradas por aplicações dessas regras.
 \end {enumerate}
 
-Note que a `\script{x}' que aparece na definição acima não é a variável $x$. É uma \emph{metavariável} que representa qualquer variável de LQ. Assim, $\forall xAx$ é uma wff, mas também o são $\forall yAy$, $\forall zAz$, $\forall x_4Ax_4$ e $\forall z_9Az_9$.
+Note que o `\script{x}' que aparece na definição acima não é a variável $x$. É uma \emph{metavariável} que representa qualquer variável de LQ. Assim, $\forall xAx$ é uma FBF, mas também o são $\forall yAy$, $\forall zAz$, $\forall x_4Ax_4$ e $\forall z_9Az_9$.
 
 Agora podemos dar uma definição formal de escopo: o \define{escopo} de um quantificador é a subfórmula para a qual o quantificador é o operador lógico principal. 
 
 \subsection{Sentenças}
 
-Uma {sentença} é algo que pode ser verdadeiro ou falso. Em LS, toda wff era uma sentença. Isso não será o caso em LQ. Considere a seguinte chave de simbolização:
+Uma \define{sentença} é algo que pode ser verdadeiro ou falso. Em LS, toda FBF era uma sentença. Isso não será o caso em LQ. Considere a seguinte chave de simbolização:
 \begin{ekey}
 \item[UD:] pessoas
 \item[Lxy:] $x$ ama $y$
 \item[b:] Boris
 \end{ekey}
-Considere a expressão $Lzz$. Ela é uma fórmula atômica: um predicado binário seguido de dois termos. Toda fórmula atômica é uma wff, então $Lzz$ é uma wff. Ela significa alguma coisa? Você pode pensar que significa que $z$ ama a si mesmo, do mesmo modo que $Lbb$ significa que Boris ama a si mesmo. No entanto, $z$ é uma variável; ela não nomeia uma pessoa da maneira como uma constante nomeia. A wff $Lzz$ não nos diz como interpretar $z$. Ele significa todo mundo? alguém qualquer? alguma pessoa? Se tivéssemos um quantificador sobre $z$, isso nos diria como interpretar $z$. Por exemplo, $\exists zLzz$ significaria que alguém ama a si mesmo.
+Considere a expressão $Lzz$. Ela é uma fórmula atômica: um predicado binário seguido de dois termos. Toda fórmula atômica é uma FBF, então $Lzz$ é uma FBF. Ela significa alguma coisa? Você pode pensar que significa que $z$ ama a si mesmo, do mesmo modo que $Lbb$ significa que Boris ama a si mesmo. No entanto, $z$ é uma variável; ela não nomeia uma pessoa da maneira como uma constante nomeia. A FBF $Lzz$ não nos diz como interpretar $z$. Ele significa todo mundo? alguém qualquer? alguma pessoa? Se tivéssemos um quantificador sobre $z$, isso nos diria como interpretar $z$. Por exemplo, $\exists zLzz$ significaria que alguém ama a si mesmo.
 
-Algumas linguagens formais tratam uma wff como $Lzz$ como se tivesse, implicitamente, um quantificador universal na frente. Não faremos isso em LQ. Se você quer dizer que todo mundo ama a si mesmo, então precisa escrever o quantificador: $\forall zLzz$
+Algumas linguagens formais tratam uma FBF como $Lzz$ como se tivesse, implicitamente, um quantificador universal na frente. Não faremos isso em LQ. Se você quer dizer que todo mundo ama a si mesmo, então precisa escrever o quantificador: $\forall zLzz$
 
 Para dar sentido a uma variável, precisamos de um quantificador que nos diga como interpretar essa variável. O escopo de um quantificador sobre $x$, por exemplo, é a parte da fórmula onde o quantificador diz como interpretar $x$.
 
 Para sermos precisos quanto a isso, definimos uma \define{variável ligada} como uma ocorrência de uma variável \script{x} que está no escopo de um quantificador sobre \script{x}. Uma \define{variável livre} é uma ocorrência de variável que não está ligada.
 
-Por exemplo, considere a wff $\forall x(Ex \eor Dy) \eif \exists z(Ex \eif Lzx)$. O escopo do quantificador universal $\forall x$ é $(Ex \eor Dy)$, de modo que a primeira ocorrência de $x$ está ligada pelo quantificador universal, mas a segunda e a terceira ocorrência de $x$ são livres. Não há quantificador sobre $y$, então o $y$ é livre. O escopo do quantificador existencial $\exists z$ é $(Ex \eif Lzx)$, de modo que ambas as ocorrências de $z$ estão ligadas por ele.
+Por exemplo, considere a FBF $\forall x(Ex \eor Dy) \eif \exists z(Ex \eif Lzx)$. O escopo do quantificador universal $\forall x$ é $(Ex \eor Dy)$, de modo que a primeira ocorrência de $x$ está ligada pelo quantificador universal, mas a segunda e a terceira ocorrência de $x$ são livres. Não há quantificador sobre $y$, então o $y$ é livre. O escopo do quantificador existencial $\exists z$ é $(Ex \eif Lzx)$, de modo que ambas as ocorrências de $z$ estão ligadas por ele.
 
-Definimos uma \define{sentença} de LQ como uma wff de LQ que não contém variáveis livres.
+Definimos uma \define{sentença} de LQ como uma FBF de LQ que não contém variáveis livres.
 
 
 
@@ -746,7 +746,7 @@ A sentença \ref{defdesc2}b diz algo sobre o atual rei da França. Ela afirma qu
 
 A teoria de descrições definidas de Russell resolve o problema dos termos sem referência e também explica por que ele parecia tão paradoxal. Antes de distinguirmos entre a negação de escopo amplo e a de escopo estreito, parecia que sentenças como \ref{defdesc2} deveriam ser ao mesmo tempo verdadeiras e falsas. Ao mostrar que tais sentenças são ambíguas, Russell mostrou que elas são verdadeiras se entendidas de um modo, mas falsas se entendidas de outro.
 
-Para uma discussão mais detalhada da teoria das descrições definidas de Russell, incluindo objeções a ela, veja a entrada de Peter Ludlow `descriptions' em \emph{The Stanford Encyclopedia of Philosophy}: edição do verão de 2005, editada por Edward N. Zalta, \url{http://plato.stanford.edu/archives/sum2005/entries/descriptions/}
+Para uma discussão mais detalhada da teoria das descrições definidas de Russell, incluindo objeções a ela, veja a entrada de Peter Ludlow, ``Descriptions'', na \emph{Stanford Encyclopedia of Philosophy}, disponível em \url{https://plato.stanford.edu/entries/descriptions/}.
 
 
 %\fix{glossário?}
@@ -867,9 +867,9 @@ Para cada argumento, escreva uma chave de simbolização e traduza o argumento p
 \begin{earg}
 \item Nada sobre a minha mesa escapa à minha atenção. Há um computador sobre a minha mesa. Logo, há um computador que não escapa à minha atenção.
 \item Todos os meus sonhos são em preto e branco. Os programas antigos de TV são em preto e branco. Portanto, alguns dos meus sonhos são programas antigos de TV.
-\item Nem Holmes nem Watson esteve na Austrália. Uma pessoa só poderia ver um canguru se tivesse estado na Austrália ou em um zoológico. Embora Watson não tenha visto um canguru, Holmes viu. Portanto, Holmes esteve em um zoológico.
+\item Nem Holmes nem Watson estiveram na Austrália. Uma pessoa só poderia ver um canguru se tivesse estado na Austrália ou em um zoológico. Embora Watson não tenha visto um canguru, Holmes viu. Portanto, Holmes esteve em um zoológico.
 \item Ninguém espera a Inquisição Espanhola. Ninguém conhece as dificuldades que eu tenho enfrentado. Portanto, qualquer um que espera a Inquisição Espanhola conhece as dificuldades que eu tenho enfrentado.
-\item Uma antílope é maior do que uma caixa de pão. Estou pensando em algo que não é maior do que uma caixa de pão, e que é ou uma antílope ou um melão. Assim, estou pensando em um melão.
+\item Um antílope é maior do que uma caixa de pão. Estou pensando em algo que não é maior do que uma caixa de pão, e que é ou um antílope ou um melão. Assim, estou pensando em um melão.
 \item Todos os bebês são ilógicos. Ninguém que seja ilógico consegue controlar um crocodilo. Berthold é um bebê. Portanto, Berthold é incapaz de controlar um crocodilo.
 \end{earg}
 
@@ -889,7 +889,7 @@ Usando a chave de simbolização dada, traduza cada sentença em português para
 \item Boris nunca provou nenhum doce.
 \item Marzipã é sempre feito com açúcar.
 \item Algum doce é sem açúcar.
-\item O melhor de todos os doces é o chocolate.
+\item O melhor doce contém chocolate.
 \item Nenhum doce é melhor do que ele mesmo.
 \item Boris nunca provou chocolate sem açúcar.
 \item Boris já provou marzipã e chocolate, mas nunca juntos.
@@ -945,7 +945,7 @@ Usando a chave de simbolização dada, traduza cada sentença em português para
 \item Todos os filhos de Patrick dançam balé.
 \item Jane é filha de Patrick.
 \item Patrick tem uma filha.
-\item Jane é filha única.
+\item Jane é filha única (não tem irmãos).
 \item Todas as filhas de Patrick dançam balé.
 \item Patrick não tem filhos homens.
 \item Jane é sobrinha de Elmer.

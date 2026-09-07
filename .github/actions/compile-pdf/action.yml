@@ -32,7 +32,8 @@ runs:
           texlive-lang-english \
           texlive-lang-portuguese \
           texlive-xetex \
-          latexmk
+          latexmk \
+          poppler-utils
 
     - name: Registrar ambiente de compilação
       shell: bash

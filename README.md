@@ -3,7 +3,7 @@
 [![Build and Validate PDF](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml)
 [![Verificar links externos](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml)
 
-Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada na edição mantida pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx).
+Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada no repositório mantido pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx). A revisão foi conferida contra o commit [`b9a8724`](https://github.com/OpenLogicProject/forallx/commit/b9a872431eb97287fa039103db92a4bf27768b4b).
 
 **Tradutor e adaptador:** Carlos André Duarte Costa.
 
@@ -24,7 +24,7 @@ O PDF oficial é publicado automaticamente em uma Release quando uma tag no form
 
 ## Versões publicadas e arquivos-fonte
 
-A versão atualmente recomendada é `v0.1.0`, uma tradução em revisão. A primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
+A versão `v0.1.0` existente é uma tradução em revisão e foi preservada como registro histórico. Após esta revisão ser incorporada, a próxima correção deverá ser publicada como `v0.1.1`; a primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
 
 - `v0.x.y`: tradução em revisão;
 - `v1.0.0`: primeira tradução aprovada;
@@ -60,12 +60,12 @@ Em uma compilação local, o PDF será identificado como uma versão de desenvol
 
 ## Publicação de uma versão
 
-Depois de revisar o conteúdo em `main`, abra **Releases** no GitHub e clique em **Draft a new release**. Digite a versão, por exemplo `v0.1.0`, selecione **Create new tag on publish**, mantenha `main` como destino, escreva as notas e publique a Release.
+Depois de revisar o conteúdo em `main`, atualize a versão e a data em `CITATION.cff` para a próxima tag (por exemplo, `0.1.1` e `v0.1.1`). Em seguida, abra **Releases** no GitHub e clique em **Draft a new release**. Digite `v0.1.1`, selecione **Create new tag on publish**, mantenha `main` como destino, escreva as notas e publique a Release. O workflow verifica que a versão do `CITATION.cff` coincide com a tag.
 
 Não anexe o PDF manualmente. O workflow **Publicar release do livro** será acionado pela nova tag, compilará o livro, criará o pacote-fonte, calculará os checksums e anexará os arquivos gerados. Para uma nova correção, use a próxima versão; não reutilize uma tag existente.
 
 ## Créditos e licença
 
-A obra original é de P.D. Magnus e foi disponibilizada sob a [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). Esta tradução e adaptação deve manter a atribuição ao autor original e ao tradutor.
+A obra original é de P.D. Magnus e foi disponibilizada sob a [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). Esta tradução e adaptação deve manter a atribuição ao autor original e ao tradutor, indicar que houve tradução/adaptação e preservar o link da licença.
 
 A edição brasileira não é uma publicação oficial do Open Logic Project; ela é uma obra derivada distribuída sob os termos da licença aplicável.

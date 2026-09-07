@@ -106,6 +106,22 @@ jobs:
       - name: Validar e compilar PDF
         uses: ./.github/actions/compile-pdf
 
+      - name: Verificar metadados incorporados no PDF
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          pdftotext -layout forallx.pdf release-pdf-text.txt
+          if ! grep -Fq "Edição brasileira: ${RELEASE_TAG}" release-pdf-text.txt; then
+            echo "A versão da release não foi incorporada ao PDF."
+            exit 1
+          fi
+          if ! grep -Fq "Status editorial: ${RELEASE_STATUS}" release-pdf-text.txt; then
+            echo "O status editorial da release não foi incorporado ao PDF."
+            exit 1
+          fi
+
       - name: Registrar ambiente de compilação na metadata
         shell: bash
         run: |

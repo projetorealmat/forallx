@@ -1,18 +1,14 @@
 \documentclass[openany, twoside]{book}
 
-% >>> ADICIONE ESTAS LINHAS <<<
-\usepackage[utf8]{inputenc}   % arquivo .tex em UTF-8
-\usepackage[T1]{fontenc}      % acentuação e hifenização corretas
+\usepackage{fontspec}         % compilação Unicode com XeLaTeX
 \usepackage[brazil]{babel}    % idioma principal: português do Brasil
-\usepackage{xcolor}
-\definecolor{burntorange}{HTML}{CC5500}
-% <<< FIM DAS LINHAS NOVAS <<<
+\usepackage{csquotes}
 
 \usepackage{forallx,hyperref}
 \usepackage[width=4.75in,height=8in]{geometry}
 \input{forallx-metadata.tex}
 \IfFileExists{forallx-build-metadata.tex}{\input{forallx-build-metadata.tex}}{}
-\hypersetup{pdftitle={forall x: Introdução à Lógica Formal para Licenciatura em Matemática (\editionversion)}, pdfauthor={P.D. Magnus; tradução e adaptação: Carlos André Duarte Costa}, pdfsubject={Uma introdução à lógica formal em acesso aberto; \editionversion; \editiondate}, pdfkeywords={lógica proposicional, lógica de predicados, semântica formal, provas}, pdfborder=0 0 0, pdfdisplaydoctitle={true}, pdfstartpage={3}}
+\hypersetup{pdftitle={forall x: Introdução à Lógica Formal (\editionversion)}, pdfauthor={P.D. Magnus; tradução e adaptação: Carlos André Duarte Costa}, pdfsubject={Uma introdução à lógica formal em acesso aberto; \editionversion; \editiondate}, pdfkeywords={lógica proposicional, lógica de predicados, semântica formal, provas}, pdfborder=0 0 0, pdfdisplaydoctitle={true}, pdfstartpage={3}}
 
 
 \begin{document}
@@ -31,6 +27,7 @@
 \include{forallx-ch5-semantics}
 \include{forallx-ch6-proofs}
 \appendix
+\renewcommand{\chaptername}{Apêndice}
 \include{forallx-app-notation}
 \include{forallx-app-solutions}
 \include{forallx-app-quickreference}

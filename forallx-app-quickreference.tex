@@ -1,5 +1,5 @@
 %!TEX root = forallx.tex
-\addcontentsline{toc}{chapter}{C\ Referência Rápida}
+\addcontentsline{toc}{chapter}{Apêndice C\quad Referência Rápida}
 \pagestyle{plain}
 {\LARGE \bf Referência Rápida}
 
@@ -74,8 +74,8 @@ Tudo exceto $j$ é $G$. & $\forall x(x \neq j \eif Gx)$\\
 %$j$ é mais $R$ que qualquer outro. & $\forall x(x\neq j \eif Rjx)$\\
 O $F$ é $G$. & $\exists x(Fx \eand \forall y(Fy \eif x=y) \eand Gx)$\\
 \multicolumn{2}{l}{`O F não é G' pode ser traduzido de duas formas:} \\
-Não é o caso que o F é G. (amplo)& $\enot\exists x(Fx \eand \forall y(Fy \eif x=y) \eand Gx)$\\
-O $F$ é não-$G$. (restrito) & $\exists x(Fx \eand \forall y(Fy \eif x=y) \eand \enot Gx)$
+Não é o caso que o F é G. (escopo amplo)& $\enot\exists x(Fx \eand \forall y(Fy \eif x=y) \eand Gx)$\\
+O $F$ é não-$G$. (escopo restrito) & $\exists x(Fx \eand \forall y(Fy \eif x=y) \eand \enot Gx)$
 \end{tabular*}
 \end{center}
 
@@ -92,8 +92,10 @@ O $F$ é não-$G$. (restrito) & $\exists x(Fx \eand \forall y(Fy \eif x=y) \eand
 \item[dois] $\exists x_1\exists x_2(Fx_1 \eand Fx_2 \eand x_1 \neq x_2)$
 \item[três] $\exists x_1\exists x_2\exists x_3(Fx_1 \eand Fx_2 \eand Fx_3 \eand x_1 \neq x_2 \eand x_1 \neq x_3 \eand x_2 \neq x_3)$
 \item[quatro] $\exists x_1\exists x_2\exists x_3\exists x_4 (Fx_1 \eand Fx_2 \eand Fx_3 \eand Fx_4 \eand x_1 \neq x_2 \eand x_1 \neq x_3 \eand x_1 \neq x_4 \eand x_2 \neq x_3 \eand x_2 \neq x_4 \eand x_3 \neq x_4)$
-\item[n] $\exists x_1\cdots\exists x_n(Fx_1 \eand\cdots\eand Fx_n \eand x_1 \neq x_2 \eand\cdots\eand x_{n-1}\neq x_n)$ 
+\item[n] $\exists x_1\cdots\exists x_n\bigl(Fx_1 \eand\cdots\eand Fx_n \eand \bigwedge_{1\leq i<j\leq n}x_i\neq x_j\bigr)$
 \end{ekey}
+
+Nas fórmulas genéricas, $\bigwedge$ e $\bigvee$ representam, respectivamente, a conjunção e a disjunção de todas as fórmulas indicadas pelos índices.
 
 \subsection*{Existem no máximo \blank\ $F$s.}
 \label{summary.atmost}
@@ -103,8 +105,8 @@ Uma forma de dizer `no máximo $n$ coisas são $F$' é colocar um sinal de nega�
 \item[um] $\forall x_1\forall x_2\bigl[(Fx_1 \eand Fx_2) \eif x_1=x_2\bigr]$
 \item[dois] $\forall x_1\forall x_2\forall x_3\bigl[(Fx_1 \eand Fx_2 \eand Fx_3) \eif (x_1=x_2 \eor x_1=x_3 \eor x_2=x_3)\bigr]$
 \item[três] $\forall x_1\forall x_2\forall x_3\forall x_4\bigl[(Fx_1 \eand Fx_2 \eand Fx_3 \eand Fx_4) \eif (x_1=x_2 \eor x_1=x_3 \eor x_1=x_4 \eor x_2=x_3 \eor x_2=x_4 \eor x_3=x_4)\bigr]$
-\item[n]$\forall x_1\cdots\forall x_{n+1}
-\bigl[(Fx_1\eand \cdots \eand Fx_{n+1}) \eif (x_1=x_2 \eor \cdots \eor x_n=x_{n+1})\bigr]$ 
+\item[n] $\forall x_1\cdots\forall x_{n+1}
+\bigl[(Fx_1\eand \cdots \eand Fx_{n+1}) \eif \bigvee_{1\leq i<j\leq n+1}x_i=x_j\bigr]$
 \end{ekey}
 
 \subsection*{Existem exatamente \blank\ $F$s.}
@@ -117,8 +119,8 @@ Uma forma de dizer `exatamente $n$ coisas são $F$' é conjugar duas das simboli
 \item[dois] $\exists x_1\exists x_2\bigl[Fx_1 \eand Fx_2 \eand x_1 \neq x_2 \eand \enot\exists y\bigl(Fy \eand y\neq x_1 \eand y \neq x_2\bigr) \bigr]$
 \item[três] $\exists x_1\exists x_2\exists x_3\bigl[Fx_1 \eand Fx_2 \eand Fx_3 \eand x_1 \neq x_2 \eand x_1 \neq x_3 \eand x_2 \neq x_3 \eand\\
 \enot\exists y(Fy \eand y \neq x_1 \eand y \neq x_2 \eand y\neq x_3) \bigr]$
-\item[n] $\exists x_1\cdots\exists x_n\bigl[Fx_1 \eand\cdots\eand Fx_n  \eand x_1 \neq x_2 \eand\cdots\eand x_{n-1}\neq x_n \eand\\
- \enot\exists y(Fy \eand y\neq x_1 \eand \cdots \eand y\neq x_n)\bigr]$ 
+\item[n] $\exists x_1\cdots\exists x_n\bigl[Fx_1 \eand\cdots\eand Fx_n \eand \bigwedge_{1\leq i<j\leq n}x_i\neq x_j \eand\\
+ \enot\exists y\bigl(Fy \eand \bigwedge_{1\leq i\leq n}y\neq x_i\bigr)\bigr]$
 %\item[um] $\exists x\forall y\bigl[Fx \eand (Fy \eif y = x)\bigr]$
 %\item[dois] $\exists x\exists y\forall z\Bigl(Fx \eand Fy \eand \bigl[Fz \eif (z=x \eor z=y)\bigr] \eand x \neq y\Bigr)$
 %\item[três] $\exists x_1\exists x_2\exists x_3\forall y\Bigl(Fx_1 \eand Fx_2 \eand Fx_3 \eand [Fy \eif (y=x_1 \eor y=x_2 \eor y=x_3)] \eand x_1 \neq x_2 \eand x_1 \neq x_3 \eand x_2 \neq x_3\Bigr)$
@@ -158,7 +160,7 @@ Remover $F$ das simbolizações acima produz sentenças que falam sobre o tamanh
 	\cline{2-3}
 	\script{A} é contingente? & dê um modelo no qual \script{A} é verdadeira e outro no qual \script{A} é falsa & prove $\vdash\script{A}$ ou $\vdash\enot\script{A}$\\
 	\cline{2-3}
-	\script{A} e \script{B} são equivalentes? & prove \mbox{$\script{A}\vdash\script{B}$} e \mbox{$\script{B}\vdash\script{A}$}  & dê um modelo no qual \script{A} e \script{B} têm valores verdade diferentes\\
+\script{A} e \script{B} são equivalentes? & prove \mbox{$\script{A}\vdash\script{B}$} e \mbox{$\script{B}\vdash\script{A}$}  & dê um modelo no qual \script{A} e \script{B} têm valores de verdade diferentes\\
 	\cline{2-3}
 	O conjunto \model{A} é consistente? & dê um modelo no qual todas as sentenças em \model{A} são verdadeiras & tomando as sentenças em \model{A}, prove \script{B} e \enot\script{B}\\
 	\cline{2-3}
