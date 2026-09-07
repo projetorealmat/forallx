@@ -54,7 +54,7 @@ Para uma nova correção, use a próxima versão; não reutilize uma tag existen
 O portal deve apontar para uma versão específica, por exemplo:
 
 ~~~text
-https://github.com/projetorealmat/forallx/releases/download/v1.0.0/forallx.pdf
+https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf
 ~~~
 
 O portal pode manter um arquivo de catálogo com a versão atualmente recomendada e links para as versões anteriores. Uma eventual release agregadora do REALMat será apenas um índice de versões dos livros, não substituirá as releases individuais.
