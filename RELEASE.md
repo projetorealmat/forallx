@@ -14,6 +14,8 @@ As tags seguem `vMAJOR.MINOR.PATCH`:
 
 Uma release é um retrato imutável do livro naquele ponto do histórico. Uma correção nunca deve sobrescrever uma release existente: deve receber uma nova tag.
 
+O workflow aplica automaticamente o status da release: versões `v0.x.x` são publicadas como **pre-release**; `v1.0.0` e versões posteriores são releases estáveis, salvo regra editorial documentada em contrário.
+
 ## Conteúdo de cada release
 
 O workflow publica automaticamente:
@@ -22,6 +24,7 @@ O workflow publica automaticamente:
 - o pacote-fonte correspondente à tag;
 - `forallx-<versão>-metadata.txt`;
 - `SHA256SUMS`;
+- `forallx-build-environment.txt`, com o ambiente efetivo usado na compilação;
 - as notas da versão geradas pelo GitHub.
 
 O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento. A release `v0.x.y` é uma referência pública em revisão; a primeira referência aprovada será `v1.0.0`.

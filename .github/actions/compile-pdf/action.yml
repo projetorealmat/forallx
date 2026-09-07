@@ -34,6 +34,20 @@ runs:
           texlive-xetex \
           latexmk
 
+    - name: Registrar ambiente de compilação
+      shell: bash
+      run: |
+        set -euo pipefail
+        {
+          printf 'Runner: ubuntu-24.04\n'
+          printf 'XeLaTeX: '
+          xelatex --version | head -n1
+          printf 'latexmk: '
+          latexmk --version | head -n1
+          printf 'TeX engine: '
+          kpsewhich --version | head -n1
+        } > forallx-build-environment.txt
+
     - name: Compilar forallx.tex com XeLaTeX
       shell: bash
       run: latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error forallx.tex
