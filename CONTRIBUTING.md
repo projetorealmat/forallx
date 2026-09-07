@@ -27,8 +27,9 @@ Para uma correção específica, abra uma issue antes de alterar muitos arquivos
 
 5. Abra um pull request para `main` e preencha o checklist.
 6. Aguarde a revisão apropriada: linguística/terminológica, matemática/editorial ou técnica.
-7. Se as alterações forem destinadas à próxima publicação, atualize no mesmo pull request a versão e a data em `CITATION.cff`. Não crie a tag nem o GitHub Release manualmente.
-8. Depois que o pull request for mesclado, o workflow criará a tag, compilará o PDF, publicará o release e proporá a atualização do portal.
+7. Faça o merge somente depois que os checks e a revisão estiverem concluídos.
+
+PRs normais alteram o estado de desenvolvimento em `main`; **não publicam uma nova versão**. Não aumente `version` ou `date-released` em `CITATION.cff` como parte de um PR normal.
 
 ## Critérios editoriais
 
@@ -38,12 +39,24 @@ Traduções e adaptações devem manter a atribuição à obra original e indica
 
 ## Releases
 
+A publicação usa o padrão **Release PR** documentado em [RELEASE.md](RELEASE.md).
+
+Em resumo:
+
+1. o desenvolvimento entra em `main` por PRs normais;
+2. quando o estado atual deve ser publicado, execute **Actions → Preparar Release PR**;
+3. informe a próxima versão e a data;
+4. o GitHub cria a branch de release, atualiza `CITATION.cff` e abre a Release PR;
+5. revise os checks e o PDF candidato;
+6. o merge da Release PR autoriza automaticamente a criação da tag, do PDF final e do GitHub Release;
+7. depois da publicação, o portal REALMat abre automaticamente um PR para atualizar o catálogo.
+
 - `v0.x.y`: tradução ou edição ainda em revisão;
 - `v1.0.0`: primeira tradução aprovada;
 - `v1.x.y`: correções ou alterações compatíveis com a edição aprovada;
 - `v2.0.0` ou superior: nova edição ou alteração estrutural ampla.
 
-Cada release é imutável. Não reutilize tags nem substitua os arquivos de uma release existente. Alterar outros metadados do `CITATION.cff` sem alterar `version` não cria release.
+Cada release é imutável. Não reutilize tags nem substitua os arquivos de uma release existente.
 
 ## Conduta
 
