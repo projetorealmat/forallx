@@ -171,20 +171,20 @@ jobs:
           esac
 
           {
-            printf '\\renewcommand*{\\\\editionversion}{%s}\\n' "${RELEASE_TAG}"
-            printf '\\renewcommand*{\\\\editiondate}{%s}\\n' "${release_date_display}"
-            printf '\\renewcommand*{\\\\editionstatus}{%s}\\n' "${release_status}"
+            printf '\\renewcommand*{\\editionversion}{%s}\n' "${RELEASE_TAG}"
+            printf '\\renewcommand*{\\editiondate}{%s}\n' "${release_date_display}"
+            printf '\\renewcommand*{\\editionstatus}{%s}\n' "${release_status}"
           } > forallx-build-metadata.tex
 
           release_metadata="forallx-${RELEASE_TAG}-metadata.txt"
           {
-            printf 'Livro: forallx — Introdução à lógica formal\\n'
-            printf 'Versão: %s\\n' "${RELEASE_TAG}"
-            printf 'Data de publicação: %s\\n' "${release_date_display}"
-            printf 'Status editorial: %s\\n' "${release_status}"
-            printf 'Commit: %s\\n' "${GITHUB_SHA}"
-            printf 'Repositório: https://github.com/${GITHUB_REPOSITORY}\\n'
-            printf 'Licença: Creative Commons Attribution 4.0 International\\n'
+            printf 'Livro: forallx — Introdução à lógica formal\n'
+            printf 'Versão: %s\n' "${RELEASE_TAG}"
+            printf 'Data de publicação: %s\n' "${release_date_display}"
+            printf 'Status editorial: %s\n' "${release_status}"
+            printf 'Commit: %s\n' "${GITHUB_SHA}"
+            printf 'Repositório: https://github.com/${GITHUB_REPOSITORY}\n'
+            printf 'Licença: Creative Commons Attribution 4.0 International\n'
           } > "${release_metadata}"
 
           echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
