@@ -21,6 +21,8 @@ jobs:
     outputs:
       publish: ${{ steps.release.outputs.publish }}
       release_tag: ${{ steps.release.outputs.release_tag }}
+      release_version: ${{ steps.release.outputs.release_version }}
+      release_date: ${{ steps.release.outputs.release_date }}
 
     steps:
       - name: Checkout repository
@@ -45,7 +47,7 @@ jobs:
           field, path = sys.argv[1:]
           text = Path(path).read_text(encoding="utf-8")
           match = re.search(
-              rf"^{re.escape(field)}:\s*["']?([^\s"']+)["']?\s*$",
+              rf"""^{re.escape(field)}:\s*["']?([^\s"']+)["']?\s*$""",
               text,
               re.MULTILINE,
           )
@@ -86,6 +88,8 @@ jobs:
           {
             echo "publish=${publish}"
             echo "release_tag=${release_tag}"
+            echo "release_version=${current_version}"
+            echo "release_date=${release_date}"
           } >> "${GITHUB_OUTPUT}"
 
   publish:
@@ -97,6 +101,8 @@ jobs:
       contents: write
     env:
       RELEASE_TAG: ${{ needs.detect.outputs.release_tag }}
+      RELEASE_VERSION: ${{ needs.detect.outputs.release_version }}
+      RELEASE_DATE: ${{ needs.detect.outputs.release_date }}
 
     steps:
       - name: Checkout repository
@@ -120,16 +126,18 @@ jobs:
             exit 1
           fi
 
-          citation_version="$(sed -n 's/^version:[[:space:]]*"\\([^"]*\\)" .*$/\\1/p' CITATION.cff | head -n1)"
-          expected_version="${RELEASE_TAG#v}"
-          if [[ "${citation_version}" != "${expected_version}" ]]; then
-            echo "CITATION.cff version (${citation_version}) must match the release tag (${expected_version})."
+          citation_line="$(grep -E '^version:' CITATION.cff | head -n1)"
+          expected_version="$(printf '%s' "$RELEASE_TAG" | cut -c2-)"
+          if [[ "$expected_version" != "$RELEASE_VERSION" ]]; then
+            echo "A versão detectada ($RELEASE_VERSION) não coincide com a tag esperada ($expected_version)."
             exit 1
           fi
-
-          release_date="$(sed -n 's/^date-released:[[:space:]]*\\([0-9-]*\\).*$/\\1/p' CITATION.cff | head -n1)"
-          if [[ ! "${release_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-            echo "date-released deve seguir AAAA-MM-DD."
+          if [[ "$citation_line" != "version: \"$RELEASE_VERSION\"" ]]; then
+            echo "A versão do CITATION.cff não coincide com a versão publicada."
+            exit 1
+          fi
+          if [[ "$RELEASE_DATE" != "$(grep -E '^date-released:' CITATION.cff | awk '{print $2}')" ]]; then
+            echo "A data do CITATION.cff não coincide com a data detectada."
             exit 1
           fi
 
@@ -138,7 +146,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          release_date_iso="$(sed -n 's/^date-released:[[:space:]]*\\([0-9-]*\\).*$/\\1/p' CITATION.cff | head -n1)"
+          release_date_iso="$RELEASE_DATE"
           release_date_display="$(date -u -d "${release_date_iso}" +%d/%m/%Y)"
           release_major="${RELEASE_TAG#v}"
           release_major="${release_major%%.*}"
