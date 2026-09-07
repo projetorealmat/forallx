@@ -55,7 +55,7 @@
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
 {\normalfont\bfseries}
-{{\titlerule[2pt]}\LARGE Capítulo \thechapter}
+{{\titlerule[2pt]}\LARGE \chaptername\ \thechapter}
 {1ex}
 {\Huge}
 [\vspace{1ex}{\titlerule[2pt]}]
@@ -107,6 +107,9 @@
 % references to example sentences:
 \newcounter{Example}[chapter]
 \newcommand*{\ex}[1]{\refstepcounter{Example}\arabic{Example}.\label{#1}}
+% Give hyperref unique anchors when exercise parts/examples repeat by chapter.
+\providecommand{\theHExample}{}
+\renewcommand{\theHExample}{\thechapter.\arabic{Example}}
 % Used in specifying partial models, this keeps the lines justified so
 % so that the = signs all line up. For example:
 %	\begin{partialmodel}
@@ -132,6 +135,8 @@
 %    ****************************************
 \newcounter{ProbPart}
 \renewcommand{\theProbPart}{\Alph{ProbPart}}
+\providecommand{\theHProbPart}{}
+\renewcommand{\theHProbPart}{\thechapter.\Alph{ProbPart}}
 % This inserts a heading and resets the counter:
 \newcommand*{\practiceproblems}{
 	\setcounter{ProbPart}{0}\section*{Exercícios}%

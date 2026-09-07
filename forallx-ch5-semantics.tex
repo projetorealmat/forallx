@@ -2,13 +2,13 @@
 \chapter{Semântica formal}
 \label{ch.semantics}
 
-Neste capítulo, descrevemos uma \emph{semântica formal} para LS e para LQ. A palavra 'semântica' vem da palavra grega para 'marca' e significa 'relacionada ao significado'. Portanto, uma semântica formal será uma conta matemática do significado na linguagem formal.
+Neste capítulo, descrevemos uma \emph{semântica formal} para LS e para LQ. O termo \enquote{semântica} relaciona-se ao significado. Neste capítulo, desenvolveremos uma descrição matemática de como as sentenças recebem significado e valor de verdade em uma linguagem formal.
 
 Uma linguagem formal e lógica é construída a partir de dois tipos de elementos: símbolos lógicos e símbolos não lógicos. Conectivos (como `\eand') e quantificadores (como `$\forall$') são símbolos lógicos, porque seu significado é especificado dentro da linguagem formal. Ao escrever uma chave de simbolização, você não tem permissão para alterar o significado dos símbolos lógicos. Você não pode dizer, por exemplo, que o símbolo `\enot' significará 'não' em um argumento e 'talvez' em outro. O símbolo `\enot' sempre significa negação lógica. É usado para traduzir a palavra em português 'não', mas é um símbolo de uma linguagem formal e é definido por suas condições de verdade.
 
 As letras de sentença em LS são símbolos não lógicos, porque seu significado não é definido pela estrutura lógica de LS. Quando traduzimos um argumento do português para LS, por exemplo, a letra de sentença $M$ não tem seu significado fixado antecipadamente; em vez disso, fornecemos uma chave de simbolização que diz como $M$ deve ser interpretada nesse argumento. Em LQ, os predicados e constantes são símbolos não lógicos.
 
-Ao traduzir do português para uma linguagem formal, fornecemos chaves de simbolização que eram interpretações de todos os símbolos não lógicos que usamos na tradução. Uma \define{interpretação} dá um significado a todos os elementos não lógicos da linguagem.
+Ao traduzir do português para uma linguagem formal, fornecemos chaves de simbolização que são interpretações de todos os símbolos não lógicos que usamos na tradução. Uma \define{interpretação} dá um significado a todos os elementos não lógicos da linguagem.
 
 É possível fornecer interpretações diferentes que não fazem diferença formal. Em LS, por exemplo, podemos dizer que $D$ significa 'Hoje é terça-feira'; podemos dizer, em vez disso, que $D$ significa 'Hoje é o dia depois de segunda-feira'. Essas são duas interpretações diferentes, porque usam sentenças em português diferentes para o significado de $D$. No entanto, formalmente, não há diferença entre elas. Tudo o que importa, uma vez que simbolizamos essas sentenças, é se elas são verdadeiras ou falsas. Para caracterizar o que faz uma diferença na linguagem formal, precisamos saber o que torna as sentenças verdadeiras ou falsas. Para isso, precisamos de uma caracterização formal de \emph{verdade}.
 
@@ -26,7 +26,7 @@ Em resumo: Verdade em LS é apenas a atribuição de um 1 ou um 0.
 
 Para definir formalmente a verdade em LS, então, queremos uma função que atribua um 1 ou 0 a cada uma das sentenças de LS. Podemos interpretar essa função como uma definição de verdade para LS se ela atribuir 1 a todas as sentenças verdadeiras de LS e 0 a todas as sentenças falsas de LS. Chame essa função de `$v$' (para 'valoração'). Queremos que $v$ seja uma função tal que para qualquer sentença \script{A}, $v(\script{A})=1$ se \script{A} for verdadeira e $v(\script{A})=0$ se \script{A} for falsa.
 
-Lembre-se de que a definição recursiva de uma fbf para LS teve dois estágios: O primeiro passo disse que sentenças atômicas (letras de sentença solitárias) são fbfs. O segundo estágio permitiu que fbfs fossem construídas a partir de fbfs mais básicas. Havia cláusulas da definição para todos os conectivos sentenciais. Por exemplo, se \script{A} é uma fbf, então \enot\script{A} é uma fbf.
+Lembre-se de que a definição recursiva de uma FBF para LS teve dois estágios: O primeiro passo disse que sentenças atômicas (letras de sentença solitárias) são FBFs. O segundo estágio permitiu que FBFs fossem construídas a partir de FBFs mais básicas. Havia cláusulas da definição para todos os conectivos sentenciais. Por exemplo, se \script{A} é uma FBF, então \enot\script{A} é uma FBF.
 
 Nossa estratégia para definir a função verdade, $v$, também será em dois passos. O primeiro passo lidará com a verdade para sentenças atômicas; o segundo passo lidará com a verdade para sentenças compostas.
 
@@ -45,7 +45,7 @@ Portanto, uma interpretação sozinha não determina se uma sentença é verdade
 INTERPRETAÇÃO + ESTADO DO MUNDO $\Longrightarrow$ VERDADE/FALSIDADE
 \end{center}
 
-Ao fornecer uma definição lógica de verdade, não seremos capazes de dar uma conta de como uma sentença atômica é tornada verdadeira ou falsa pelo mundo. Em vez disso, introduziremos uma \emph{atribuição de valor-verdade}. Formalmente, esta será uma função que nos diz o valor-verdade de todas as sentenças atômicas. Chame esta função de `$a$' (para 'atribuição'). Definimos $a$ para todas as letras de sentença \script{P}, tal que
+Ao fornecer uma definição lógica de verdade, não seremos capazes de dar uma conta de como uma sentença atômica é tornada verdadeira ou falsa pelo mundo. Em vez disso, introduziremos uma \emph{atribuição de valores de verdade}. Formalmente, esta será uma função que nos diz o valor de verdade de todas as sentenças atômicas. Chame esta função de `$a$' (para 'atribuição'). Definimos $a$ para todas as letras de sentença \script{P}, tal que
 \begin{displaymath}
 a(\script{P}) =
 \left\{
@@ -57,11 +57,11 @@ a(\script{P}) =
 \end{displaymath}
 Isso significa que $a$ pega qualquer sentença de LS e atribui a ela um 1 ou um 0; 1 se a sentença for verdadeira, 0 se a sentença for falsa. Os detalhes da função $a$ são determinados pelo significado das letras de sentença junto com o estado do mundo. Se $D$ significa 'Está escuro lá fora', então $a(D)=1$ à noite ou durante uma tempestade forte, enquanto $a(D)=0$ em um dia claro.
 
-Você pode pensar em $a$ como sendo como uma linha de uma tabela-verdade. Enquanto uma linha de tabela-verdade atribui um valor-verdade a algumas sentenças atômicas, a atribuição de valor-verdade atribui um valor a cada sentença atômica de LS. Existem infinitas letras de sentença, e a atribuição de valor-verdade dá um valor a cada uma delas. Ao construir uma tabela-verdade, nos importamos apenas com letras de sentença que afetam o valor-verdade das sentenças que nos interessam. Como tal, ignoramos o resto. Estritamente falando, cada linha de uma tabela-verdade dá uma atribuição de valor-verdade \emph{parcial}.
+Você pode pensar em $a$ como sendo como uma linha de uma tabela-verdade. Enquanto uma linha de tabela-verdade atribui um valor de verdade a algumas sentenças atômicas, a atribuição de valores de verdade atribui um valor a cada sentença atômica de LS. Existem infinitas letras de sentença, e a atribuição de valores de verdade dá um valor a cada uma delas. Ao construir uma tabela-verdade, nos importamos apenas com letras de sentença que afetam o valor de verdade das sentenças que nos interessam. Como tal, ignoramos o resto. Estritamente falando, cada linha de uma tabela-verdade dá uma atribuição de valores de verdade \emph{parcial}.
 
-É importante notar que a atribuição de valor-verdade, $a$, não é parte da linguagem LS. Em vez disso, é parte da maquinaria matemática que estamos usando para descrever LS. Ela codifica quais sentenças atômicas são verdadeiras e quais são falsas.
+É importante notar que a atribuição de valores de verdade, $a$, não é parte da linguagem LS. Em vez disso, é parte da maquinaria matemática que estamos usando para descrever LS. Ela codifica quais sentenças atômicas são verdadeiras e quais são falsas.
 
-Agora definimos a função verdade, $v$, usando a mesma estrutura recursiva que usamos para definir uma fbf de LS.
+Agora definimos a função verdade, $v$, usando a mesma estrutura recursiva que usamos para definir uma FBF de LS.
 
 \begin{enumerate}
 \item Se \script{A} é uma letra de sentença, então $v(\script{A})=a(\script{A})$.
@@ -109,22 +109,22 @@ Agora definimos a função verdade, $v$, usando a mesma estrutura recursiva que 
 
 Pode parecer que essa definição é circular, porque usa a palavra `e' ao tentar definir `e'. Observe, contudo, que esta não é uma definição da palavra `e'; é uma definição de verdade para sentenças de LS que contêm o símbolo lógico `\eand'. Definimos a verdade de sentenças da linguagem-objeto que contêm o símbolo `\eand' usando a palavra `e' da metalinguagem. Não há nada de circular nisso.
 
-Como a definição de $v$ tem a mesma estrutura que a definição de uma fbf, sabemos que $v$ atribui um valor a \emph{toda} fbf de LS. Como as sentenças de LS e as fbfs de LS são as mesmas, isso significa que $v$ retorna o valor-verdade de toda sentença de LS.
+Como a definição de $v$ tem a mesma estrutura que a definição de uma FBF, sabemos que $v$ atribui um valor a \emph{toda} FBF de LS. Como as sentenças de LS e as FBFs de LS são as mesmas, isso significa que $v$ retorna o valor de verdade de toda sentença de LS.
 
-Verdade em LS é sempre verdade \emph{relativa a} alguma atribuição de valor-verdade, porque a definição de verdade para LS não diz se uma dada sentença é verdadeira ou falsa. Em vez disso, diz como a verdade dessa sentença se relaciona com uma atribuição de valor-verdade.
+Verdade em LS é sempre verdade \emph{relativa a} alguma atribuição de valores de verdade, porque a definição de verdade para LS não diz se uma dada sentença é verdadeira ou falsa. Em vez disso, diz como a verdade dessa sentença se relaciona com uma atribuição de valores de verdade.
 
 \subsection{Outros conceitos em LS}
 
 Trabalhando com LS até agora, passamos sem uma definição precisa de 'tautologia', 'contradição' e assim por diante. Tabelas-verdade forneciam uma maneira de \emph{verificar se} uma sentença era uma tautologia em LS, mas elas não \emph{definiam} o que significa ser uma tautologia em LS. Daremos definições desses conceitos para LS em termos de consequência.
 
-A relação de consequência semântica, `\script{A} acarreta \script{B}', significa que não há atribuição de valor-verdade para a qual \script{A} é verdadeira e \script{B} é falsa. Colocado de outra forma, significa que \script{B} é verdadeira para quaisquer e todas as atribuições de valor-verdade para as quais \script{A} é verdadeira.
+A relação de consequência semântica, `\script{A} acarreta \script{B}', significa que não há atribuição de valores de verdade para a qual \script{A} é verdadeira e \script{B} é falsa. Colocado de outra forma, significa que \script{B} é verdadeira para quaisquer e todas as atribuições de valores de verdade para as quais \script{A} é verdadeira.
 
 Abreviamos isso com um símbolo chamado \emph{duplo torniquete}:
 $\script{A}\models\script{B}$ significa `\script{A} acarreta semanticamente \script{B}.'
 
-Podemos falar sobre consequência entre mais de duas sentenças: $$\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}\models\script{B}$$ significa que não há atribuição de valor-verdade para a qual todas as sentenças no conjunto $\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}$ são verdadeiras e \script{B} é falsa.
+Podemos falar sobre consequência entre mais de duas sentenças: $$\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}\models\script{B}$$ significa que não há atribuição de valores de verdade para a qual todas as sentenças no conjunto $\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}$ são verdadeiras e \script{B} é falsa.
 
-Também podemos usar o símbolo com apenas uma sentença: $\models\script{C}$ significa que \script{C} é verdadeira para todas as atribuições de valor-verdade. Isso é equivalente a dizer que a sentença é acarretada por qualquer coisa.
+Também podemos usar o símbolo com apenas uma sentença: $\models\script{C}$ significa que \script{C} é verdadeira para todas as atribuições de valores de verdade. Isso é equivalente a dizer que a sentença é acarretada por qualquer coisa.
 
 O símbolo de duplo torniquete nos permite dar definições concisas para vários conceitos de LS:
 \begin{quote}
@@ -143,13 +143,13 @@ A consistência lógica é um pouco mais difícil de definir em termos de conseq
 
 \begin{quote}
 \label{def.consistencySL}
-O conjunto $\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}$ é \define{consistente em LS} se e somente se há pelo menos uma atribuição de valor-verdade para a qual todas as sentenças são verdadeiras. O conjunto é \define{inconsistente em LS} se e somente se não houver tal atribuição.
+O conjunto $\{\script{A}_1,\script{A}_2,\script{A}_3,\cdots\}$ é \define{consistente em LS} se e somente se há pelo menos uma atribuição de valores de verdade para a qual todas as sentenças são verdadeiras. O conjunto é \define{inconsistente em LS} se e somente se não houver tal atribuição.
 \end{quote}
 
 \section{Interpretações e modelos em LQ}
 
 Em LS, uma interpretação ou chave de simbolização especifica o que cada uma das letras de sentença significa. A interpretação de uma letra de sentença junto com o estado do mundo determina se a letra de sentença é verdadeira ou falsa.
-Como as unidades básicas são letras de sentença, uma interpretação só importa na medida em que torna as letras de sentença verdadeiras ou falsas. Formalmente, a semântica para LS é estritamente em termos de atribuições de valor-verdade. Duas interpretações são as mesmas, formalmente, se elas resultam na mesma atribuição de valor-verdade.
+Como as unidades básicas são letras de sentença, uma interpretação só importa na medida em que torna as letras de sentença verdadeiras ou falsas. Formalmente, a semântica para LS é estritamente em termos de atribuições de valores de verdade. Duas interpretações são as mesmas, formalmente, se elas resultam na mesma atribuição de valores de verdade.
 
 O que é uma interpretação em LQ? Como uma chave de simbolização para LQ, uma interpretação requer um UD, um significado esquemático para cada um dos predicados e um objeto que é denotado por cada constante. Por exemplo:
 \begin{ekey}
@@ -160,9 +160,9 @@ O que é uma interpretação em LQ? Como uma chave de simbolização para LQ, um
 \end{ekey}
 Considere a sentença $Fb$. A sentença é verdadeira nesta interpretação, mas - assim como em LS - a sentença não é verdadeira \emph{apenas por causa} da interpretação. A maioria das pessoas em nossa cultura sabe que o Batman combate o crime, mas isso requer um mínimo de conhecimento sobre quadrinhos. A sentença $Fb$ é verdadeira por causa da interpretação \emph{mais} alguns fatos sobre quadrinhos. Isso é especialmente óbvio quando consideramos $Fw$. Bruce Wayne é a identidade secreta do Batman nos quadrinhos - a afirmação de identidade $b=w$ é verdadeira - então $Fw$ é verdadeira. Como é uma identidade \emph{secreta}, no entanto, outros personagens não sabem que $Fw$ é verdadeira, embora saibam que $Fb$ é verdadeira.
 
-Poderíamos tentar caracterizar isso como uma atribuição de valor-verdade, como fizemos para LS. A atribuição de valor-verdade atribuiria 0 ou 1 a cada fbf atômica: $Fb$, $Fw$ e assim por diante. Se fôssemos fazer isso, no entanto, poderíamos igualmente traduzir as sentenças de LQ para LS substituindo $Fb$ e $Fw$ por letras de sentença. Poderíamos então contar com a definição de verdade para LS, mas ao custo de ignorar toda a estrutura lógica de predicados e termos. Ao escrever uma chave de simbolização para LQ, não damos definições separadas para $Fb$ e $Fw$. Em vez disso, damos significados para $F$, $b$ e $w$. Isso é essencial porque queremos ser capazes de usar quantificadores. Não há uma maneira adequada de traduzir $\forall x Fx$ em LS.
+Poderíamos tentar caracterizar isso como uma atribuição de valores de verdade, como fizemos para LS. A atribuição de valores de verdade atribuiria 0 ou 1 a cada FBF atômica: $Fb$, $Fw$ e assim por diante. Se fôssemos fazer isso, no entanto, poderíamos igualmente traduzir as sentenças de LQ para LS substituindo $Fb$ e $Fw$ por letras de sentença. Poderíamos então contar com a definição de verdade para LS, mas ao custo de ignorar toda a estrutura lógica de predicados e termos. Ao escrever uma chave de simbolização para LQ, não damos definições separadas para $Fb$ e $Fw$. Em vez disso, damos significados para $F$, $b$ e $w$. Isso é essencial porque queremos ser capazes de usar quantificadores. Não há uma maneira adequada de traduzir $\forall x Fx$ em LS.
 
-Então queremos uma contraparte formal para uma interpretação para predicados e constantes, não apenas para sentenças. Não podemos usar uma atribuição de valor-verdade para isso, porque um predicado não é nem verdadeiro nem falso. Na interpretação dada acima, $F$ é verdadeiro \emph{de} o Batman (ou seja, $Fb$ é verdadeiro), mas não faz sentido algum perguntar se $F$ sozinho é verdadeiro. Seria como perguntar se o fragmento da língua portuguesa '$\ldots$combate o crime' é verdadeiro.
+Então queremos uma contraparte formal para uma interpretação para predicados e constantes, não apenas para sentenças. Não podemos usar uma atribuição de valores de verdade para isso, porque um predicado não é nem verdadeiro nem falso. Na interpretação dada acima, $F$ é verdadeiro \emph{de} o Batman (ou seja, $Fb$ é verdadeiro), mas não faz sentido algum perguntar se $F$ sozinho é verdadeiro. Seria como perguntar se o fragmento da língua portuguesa '$\ldots$combate o crime' é verdadeiro.
 
 O que uma interpretação faz para um predicado, se não o torna verdadeiro ou falso? Uma interpretação ajuda a selecionar os objetos aos quais o predicado se aplica. Interpretar $Fx$ como significando '$x$ combate o crime' seleciona Batman, Superman, Homem-Aranha e outros heróis como as coisas que são $F$s. Formalmente, este é um conjunto de membros do UD aos quais o predicado se aplica; este conjunto é chamado de \define{extensão} do predicado.
 
@@ -176,7 +176,7 @@ Você não precisa saber nada sobre quadrinhos para ser capaz de determinar que,
 
 E a sentença $\forall x  Mx$? A sentença é falsa, porque não é verdade que todos os membros do UD são $M$. Requer o mínimo de conhecimento sobre quadrinhos para saber que há outros personagens além apenas desses três. Embora tenhamos especificado a extensão de $M$ de uma maneira formalmente precisa, ainda especificamos o UD com uma descrição em português. Formalmente falando, um UD é apenas um conjunto de membros.
 
-A significância formal de um predicado é determinada por sua extensão, mas o que devemos dizer sobre constantes como $b$ e $w$? O significado de uma constante determina qual membro do UD é denotado pela constante. O indivíduo que a constante denota é chamado de \define{referente} da constante. Tanto $b$ quanto $w$ têm o mesmo referente, já que ambos se referem ao mesmo personagem de quadrinhos. Você pode pensar em uma letra constante como um nome e o referente como a coisa nomeada. Em português, podemos usar os diferentes nomes 'Batman' e 'Bruce Wayne' para nos referirmos ao mesmo personagem de quadrinhos. Nesta interpretação, podemos usar as diferentes constantes `$b$' e `$w$' para nos referirmos ao mesmo membro do UD.
+O significado formal de um predicado é determinada por sua extensão, mas o que devemos dizer sobre constantes como $b$ e $w$? O significado de uma constante determina qual membro do UD é denotado pela constante. O indivíduo que a constante denota é chamado de \define{referente} da constante. Tanto $b$ quanto $w$ têm o mesmo referente, já que ambos se referem ao mesmo personagem de quadrinhos. Você pode pensar em uma letra constante como um nome e o referente como a coisa nomeada. Em português, podemos usar os diferentes nomes 'Batman' e 'Bruce Wayne' para nos referirmos ao mesmo personagem de quadrinhos. Nesta interpretação, podemos usar as diferentes constantes `$b$' e `$w$' para nos referirmos ao mesmo membro do UD.
 
 \subsection{Conjuntos}
 
@@ -202,15 +202,15 @@ Qual é o modelo que corresponde a esta interpretação? Houve seis pessoas que 
 	\referent{f} & Larry
 \end{partialmodel}
 
-Você não precisa saber nada sobre os Três Patetas para avaliar se as sentenças são verdadeiras ou falsas neste \emph{modelo}. $Hf$ é verdadeira, já que o referente de $f$ (Larry) está na extensão de $H$. Tanto $\exists x Hx$ quanto $\exists x \enot Hx$ são verdadeiras, já que há pelo menos um membro do UD que está na extensão de $H$ e pelo menos um membro que não está na extensão de $H$. Dessa forma, o modelo captura toda a significância formal da interpretação.
+Você não precisa saber nada sobre os Três Patetas para avaliar se as sentenças são verdadeiras ou falsas neste \emph{modelo}. $Hf$ é verdadeira, já que o referente de $f$ (Larry) está na extensão de $H$. Tanto $\exists x Hx$ quanto $\exists x \enot Hx$ são verdadeiras, já que há pelo menos um membro do UD que está na extensão de $H$ e pelo menos um membro que não está na extensão de $H$. Dessa forma, o modelo captura todo o significado formal da interpretação.
 
 Agora considere esta interpretação:
 \begin{ekey}
-\item{UD:} números inteiros menores que 10
-\item{Ex:} $x$ é par.
-\item{Nx:} $x$ é negativo.
-\item{Lxy:} $x$ é menor que $y$.
-\item{Txyz:} $x$ vezes $y$ é igual a $z$.
+\item[UD:] números inteiros de 1 a 9
+\item[Ex:] $x$ é par.
+\item[Nx:] $x$ é negativo.
+\item[Lxy:] $x$ é menor que $y$.
+\item[Txyz:] $x$ vezes $y$ é igual a $z$.
 \end{ekey}
 Qual é o modelo que acompanha esta interpretação?
 O UD é o conjunto $\{1,2,3,4,5,6,7,8,9\}$.
@@ -267,7 +267,7 @@ Isso especifica uma extensão para cada predicado de LQ: Todos os infinitos pred
 
 Usaremos o símbolo de duplo torniquete para LQ da mesma forma que fizemos para LS. `$\script{A}\models\script{B}$' significa que `\script{A} acarreta \script{B}': Quando \script{A} e \script{B} são duas sentenças de LQ, $\script{A}\models\script{B}$ significa que não há modelo no qual \script{A} é verdadeira e \script{B} é falsa. $\models\script{A}$ significa que \script{A} é verdadeira em todo modelo.
 
-Isso nos permite dar definições para vários conceitos em LQ. Porque estamos usando o mesmo símbolo, estas definições parecerão semelhantes às definições em LS. Lembre-se, no entanto, de que as definições em LQ são em termos de \emph{modelos} em vez de em termos de atribuições de valor-verdade.
+Isso nos permite dar definições para vários conceitos em LQ. Porque estamos usando o mesmo símbolo, estas definições parecerão semelhantes às definições em LS. Lembre-se, no entanto, de que as definições em LQ são em termos de \emph{modelos} em vez de em termos de atribuições de valores de verdade.
 
 \begin{quote}
 Uma \define{tautologia em LQ} é uma sentença \script{A} que é verdadeira em todo modelo; ou seja,  $\models\script{A}$.
@@ -387,7 +387,7 @@ Considere a sentença $\forall x(Rxx\eif Rxx)$, outra tautologia óbvia. Pode se
 \script{A} é contingente? & \tablefbox{\emph{construir dois modelos}, um no qual \script{A} é verdadeira e outro no qual \script{A} é falsa}\vline & {ou mostrar que \script{A} é uma tautologia ou mostrar que \script{A} é uma contradição}\\
 \cline{2-3}
 
-\script{A} e \script{B} são equivalentes? & {mostrar que \script{A} e \script{B} devem ter o mesmo valor-verdade em qualquer modelo} & \tablefbox{\emph{construir um modelo} no qual \script{A} e \script{B} têm valores-verdade diferentes}\\
+\script{A} e \script{B} são equivalentes? & {mostrar que \script{A} e \script{B} devem ter o mesmo valor de verdade em qualquer modelo} & \tablefbox{\emph{construir um modelo} no qual \script{A} e \script{B} têm valores de verdade diferentes}\\
 \cline{2-3}
 
 O conjunto \model{A} é consistente? & \tablefbox{\emph{construir um modelo} no qual todas as sentenças em \model{A} são verdadeiras} & {mostrar que as sentenças não poderiam ser todas verdadeiras em qualquer modelo}\\
@@ -401,9 +401,9 @@ O argumento \mbox{`\script{P}, \therefore\ \script{C}'} é válido? & {mostrar q
 
 \section{Verdade em LQ}
 \label{sec.TruthInQL}
-Para LS, dividimos a definição de verdade em duas partes: uma atribuição de valor-verdade ($a$) para letras de sentença e uma função verdade ($v$) para todas as sentenças. A função verdade cobria a maneira como sentenças complexas poderiam ser construídas a partir de letras de sentença e conectivos.
+Para LS, dividimos a definição de verdade em duas partes: uma atribuição de valores de verdade ($a$) para letras de sentença e uma função verdade ($v$) para todas as sentenças. A função verdade cobria a maneira como sentenças complexas poderiam ser construídas a partir de letras de sentença e conectivos.
 
-Da mesma forma que verdade para LS é sempre \emph{verdade dada uma atribuição de valor-verdade}, verdade para LQ é \emph{verdade em um modelo}. A sentença atômica mais simples de LQ consiste em um predicado de um lugar seguido por uma constante, como $Pj$. É verdadeira em um modelo \model{M} se e somente se o referente de $j$ está na extensão de $P$ em \model{M}.
+Da mesma forma que verdade para LS é sempre \emph{verdade dada uma atribuição de valores de verdade}, verdade para LQ é \emph{verdade em um modelo}. A sentença atômica mais simples de LQ consiste em um predicado de um lugar seguido por uma constante, como $Pj$. É verdadeira em um modelo \model{M} se e somente se o referente de $j$ está na extensão de $P$ em \model{M}.
 
 Poderíamos continuar desta forma para definir verdade para todas as sentenças atômicas que contêm apenas predicados e constantes: Considere qualquer sentença da forma $\script{R}\script{c}_1\ldots\script{c}_n$ onde \script{R} é um predicado de n-lugares e os \script{c}s são constantes. É verdadeira em \model{M} se e somente se ${\langle}\referent{\script{c}_1},\ldots,\referent{\script{c}_n}{\rangle}$ está em \extension{\script{R}} em \model{M}.
 
@@ -411,13 +411,13 @@ Poderíamos então definir verdade para sentenças construídas com conectivos s
 
 Infelizmente, esta abordagem falhará quando considerarmos sentenças contendo quantificadores. Considere $\forall x Px$. Quando é verdadeira em um modelo \model{M}? A resposta não pode depender de se $Px$ é verdadeira ou falsa em \model{M}, porque o $x$ em $Px$ é uma variável livre. $Px$ não é uma sentença. Não é nem verdadeira nem falsa.
 
-Fomos capazes de dar uma definição recursiva de verdade para LS porque toda fórmula bem formada de LS tem um valor-verdade. Isso não é verdade em LQ, então não podemos definir verdade começando com a verdade de sentenças atômicas e construindo a partir daí. Também precisamos considerar as fórmulas atômicas que não são sentenças. Para fazer isso, definiremos \emph{satisfação}; toda fórmula bem formada de LQ será satisfeita ou não, mesmo que não tenha um valor-verdade. Seremos então capazes de definir \emph{verdade} para sentenças de LQ em termos de satisfação.
+Fomos capazes de dar uma definição recursiva de verdade para LS porque toda fórmula bem formada de LS tem um valor de verdade. Isso não é verdade em LQ, então não podemos definir verdade começando com a verdade de sentenças atômicas e construindo a partir daí. Também precisamos considerar as fórmulas atômicas que não são sentenças. Para fazer isso, definiremos \emph{satisfação}; toda fórmula bem formada de LQ será satisfeita ou não, mesmo que não tenha um valor de verdade. Seremos então capazes de definir \emph{verdade} para sentenças de LQ em termos de satisfação.
 
 \subsection{Satisfação}
 
 A fórmula $Px$ diz, grosso modo, que $x$ é um dos $P$s. Isso não pode ser totalmente correto, no entanto, porque $x$ é uma variável e não uma constante. Ela não nomeia nenhum membro particular do UD. Em vez disso, seu significado em uma sentença é determinado pelo quantificador que a liga. A variável $x$ deve representar todos os membros do UD na sentença $\forall xPx$, mas só precisa representar um membro em $\exists xPx$. Como queremos que a definição de satisfação cubra $Px$ sem qualquer quantificador, começaremos dizendo como interpretar uma variável livre como o $x$ em $Px$.
 
-Fazemos isso introduzindo uma \emph{atribuição de variável}. Formalmente, esta é uma função que combina cada variável com um membro do UD. Chame esta função de 'a'. (O 'a' é para 'atribuição', mas esta não é a mesma que a atribuição de valor-verdade que usamos ao definir verdade para LS.)
+Fazemos isso introduzindo uma \emph{atribuição de variável}. Formalmente, esta é uma função que combina cada variável com um membro do UD. Chame esta função de 'a'. (O 'a' é para 'atribuição', mas esta não é a mesma que a atribuição de valores de verdade que usamos ao definir verdade para LS.)
 
 A fórmula $Px$ é satisfeita em um modelo \model{M} por uma atribuição de variável $a$ se e somente se $a(x)$, o objeto que $a$ atribui a $x$, está na extensão de P em \model{M}.
 
@@ -429,10 +429,10 @@ Agora podemos dizer concisamente que $\forall x Px$ é satisfeita em um modelo \
 
 Você pode se preocupar que isso seja circular, porque dá as condições de satisfação para a sentença $\forall x Px$ usando a frase 'para todo objeto'. No entanto, é importante lembrar a diferença entre um símbolo lógico como `$\forall$' e uma palavra em português como 'todo'. A palavra é parte da metalinguagem que usamos para definir condições de satisfação para sentenças da linguagem objeto que contêm o símbolo.
 
-Agora podemos dar uma definição geral de satisfação, estendendo a partir dos casos que já discutimos. Definimos uma função $s$ (para 'satisfação') em um modelo \model{M} tal que para qualquer fbf \script{A} e atribuição de variável $a$, $s(\script{A}, a)=1$ se \script{A} é satisfeita em \model{M} por $a$; caso contrário $s(\script{A}, a)=0$.
+Agora podemos dar uma definição geral de satisfação, estendendo a partir dos casos que já discutimos. Definimos uma função $s$ (para 'satisfação') em um modelo \model{M} tal que para qualquer FBF \script{A} e atribuição de variável $a$, $s(\script{A}, a)=1$ se \script{A} é satisfeita em \model{M} por $a$; caso contrário $s(\script{A}, a)=0$.
 
 \begin{enumerate}
-\item Se \script{A} é uma fbf atômica da forma $\script{P}\script{t}_1\ldots\script{t}_n$ e $\Omega_i$ é o objeto denotado por $t_i$, então
+\item Se \script{A} é uma FBF atômica da forma $\script{P}\script{t}_1\ldots\script{t}_n$ e $\Omega_i$ é o objeto denotado por $t_i$, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	1 & \mbox{se ${\langle}\Omega_1\ldots\Omega_n{\rangle}$ está em \extension{\script{P}} em \model{M}},\\
@@ -442,7 +442,7 @@ Agora podemos dar uma definição geral de satisfação, estendendo a partir dos
 
 Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t_i}$. Se $t_i$ é uma variável, então $\Omega_i = a(t_i)$.
 
-\item Se \script{A} é ${\enot}\script{B}$ para alguma fbf \script{B}, então
+\item Se \script{A} é ${\enot}\script{B}$ para alguma FBF \script{B}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	1 & \mbox{se $s(\script{B}, a) = 0$},\\
@@ -450,7 +450,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 	\end{array}\right.
 \end{displaymath}
 
-\item Se \script{A} é $(\script{B}\eand\script{C})$ para algumas fbfs \script{B,C}, então
+\item Se \script{A} é $(\script{B}\eand\script{C})$ para algumas FBFs \script{B,C}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	1 & \mbox{se $s(\script{B}, a) = 1$ e $s(\script{C}, a) = 1$,}\\
@@ -458,7 +458,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 	\end{array}\right.
 \end{displaymath}
 
-\item Se \script{A} é $(\script{B}\eor\script{C})$ para algumas fbfs \script{B,C}, então
+\item Se \script{A} é $(\script{B}\eor\script{C})$ para algumas FBFs \script{B,C}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	0 & \mbox{se $s(\script{B}, a) = 0$  e $s(\script{C}, a) = 0$,}\\
@@ -466,7 +466,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 	\end{array}\right.
 \end{displaymath}
 
-\item Se \script{A} é $(\script{B}\eif\script{C})$ para algumas fbfs \script{B,C}, então
+\item Se \script{A} é $(\script{B}\eif\script{C})$ para algumas FBFs \script{B,C}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	0 & \mbox{se $s(\script{B}, a) = 1$ e $s(\script{C}, a) = 0$,}\\
@@ -482,7 +482,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 	\end{array}\right.
 \end{displaymath}
 
-\item Se \script{A} é $\forall\script{x} \script{B}$ para alguma fbf \script{B} e alguma variável \script{x}, então
+\item Se \script{A} é $\forall\script{x} \script{B}$ para alguma FBF \script{B} e alguma variável \script{x}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	1 & \mbox{se $s(\script{B}, a[\Omega|\script{x}])=1$ para todo membro $\Omega$ do UD},\\
@@ -490,7 +490,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 	\end{array}\right.
 \end{displaymath}
 
-\item Se \script{A} é $\exists\script{x} \script{B}$ para alguma fbf \script{B} e alguma variável \script{x}, então
+\item Se \script{A} é $\exists\script{x} \script{B}$ para alguma FBF \script{B} e alguma variável \script{x}, então
 \begin{displaymath}s(\script{A}, a) =
 	\left\{\begin{array}{ll}
 	1 & \mbox{se $s(\script{B}, a[\Omega|\script{x}])=1$ para pelo menos um membro $\Omega$ do UD},\\
@@ -499,7 +499,7 @@ Para cada termo $t_i$: Se $t_i$ é uma constante, então $\Omega_i = \referent{t
 \end{displaymath}
 \end{enumerate}
  
-Esta definição segue a mesma estrutura que a definição de uma fbf para LQ, então sabemos que toda fbf de LQ será coberta por esta definição. Para um modelo \model{M} e uma atribuição de variável $a$, qualquer fbf será satisfeita ou não. Nenhuma fbf é deixada de fora ou atribuída valores conflitantes.
+Esta definição segue a mesma estrutura que a definição de uma FBF para LQ, então sabemos que toda FBF de LQ será coberta por esta definição. Para um modelo \model{M} e uma atribuição de variável $a$, qualquer FBF será satisfeita ou não. Nenhuma FBF é deixada de fora ou atribuída valores conflitantes.
 
 \subsection{Verdade}
 
@@ -507,12 +507,12 @@ Considere uma sentença simples como $\forall xPx$. Pela parte 7 na definição 
 
 A mesma coisa vale para qualquer sentença de LQ. Como todas as variáveis são ligadas, uma sentença é satisfeita ou não independentemente dos detalhes da atribuição de variável. Então podemos definir verdade desta forma: Uma sentença \script{A} é \define{verdadeira em} \model{M} se e somente se alguma atribuição de variável satisfaz \script{A} em $M$; \script{A} é \define{falsa em} \model{M} caso contrário.
 
-Verdade em LQ é \emph{verdade em um modelo}. Sentenças de LQ não são verdadeiras ou falsas de forma direta como meros símbolos, mas apenas relativamente a um modelo. A modelo fornece o significado dos símbolos, na medida em que faz diferença para verdade e falsidade.
+Verdade em LQ é \emph{verdade em um modelo}. Sentenças de LQ não são verdadeiras ou falsas de forma direta como meros símbolos, mas apenas relativamente a um modelo. O modelo fornece o significado dos símbolos, na medida em que faz diferença para a verdade e a falsidade.
 
 \subsection{Raciocinando sobre todos os modelos (reprise)}
 No final da seção \ref{sec.UsingModels}, ficamos impedidos quando tentamos mostrar que $\forall x(Rxx\eif Rxx)$ é uma tautologia. Tendo definido satisfação, podemos agora raciocinar desta forma:
 \begin{quote}
-Considere um modelo arbitrário \model{M}. Agora considere um membro arbitrário do UD; por conveniência, chame-o de $\Omega$. Deve ser o caso ou que $\langle\Omega,\Omega\rangle$ está na extensão de $R$ ou que não está. Se $\langle\Omega,\Omega\rangle$ está na extensão de $R$, então $Rxx$ é satisfeita por uma atribuição de variável que atribui $\Omega$ a $x$ (pela parte 1 da definição de {satisfação}); como o consequente de $Rxx\eif Rxx$ é satisfeito, o condicional é satisfeito (pela parte 5). Se $\langle\Omega,\Omega\rangle$ não está na extensão de $R$, então $Rxx$ não é satisfeita por uma atribuição de variável que atribui $\Omega$ a $x$ (pela parte 1); como o antecedente de $Rxx\eif Rxx$ não é satisfeito, o condicional é satisfeito (pela parte 5). Em ambos os casos, $Rxx\eif Rxx$ é satisfeita. Isso é verdade para qualquer membro do UD, então $\forall x(Rxx \eif Rxx)$ é satisfeita por qualquer atribuição de valor-verdade (pela parte 7). Então $\forall x(Rxx \eif Rxx)$ é verdadeira em \model{M} (pela definição de {verdade}). Este argumento vale independentemente do UD exato e independentemente da extensão exata de $R$, então $\forall x(Rxx \eif Rxx)$ é verdadeira em qualquer modelo. Portanto, é uma tautologia.
+Considere um modelo arbitrário \model{M}. Agora considere um membro arbitrário do UD; por conveniência, chame-o de $\Omega$. Deve ser o caso ou que $\langle\Omega,\Omega\rangle$ está na extensão de $R$ ou que não está. Se $\langle\Omega,\Omega\rangle$ está na extensão de $R$, então $Rxx$ é satisfeita por uma atribuição de variável que atribui $\Omega$ a $x$ (pela parte 1 da definição de \define{satisfação}); como o consequente de $Rxx\eif Rxx$ é satisfeito, o condicional é satisfeito (pela parte 5). Se $\langle\Omega,\Omega\rangle$ não está na extensão de $R$, então $Rxx$ não é satisfeita por uma atribuição de variável que atribui $\Omega$ a $x$ (pela parte 1); como o antecedente de $Rxx\eif Rxx$ não é satisfeito, o condicional é satisfeito (pela parte 5). Em ambos os casos, $Rxx\eif Rxx$ é satisfeita. Isso é verdade para qualquer membro do UD, então $\forall x(Rxx \eif Rxx)$ é satisfeita por qualquer atribuição de variável (pela parte 7). Então $\forall x(Rxx \eif Rxx)$ é verdadeira em \model{M} (pela definição de \define{verdade}). Este argumento vale independentemente do UD exato e independentemente da extensão exata de $R$, então $\forall x(Rxx \eif Rxx)$ é verdadeira em qualquer modelo. Portanto, é uma tautologia.
 \end{quote}
 
 Dar argumentos sobre todos os modelos possíveis normalmente requer uma combinação inteligente de duas estratégias:
@@ -523,12 +523,12 @@ Dar argumentos sobre todos os modelos possíveis normalmente requer uma combina�
 
 Considere mais um exemplo. O argumento $\forall x(Hx \eand Jx)$ \therefore  $\forall x Hx$ é obviamente válido. Só podemos mostrar que o argumento é válido considerando o que deve ser verdade em todo modelo no qual a premissa é verdadeira.
 \begin{quote}
-Considere um modelo arbitrário \model{M} no qual a premissa $\forall x(Hx \eand Jx)$ é verdadeira. A conjunção $Hx \eand Jx$ é satisfeita independentemente do que é atribuído a $x$, então $Hx$ também deve ser (pela parte 3 da definição de {satisfação}). Como tal, $(\forall x) Hx$ é satisfeita por qualquer atribuição de variável (pela parte 7 da definição de {satisfação}) e verdadeira em \model{M} (pela definição de {verdade}).
+Considere um modelo arbitrário \model{M} no qual a premissa $\forall x(Hx \eand Jx)$ é verdadeira. A conjunção $Hx \eand Jx$ é satisfeita independentemente do que é atribuído a $x$, então $Hx$ também deve ser (pela parte 3 da definição de \define{satisfação}). Como tal, $(\forall x) Hx$ é satisfeita por qualquer atribuição de variável (pela parte 7 da definição de \define{satisfação}) e verdadeira em \model{M} (pela definição de \define{verdade}).
 Como não assumimos nada sobre \model{M} além de $\forall x(Hx \eand Jx)$ ser verdadeira, $(\forall x) Hx$ deve ser verdadeira em qualquer modelo no qual $\forall x(Hx \eand Jx)$ é verdadeira. Então $\forall x(Hx \eand Jx) \models \forall x Hx$.
 \end{quote}
 Mesmo para um argumento simples como este, o raciocínio é um tanto complicado. Para argumentos mais longos, o raciocínio pode ser insuportável. O problema surge porque falar sobre uma infinidade de modelos requer raciocinar em português. O que devemos fazer?
 
-Poderíamos tentar formalizar nosso raciocínio sobre modelos, codificando as estratégias de dividir para conquistar que usamos acima. Esta abordagem, originalmente chamada \emph{tableaux semânticos}, foi desenvolvida na década de 1950 por Evert Beth e Jaakko Hintikka. Seus tableaux são agora mais comumente chamados de \emph{árvores de verdade}.
+Poderíamos tentar formalizar nosso raciocínio sobre modelos, codificando as estratégias de dividir para conquistar que usamos acima. Esta abordagem, originalmente chamada \emph{tableaux semânticos}, foi desenvolvida na década de 1950 por Evert Beth e Jaakko Hintikka. Seus tableaux são hoje mais comumente chamados de \emph{árvores semânticas}.
 
 Uma abordagem mais tradicional é considerar argumentos dedutivos como provas. Um \emph{sistema de prova} consiste em regras que distinguem formalmente entre argumentos legítimos e ilegítimos - sem considerar modelos ou os significados dos símbolos. No próximo capítulo, desenvolvemos sistemas de prova para LS e LQ.
 
@@ -615,12 +615,12 @@ Determine se cada sentença é verdadeira ou falsa no modelo dado.
 \label{pr.InterpretationToModel}
 Escreva o modelo que corresponde à interpretação dada.
 \begin{ekey}
-\item{UD:} números naturais de 10 a 13
-\item{Ox:} $x$ é ímpar. 
-\item{Sx:} $x$ é menor que 7.
-\item{Tx:} $x$ é um número de dois dígitos.
-\item{Ux:} $x$ é considerado azarado.
-\item{Nxy:} $x$ é o próximo número após $y$.
+\item[UD:] números naturais de 10 a 13
+\item[Ox:] $x$ é ímpar.
+\item[Sx:] $x$ é menor que 7.
+\item[Tx:] $x$ é um número de dois dígitos.
+\item[Ux:] $x$ é considerado azarado.
+\item[Nxy:] $x$ é o próximo número após $y$.
 \end{ekey}
 
 \problempart

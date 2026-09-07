@@ -2,7 +2,7 @@
 
 ## Edição brasileira
 
-Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada na edição mantida pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx).
+Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada no repositório mantido pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx). A fonte original foi conferida no commit [`b9a8724`](https://github.com/OpenLogicProject/forallx/commit/b9a872431eb97287fa039103db92a4bf27768b4b).
 
 - **Tradutor e adaptador:** Carlos André Duarte Costa, Universidade Estadual de Alagoas (UNEAL).
 - **Fonte desta edição:** [projetorealmat/forallx](https://github.com/projetorealmat/forallx).
@@ -13,7 +13,7 @@ Este repositório contém uma tradução e adaptação brasileira de *forall x: 
 - **Compilação:** consulte as [instruções no README](README.md#compilação-local).
 - **Licença:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/), com atribuição ao autor original e ao tradutor.
 
-Esta edição não é uma publicação oficial do Open Logic Project. Ela é uma obra derivada que preserva a atribuição e os termos da licença da obra original.
+Esta edição não é uma publicação oficial do Open Logic Project. Ela é uma obra derivada que preserva a atribuição, indica a tradução/adaptação e mantém os termos da licença da obra original.
 
 ## Outras edições
 

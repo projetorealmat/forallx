@@ -82,20 +82,20 @@ Muitos dos exercícios podem ser respondidos corretamente de diferentes maneiras
 \solutionsection{ch.SL}{pr.spies}
 \begin{ekey}
 \item[A:] Alice é uma espiã.
-\item[B:] Bob é uma espiã.
-\item[C:] O código foi quebrado.
-\item[G:] A embaixada brasileira estará em polvorosa.
+\item[B:] Bob é um espião.
+\item[C:] O código foi decifrado.
+\item[G:] A embaixada brasileira ficará em alvoroço.
 \end{ekey}
 \begin{earg}
 \item %Alice e Bob são ambos espiões.
 $A \eand B$
-\item %Se Alice ou Bob é uma espiã, então o código foi quebrado.
+\item %Se Alice ou Bob for espião, então o código foi decifrado.
 $(A \eor B) \eif C$
-\item %Se nem Alice nem Bob são espiões, então o código permanece intacto.
+\item %Se nem Alice nem Bob forem espiões, então o código permanece indecifrado.
 $\enot(A \eor B) \eif \enot C$
-\item %A embaixada brasileira estará em polvorosa, a menos que alguém tenha quebrado o código.
+\item %A embaixada brasileira ficará em alvoroço, a menos que alguém tenha decifrado o código.
 $G \eor C$
-\item %Ou o código foi quebrado ou não foi, mas a embaixada brasileira estará em polvorosa de qualquer maneira.
+\item %Ou o código foi decifrado ou não foi, mas a embaixada brasileira ficará em alvoroço de qualquer maneira.
 $(C \eor \enot C) \eand G$
 \item %Ou Alice ou Bob é uma espiã, mas não ambos.
 $(A \eor B) \eand \enot(A \eand B)$
@@ -292,36 +292,36 @@ $\exists x(Mx \eand Lxb \eand \enot Lbx)$
 \begin{earg}
 \item %Boris nunca experimentou nenhum doce.
 $\enot\exists x Tx$
-\item %O maçapão é sempre feito com açúcar.
+\item %Marzipã é sempre feito com açúcar.
 $\forall x(Mx \eif Sx)$
 \item %Algum doce é sem açúcar.
 $\exists x \enot Sx$
-\item %O melhor doce é o chocolate.
+\item %O melhor doce contém chocolate.
 $\exists x[Cx \eand \enot\exists y Byx]$
 \item %Nenhum doce é melhor que si mesmo.
 $\enot \exists x Bxx$
 \item %Boris nunca experimentou chocolate sem açúcar.
 $\enot \exists x(Cx \eand \enot Sx \eand Tx)$
-\item %Boris experimentou maçapão e chocolate, mas nunca juntos.
+\item %Boris já provou marzipã e chocolate, mas nunca juntos.
 $\exists x(Cx \eand Tx) \eand \exists x(Mx \eand Tx) \eand \enot \exists x(Cx \eand Mx \eand Tx)$
-%\item Boris não experimentou nada que seja melhor que maçapão sem açúcar.
+%\item Boris nunca provou nada que seja melhor do que marzipã sem açúcar.
 %$\enot\exists x[Bx \eand \exists y(
 \item %Qualquer doce com chocolate é melhor que qualquer doce sem ele.
 $\forall x[Cx \eif \forall y(\enot Cy \eif Bxy)]$
-\item %Qualquer doce com chocolate e maçapão é melhor que qualquer doce sem nenhum dos dois.
+\item %Qualquer doce com chocolate e marzipã é melhor do que qualquer doce que não tenha nem chocolate nem marzipã.
 $\forall x\bigl((Cx \eand Mx) \eif \forall y[(\enot Cy \eand \enot My) \eif Bxy]\bigr)$
 \end{earg}
 
 
 \solutionsection{ch.QL}{pr.QLballet}
 \begin{earg}
-\item %Todos os filhos de Patrick são bailarinos de balé.
+\item %Todos os filhos de Patrick dançam balé.
 $\forall x(Cxp \eif Dx)$
 \item %Jane é filha de Patrick.
 $Cjp \eand Fj$
 \item %Patrick tem uma filha.
 $\exists x(Cxp \eand Fx)$
-\item %Jane é filha única.
+\item %Jane é filha única (não tem irmãos).
 $\enot\exists x Sxj$
 \item %Todas as filhas de Patrick dançam balé.
 $\forall x\bigl[(Cxp \eand Fx)\eif Dx\bigr]$

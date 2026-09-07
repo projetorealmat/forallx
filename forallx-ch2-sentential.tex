@@ -86,7 +86,7 @@ Observe que aqui estamos dando a $B$ uma interpretação diferente daquela usada
 
 Agora, a sentença \ref{not1} é simplesmente $B$.
 
-Como a sentença \ref{not2} é obviamente relacionada à sentença \ref{not1}, não queremos introduzir outra letra de sentença. Em parte em português, a sentença significa ``não $B$''. Para simbolizá-la, precisamos de um símbolo para a negação lógica. Usaremos `\enot'. Assim, podemos traduzir ``não $B$'' por $\enot B$.
+Como a sentença \ref{not2} é obviamente relacionada à sentença \ref{not1}, não queremos introduzir outra letra de sentença. Em parte, a sentença significa ``não $B$''. Para simbolizá-la, precisamos de um símbolo para a negação lógica. Usaremos `\enot'. Assim, podemos traduzir ``não $B$'' por $\enot B$.
 
 A sentença \ref{not3} fala sobre se Bruna está ou não em Brasília, embora não contenha a palavra ``não''. Ainda assim, ela é claramente logicamente equivalente à sentença \ref{not2}. Ambas significam: Não é o caso que Bruna está em Brasília. Portanto, podemos traduzir tanto a sentença \ref{not2} quanto a \ref{not3} como $\enot B$.
 
@@ -147,7 +147,7 @@ A sentença \ref{and1} pode ser simbolizada como $A$.
 
 A sentença \ref{and2} pode ser simbolizada como $B$.
 
-A sentença \ref{and3} pode ser parafraseada como `$A$ e $B$'. Para simbolizá-la completamente, precisamos de outro símbolo. Usaremos `\eand'. Traduzimos então `$A$ e $B$' como $A\eand B$. O conectivo lógico `\eand' é chamado de \define{conjunção}, e $A$ e $B$ são chamados de \define{conjuntos} (ou conjunções parciais).
+A sentença \ref{and3} pode ser parafraseada como `$A$ e $B$'. Para simbolizá-la completamente, precisamos de outro símbolo. Usaremos `\eand'. Traduzimos então `$A$ e $B$' como $A\eand B$. O conectivo lógico `\eand' é chamado de \define{conjunção}, e $A$ e $B$ são chamados de \define{componentes da conjunção}.
 
 Observe que não tentamos simbolizar a palavra `também' em \ref{and3}. Palavras como `tanto', `ambos' e `também' servem apenas para chamar a atenção para o fato de que duas coisas estão sendo conjuntadas. Elas não têm função lógica adicional, então não precisamos representá-las em LS.
 
@@ -162,12 +162,12 @@ Mais alguns exemplos:
 A sentença \ref{and4} é claramente uma conjunção. A sentença diz duas coisas sobre Barbara; em português é permitido mencionar Barbara apenas uma vez. Poderia ser tentador traduzir assim: já que $B$ significa `Barbara é atlética', alguém poderia parafrasear como `$B$ e energética'. Isso seria um erro. Uma vez que traduzimos parte da sentença como $B$, qualquer estrutura interna é perdida. $B$ é uma sentença atômica; não é mais do que verdadeira ou falsa. Por outro lado, `energética' não é uma sentença; sozinha não é nem verdadeira nem falsa. Devemos, ao contrário, parafraseá-la como `$B$ e Barbara é energética.' Agora precisamos acrescentar uma letra de sentença à chave de simbolização. Seja $E$ `Barbara é energética'. Agora a sentença pode ser traduzida como $B\eand E$.
 
 \factoidbox{
-Uma sentença pode ser simbolizada como $\script{A}\eand\script{B}$ se puder ser parafraseada em português como `Tanto \script{A} quanto \script{B}.' Cada um dos conjuntos deve ser uma sentença.
+Uma sentença pode ser simbolizada como $\script{A}\eand\script{B}$ se puder ser parafraseada em português como `Tanto \script{A} quanto \script{B}.' Cada um dos componentes deve ser uma sentença.
 }
 
-A sentença \ref{and5} afirma uma coisa sobre dois sujeitos distintos. Ela diz, tanto de Barbara quanto de Adam, que são atléticos, e em português usamos a palavra `atléticos' apenas uma vez. Ao traduzir para LS, é importante perceber que a sentença pode ser parafraseada como `Barbara é atlética, e Adam é atlética.' Isso se traduz como $B\eand A$.
+A sentença \ref{and5} afirma uma coisa sobre dois sujeitos distintos. Ela diz, tanto de Barbara quanto de Adam, que são atléticos, e em português usamos a palavra `atléticos' apenas uma vez. Ao traduzir para LS, é importante perceber que a sentença pode ser parafraseada como `Barbara é atlética, e Adam é atlético.' Isso se traduz como $B\eand A$.
 
-A sentença \ref{and6} é um pouco mais complicada. A palavra `embora' estabelece um contraste entre a primeira parte da sentença e a segunda. Ainda assim, a sentença diz tanto que Barbara é energética quanto que ela não é atlética. Para fazer com que cada um dos conjuntos seja uma sentença atômica, precisamos substituir `ela' por `Barbara'.
+A sentença \ref{and6} é um pouco mais complicada. A palavra `embora' estabelece um contraste entre a primeira parte da sentença e a segunda. Ainda assim, a sentença diz tanto que Barbara é energética quanto que ela não é atlética. Para fazer com que cada um dos componentes seja uma sentença atômica, precisamos substituir `ela' por `Barbara'.
 
 Podemos então parafrasear \ref{and6} como `\emph{Tanto} Barbara é energética \emph{como} Barbara não é atlética.' A segunda conjunção contém uma negação, então podemos parafrasear ainda mais: `\emph{Tanto} Barbara é energética \emph{como} \emph{não é o caso que} Barbara é atlética.' Isso se traduz como $E\eand\enot B$.
 
@@ -189,7 +189,7 @@ F & F & F
 \end{tabular}
 \end{center}
 
-A conjunção é \emph{simétrica}, porque podemos trocar os conjuntos sem mudar o valor de verdade da sentença. Quaisquer que sejam \script{A} e \script{B}, \script{A}\eand\script{B} é logicamente equivalente a \script{B}\eand\script{A}.
+A conjunção é \emph{simétrica}, porque podemos trocar os componentes sem mudar o valor de verdade da sentença. Quaisquer que sejam \script{A} e \script{B}, \script{A}\eand\script{B} é logicamente equivalente a \script{B}\eand\script{A}.
 
 
 
@@ -241,7 +241,7 @@ Estas sentenças são um pouco mais complicadas:
 \begin{earg}
 \item[\ex{or3}] Ou você não vai tomar sopa, ou você não vai tomar salada.
 \item[\ex{or4}] Você não vai tomar nem sopa nem salada.
-\item[\ex{or.xor}] Você ganha sopa ou salada, mas não as duas.
+\item[\ex{or.xor}] Você toma sopa ou salada, mas não as duas.
 \end{earg}
 
 Seja $S_1$ `você toma sopa' e $S_2$ `você toma salada'.
@@ -395,45 +395,45 @@ parênteses&( , )\\
 \end{tabular}
 \end{center}
 
-Definimos uma \define{expressão de LS} como qualquer sequência (string) de símbolos de LS. Pegue quaisquer símbolos de LS e escreva-os em alguma ordem: você terá uma expressão.
+Definimos uma \define{expressão de LS} como qualquer sequência de símbolos de LS. Pegue quaisquer símbolos de LS e escreva-os em alguma ordem: você terá uma expressão.
 
 
 \subsection{Fórmulas bem formadas}
 
-Como qualquer sequência de símbolos é uma expressão, muitas expressões de LS serão simplesmente sem sentido. Uma expressão significativa é chamada de \emph{fórmula bem formada}. É comum usar a sigla em inglês \emph{wff} (well-formed formula); o plural é wffs.
+Como qualquer sequência de símbolos é uma expressão, muitas expressões de LS serão simplesmente sem sentido. Uma expressão significativa é chamada de \define{fórmula bem formada} (FBF).
 
-Obviamente, letras de sentença individuais como $A$ e $G_{13}$ serão wffs. Podemos formar novas wffs a partir delas usando os conectivos. Usando negação, obtemos $\enot A$ e $\enot G_{13}$. Usando conjunção, obtemos $A \eand G_{13}$, $G_{13} \eand A$, $A \eand A$ e $G_{13} \eand G_{13}$. Também poderíamos aplicar negação repetidamente e obter wffs como $\enot \enot A$, ou aplicar negação junto com conjunção e obter wffs como $\enot(A \eand G_{13})$ e $\enot(G_{13} \eand \enot G_{13})$. As combinações possíveis são infinitas, mesmo começando apenas com essas duas letras de sentença, e há infinitas letras de sentença. Portanto, não faz sentido tentar listar todas as wffs.
+Obviamente, letras de sentença individuais como $A$ e $G_{13}$ serão FBFs. Podemos formar novas FBFs a partir delas usando os conectivos. Usando negação, obtemos $\enot A$ e $\enot G_{13}$. Usando conjunção, obtemos $A \eand G_{13}$, $G_{13} \eand A$, $A \eand A$ e $G_{13} \eand G_{13}$. Também poderíamos aplicar negação repetidamente e obter FBFs como $\enot \enot A$, ou aplicar negação junto com conjunção e obter FBFs como $\enot(A \eand G_{13})$ e $\enot(G_{13} \eand \enot G_{13})$. As combinações possíveis são infinitas, mesmo começando apenas com essas duas letras de sentença, e há infinitas letras de sentença. Portanto, não faz sentido tentar listar todas as FBFs.
 
-Em vez disso, descreveremos o processo pelo qual as wffs podem ser construídas. Considere a negação: dada qualquer wff \script{A} de LS, $\enot\script{A}$ é uma wff de LS. É importante notar que \script{A} aqui não é a letra de sentença $A$. Ela é uma variável que representa qualquer wff. Observe que essa variável \script{A} não é um símbolo de LS, de modo que $\enot\script{A}$ não é uma expressão de LS. Em vez disso, é uma expressão da metalinguagem que nos permite falar sobre infinitas expressões de LS: todas as expressões que começam com o símbolo de negação. Como \script{A} faz parte da metalinguagem, é chamada de \emph{metavariável}.
+Em vez disso, descreveremos o processo pelo qual as FBFs podem ser construídas. Considere a negação: dada qualquer FBF \script{A} de LS, $\enot\script{A}$ é uma FBF de LS. É importante notar que \script{A} aqui não é a letra de sentença $A$. Ela é uma variável que representa qualquer FBF. Observe que essa variável \script{A} não é um símbolo de LS, de modo que $\enot\script{A}$ não é uma expressão de LS. Em vez disso, é uma expressão da metalinguagem que nos permite falar sobre infinitas expressões de LS: todas as expressões que começam com o símbolo de negação. Como \script{A} faz parte da metalinguagem, é chamada de \emph{metavariável}.
 
-Podemos dizer algo semelhante para cada um dos outros conectivos. Por exemplo, se \script{A} e \script{B} são wffs de LS, então $(\script{A}\eand\script{B})$ é uma wff de LS. Fornecendo cláusulas desse tipo para todos os conectivos, chegamos à seguinte definição formal de {fórmula bem formada de LS}:
+Podemos dizer algo semelhante para cada um dos outros conectivos. Por exemplo, se \script{A} e \script{B} são FBFs de LS, então $(\script{A}\eand\script{B})$ é uma FBF de LS. Fornecendo cláusulas desse tipo para todos os conectivos, chegamos à seguinte definição formal de \define{fórmula bem formada de LS}:
 
 \begin{enumerate}
-\item Toda sentença atômica é uma wff.
-\item Se \script{A} é uma wff, então $\enot\script{A}$ é uma wff de LS.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eand\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eor\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eif\script{B})$ é uma wff.
-\item Se \script{A} e \script{B} são wffs, então $(\script{A}\eiff\script{B})$ é uma wff.
-\item Todas e somente as wffs de LS podem ser geradas por aplicações dessas regras.
+\item Toda sentença atômica é uma FBF.
+\item Se \script{A} é uma FBF, então $\enot\script{A}$ é uma FBF de LS.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eand\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eor\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eif\script{B})$ é uma FBF.
+\item Se \script{A} e \script{B} são FBFs, então $(\script{A}\eiff\script{B})$ é uma FBF.
+\item Todas e somente as FBFs de LS podem ser geradas por aplicações dessas regras.
 \end{enumerate}
 
-Note que não podemos aplicar imediatamente essa definição para verificar se uma expressão qualquer é ou não uma wff. Suponha que queiramos saber se $\enot \enot \enot D$ é uma wff de LS. Olhando a segunda cláusula da definição, sabemos que $\enot \enot \enot D$ é uma wff \emph{se} $\enot \enot D$ for uma wff. Então precisamos perguntar se $\enot \enot D$ é uma wff. De novo, pela segunda cláusula, $\enot \enot D$ é uma wff \emph{se} $\enot D$ for. E, por sua vez, $\enot D$ é uma wff \emph{se} $D$ for uma wff. Agora, $D$ é uma letra de sentença, uma sentença atômica de LS, então sabemos pela primeira cláusula que $D$ é uma wff. Assim, para uma fórmula composta como $\enot \enot \enot D$, precisamos aplicar a definição repetidamente. Eventualmente, chegamos às sentenças atômicas a partir das quais a wff é construída.
+Note que não podemos aplicar imediatamente essa definição para verificar se uma expressão qualquer é ou não uma FBF. Suponha que queiramos saber se $\enot \enot \enot D$ é uma FBF de LS. Olhando a segunda cláusula da definição, sabemos que $\enot \enot \enot D$ é uma FBF \emph{se} $\enot \enot D$ for uma FBF. Então precisamos perguntar se $\enot \enot D$ é uma FBF. De novo, pela segunda cláusula, $\enot \enot D$ é uma FBF \emph{se} $\enot D$ for. E, por sua vez, $\enot D$ é uma FBF \emph{se} $D$ for uma FBF. Agora, $D$ é uma letra de sentença, uma sentença atômica de LS, então sabemos pela primeira cláusula que $D$ é uma FBF. Assim, para uma fórmula composta como $\enot \enot \enot D$, precisamos aplicar a definição repetidamente. Eventualmente, chegamos às sentenças atômicas a partir das quais a FBF é construída.
 
 Definições desse tipo são chamadas de \emph{recursivas}. Definições recursivas começam com alguns elementos-base especificáveis e definem maneiras de compor indefinidamente esses elementos-base. Assim como a definição recursiva permite construir sentenças complexas a partir de partes simples, podemos usá-la para decompor sentenças em partes mais simples. Para determinar se algo se encaixa na definição, podemos precisar recorrer a ela muitas vezes.
 
-O conectivo que você observa primeiro ao decompor uma sentença é chamado de \define{principal operador lógico} (ou operador lógico principal) daquela sentença. Por exemplo: o operador lógico principal de $\enot (E \eor (F \eif G))$ é a negação, \enot. O operador lógico principal de $(\enot E \eor (F \eif G))$ é a disjunção, \eor.
+O conectivo que você observa primeiro ao decompor uma sentença é chamado de \define{operador lógico principal} daquela sentença. Por exemplo: o operador lógico principal de $\enot (E \eor (F \eif G))$ é a negação, \enot. O operador lógico principal de $(\enot E \eor (F \eif G))$ é a disjunção, \eor.
 
 
 \subsection{Sentenças}
-Lembre-se de que uma sentença é uma expressão significativa que pode ser verdadeira ou falsa. Como as expressões significativas de LS são as wffs e como toda wff de LS é verdadeira ou falsa, a definição de sentença de LS coincide com a definição de wff. Nem toda linguagem formal terá essa propriedade agradável. Na linguagem LQ, desenvolvida mais adiante no livro, há wffs que não são sentenças.
+Lembre-se de que uma sentença é uma expressão significativa que pode ser verdadeira ou falsa. Como as expressões significativas de LS são as FBFs e como toda FBF de LS é verdadeira ou falsa, a definição de sentença de LS coincide com a definição de FBF. Nem toda linguagem formal terá essa propriedade agradável. Na linguagem LQ, desenvolvida mais adiante no livro, há FBFs que não são sentenças.
 
 A estrutura recursiva das sentenças em LS será importante quando considerarmos as circunstâncias em que uma sentença é verdadeira ou falsa. A sentença $\enot \enot \enot D$ é verdadeira se, e somente se, a sentença $\enot \enot D$ for falsa; e assim por diante, ao longo da estrutura, até chegarmos ao componente atômico: $\enot \enot \enot D$ é verdadeira se, e somente se, a sentença atômica $D$ for falsa. Voltaremos a esse ponto no próximo capítulo.
 
 
 \subsection{Convenções notacionais}
 \label{LSconventions}
-Uma wff como $(Q \eand R)$ precisa estar cercada por parênteses, porque poderíamos aplicar de novo a definição e usar isso como parte de uma sentença ainda mais complicada. Se negarmos $(Q \eand R)$, obtemos $\enot(Q \eand R)$. Se nós tivéssemos apenas $Q \eand R$ sem parênteses e colocássemos uma negação na frente, teríamos $\enot Q \eand R$. É mais natural ler isso como significando o mesmo que $(\enot Q \eand R)$, algo muito diferente de $\enot(Q\eand R)$. A sentença $\enot(Q \eand R)$ diz que não é o caso que tanto $Q$ quanto $R$ sejam verdadeiros; $Q$ pode ser falso, ou $R$ pode ser falso, mas a sentença não nos diz qual. Já $(\enot Q \eand R)$ diz especificamente que $Q$ é falso e $R$ é verdadeiro. Assim, os parênteses são cruciais para o significado.
+Uma FBF como $(Q \eand R)$ precisa estar cercada por parênteses, porque poderíamos aplicar de novo a definição e usar isso como parte de uma sentença ainda mais complicada. Se negarmos $(Q \eand R)$, obtemos $\enot(Q \eand R)$. Se nós tivéssemos apenas $Q \eand R$ sem parênteses e colocássemos uma negação na frente, teríamos $\enot Q \eand R$. É mais natural ler isso como significando o mesmo que $(\enot Q \eand R)$, algo muito diferente de $\enot(Q\eand R)$. A sentença $\enot(Q \eand R)$ diz que não é o caso que tanto $Q$ quanto $R$ sejam verdadeiros; $Q$ pode ser falso, ou $R$ pode ser falso, mas a sentença não nos diz qual. Já $(\enot Q \eand R)$ diz especificamente que $Q$ é falso e $R$ é verdadeiro. Assim, os parênteses são cruciais para o significado.
 
 Portanto, estritamente falando, $Q \eand R$ sem parênteses \emph{não} é uma sentença de LS. No uso prático de LS, porém, muitas vezes poderemos relaxar a definição precisa para facilitar nossa vida. Faremos isso de várias maneiras.
 
@@ -452,7 +452,7 @@ Essas duas últimas convenções só valem para múltiplas conjunções ou múlt
 
 Adotamos essas quatro regras como \emph{convenções notacionais}, e não como mudanças na definição de sentença. Estritamente falando, $A \eor B \eor C$ ainda não é uma sentença. Em vez disso, é um tipo de abreviação. Escrevemo-la por conveniência, mas queremos dizer, na verdade, a sentença $(A \eor (B \eor C))$.
 
-Se tivéssemos dado uma definição diferente de wff, poderíamos fazer com que tais abreviações fossem wffs. Poderíamos ter escrito a regra 3 assim: ``Se \script{A}, \script{B}, $\ldots$ \script{Z} são wffs, então $(\script{A}\eand\script{B}\eand\ldots\eand\script{Z})$ é uma wff.'' Isso tornaria mais fácil traduzir algumas sentenças em português, mas teria o custo de tornar nossa linguagem formal mais complicada. Teríamos de carregar essa definição complexa quando desenvolvêssemos tabelas de verdade e o sistema de provas. Queremos uma linguagem lógica que seja \emph{simples do ponto de vista formal} e ainda assim permita traduzir bem a partir do português (ou do inglês). Adotar convenções notacionais é um meio-termo entre essas duas exigências.
+Se tivéssemos dado uma definição diferente de FBF, poderíamos fazer com que tais abreviações fossem FBFs. Poderíamos ter escrito a regra 3 assim: ``Se \script{A}, \script{B}, $\ldots$ \script{Z} são FBFs, então $(\script{A}\eand\script{B}\eand\ldots\eand\script{Z})$ é uma FBF.'' Isso tornaria mais fácil traduzir algumas sentenças em português, mas teria o custo de tornar nossa linguagem formal mais complicada. Teríamos de carregar essa definição complexa quando desenvolvêssemos tabelas de verdade e o sistema de provas. Queremos uma linguagem lógica que seja \emph{simples do ponto de vista formal} e ainda assim permita traduzir bem a partir do português (ou do inglês). Adotar convenções notacionais é um meio-termo entre essas duas exigências.
 
 
 
@@ -462,7 +462,7 @@ Se tivéssemos dado uma definição diferente de wff, poderíamos fazer com que 
 \problempart Usando a chave de simbolização dada, traduza cada sentença em português para LS.
 \label{pr.monkeysuits}
 \begin{ekey}
-\item[M:] Aqueles seres são pessoas disfarçadas.
+\item[M:] Aqueles seres são homens fantasiados.
 \item[C:] Aqueles seres são chimpanzés.
 \item[G:] Aqueles seres são gorilas.
 \end{ekey}
@@ -537,7 +537,7 @@ Se tivéssemos dado uma definição diferente de wff, poderíamos fazer com que 
 Dê uma chave de simbolização e simbolize as sentenças a seguir em LS.
 \begin{earg}
 \item Alice e Bob são ambos espiões.
-\item Se ou Alice ou Bob é espião, então o código foi decifrado.
+\item Se Alice ou Bob for espião, então o código foi decifrado.
 \item Se nem Alice nem Bob é espião, então o código permanece indecifrado.
 \item A embaixada brasileira ficará em alvoroço, a menos que alguém tenha decifrado o código.
 \item Ou o código foi decifrado ou não foi, mas a embaixada brasileira ficará em alvoroço de qualquer forma.
@@ -568,7 +568,7 @@ Para cada argumento, escreva uma chave de simbolização e traduza o argumento o
 \solutions
 \problempart
 \label{pr.wiffLS}
-Para cada expressão a seguir: (a) Ela é uma wff de LS? (b) Ela é uma sentença de LS, levando em conta as convenções notacionais?
+Para cada expressão a seguir: (a) Ela é uma FBF de LS? (b) Ela é uma sentença de LS, levando em conta as convenções notacionais?
 \begin{earg}
 \item $(A)$
 \item $J_{374} \eor \enot J_{374}$
@@ -585,6 +585,6 @@ Para cada expressão a seguir: (a) Ela é uma wff de LS? (b) Ela é uma sentenç
 
 \problempart
 \begin{earg}
-\item Existe alguma wff de LS que não contenha letras de sentença? Por quê?
+\item Existe alguma FBF de LS que não contenha letras de sentença? Por quê?
 \item No capítulo, simbolizamos um \emph{ou exclusivo} usando \eor, \eand e \enot. Como você poderia traduzir um \emph{ou exclusivo} usando apenas dois conectivos? Há alguma maneira de traduzir um \emph{ou exclusivo} usando apenas um conectivo?
 \end{earg}

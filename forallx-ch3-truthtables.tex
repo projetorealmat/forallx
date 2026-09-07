@@ -2,13 +2,13 @@
 \chapter{Tabelas-verdade}
 \label{ch.TruthTables}
 
-Este capítulo introduz um modo de avaliar sentenças e argumentos de LS. Embora possa ser trabalhoso, o método das tabelas-verdade é um procedimento puramente mecânico, que não exige intuição nem qualquer tipo de "percepção" especial.
+Este capítulo introduz um modo de avaliar sentenças e argumentos de LS. Embora possa ser trabalhoso, o método das tabelas-verdade é um procedimento puramente mecânico, que não exige intuição nem qualquer tipo de \enquote{percepção} especial.
 
 \section{Conectivos verofuncionais}
 
 Qualquer sentença não atômica de LS é composta de sentenças atômicas com conectivos sentenciais. O valor de verdade da sentença composta depende apenas dos valores de verdade das sentenças atômicas que a compõem. Para saber o valor de verdade de $(D\eiff E)$, por exemplo, você só precisa saber o valor de verdade de $D$ e o valor de verdade de $E$. Conectivos que funcionam desse modo são chamados de \define{verofuncionais} (isto é, seu comportamento depende apenas dos valores de verdade das partes).
 
-Neste capítulo, exploraremos o fato de que todos os operadores lógicos de LS são verofuncionais — isso torna possível construir tabelas-verdade para determinar as propriedades lógicas das sentenças. É importante perceber, porém, que isso não vale para todas as linguagens. Em português (como em inglês), é possível formar uma nova sentença a partir de uma sentença mais simples \script{X} dizendo: "É possível que \script{X}". O valor de verdade dessa nova sentença não depende diretamente do valor de verdade de \script{X}. Mesmo que \script{X} seja falsa, pode ser que, em algum sentido, \script{X} \emph{pudesse} ter sido verdadeira — nesse caso, a nova sentença seria verdadeira. Alguns sistemas formais, chamados de \emph{lógicas modais}, têm um operador para {possibilidade}. Em uma lógica modal, poderíamos traduzir "É possível que \script{X}" como {\large $\diamond$}\script{X}. No entanto, a possibilidade de traduzir sentenças como essa vem com um custo: o operador {\large $\diamond$} não é verofuncional, e por isso lógicas modais não são adequadas para o uso de tabelas-verdade da forma simples que veremos aqui.
+Neste capítulo, exploraremos o fato de que todos os operadores lógicos de LS são verofuncionais — isso torna possível construir tabelas-verdade para determinar as propriedades lógicas das sentenças. É importante perceber, porém, que isso não vale para todas as linguagens. Em português, é possível formar uma nova sentença a partir de uma sentença mais simples \script{X} dizendo: \enquote{É possível que \script{X}}. O valor de verdade dessa nova sentença não depende diretamente do valor de verdade de \script{X}. Mesmo que \script{X} seja falsa, pode ser que, em algum sentido, \script{X} \emph{pudesse} ter sido verdadeira — nesse caso, a nova sentença seria verdadeira. Alguns sistemas formais, chamados de \emph{lógicas modais}, têm um operador para \define{possibilidade}. Em uma lógica modal, poderíamos traduzir \enquote{É possível que \script{X}} como {\large $\diamond$}\script{X}. No entanto, a possibilidade de traduzir sentenças como essa vem com um custo: o operador {\large $\diamond$} não é verofuncional, e por isso lógicas modais não são adequadas para o uso de tabelas-verdade da forma simples que veremos aqui.
 
 
 \section{Tabelas-verdade completas}
@@ -39,7 +39,7 @@ Aqui estão as tabelas-verdade dos conectivos de LS, escritas em termos de 1s e 
 \label{table.CharacteristicTTs}
 \end{table}
 
-A tabela-verdade característica da conjunção, por exemplo, fornece as condições de verdade de qualquer sentença da forma $(\script{A}\eand\script{B})$. Mesmo que as conjunções \script{A} e \script{B} sejam sentenças longas e complicadas, a conjunção é verdadeira se, e somente se, tanto \script{A} quanto \script{B} forem verdadeiras. Considere a sentença $(H\eand I)\eif H$. Tomamos todas as possíveis combinações de verdadeiro e falso para $H$ e $I$, o que nos dá quatro linhas. Copiamos então os valores de verdade das letras sentenciais e os escrevemos sob as letras na sentença.
+A tabela-verdade característica da conjunção, por exemplo, fornece as condições de verdade de qualquer sentença da forma $(\script{A}\eand\script{B})$. Mesmo que os componentes \script{A} e \script{B} sejam sentenças longas e complicadas, a conjunção é verdadeira se, e somente se, tanto \script{A} quanto \script{B} forem verdadeiras. Considere a sentença $(H\eand I)\eif H$. Tomamos todas as possíveis combinações de verdadeiro e falso para $H$ e $I$, o que nos dá quatro linhas. Copiamos então os valores de verdade das letras sentenciais e os escrevemos sob as letras na sentença.
 \begin{center}
 \begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
 $H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
@@ -74,7 +74,7 @@ $H$&$I$&$(H$&\eand&$I)$&\eif&$H$\\
  0 & 0 &  & {0} &  &\TTbf{1} & 0
 \end{tabular}
 \end{center}
-A coluna de 1s sob o condicional nos mostra que a sentença \mbox{$(H \eand I)\eif I$} é verdadeira independentemente dos valores de verdade de $H$ e $I$. Eles podem ser verdadeiros ou falsos em qualquer combinação e, ainda assim, a sentença composta sai verdadeira. É crucial que tenhamos considerado todas as combinações possíveis. Se tivéssemos apenas uma tabela de duas linhas, não poderíamos ter certeza de que a sentença não seria falsa em alguma outra combinação de valores de verdade.
+A coluna de 1s sob o condicional nos mostra que a sentença \mbox{$(H \eand I)\eif H$} é verdadeira independentemente dos valores de verdade de $H$ e $I$. Eles podem ser verdadeiros ou falsos em qualquer combinação e, ainda assim, a sentença composta sai verdadeira. É crucial que tenhamos considerado todas as combinações possíveis. Se tivéssemos apenas uma tabela de duas linhas, não poderíamos ter certeza de que a sentença não seria falsa em alguma outra combinação de valores de verdade.
 
 Neste exemplo, não repetimos todas as entradas em cada tabela sucessiva. Mas, quando realmente escrevemos tabelas-verdade no papel, é impraticável apagar colunas inteiras ou reescrever a tabela toda a cada passo. Embora fique mais "apertado", a tabela-verdade pode ser escrita assim:
 \begin{center}
@@ -407,7 +407,7 @@ Podemos ter uma linguagem equivalente a LS com apenas negação e disjunção co
 %$\enot(\enot A \eor \enot B) \eor \enot(A \eor B)$
 \end{earg}
 %...
-O \emph{traço de Sheffer} (Sheffer stroke) é um conectivo lógico com a seguinte tabela-verdade característica:
+O \emph{traço de Sheffer} (também chamado de NAND) é um conectivo lógico com a seguinte tabela-verdade característica:
 \begin{center}
 \begin{tabular}{c|c|c}
 \script{A} & \script{B} & \script{A}$|$\script{B}\\
