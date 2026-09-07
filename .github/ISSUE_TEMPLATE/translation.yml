@@ -1,7 +1,7 @@
 name: Revisão de tradução
 description: Relate um problema ou proponha uma melhoria na tradução.
 title: "[Tradução]: "
-labels: []
+labels: ["tradução"]
 body:
   - type: input
     id: location
