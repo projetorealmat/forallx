@@ -6,6 +6,7 @@ Este repositório segue o padrão de releases do REALMat para livros mantidos em
 
 As tags seguem `vMAJOR.MINOR.PATCH`:
 
+- `v0.x.y`: tradução em revisão;
 - `v1.0.0`: primeira tradução aprovada;
 - `v1.0.1`: correção técnica ou editorial pequena, sem mudança de edição;
 - `v1.1.0`: adaptação, acréscimo ou alteração compatível com a mesma edição;
@@ -23,7 +24,7 @@ O workflow publica automaticamente:
 - `SHA256SUMS`;
 - as notas da versão geradas pelo GitHub.
 
-O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento.
+O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento. A release `v0.x.y` é uma referência pública em revisão; a primeira referência aprovada será `v1.0.0`.
 
 ## Publicar uma versão pela interface do GitHub
 
