@@ -10,7 +10,8 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 
 - [Fonte principal em LaTeX](forallx.tex)
 - [Metadados da edição](forallx-metadata.tex)
-- [PDF da última versão publicada](https://github.com/projetorealmat/forallx/releases/latest/download/forallx.pdf)
+- [Metadados de citação](CITATION.cff)
+- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf) (v0.1.0, em revisão)
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
 - [Execuções dos workflows](https://github.com/projetorealmat/forallx/actions)
@@ -19,8 +20,9 @@ O PDF oficial é publicado automaticamente em uma Release quando uma tag no form
 
 ## Versões publicadas e arquivos-fonte
 
-A primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
+A versão atualmente recomendada é `v0.1.0`, uma tradução em revisão. A primeira tradução aprovada será publicada como `v1.0.0`. A partir dela, o versionamento seguirá estas regras:
 
+- `v0.x.y`: tradução em revisão;
 - `v1.0.0`: primeira tradução aprovada;
 - `v1.0.1`: correção técnica ou editorial pequena;
 - `v1.1.0`: adaptação ou acréscimo compatível com a mesma edição;
@@ -50,7 +52,7 @@ O comando gera `forallx.pdf` e os arquivos auxiliares da compilação. Para limp
 latexmk -C forallx.tex
 ~~~
 
-Em uma compilação local, o PDF será identificado como uma versão de desenvolvimento e receberá a data da compilação. O workflow de Release substitui automaticamente esses dados pela tag, pela data de publicação e pelo status editorial da versão.
+Em uma compilação local, o PDF será identificado como uma versão de desenvolvimento e receberá a data da compilação. O workflow de Release substitui automaticamente esses dados pela tag, pela data de publicação e pelo status editorial da versão. Releases `v0.x.y` são pré-releases em revisão e não são consideradas pela URL `releases/latest` do GitHub.
 
 ## Publicação de uma versão
 
