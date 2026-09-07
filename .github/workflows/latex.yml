@@ -1,8 +1,8 @@
 name: Build and Validate PDF
 
 on:
-  # Pull requests validate the proposed content; publication builds run only
-  # when the version in CITATION.cff changes on main.
+  # Todo pull request, inclusive uma Release PR, valida o PDF candidato.
+  # A compilação final de publicação ocorre somente após o merge de uma Release PR.
   pull_request:
     branches:
       - main
@@ -28,6 +28,64 @@ jobs:
 
       - name: Verificar política de releases
         run: python3 scripts/test_release_workflow_policy.py
+
+      - name: Reservar versionamento para Release PR
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+
+          git fetch --no-tags origin "${BASE_REF}"
+          git show "origin/${BASE_REF}:CITATION.cff" > "${RUNNER_TEMP}/base-CITATION.cff"
+
+          python3 - "${RUNNER_TEMP}/base-CITATION.cff" CITATION.cff "${HEAD_REF}" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          base_path, current_path, head_ref = sys.argv[1:]
+
+          def field(path: str, name: str) -> str:
+              text = Path(path).read_text(encoding="utf-8")
+              match = re.search(
+                  rf"""^{re.escape(name)}:\s*["']?([^\s"']+)["']?\s*$""",
+                  text,
+                  re.MULTILINE,
+              )
+              if match is None:
+                  raise SystemExit(f"{path} não contém um campo {name} válido.")
+              return match.group(1)
+
+          base_version = field(base_path, "version")
+          current_version = field(current_path, "version")
+          base_date = field(base_path, "date-released")
+          current_date = field(current_path, "date-released")
+
+          release_metadata_changed = (
+              base_version != current_version or base_date != current_date
+          )
+          is_release_pr = re.fullmatch(r"release/v\d+\.\d+\.\d+", head_ref) is not None
+
+          if release_metadata_changed and not is_release_pr:
+              raise SystemExit(
+                  "version/date-released só podem mudar em uma Release PR "
+                  "com branch release/vMAJOR.MINOR.PATCH."
+              )
+
+          if is_release_pr:
+              expected = f"release/v{current_version}"
+              if head_ref != expected:
+                  raise SystemExit(
+                      f"A branch {head_ref} não coincide com a versão declarada; esperado: {expected}."
+                  )
+              if base_version == current_version:
+                  raise SystemExit("A Release PR deve aumentar a versão do CITATION.cff.")
+              if base_date == current_date:
+                  raise SystemExit("A Release PR deve definir uma nova date-released.")
+          PY
 
       - name: Validar e compilar PDF
         uses: ./.github/actions/compile-pdf

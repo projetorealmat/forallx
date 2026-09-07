@@ -1,0 +1,177 @@
+name: Preparar Release PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Próxima versão, sem o prefixo v (ex.: 0.1.2)"
+        required: true
+        type: string
+      release_date:
+        description: "Data da publicação em AAAA-MM-DD"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: prepare-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Criar Release PR
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validar versão e data
+        id: release
+        shell: bash
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_DATE: ${{ inputs.release_date }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! "${REQUESTED_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "A versão deve seguir MAJOR.MINOR.PATCH, sem o prefixo v."
+            exit 1
+          fi
+          if [[ ! "${REQUESTED_DATE}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "A data deve seguir AAAA-MM-DD."
+            exit 1
+          fi
+          if ! date -u -d "${REQUESTED_DATE}" +%F >/dev/null 2>&1; then
+            echo "A data informada não é válida."
+            exit 1
+          fi
+
+          current_version="$(
+            python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          text = Path("CITATION.cff").read_text(encoding="utf-8")
+          match = re.search(r'''^version:\s*["']?([0-9]+\.[0-9]+\.[0-9]+)["']?\s*$''', text, re.MULTILINE)
+          if match is None:
+              raise SystemExit("CITATION.cff não contém uma versão semântica válida.")
+          print(match.group(1))
+          PY
+          )"
+
+          python3 - "${current_version}" "${REQUESTED_VERSION}" <<'PY'
+          import sys
+
+          current = tuple(map(int, sys.argv[1].split(".")))
+          requested = tuple(map(int, sys.argv[2].split(".")))
+          if requested <= current:
+              raise SystemExit(
+                  f"A próxima versão ({sys.argv[2]}) deve ser maior que a versão atual ({sys.argv[1]})."
+              )
+          PY
+
+          release_tag="v${REQUESTED_VERSION}"
+          release_branch="release/${release_tag}"
+
+          if git ls-remote --exit-code --refs origin "refs/tags/${release_tag}" >/dev/null 2>&1; then
+            echo "A tag ${release_tag} já existe e não pode ser reutilizada."
+            exit 1
+          fi
+          if git ls-remote --exit-code --heads origin "${release_branch}" >/dev/null 2>&1; then
+            echo "A branch ${release_branch} já existe. Revise a Release PR existente antes de preparar outra."
+            exit 1
+          fi
+
+          {
+            echo "release_tag=${release_tag}"
+            echo "release_branch=${release_branch}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Atualizar CITATION.cff
+        shell: bash
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_DATE: ${{ inputs.release_date }}
+        run: |
+          set -euo pipefail
+
+          python3 - "${REQUESTED_VERSION}" "${REQUESTED_DATE}" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          version, release_date = sys.argv[1:]
+          path = Path("CITATION.cff")
+          text = path.read_text(encoding="utf-8")
+
+          text, version_count = re.subn(
+              r'''^version:\s*.*$''',
+              f'version: "{version}"',
+              text,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          text, date_count = re.subn(
+              r'''^date-released:\s*.*$''',
+              f"date-released: {release_date}",
+              text,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if version_count != 1 or date_count != 1:
+              raise SystemExit("Não foi possível atualizar version/date-released de forma inequívoca.")
+          path.write_text(text, encoding="utf-8")
+          PY
+
+          git diff --check
+          git diff -- CITATION.cff
+
+      - name: Criar branch e commit de release
+        env:
+          RELEASE_BRANCH: ${{ steps.release.outputs.release_branch }}
+          RELEASE_TAG: ${{ steps.release.outputs.release_tag }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "${RELEASE_BRANCH}"
+          git add CITATION.cff
+          git commit -m "chore(release): prepare ${RELEASE_TAG}"
+          git push --set-upstream origin "${RELEASE_BRANCH}"
+
+      - name: Abrir Release PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_BRANCH: ${{ steps.release.outputs.release_branch }}
+          RELEASE_TAG: ${{ steps.release.outputs.release_tag }}
+          RELEASE_DATE: ${{ inputs.release_date }}
+        run: |
+          set -euo pipefail
+
+          cat > "${RUNNER_TEMP}/release-pr-body.md" <<EOF
+          ## Release PR — ${RELEASE_TAG}
+
+          Esta PR representa a intenção explícita de publicar **${RELEASE_TAG}** em **${RELEASE_DATE}**.
+
+          - Atualiza \`CITATION.cff\` para a versão da release.
+          - O workflow **Build and Validate PDF** deve passar antes do merge.
+          - O merge desta PR autoriza a criação automática da tag, do PDF final e do GitHub Release.
+          - Após a publicação, o portal REALMat receberá uma proposta automática de atualização do catálogo.
+
+          Não adicione mudanças de conteúdo a esta PR. Se o livro precisar de correções, faça-as primeiro em uma PR normal e depois atualize esta branch a partir de \`main\`.
+          EOF
+
+          gh pr create \
+            --base main \
+            --head "${RELEASE_BRANCH}" \
+            --title "release: forallx ${RELEASE_TAG}" \
+            --body-file "${RUNNER_TEMP}/release-pr-body.md"
