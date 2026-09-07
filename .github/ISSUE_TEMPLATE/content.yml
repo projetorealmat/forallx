@@ -1,0 +1,26 @@
+name: Revisão matemática ou editorial
+description: Relate um problema em definição, argumento, exemplo, referência ou organização do livro.
+title: "[Conteúdo]: "
+labels: []
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Localização
+      description: Informe capítulo, seção, número do resultado, exemplo ou página.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema identificado
+      description: Explique o problema com precisão e inclua fórmulas quando necessário.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidência ou proposta
+      description: Apresente contraexemplo, referência, cálculo ou alteração sugerida.
+    validations:
+      required: true
