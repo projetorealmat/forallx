@@ -152,8 +152,6 @@ jobs:
         env:
           PORTAL_DISPATCH_TOKEN: ${{ secrets.PORTAL_DISPATCH_TOKEN }}
           RELEASE_TAG: ${{ github.ref_name }}
-          RELEASE_STATUS: ${{ env.RELEASE_STATUS }}
-          RELEASE_DATE: ${{ env.RELEASE_DATE }}
         run: |
           set -euo pipefail
 
