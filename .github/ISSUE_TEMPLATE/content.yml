@@ -1,7 +1,7 @@
 name: Revisão matemática ou editorial
 description: Relate um problema em definição, argumento, exemplo, referência ou organização do livro.
 title: "[Conteúdo]: "
-labels: []
+labels: ["revisão-matemática"]
 body:
   - type: input
     id: location
