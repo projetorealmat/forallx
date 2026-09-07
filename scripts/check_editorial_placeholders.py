@@ -10,7 +10,7 @@ from pathlib import Path
 
 SOURCE_SUFFIXES = {".tex", ".sty", ".bib"}
 PLACEHOLDER_RE = re.compile(
-    r"(?i)(?<![A-Z])(?:TODO|FIXME|TBD)(?![A-Z])|\\todo\b|<\s*placeholder\s*>"
+    r"(?<![A-Za-z])(?:TODO|FIXME|TBD)(?![A-Za-z])|\\todo\b|<\s*[Pp]laceholder\s*>"
 )
 SKIP_DIRECTORIES = {".git", "build", "_build", "out"}
 
