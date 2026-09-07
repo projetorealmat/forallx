@@ -1,0 +1,39 @@
+name: Compile forallx PDF
+description: Install XeLaTeX, validate editorial placeholders and compile forallx.tex
+runs:
+  using: composite
+  steps:
+    - name: Verificar marcadores editoriais provisórios
+      shell: bash
+      run: python3 scripts/check_editorial_placeholders.py .
+
+    - name: Verificar espaços indevidos no commit
+      shell: bash
+      run: git diff-tree --check --no-commit-id -r HEAD
+
+    - name: Instalar TeX Live com XeLaTeX
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          texlive-latex-base \
+          texlive-latex-recommended \
+          texlive-latex-extra \
+          texlive-fonts-recommended \
+          texlive-fonts-extra \
+          texlive-lang-english \
+          texlive-lang-portuguese \
+          texlive-xetex \
+          latexmk
+
+    - name: Compilar forallx.tex com XeLaTeX
+      shell: bash
+      run: latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error forallx.tex
+
+    - name: Impedir referências LaTeX não resolvidas
+      shell: bash
+      run: |
+        if grep -nE 'Reference .* undefined|There were undefined references' forallx.log; then
+          echo 'Foram encontradas referências LaTeX não resolvidas.'
+          exit 1
+        fi
