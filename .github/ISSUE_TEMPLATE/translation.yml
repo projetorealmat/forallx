@@ -1,0 +1,36 @@
+name: Revisão de tradução
+description: Relate um problema ou proponha uma melhoria na tradução.
+title: "[Tradução]: "
+labels: []
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Localização
+      description: Informe capítulo, seção, página ou trecho que permita localizar o problema.
+      placeholder: "Ex.: Capítulo 2, seção 2.3, p. 48"
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Trecho e contexto
+      description: Cole o trecho em português e, se possível, o trecho original.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta ou justificativa
+      description: Explique a correção ou a alternativa terminológica sugerida.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Conferência inicial
+      options:
+        - label: Verifiquei que não existe uma issue aberta para o mesmo trecho.
+          required: true
+        - label: A proposta preserva o significado lógico ou matemático do original.
+          required: true
