@@ -42,7 +42,7 @@ jobs:
             exit 1
           fi
 
-          citation_version="$(sed -n 's/^version:[[:space:]]*"\\([^"]*\\)".*$/\\1/p' CITATION.cff | head -n1)"
+          citation_version="$(sed -n 's/^version:[[:space:]]*"\([^"]*\)".*$/\1/p' CITATION.cff | head -n1)"
           expected_version="${RELEASE_TAG#v}"
           if [[ "${citation_version}" != "${expected_version}" ]]; then
             echo "CITATION.cff version (${citation_version}) must match the release tag (${expected_version})."
