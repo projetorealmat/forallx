@@ -1,8 +1,8 @@
 name: Build and Validate PDF
 
 on:
-  # Pull requests validate the proposed content; publication builds run only
-  # when the version in CITATION.cff changes on main.
+  # Todo pull request, inclusive uma Release PR, valida o PDF candidato.
+  # A compilação final de publicação ocorre somente após o merge de uma Release PR.
   pull_request:
     branches:
       - main
