@@ -6,7 +6,7 @@ Este repositório contém uma tradução e adaptação brasileira de *forall x: 
 
 - **Tradutor e adaptador:** Carlos André Duarte Costa, Universidade Estadual de Alagoas (UNEAL).
 - **Fonte desta edição:** [projetorealmat/forallx](https://github.com/projetorealmat/forallx).
-- **PDF da última versão publicada:** [baixar o PDF](https://github.com/projetorealmat/forallx/releases/latest/download/forallx.pdf).
+- **PDF da versão atualmente recomendada:** [baixar o PDF v0.1.0](https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf), atualmente em revisão.
 - **Versões publicadas e arquivos-fonte:** consulte as [Releases](https://github.com/projetorealmat/forallx/releases). Cada Release preserva o PDF e os arquivos-fonte da respectiva tag, além do pacote-fonte reproduzível, dos metadados e dos checksums.
 - **Política de releases:** consulte [RELEASE.md](RELEASE.md).
 - **Metadados da edição:** [forallx-metadata.tex](forallx-metadata.tex).
