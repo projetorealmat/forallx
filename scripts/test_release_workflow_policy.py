@@ -69,6 +69,17 @@ assert "Release PR" in POLICY, (
     "the release policy must document Release PR as the publication model"
 )
 
+# Ordinary PRs may edit citation metadata, but release version/date are reserved.
+assert "Reservar versionamento para Release PR" in LATEX_WORKFLOW, (
+    "CI must explicitly protect release version/date changes"
+)
+assert "version/date-released só podem mudar em uma Release PR" in LATEX_WORKFLOW, (
+    "ordinary PRs must not be able to change release version/date"
+)
+assert r"release/v\d+\.\d+\.\d+" in LATEX_WORKFLOW, (
+    "Release PR validation must enforce the release/vMAJOR.MINOR.PATCH branch format"
+)
+
 # The ordinary PDF check must not duplicate the final publication build on main pushes.
 assert "  push:\n    branches:" not in LATEX_WORKFLOW, (
     "the ordinary PDF workflow must not duplicate the publication build on main pushes"
