@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
@@ -58,11 +58,11 @@ jobs:
           release_date="$(TZ=America/Maceio date +%d/%m/%Y)"
           release_major="${RELEASE_TAG#v}"
           release_major="${release_major%%.*}"
-          release_status="tradução em revisão"
+          release_status="em revisão"
 
           case "${release_major}" in
             0)
-              release_status="tradução em revisão"
+              release_status="em revisão"
               ;;
             1)
               if [[ "${RELEASE_TAG}" == "v1.0.0" ]]; then
@@ -95,24 +95,12 @@ jobs:
 
           echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
           echo "RELEASE_STATUS=${release_status}" >> "${GITHUB_ENV}"
+          echo "RELEASE_DATE=${release_date}" >> "${GITHUB_ENV}"
           cat forallx-build-metadata.tex
           cat "${release_metadata}"
 
-      - name: Install TeX Live with XeLaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-lang-english texlive-lang-portuguese texlive-xetex latexmk
-
-      - name: Compile forallx.tex with XeLaTeX
-        run: |
-          latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error forallx.tex
-
-      - name: Fail on unresolved references
-        run: |
-          if grep -nE 'Reference .* undefined|There were undefined references' forallx.log; then
-            echo 'Unresolved LaTeX references detected.'
-            exit 1
-          fi
+      - name: Validar e compilar PDF
+        uses: ./.github/actions/compile-pdf
 
       - name: Package reproducible source and checksums
         env:
@@ -158,4 +146,42 @@ jobs:
             fi
           else
             gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" --generate-notes
+          fi
+
+      - name: Propor atualização do catálogo REALMat
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PORTAL_DISPATCH_TOKEN: ${{ secrets.PORTAL_DISPATCH_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${PORTAL_DISPATCH_TOKEN}" ]]; then
+            echo "::notice::PORTAL_DISPATCH_TOKEN não configurado; a atualização do catálogo continuará manual."
+            exit 0
+          fi
+
+          published_dir="${RUNNER_TEMP}/forallx-release-asset"
+          mkdir -p "${published_dir}"
+          gh release download "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --pattern "forallx.pdf" \
+            --dir "${published_dir}" \
+            --clobber
+          published_pdf="${published_dir}/forallx.pdf"
+          if [[ ! -f "${published_pdf}" ]]; then
+            echo "PDF publicado não foi encontrado após a release."
+            exit 1
+          fi
+          export PDF_SHA256="$(sha256sum "${published_pdf}" | awk '{print $1}')"
+
+          python3 scripts/build_catalog_dispatch.py > /tmp/catalog-dispatch.json
+
+          if ! curl --fail --silent --show-error --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${PORTAL_DISPATCH_TOKEN}" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --data-binary @/tmp/catalog-dispatch.json \
+            https://api.github.com/repos/projetorealmat/projetorealmat.github.io/dispatches; then
+            echo "::warning::Não foi possível propor a atualização automática do catálogo; a release foi publicada e pode ser sincronizada manualmente."
           fi

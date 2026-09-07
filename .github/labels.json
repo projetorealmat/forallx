@@ -1,0 +1,47 @@
+[
+  {
+    "name": "tradução",
+    "color": "1D4ED8",
+    "description": "Tradução ou decisão de terminologia"
+  },
+  {
+    "name": "terminologia",
+    "color": "2563EB",
+    "description": "Consistência e escolha de termos"
+  },
+  {
+    "name": "revisão-linguística",
+    "color": "0891B2",
+    "description": "Revisão de língua e clareza"
+  },
+  {
+    "name": "revisão-matemática",
+    "color": "0F766E",
+    "description": "Revisão lógica, matemática ou conceitual"
+  },
+  {
+    "name": "revisão-editorial",
+    "color": "7C3AED",
+    "description": "Revisão estrutural, tipográfica ou editorial"
+  },
+  {
+    "name": "latex",
+    "color": "9333EA",
+    "description": "Fonte LaTeX e formatação"
+  },
+  {
+    "name": "build",
+    "color": "EA580C",
+    "description": "Compilação, workflow ou artefato"
+  },
+  {
+    "name": "release",
+    "color": "C2410C",
+    "description": "Versão, tag ou publicação"
+  },
+  {
+    "name": "bloqueado",
+    "color": "B91C1C",
+    "description": "Aguardando outra decisão ou tarefa"
+  }
+]

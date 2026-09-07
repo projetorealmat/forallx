@@ -58,3 +58,9 @@ https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf
 ~~~
 
 O portal pode manter um arquivo de catálogo com a versão atualmente recomendada e links para as versões anteriores. Uma eventual release agregadora do REALMat será apenas um índice de versões dos livros, não substituirá as releases individuais.
+
+## Atualização automática do portal
+
+Depois de criar a release, o workflow calcula o SHA-256 do PDF e pode enviar um evento ao portal REALMat. O portal transforma esse evento em um pull request de atualização do catálogo; ele não publica diretamente na `main`.
+
+Para ativar essa integração, o proprietário do repositório deve criar o secret de Actions `PORTAL_DISPATCH_TOKEN`, com permissão de conteúdo para o repositório `projetorealmat/projetorealmat.github.io`. Sem esse secret, a release continua funcionando normalmente e a atualização do catálogo pode ser feita manualmente por pull request.

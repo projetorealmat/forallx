@@ -1,7 +1,7 @@
 name: Compilação ou publicação
 description: Relate falhas no PDF, nos workflows, nas releases ou nos links públicos.
 title: "[Build]: "
-labels: []
+labels: ["build"]
 body:
   - type: dropdown
     id: area

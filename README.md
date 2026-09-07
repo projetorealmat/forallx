@@ -1,5 +1,8 @@
 # forallx — Introdução à lógica formal
 
+[![Build and Validate PDF](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml)
+[![Verificar links externos](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml)
+
 Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada na edição mantida pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx).
 
 **Tradutor e adaptador:** Carlos André Duarte Costa.
@@ -14,6 +17,7 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 - [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf) (v0.1.0, em revisão)
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
+- [Fluxo editorial do projeto](EDITORIAL_WORKFLOW.md)
 - [Execuções dos workflows](https://github.com/projetorealmat/forallx/actions)
 
 O PDF oficial é publicado automaticamente em uma Release quando uma tag no formato `vMAJOR.MINOR.PATCH` é criada. O arquivo `forallx.pdf` não é mantido como arquivo versionado na raiz do repositório.

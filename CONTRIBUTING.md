@@ -47,3 +47,9 @@ Cada release é imutável. Não reutilize tags nem substitua os arquivos de uma 
 ## Conduta
 
 A revisão deve se concentrar no texto, na matemática e no funcionamento do projeto. Comentários devem ser claros, verificáveis e respeitosos.
+
+## Organização no GitHub Project
+
+Quando o Project do REALMat estiver criado, associe a cada issue ou pull request o livro, o tipo de trabalho, a etapa editorial, o capítulo ou seção e a release-alvo. Use as labels `tradução`, `terminologia`, `revisão-linguística`, `revisão-matemática`, `revisão-editorial`, `latex`, `build`, `release` e `bloqueado`.
+
+Trabalhos incompletos devem ser enviados como **draft pull request**. Ao terminar a preparação, converta o PR para revisão, vincule a issue com `Fixes #n` ou `Relates to #n` e descreva os critérios editoriais que foram verificados. O detalhamento dos campos e das etapas está em [EDITORIAL_WORKFLOW.md](EDITORIAL_WORKFLOW.md).
