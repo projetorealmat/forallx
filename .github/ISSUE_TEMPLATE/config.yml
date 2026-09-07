@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussões sobre tradução e terminologia
+    url: https://github.com/projetorealmat/forallx/discussions
+    about: Use Discussions para questões abertas que ainda não constituem uma tarefa definida.
+  - name: Guia de contribuição
+    url: https://github.com/projetorealmat/forallx/blob/main/CONTRIBUTING.md
+    about: Consulte o fluxo de revisão antes de abrir uma contribuição.
