@@ -89,14 +89,14 @@ Somente PRs mescladas cuja branch segue `release/vMAJOR.MINOR.PATCH` podem dispa
 - a branch pertence ao próprio repositório;
 - a versão do `CITATION.cff` coincide com o nome da branch;
 - a versão mudou em relação ao estado anterior de `main`;
-- a tag ainda não existe.
+- uma tag eventualmente já existente aponta para o mesmo commit autorizado pela Release PR.
 
 Depois dessas validações, o workflow:
 
 1. compila novamente o PDF final a partir do commit mesclado;
 2. verifica os metadados incorporados ao PDF;
 3. gera o pacote-fonte e os checksums;
-4. cria a tag anotada correspondente ao commit da release;
+4. cria ou valida a tag anotada correspondente ao commit da release;
 5. cria o GitHub Release inicialmente como **draft**;
 6. anexa todos os artefatos;
 7. publica o Release;
@@ -104,13 +104,25 @@ Depois dessas validações, o workflow:
 
 Não crie a tag, o GitHub Release nem anexe o PDF manualmente.
 
-## Falhas e imutabilidade
+## Falhas, recuperação e imutabilidade
 
 A tag só é criada depois que a compilação final e a geração dos artefatos foram concluídas com sucesso.
 
-Uma versão publicada não deve ser reutilizada. Se uma release já publicada precisar de correção, prepare uma nova versão.
+Uma versão publicada não deve ser reutilizada. Se uma release pública precisar de correção editorial ou técnica, prepare uma nova versão.
 
-Se a publicação falhar depois da criação da tag, investigue a execução antes de tentar uma nova publicação. Não mova nem reutilize a tag existente.
+Se o workflow falhar **depois do merge da Release PR**, não altere `CITATION.cff`, não crie uma nova versão apenas para contornar a falha e não mova tags manualmente. Primeiro corrija a infraestrutura em um PR normal.
+
+Depois da correção, a publicação pode ser recuperada explicitamente em **Actions → Publicar release do livro → Run workflow**, informando o número da Release PR originalmente mesclada. A recuperação:
+
+- consulta novamente a PR original no GitHub;
+- exige que ela esteja mesclada em `main` e tenha branch `release/vMAJOR.MINOR.PATCH`;
+- usa exatamente o commit de merge e o commit-base daquela PR;
+- revalida a alteração de versão no `CITATION.cff`;
+- se a tag já existir, exige que ela aponte para o mesmo commit;
+- pode completar uma Release ainda em draft;
+- não substitui silenciosamente assets de uma Release já publicada.
+
+Assim, repetir a execução é uma **recuperação idempotente da mesma decisão editorial**, e não uma nova publicação.
 
 ## Relação com o portal REALMat
 
