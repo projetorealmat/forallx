@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "forallx — Introdução à lógica formal: tradução e adaptação brasileira"
+message: "Se você utilizar esta tradução, cite a versão específica da release consultada."
+type: book
+version: "0.1.0"
+date-released: 2026-09-06
+abstract: >-
+  Tradução e adaptação brasileira de forall x: An Introduction to Formal Logic,
+  de P. D. Magnus, mantida pelo projeto REALMat.
+repository-code: "https://github.com/projetorealmat/forallx"
+url: "https://github.com/projetorealmat/forallx/releases"
+license: CC-BY-4.0
+keywords:
+  - lógica formal
+  - educação aberta
+  - tradução
+  - LaTeX
+  - REALMat
+authors:
+  - family-names: Costa
+    given-names: Carlos André Duarte
+    affiliation: Universidade Estadual de Alagoas

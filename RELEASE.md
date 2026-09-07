@@ -6,6 +6,7 @@ Este repositório segue o padrão de releases do REALMat para livros mantidos em
 
 As tags seguem `vMAJOR.MINOR.PATCH`:
 
+- `v0.x.y`: tradução em revisão;
 - `v1.0.0`: primeira tradução aprovada;
 - `v1.0.1`: correção técnica ou editorial pequena, sem mudança de edição;
 - `v1.1.0`: adaptação, acréscimo ou alteração compatível com a mesma edição;
@@ -23,7 +24,7 @@ O workflow publica automaticamente:
 - `SHA256SUMS`;
 - as notas da versão geradas pelo GitHub.
 
-O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento.
+O PDF publicado em uma release é a referência estável para leitores, citações e bifurcações. O `main` continua sendo a linha de desenvolvimento. A release `v0.x.y` é uma referência pública em revisão; a primeira referência aprovada será `v1.0.0`.
 
 ## Publicar uma versão pela interface do GitHub
 
@@ -31,7 +32,8 @@ Antes de publicar:
 
 1. confirme que o conteúdo foi revisado e está em `main`;
 2. confirme que o workflow **Build and Validate PDF** passou;
-3. escolha a próxima versão conforme as regras acima.
+3. atualize `CITATION.cff` com a versão e a data da release;
+4. escolha a próxima versão conforme as regras acima.
 
 Na página do repositório:
 
@@ -52,7 +54,7 @@ Para uma nova correção, use a próxima versão; não reutilize uma tag existen
 O portal deve apontar para uma versão específica, por exemplo:
 
 ~~~text
-https://github.com/projetorealmat/forallx/releases/download/v1.0.0/forallx.pdf
+https://github.com/projetorealmat/forallx/releases/download/v0.1.0/forallx.pdf
 ~~~
 
 O portal pode manter um arquivo de catálogo com a versão atualmente recomendada e links para as versões anteriores. Uma eventual release agregadora do REALMat será apenas um índice de versões dos livros, não substituirá as releases individuais.

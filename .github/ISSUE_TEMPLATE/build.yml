@@ -1,0 +1,28 @@
+name: Compilação ou publicação
+description: Relate falhas no PDF, nos workflows, nas releases ou nos links públicos.
+title: "[Build]: "
+labels: []
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - compilação LaTeX
+        - workflow do GitHub Actions
+        - release ou artefato
+        - documentação ou link
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do problema
+      description: Informe o que ocorreu, o resultado esperado e, se possível, o link da execução.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Como reproduzir
+      description: Liste os passos, a tag ou o commit envolvidos.

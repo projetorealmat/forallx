@@ -1,0 +1,5 @@
+# Responsável editorial e técnico pelo repositório.
+# A exigência de aprovação de code owners deve ser ativada somente
+# quando houver pelo menos um revisor adicional com permissão de escrita.
+* @CarlosCostaMath
+/.github/ @CarlosCostaMath
