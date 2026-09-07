@@ -1,10 +1,8 @@
 name: Build and Validate PDF
 
 on:
-  # Branch pushes only; release tags use release-pdf.yml.
-  push:
-    branches:
-      - main
+  # Pull requests validate the proposed content; publication builds run only
+  # when the version in CITATION.cff changes on main.
   pull_request:
     branches:
       - main
