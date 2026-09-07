@@ -37,8 +37,10 @@ def main() -> int:
     if not SHA256_RE.fullmatch(digest):
         raise SystemExit("PDF_SHA256 não é um digest SHA-256 válido.")
 
+    book_id = "forallx"
+    pdf_filename = "forallx.pdf"
     book = {
-        "id": "forallx",
+        "id": book_id,
         "title": "forallx: Lógica",
         "short_title": "forallx",
         "subject": "lógica formal",
@@ -47,8 +49,8 @@ def main() -> int:
         "repository": repository,
         "ref": tag,
         "release_url": f"https://github.com/{repository}/releases/tag/{tag}",
-        "pdf_url": f"https://github.com/{repository}/releases/download/{tag}/forallx.pdf",
-        "pdf_path": "/assets/books/forallx.pdf",
+        "pdf_url": f"https://github.com/{repository}/releases/download/{tag}/{pdf_filename}",
+        "pdf_path": f"/assets/books/{book_id}/{tag}/{pdf_filename}",
         "sha256": digest,
         "release_date": os.environ.get("RELEASE_DATE", ""),
     }
