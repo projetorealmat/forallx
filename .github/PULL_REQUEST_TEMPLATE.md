@@ -32,3 +32,9 @@ Descreva o problema e a alteração proposta.
 ## Observações para o revisor
 
 Inclua dúvidas terminológicas, decisões editoriais ou pontos que exigem revisão matemática.
+
+## Integração com o fluxo editorial
+
+- [ ] vinculei a issue relacionada com `Fixes #n` ou `Relates to #n`;
+- [ ] indiquei o livro, a etapa editorial e a release-alvo;
+- [ ] mantive o PR como draft enquanto a alteração não estava pronta para revisão.
