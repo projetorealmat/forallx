@@ -55,14 +55,17 @@ jobs:
         run: |
           set -euo pipefail
 
-          release_date="$(TZ=America/Maceio date +%d/%m/%Y)"
+          release_date_iso="$(TZ=America/Maceio date +%F)"
+          release_date_display="$(TZ=America/Maceio date +%d/%m/%Y)"
           release_major="${RELEASE_TAG#v}"
           release_major="${release_major%%.*}"
           release_status="em revisão"
+          release_is_prerelease=false
 
           case "${release_major}" in
             0)
               release_status="em revisão"
+              release_is_prerelease=true
               ;;
             1)
               if [[ "${RELEASE_TAG}" == "v1.0.0" ]]; then
@@ -78,7 +81,7 @@ jobs:
 
           {
             printf '\\renewcommand*{\\editionversion}{%s}\n' "${RELEASE_TAG}"
-            printf '\\renewcommand*{\\editiondate}{%s}\n' "${release_date}"
+            printf '\\renewcommand*{\\editiondate}{%s}\n' "${release_date_display}"
             printf '\\renewcommand*{\\editionstatus}{%s}\n' "${release_status}"
           } > forallx-build-metadata.tex
 
@@ -86,7 +89,7 @@ jobs:
           {
             printf 'Livro: forallx — Introdução à lógica formal\n'
             printf 'Versão: %s\n' "${RELEASE_TAG}"
-            printf 'Data de publicação: %s\n' "${release_date}"
+            printf 'Data de publicação: %s\n' "${release_date_display}"
             printf 'Status editorial: %s\n' "${release_status}"
             printf 'Commit: %s\n' "${GITHUB_SHA}"
             printf 'Repositório: https://github.com/${GITHUB_REPOSITORY}\n'
@@ -95,12 +98,19 @@ jobs:
 
           echo "RELEASE_METADATA=${release_metadata}" >> "${GITHUB_ENV}"
           echo "RELEASE_STATUS=${release_status}" >> "${GITHUB_ENV}"
-          echo "RELEASE_DATE=${release_date}" >> "${GITHUB_ENV}"
+          echo "RELEASE_DATE=${release_date_iso}" >> "${GITHUB_ENV}"
+          echo "RELEASE_IS_PRERELEASE=${release_is_prerelease}" >> "${GITHUB_ENV}"
           cat forallx-build-metadata.tex
           cat "${release_metadata}"
 
       - name: Validar e compilar PDF
         uses: ./.github/actions/compile-pdf
+
+      - name: Registrar ambiente de compilação na metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat forallx-build-environment.txt >> "${RELEASE_METADATA}"
 
       - name: Package reproducible source and checksums
         env:
@@ -114,19 +124,21 @@ jobs:
           git archive --format=tar --prefix="${source_dir}/" "${GITHUB_SHA}" | tar -x
           cp forallx-build-metadata.tex "${source_dir}/"
           cp "${RELEASE_METADATA}" "${source_dir}/"
+          cp forallx-build-environment.txt "${source_dir}/"
           tar -czf "${source_asset}" "${source_dir}"
 
-          sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" > SHA256SUMS
+          sha256sum forallx.pdf "${source_asset}" "${RELEASE_METADATA}" forallx-build-environment.txt > SHA256SUMS
 
       - name: Create or complete GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_IS_PRERELEASE: ${{ env.RELEASE_IS_PRERELEASE }}
         run: |
           set -euo pipefail
 
           source_asset="forallx-${RELEASE_TAG}-source.tar.gz"
-          release_assets=("forallx.pdf" "${source_asset}" "${RELEASE_METADATA}" "SHA256SUMS")
+          release_assets=("forallx.pdf" "${source_asset}" "${RELEASE_METADATA}" "forallx-build-environment.txt" "SHA256SUMS")
 
           if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
             echo "Release ${RELEASE_TAG} already exists; preserving its notes and uploading missing assets."
@@ -144,8 +156,18 @@ jobs:
             if [[ "${is_draft}" == "true" ]]; then
               gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --draft=false
             fi
+
+            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --prerelease
+            else
+              gh release edit "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --prerelease=false
+            fi
           else
-            gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" --generate-notes
+            release_flags=()
+            if [[ "${RELEASE_IS_PRERELEASE}" == "true" ]]; then
+              release_flags+=(--prerelease)
+            fi
+            gh release create "${RELEASE_TAG}" forallx.pdf "${source_asset}" "${RELEASE_METADATA}" forallx-build-environment.txt SHA256SUMS --repo "${GITHUB_REPOSITORY}" --target "${GITHUB_SHA}" --title "forallx ${RELEASE_TAG} — ${RELEASE_STATUS}" --generate-notes "${release_flags[@]}"
           fi
 
       - name: Propor atualização do catálogo REALMat
