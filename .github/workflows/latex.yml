@@ -28,6 +28,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verificar política de releases
+        run: python3 scripts/test_release_workflow_policy.py
+
       - name: Validar e compilar PDF
         uses: ./.github/actions/compile-pdf
 
