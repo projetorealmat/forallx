@@ -114,10 +114,10 @@ Se a publicação falhar depois da criação da tag, investigue a execução ant
 
 ## Relação com o portal REALMat
 
-O portal aponta para versões específicas, por exemplo:
+O portal aponta para versões específicas. Como exemplo de uma release já publicada:
 
 ~~~text
-https://github.com/projetorealmat/forallx/releases/download/v0.1.2/forallx.pdf
+https://github.com/projetorealmat/forallx/releases/download/v0.1.1/forallx.pdf
 ~~~
 
 Depois de publicar a release, o workflow calcula o SHA-256 do PDF publicado e envia um evento ao portal REALMat.
