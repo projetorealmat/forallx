@@ -95,6 +95,9 @@ assert "CITATION.cff" in PREPARE_WORKFLOW and "date-released" in PREPARE_WORKFLO
 assert "gh pr create" in PREPARE_WORKFLOW, (
     "the preparation workflow must open the Release PR automatically"
 )
+assert "REALMAT_AUTOMATION_TOKEN" in PREPARE_WORKFLOW, (
+    "Release PR creation must support a trusted automation identity so CI can run without approval"
+)
 assert "Release PR" in POLICY, (
     "the release policy must document Release PR as the publication model"
 )
