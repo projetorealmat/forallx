@@ -60,6 +60,7 @@ A automação:
 - verifica que a tag e a branch de release ainda não existem;
 - cria a branch `release/vMAJOR.MINOR.PATCH`;
 - atualiza `version` e `date-released` em `CITATION.cff`;
+- atualiza o bloco de PDF recomendado e a frase de versão deste README;
 - cria um commit de preparação;
 - abre a Release PR para `main`.
 
@@ -100,7 +101,7 @@ Depois dessas validações, o workflow:
 5. cria o GitHub Release inicialmente como **draft**;
 6. anexa todos os artefatos;
 7. publica o Release;
-8. propõe a atualização do catálogo do portal REALMat.
+8. envia ao portal um evento autenticado pela GitHub App organizacional `REALMat Automation`.
 
 Não crie a tag, o GitHub Release nem anexe o PDF manualmente.
 
@@ -134,7 +135,7 @@ https://github.com/projetorealmat/forallx/releases/download/v0.1.1/forallx.pdf
 
 Depois de publicar a release, o workflow calcula o SHA-256 do PDF publicado e envia um evento ao portal REALMat.
 
-O portal transforma esse evento em um **pull request de atualização do catálogo**; ele não publica diretamente na `main`.
+O portal transforma esse evento em um **pull request de atualização do catálogo**; ele não publica diretamente na `main`. A PR é criada pela mesma identidade de automação, solicita auto-merge e só pode ser mesclada depois dos checks obrigatórios do portal.
 
 O fluxo completo é:
 
@@ -151,9 +152,9 @@ PRs normais → main
                  ↓
         PR automático do portal
                  ↓
-              merge
+       checks + auto-merge
                  ↓
           GitHub Pages
 ~~~
 
-Para ativar a integração com o portal, o proprietário do repositório deve manter o secret de Actions `PORTAL_DISPATCH_TOKEN`, com permissão de conteúdo para `projetorealmat/projetorealmat.github.io`. Sem esse secret, a release continua funcionando normalmente e a atualização do catálogo pode ser feita manualmente por pull request.
+Para ativar a integração, a organização deve instalar a GitHub App `REALMat Automation` nos repositórios do REALMat e configurar a variável `REALMAT_AUTOMATION_APP_ID` e o secret `REALMAT_AUTOMATION_PRIVATE_KEY` em nível organizacional. A chave privada não pertence a este repositório. O portal também deve permitir auto-merge e exigir seus checks de build e links na branch `main`.

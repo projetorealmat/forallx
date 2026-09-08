@@ -25,6 +25,8 @@ Pull requests ainda incompletos devem permanecer como **draft**. Quando o texto 
 
 Uma release nunca é sobrescrita. A publicação deve ocorrer somente depois de o conteúdo estar na `main`, o workflow de compilação estar verde e a revisão editorial correspondente estar registrada.
 
+Os workflows comuns são mantidos em [`projetorealmat/.github`](https://github.com/projetorealmat/.github). Este repositório mantém apenas a configuração específica do livro em `.realmat/book.json` e a validação/compilação própria da obra. A autenticação entre repositórios usa a GitHub App organizacional `REALMat Automation`, nunca um PAT armazenado no livro.
+
 ## Revisões complementares
 
 O GitHub Actions verifica a compilação, referências não resolvidas, espaços indevidos e marcadores provisórios como `TODO`, `FIXME` e `TBD`. Essas verificações não substituem a revisão matemática ou linguística humana.
