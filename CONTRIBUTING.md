@@ -49,7 +49,7 @@ Em resumo:
 4. o GitHub cria a branch de release, atualiza `CITATION.cff` e abre a Release PR;
 5. revise os checks e o PDF candidato;
 6. o merge da Release PR autoriza automaticamente a criação da tag, do PDF final e do GitHub Release;
-7. depois da publicação, o portal REALMat abre automaticamente um PR para atualizar o catálogo.
+7. depois da publicação, o portal REALMat abre automaticamente uma PR para atualizar o catálogo e solicita auto-merge, condicionado aos checks obrigatórios do portal.
 
 - `v0.x.y`: tradução ou edição ainda em revisão;
 - `v1.0.0`: primeira tradução aprovada;
