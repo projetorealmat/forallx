@@ -152,6 +152,18 @@ jobs:
           )
           if count != 1:
               raise SystemExit("Não foi possível atualizar o bloco de PDF recomendado do README.md.")
+
+          version_sentence = re.compile(
+              r"A versão atualmente recomendada é `v[0-9]+\.[0-9]+\.[0-9]+`, ainda em revisão editorial\."
+          )
+          readme_text, sentence_count = version_sentence.subn(
+              f"A versão atualmente recomendada é `{release_tag}`, ainda em revisão editorial.",
+              readme_text,
+              count=1,
+          )
+          if sentence_count != 1:
+              raise SystemExit("Não foi possível atualizar a referência textual à versão recomendada do README.md.")
+
           readme.write_text(readme_text, encoding="utf-8")
           PY
 
@@ -187,7 +199,7 @@ jobs:
           Esta PR representa a intenção explícita de publicar **${RELEASE_TAG}** em **${RELEASE_DATE}**.
 
           - Atualiza \`CITATION.cff\` para a versão da release.
-          - Atualiza o README para apontar para o PDF recomendado da nova versão.
+          - Atualiza no README as referências à versão recomendada.
           - O workflow **Build and Validate PDF** deve passar antes do merge.
           - O merge desta PR autoriza a criação automática da tag, do PDF final e do GitHub Release.
           - Após a publicação, o portal REALMat receberá uma proposta automática de atualização do catálogo.
