@@ -26,7 +26,7 @@ O PDF oficial de cada versão é compilado e publicado automaticamente depois do
 
 ## Versões publicadas e arquivos-fonte
 
-A versão atualmente recomendada é `v0.1.2`, ainda em revisão editorial. Versões anteriores permanecem preservadas como registro histórico. A primeira tradução aprovada será publicada como `v1.0.0`.
+A versão atualmente recomendada é `v0.1.3`, ainda em revisão editorial. Versões anteriores permanecem preservadas como registro histórico. A primeira tradução aprovada será publicada como `v1.0.0`.
 
 O versionamento segue estas regras:
 
@@ -69,7 +69,7 @@ A publicação usa o padrão **Release PR**.
 1. Incorpore primeiro em `main`, por PRs normais, todas as alterações de conteúdo que devem fazer parte da versão.
 2. Abra **Actions → Preparar Release PR → Run workflow**.
 3. Informe a próxima versão, sem o prefixo `v`, e a data da publicação.
-4. A automação cria a branch `release/vMAJOR.MINOR.PATCH`, atualiza `CITATION.cff`, atualiza neste README o link do PDF recomendado e abre a Release PR.
+4. A automação cria a branch `release/vMAJOR.MINOR.PATCH`, atualiza `CITATION.cff`, atualiza neste README as referências à versão recomendada e abre a Release PR.
 5. Revise os checks e o PDF candidato.
 6. O **merge da Release PR** é a autorização explícita para publicar.
 7. Depois do merge, o workflow compila o PDF final, cria a tag, monta a GitHub Release como draft, anexa os artefatos e publica a Release.
