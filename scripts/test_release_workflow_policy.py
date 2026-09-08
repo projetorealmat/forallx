@@ -106,6 +106,9 @@ assert "release-pdf-current:start" in README and "release-pdf-current:end" in RE
 assert "README.md" in PREPARE_WORKFLOW and "release-pdf-current:start" in PREPARE_WORKFLOW, (
     "Release PR preparation must update the README recommended PDF automatically"
 )
+assert "version_sentence" in PREPARE_WORKFLOW and "sentence_count" in PREPARE_WORKFLOW, (
+    "Release PR preparation must update the human-readable recommended version too"
+)
 assert "git add CITATION.cff README.md" in PREPARE_WORKFLOW, (
     "CITATION.cff and README.md must be committed together in the Release PR"
 )
@@ -118,6 +121,9 @@ assert f"/releases/download/{current_tag}/forallx.pdf" in README, (
 )
 assert f"({current_tag})" in README, (
     "README recommended PDF label must match the version declared in CITATION.cff"
+)
+assert f"A versão atualmente recomendada é `{current_tag}`" in README, (
+    "README human-readable current version must match CITATION.cff"
 )
 
 # Ordinary PRs may edit citation metadata, but release version/date are reserved.
