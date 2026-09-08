@@ -186,7 +186,9 @@ jobs:
 
       - name: Abrir Release PR
         env:
-          GH_TOKEN: ${{ github.token }}
+          # Use uma identidade de automação dedicada quando configurada. PRs criadas
+          # com GITHUB_TOKEN exigem aprovação manual de seus workflows pelo GitHub.
+          GH_TOKEN: ${{ secrets.REALMAT_AUTOMATION_TOKEN || github.token }}
           RELEASE_BRANCH: ${{ steps.release.outputs.release_branch }}
           RELEASE_TAG: ${{ steps.release.outputs.release_tag }}
           RELEASE_DATE: ${{ inputs.release_date }}
