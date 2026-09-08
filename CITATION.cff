@@ -2,7 +2,7 @@ cff-version: 1.2.0
 title: "forallx — Introdução à lógica formal: tradução e adaptação brasileira"
 message: "Se você utilizar esta tradução, cite a versão específica da release consultada."
 type: book
-version: "0.1.2"
+version: "0.1.3"
 date-released: 2026-09-07
 abstract: >-
   Tradução e adaptação brasileira de forall x: An Introduction to Formal Logic,

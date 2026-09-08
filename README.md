@@ -15,7 +15,7 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 - [Metadados da edição](forallx-metadata.tex)
 - [Metadados de citação](CITATION.cff)
 <!-- release-pdf-current:start -->
-- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.2/forallx.pdf) (v0.1.2)
+- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.3/forallx.pdf) (v0.1.3)
 <!-- release-pdf-current:end -->
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
