@@ -44,6 +44,7 @@ jobs:
           python3 - "${RUNNER_TEMP}/base-CITATION.cff" CITATION.cff "${HEAD_REF}" <<'PY'
           import re
           import sys
+          from datetime import date
           from pathlib import Path
 
           base_path, current_path, head_ref = sys.argv[1:]
@@ -59,10 +60,20 @@ jobs:
                   raise SystemExit(f"{path} não contém um campo {name} válido.")
               return match.group(1)
 
+          def release_date(value: str, path: str) -> date:
+              try:
+                  return date.fromisoformat(value)
+              except ValueError as error:
+                  raise SystemExit(
+                      f"{path} contém date-released inválida: {value}."
+                  ) from error
+
           base_version = field(base_path, "version")
           current_version = field(current_path, "version")
           base_date = field(base_path, "date-released")
           current_date = field(current_path, "date-released")
+          base_release_date = release_date(base_date, base_path)
+          current_release_date = release_date(current_date, current_path)
 
           release_metadata_changed = (
               base_version != current_version or base_date != current_date
@@ -83,8 +94,10 @@ jobs:
                   )
               if base_version == current_version:
                   raise SystemExit("A Release PR deve aumentar a versão do CITATION.cff.")
-              if base_date == current_date:
-                  raise SystemExit("A Release PR deve definir uma nova date-released.")
+              if current_release_date < base_release_date:
+                  raise SystemExit(
+                      "date-released da nova versão não pode ser anterior à release atual."
+                  )
           PY
 
       - name: Validar e compilar PDF

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -16,6 +17,7 @@ PREPARE_WORKFLOW = (ROOT / ".github" / "workflows" / "prepare-release-pr.yml").r
     encoding="utf-8"
 )
 LATEX_WORKFLOW = (ROOT / ".github" / "workflows" / "latex.yml").read_text(encoding="utf-8")
+CHECK_LINKS = (ROOT / "scripts" / "check_external_links.py").read_text(encoding="utf-8")
 POLICY = (ROOT / "RELEASE.md").read_text(encoding="utf-8")
 README = (ROOT / "README.md").read_text(encoding="utf-8")
 CITATION = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
@@ -108,7 +110,6 @@ assert "git add CITATION.cff README.md" in PREPARE_WORKFLOW, (
     "CITATION.cff and README.md must be committed together in the Release PR"
 )
 
-import re
 citation_match = re.search(r'^version:\s*["\']?([0-9]+\.[0-9]+\.[0-9]+)["\']?\s*$', CITATION, re.MULTILINE)
 assert citation_match is not None, "CITATION.cff must contain a semantic version"
 current_tag = f"v{citation_match.group(1)}"
@@ -128,6 +129,21 @@ assert "version/date-released só podem mudar em uma Release PR" in LATEX_WORKFL
 )
 assert r"release/v\d+\.\d+\.\d+" in LATEX_WORKFLOW, (
     "Release PR validation must enforce the release/vMAJOR.MINOR.PATCH branch format"
+)
+assert "current_release_date < base_release_date" in LATEX_WORKFLOW, (
+    "Release PR validation must reject backwards release dates"
+)
+assert "A Release PR deve definir uma nova date-released." not in LATEX_WORKFLOW, (
+    "multiple releases on the same calendar date must remain valid"
+)
+
+# A Release PR points at an asset that does not exist until publication.
+# CI must exempt only that matching future asset while continuing to test every other link.
+assert 'os.environ.get("GITHUB_HEAD_REF", "")' in CHECK_LINKS, (
+    "link validation must identify the current Release PR branch"
+)
+assert "pending_release_url" in CHECK_LINKS and "PENDING release asset" in CHECK_LINKS, (
+    "link validation must explicitly model the not-yet-published release PDF"
 )
 
 # The ordinary PDF check must not duplicate the final publication build on main pushes.
