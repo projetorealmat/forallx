@@ -73,7 +73,7 @@ A publicação usa o padrão **Release PR**.
 5. Revise os checks e o PDF candidato.
 6. O **merge da Release PR** é a autorização explícita para publicar.
 7. Depois do merge, o workflow compila o PDF final, cria a tag, monta a GitHub Release como draft, anexa os artefatos e publica a Release.
-8. O portal REALMat recebe o evento da nova versão e propõe a atualização de seu catálogo.
+8. O portal REALMat recebe o evento da nova versão, abre a PR do catálogo e solicita auto-merge; a PR só entra em `main` depois dos checks obrigatórios do portal.
 
 Não crie a tag, o GitHub Release nem anexe o PDF manualmente. Para uma nova correção, use uma nova versão; nunca reutilize uma tag existente.
 
