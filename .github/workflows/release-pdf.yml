@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   publish:
-    uses: projetorealmat/.github/.github/workflows/book-publish-release.yml@v1
+    uses: projetorealmat/.github/.github/workflows/book-publish-release.yml@main
     with:
       config: .realmat/book.json
       release_pr: ${{ inputs.release_pr || '' }}
