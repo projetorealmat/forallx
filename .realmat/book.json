@@ -10,8 +10,6 @@
   "pdf_name": "forallx.pdf",
   "citation_file": "CITATION.cff",
   "readme_file": "README.md",
-  "readme_release_start": "<!-- release-pdf-current:start -->",
-  "readme_release_end": "<!-- release-pdf-current:end -->",
   "readme_version_sentence_anchor": "A versão atualmente recomendada é",
   "readme_version_sentence_template": "A versão atualmente recomendada é `{version}`, ainda em revisão editorial.",
   "validation_script": "scripts/check_editorial_placeholders.py",
