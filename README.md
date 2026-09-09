@@ -1,6 +1,6 @@
 # forallx — Introdução à lógica formal
 
-[![Build and Validate PDF](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/latex.yml)
+[![REALMat — verificar livro](https://github.com/projetorealmat/forallx/actions/workflows/book-ci.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/book-ci.yml)
 [![Verificar links externos](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml)
 
 Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada no repositório mantido pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx). A revisão foi conferida contra o commit [`b9a8724`](https://github.com/OpenLogicProject/forallx/commit/b9a872431eb97287fa039103db92a4bf27768b4b).
