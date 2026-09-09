@@ -9,9 +9,10 @@ on:
   workflow_dispatch:
     inputs:
       release_pr:
-        description: "Número de uma Release PR já mesclada a recuperar"
-        required: true
+        description: "Número da Release PR já mesclada (opcional)"
+        required: false
         type: string
+        default: ""
 
 permissions:
   contents: write
