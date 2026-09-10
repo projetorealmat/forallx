@@ -1,7 +1,6 @@
 # forallx — Introdução à lógica formal
 
 [![REALMat — verificar livro](https://github.com/projetorealmat/forallx/actions/workflows/book-ci.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/book-ci.yml)
-[![Verificar links externos](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml/badge.svg)](https://github.com/projetorealmat/forallx/actions/workflows/check-links.yml)
 
 Este repositório contém uma tradução e adaptação brasileira de *forall x: An Introduction to Formal Logic*, de P.D. Magnus, baseada no repositório mantido pelo [Open Logic Project](https://github.com/OpenLogicProject/forallx). A revisão foi conferida contra o commit [`b9a8724`](https://github.com/OpenLogicProject/forallx/commit/b9a872431eb97287fa039103db92a4bf27768b4b).
 
@@ -14,6 +13,7 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 - [Fonte principal em LaTeX](forallx.tex)
 - [Metadados da edição](forallx-metadata.tex)
 - [Metadados de citação](CITATION.cff)
+- [Configuração de integração do REALMat](.realmat/book.json)
 <!-- realmat-release:start -->
 - [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.3/forallx.pdf) (v0.1.3)
 <!-- realmat-release:end -->
@@ -84,3 +84,7 @@ Detalhes, validações e procedimento de recuperação em caso de falha estão e
 A obra original é de P.D. Magnus e foi disponibilizada sob a [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). Esta tradução e adaptação deve manter a atribuição ao autor original e ao tradutor, indicar que houve tradução/adaptação e preservar o link da licença.
 
 A edição brasileira não é uma publicação oficial do Open Logic Project; ela é uma obra derivada distribuída sob os termos da licença aplicável.
+
+## Integração com o REALMat
+
+Este repositório integra o projeto [REALMat](https://projetorealmat.github.io/). O catálogo e as demais edições podem ser consultados no [portal REALMat](https://projetorealmat.github.io/).
