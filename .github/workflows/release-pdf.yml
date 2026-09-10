@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       release_pr:
-        description: "Número de uma Release PR já mesclada a recuperar"
+        description: Número da Release PR já mesclada para reexecução manual
         required: true
         type: string
 
@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   publish:
-    uses: projetorealmat/.github/.github/workflows/book-publish-release.yml@v1
+    uses: projetorealmat/.github/.github/workflows/book-publish-release.yml@v2
     with:
       config: .realmat/book.json
       release_pr: ${{ inputs.release_pr || '' }}
