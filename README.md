@@ -14,8 +14,11 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 - [Metadados da edição](forallx-metadata.tex)
 - [Metadados de citação](CITATION.cff)
 - [Configuração de integração do REALMat](.realmat/book.json)
+## Publicações
+
 <!-- realmat-release:start -->
-- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.3/forallx.pdf) (v0.1.3)
+- Release REALMat atualmente recomendada: [v0.1.3](https://github.com/projetorealmat/forallx/releases/tag/v0.1.3).
+- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.3/forallx.pdf)
 <!-- realmat-release:end -->
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
