@@ -961,7 +961,7 @@ Este é o problema da \define{corretude}. Um sistema de prova é \define{correto
 
 Felizmente, há uma maneira de abordar isso passo a passo. Se usar a regra {\eand}E na última linha de uma prova nunca pudesse mudar um argumento válido em um inválido, então usar a regra muitas vezes não poderia tornar um argumento inválido. Similarmente, se usar as regras {\eand}E e {\eor}E individualmente na última linha de uma prova nunca pudesse mudar um argumento válido em um inválido, então usá-las em combinação também não poderia.
 
-A estratégia é mostrar para toda regra de inferência que ela sozinha não poderia tornar um argumento válido em inválido. Segue que as regras usadas em combinação não tornariam um argumento válido inválido. Como uma prova é apenas uma série de linhas, cada uma justificada por uma regra de inferência, isso mostraria que todo argumento provável é válido.
+A estratégia é mostrar para toda regra de inferência que ela sozinha não poderia tornar um argumento válido em inválido. Segue que as regras usadas em combinação não tornariam um argumento válido inválido. Como uma prova é apenas uma série de linhas, cada uma justificada por uma regra de inferência, isso mostraria que todo argumento demonstrável é válido.
 
 Considere, por exemplo, a regra {\eand}I. Suponha que a usemos para adicionar \script{A}\eand\script{B} a um argumento válido. Para que a regra seja aplicável, \script{A} e \script{B} já devem estar disponíveis na prova. Uma vez que o argumento até agora é válido, \script{A} e \script{B} são ou premissas do argumento ou consequências válidas das premissas. Como tal, qualquer modelo no qual as premissas são verdadeiras deve ser um modelo no qual \script{A} e \script{B} são verdadeiros. De acordo com a definição de \define{verdade em LQ}, isso significa que \script{A}\eand\script{B} também é verdadeiro em tal modelo. Portanto, \script{A}\eand\script{B} segue validamente das premissas. Isso significa que usar a regra {\eand}I para estender uma prova válida produz outra prova válida.
 
@@ -1114,7 +1114,7 @@ Para o seguinte, forneça provas usando apenas as regras básicas. As provas ser
 \label{pr.subinstanceQL}
 \begin{earg}
 \item Identifique quais dos seguintes são instâncias de substituição de $\forall x Rcx$: $Rac$, $Rca$, $Raa$, $Rcb$, $Rbc$, $Rcc$, $Rcd$, $Rcx$
-\item Identifique quais dos seguinitos são instâncias de substituição de $\exists x\forall y Lxy$:
+\item Identifique quais dos seguintes são instâncias de substituição de $\exists x\forall y Lxy$:
 $\forall y Lby$, $\forall x Lbx$, $Lab$, $\exists x Lxa$
 \end{earg}
 
