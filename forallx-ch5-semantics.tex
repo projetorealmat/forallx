@@ -55,7 +55,7 @@ a(\script{P}) =
 	\end{array}
 \right.
 \end{displaymath}
-Isso significa que $a$ pega qualquer sentença de LS e atribui a ela um 1 ou um 0; 1 se a sentença for verdadeira, 0 se a sentença for falsa. Os detalhes da função $a$ são determinados pelo significado das letras de sentença junto com o estado do mundo. Se $D$ significa 'Está escuro lá fora', então $a(D)=1$ à noite ou durante uma tempestade forte, enquanto $a(D)=0$ em um dia claro.
+Isso significa que $a$ atribui a cada letra de sentença de LS um 1 ou um 0: 1 se a sentença atômica correspondente for verdadeira, e 0 se for falsa. Os detalhes da função $a$ são determinados pelo significado das letras de sentença junto com o estado do mundo. Se $D$ significa 'Está escuro lá fora', então $a(D)=1$ à noite ou durante uma tempestade forte, enquanto $a(D)=0$ em um dia claro.
 
 Você pode pensar em $a$ como sendo como uma linha de uma tabela-verdade. Enquanto uma linha de tabela-verdade atribui um valor de verdade a algumas sentenças atômicas, a atribuição de valores de verdade atribui um valor a cada sentença atômica de LS. Existem infinitas letras de sentença, e a atribuição de valores de verdade dá um valor a cada uma delas. Ao construir uma tabela-verdade, nos importamos apenas com letras de sentença que afetam o valor de verdade das sentenças que nos interessam. Como tal, ignoramos o resto. Estritamente falando, cada linha de uma tabela-verdade dá uma atribuição de valores de verdade \emph{parcial}.
 
@@ -218,7 +218,7 @@ O UD é o conjunto $\{1,2,3,4,5,6,7,8,9\}$.
 A extensão de um predicado de um lugar como $E$ ou $N$ é apenas o subconjunto do UD do qual o predicado é verdadeiro. Grosso modo, a extensão do predicado $E$ é o conjunto de $E$s no UD.
 A extensão de $E$ é o subconjunto $\{2,4,6,8\}$. Há muitos números pares além desses quatro, mas estes são os únicos membros do UD que são pares. Não há números negativos no UD, então $N$ tem uma extensão vazia; ou seja, $\extension{N}=\emptyset$.
 
-A extensão de um predicado de dois lugares como $L$ é um tanto complicada. Parece que a extensão de $L$ deveria conter 1, já que 1 é menor que todos os outros números; deveria conter 2, já que 2 é menor que todos os outros números além de 1; e assim por diante. Todo membro do UD além de 9 é menor que algum membro do UD. O que aconteceria se simplesmente escrevêssemos $\extension{L}=\{1,2,3,4,5,6,7,8\}$?
+A extensão de um predicado de dois lugares como $L$ é um tanto complicada. Parece que a extensão de $L$ deveria conter 1, já que 1 é menor que todos os outros números; deveria conter 2, já que 2 é menor que todos os outros números além de 1; e assim por diante. Todo membro do UD, exceto 9, é menor que algum membro do UD. O que aconteceria se simplesmente escrevêssemos $\extension{L}=\{1,2,3,4,5,6,7,8\}$?
 
 O problema é que conjuntos podem ser escritos em qualquer ordem, então isso seria o mesmo que escrever $\extension{L}=\{8,7,6,5,4,3,2,1\}$. Isso não nos diz quais dos membros do conjunto são menores que quais outros membros.
 
@@ -313,7 +313,7 @@ Talvez você esteja se perguntando: O que o predicado $A$ significa em portuguê
 \item[$Bx$:] $x$ foi fundada no século 20.
 \item[$d$:] a capital de Alagoas
 \end{ekey}
-No entanto, tudo o que o modelo parcial nos diz é que $A$ é um predicado que é verdadeiro de Maceió e Maceió. Há infinitos predicados em português que têm esta extensão. $Axy$ poderia, em vez disso, traduzir '$x$ tem o mesmo tamanho que $y$' ou '$x$ e $y$ são ambas cidades.' Da mesma forma, $Bx$ é algum predicado que não se aplica a Maceió; poderia, em vez disso, traduzir '$x$ está em uma ilha' ou '$x$ é um carro subcompacto.' Quando especificamos as extensões de $A$ e $B$, não especificamos quais predicados em português $A$ e $B$ deveriam ser usados para traduzir. Estamos preocupados com se $\forall xAxx \eif Bd$ resulta verdadeira ou falsa, e tudo o que importa para verdade e falsidade em LQ é a informação no modelo: o UD, as extensões dos predicados e os referentes das constantes.
+No entanto, tudo o que o modelo parcial nos diz é que $A$ é um predicado que é verdadeiro de Maceió e Maceió. Há infinitos predicados em português que têm esta extensão. $Axy$ poderia, em vez disso, traduzir '$x$ tem o mesmo tamanho que $y$' ou '$x$ e $y$ são ambas cidades.' Da mesma forma, $Bx$ é algum predicado que não se aplica a Maceió; poderia, em vez disso, traduzir '$x$ está em uma ilha' ou '$x$ é um carro subcompacto.' Quando especificamos as extensões de $A$ e $B$, não especificamos quais predicados em português $A$ e $B$ deveriam ser usados para traduzir. Estamos preocupados em saber se $\forall xAxx \eif Bd$ é verdadeira ou falsa, e tudo o que importa para a verdade e a falsidade em LQ é a informação no modelo: o UD, as extensões dos predicados e os referentes das constantes.
 
 Podemos igualmente facilmente mostrar que $\forall xAxx \eif Bd$ não é uma contradição. Precisamos apenas especificar um modelo no qual $\forall xAxx \eif Bd$ é verdadeira; ou seja, um modelo no qual ou $\forall x Axx$ é falso ou $Bd$ é verdadeiro. Aqui está um modelo parcial:
 \begin{partialmodel}
@@ -503,7 +503,7 @@ Esta definição segue a mesma estrutura que a definição de uma FBF para LQ, e
 
 \subsection{Verdade}
 
-Considere uma sentença simples como $\forall xPx$. Pela parte 7 na definição de satisfação, esta sentença é satisfeita se $a[\Omega|x]$ satisfaz $Px$ em \model{M} para todo $\Omega$ no UD. Pela parte 1 da definição, este será o caso se todo $\Omega$ estiver na extensão de $P$. Se $\forall xPx$ é satisfeita não depende da atribuição de variável particular $a$. Se esta sentença é satisfeita, então é verdadeira. Esta é uma formalização do que dissemos o tempo todo: $\forall xPx$ é verdadeira se tudo no UD está na extensão de $P$.
+Considere uma sentença simples como $\forall xPx$. Pela parte 7 na definição de satisfação, esta sentença é satisfeita se $a[\Omega|x]$ satisfaz $Px$ em \model{M} para todo $\Omega$ no UD. Pela parte 1 da definição, este será o caso se todo $\Omega$ estiver na extensão de $P$. A satisfação de $\forall xPx$ não depende da atribuição de variável $a$ escolhida. Se esta sentença é satisfeita, então é verdadeira. Esta é uma formalização do que dissemos o tempo todo: $\forall xPx$ é verdadeira se tudo no UD está na extensão de $P$.
 
 A mesma coisa vale para qualquer sentença de LQ. Como todas as variáveis são ligadas, uma sentença é satisfeita ou não independentemente dos detalhes da atribuição de variável. Então podemos definir verdade desta forma: Uma sentença \script{A} é \define{verdadeira em} \model{M} se e somente se alguma atribuição de variável satisfaz \script{A} em $M$; \script{A} é \define{falsa em} \model{M} caso contrário.
 
