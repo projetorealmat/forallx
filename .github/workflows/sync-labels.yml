@@ -66,7 +66,7 @@ jobs:
               encoded_name = urllib.parse.quote(name, safe="")
               update_url = f"https://api.github.com/repos/{repository}/labels/{encoded_name}"
               try:
-                  request("PUT", update_url, payload)
+                  request("PATCH", update_url, payload)
               except urllib.error.HTTPError as error:
                   if error.code != 404:
                       raise
