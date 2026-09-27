@@ -6,78 +6,67 @@
 
 \vfill
 
-{\sf \textbf{Edição original:}}\\
 {\sf P.D. Magnus}\\
-\emph{University at Albany, State University of New York}\\
-{\sf Versão da edição original: \editionoriginalversion}\\
-{\sf Fonte da edição original: \href{https://github.com/OpenLogicProject/forallx}{Open Logic Project/forallx}}\\
-{\sf Commit original consultado: \href{\editionoriginalcommiturl}{\editionoriginalcommit}}
+\emph{University at Albany, State University of New York}
 
 \vfill
 
-{\sf \textbf{Tradução e adaptação:}}\\
+{\sf \textbf{Tradução para o português brasileiro}}\\
 {\sf Carlos André Duarte Costa}\\
-{\sf \textbf{Revisão editorial:}}\\
-{\sf Equipe de revisão da edição brasileira}\\
-
-\vspace{1em}
-
-{\sf \textbf{Edição brasileira:} \editionversion}\\
-{\sf \textbf{Data da edição:} \editiondate}\\
-{\sf \textbf{Status editorial:} \editionstatus}
+{\sf 26 de setembro de 2026}
 
 \vfill
 
 {\sf
-Este livro é distribuído sob uma licença Creative Commons.\\
-(Atribuição 4.0 Internacional)
+  \href{https://www.fecundity.com/logic/}{fecundity.com/logic}, versão 1.4 [\bookversion]\\
+  Este livro é oferecido sob uma licença Creative Commons.\\
+  (Atribuição 4.0)
 }
 
 \newpage
 \thispagestyle{empty}%
 
-{\sf \textbf{Créditos da edição brasileira}}
-
-{%
-\copyright\ \ifthenelse{\year=2005}{\number\year}{2005--\number\year} P.D. Magnus (obra original)\\
-\copyright\ \ifthenelse{\year=2024}{\number\year}{2024--\number\year} Carlos André Duarte Costa (tradução e adaptação)\\
-Alguns direitos reservados.
+{\sf
+O autor gostaria de agradecer às pessoas que tornaram este projeto possível. Entre elas, destacam-se Cristyn Magnus, que leu muitas versões preliminares; Aaron Schiller, um dos primeiros a adotar o livro, que forneceu comentários extensos e úteis; e Bin Kang, Craig Erb, Nathan Carter, Wes McMichael, Selva Samuel, Dave Krueger, Brandon Lee, Toan Tran, Marcus Adams, Matthew Brown e os estudantes da disciplina de Introdução à Lógica, que identificaram vários erros em versões anteriores do livro.
 }
 
-{\sf
-\textbf{Projeto de organização e disponibilização}\\
-\textbf{REALMat --- Recursos Educacionais Abertos na Licenciatura em Matemática}\\
-O REALMat organiza e disponibiliza esta edição brasileira. A autoria da tradução e adaptação é de Carlos André Duarte Costa.\\
-Projeto: \url{https://github.com/projetorealmat}\\
-Portal: \url{https://projetorealmat.github.io/}\\
-Repositório desta edição: \url{https://github.com/projetorealmat/forallx}
+\vfill
+{
+\copyright\ \ifthenelse{\year=2005}{\number\year}{2005--\number\year} por P.D. Magnus. Alguns direitos reservados.\\
+\copyright\ 2026 Carlos André Duarte Costa (tradução para o português brasileiro).
 }
 
 {\footnotesize
-\textbf{Você tem a liberdade de:} copiar, distribuir, exibir e executar a obra e criar obras derivadas.
-
-\textbf{Sob as seguintes condições:} Atribuição. Você deve dar crédito ao autor original, da forma especificada pelo autor ou licenciante. Para qualquer reutilização ou distribuição, você deve deixar claro para outros os termos de licença desta obra. Qualquer uma dessas condições pode ser renunciada, desde que você obtenha permissão do autor. Os seus direitos de uso justo e outras utilizações não são afetados pelo acima exposto.
-
-\textbf{Este é um resumo legível por humanos, sem valor jurídico, da licença disponível em:}\\
-\url{https://creativecommons.org/licenses/by/4.0/deed.pt}\\
-O texto jurídico está disponível em \url{https://creativecommons.org/licenses/by/4.0/legalcode.pt}. Esta edição é uma tradução e adaptação da obra original; as modificações devem ser indicadas em qualquer reutilização ou distribuição.
+Você tem liberdade para copiar este livro, distribuí-lo, exibi-lo e criar obras derivadas, sob a seguinte condição: Atribuição. Você deve creditar o autor original. --- Em qualquer reutilização ou distribuição, deve deixar claros a outras pessoas os termos da licença desta obra. Qualquer uma dessas condições pode ser dispensada mediante autorização do titular dos direitos autorais. Seus direitos de uso justo e demais direitos não são afetados pelo exposto acima. --- Este é um resumo legível por humanos da licença completa, disponível on-line em \url{http://creativecommons.org/licenses/by/4.0/}
 }
 
-{%
-A diagramação foi realizada inteiramente em \LaTeX$2\varepsilon$. O estilo para diagramação de provas é baseado em fitch.sty (v0.4) de Peter Selinger, University of Ottawa.
-
-Esta cópia de \forallx\ (versão em português) corresponde à \textbf{\editionversion}, datada de \textbf{\editiondate}. O status editorial desta versão é \textbf{\editionstatus}.\\
-O histórico de versões, os arquivos-fonte e os PDFs publicados estão disponíveis em \url{https://github.com/projetorealmat/forallx/releases}.\\
-A versão de referência da obra original está disponível no repositório \href{https://github.com/OpenLogicProject/forallx}{Open Logic Project/forallx}, no commit \href{\editionoriginalcommiturl}{\editionoriginalcommit}.
+{
+A diagramação foi realizada inteiramente em \LaTeX$2\varepsilon$. O estilo de diagramação das provas baseia-se em fitch.sty (v0.4), de Peter Selinger, da University of Ottawa. Esta tradução foi preparada a partir da versão \editionoriginalversion\ da obra original. A versão mais recente da obra original está disponível on-line em \url{https://www.fecundity.com/logic/}.
 }
 
 \newpage
 \thispagestyle{empty}%
 
-{\Large\sf \textbf{Agradecimentos}}
+{\Large\sf\textbf{Créditos do projeto REALMat}}
+
+\bigskip
 
 {\sf
-\textbf{Edição original.} O autor original, P.D. Magnus, gostaria de agradecer às pessoas que tornaram este projeto possível. Entre estas, destacam-se Cristyn Magnus, que leu muitas versões preliminares; Aaron Schiller, que foi um dos primeiros a utilizar o material e forneceu comentários consideráveis e úteis; e Bin Kang, Craig Erb, Nathan Carter, Wes McMichael, Selva Samuel, Dave Krueger, Brandon Lee, Toan Tran, Marcus Adams, Matthew Brown, e os alunos de Introdução à Lógica, que detectaram vários erros em versões anteriores do livro.
-
-\textbf{Edição brasileira.} Carlos André Duarte Costa, que modificou a edição de Magnus para criar esta versão, gostaria, em primeiro lugar, de agradecer a P.D. Magnus pelo trabalho original e por disponibilizar este excelente material de forma aberta. Também estende seus agradecimentos aos colegas e estudantes que contribuíram com sugestões para esta adaptação em português.
+Projeto REALMat — Recursos Educacionais Abertos na Licenciatura em Matemática.\par
+\medskip
+O REALMat organiza e disponibiliza esta edição brasileira.\par
+\medskip
+\textbf{Tradução para o português brasileiro}\par
+\smallskip
+Carlos André Duarte Costa\par
+\medskip
+\textbf{Revisão editorial da edição brasileira}\par
+\smallskip
+Equipe de revisão da edição brasileira\par
+\bigskip
+Portal: \url{https://projetorealmat.github.io/}\par
+\smallskip
+Repositório desta edição: \url{https://github.com/projetorealmat/forallx}\par
+\smallskip
+Fonte original: \url{https://github.com/OpenLogicProject/forallx}.
 }
