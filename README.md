@@ -17,8 +17,8 @@ A tradução está em revisão editorial. Sugestões e correções são bem-vind
 ## Publicações
 
 <!-- realmat-release:start -->
-- Release REALMat atualmente recomendada: [v0.1.3](https://github.com/projetorealmat/forallx/releases/tag/v0.1.3).
-- [PDF da versão atualmente recomendada](https://github.com/projetorealmat/forallx/releases/download/v0.1.3/forallx.pdf)
+- Release REALMat atualmente recomendada: [v0.1.4](https://github.com/projetorealmat/forallx/releases/tag/v0.1.4).
+- [PDF](https://github.com/projetorealmat/forallx/releases/download/v0.1.4/forallx.pdf)
 <!-- realmat-release:end -->
 - [Releases e versões anteriores](https://github.com/projetorealmat/forallx/releases)
 - [Política de releases](RELEASE.md)
@@ -29,7 +29,7 @@ O PDF oficial de cada versão é compilado e publicado automaticamente depois do
 
 ## Versões publicadas e arquivos-fonte
 
-A versão atualmente recomendada é `v0.1.3`, ainda em revisão editorial. Versões anteriores permanecem preservadas como registro histórico. A primeira tradução aprovada será publicada como `v1.0.0`.
+A versão atualmente recomendada é `v0.1.4`, ainda em revisão editorial.
 
 O versionamento segue estas regras:
 
